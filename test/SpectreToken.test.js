@@ -9,3 +9,12 @@ test("Token Name should be Spectre", async () => {
 
 	expect(name).toBe("Spectre");
 });
+
+test("Token Symbol should be SPEC", async () => {
+	const SpectreToken = await ethers.getContractFactory("SpectreToken");
+	const spectreToken = await SpectreToken.deploy();
+
+	const symbol = await spectreToken.symbol();
+
+	expect(symbol).toBe("SPEC");
+});
