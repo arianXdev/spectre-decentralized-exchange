@@ -14,4 +14,10 @@ contract SpectreToken {
 
     /// @notice EIP-20 token symbol for this token
     string public constant symbol = "SPEC";
+
+    /// @notice EIP-20 token decimals for this token
+    uint8 public constant decimals = 18;
+
+    /// @notice Total number of tokens in circulation
+    uint256 public totalSupply = 1000000e18; // 1 million SPEC
 }
