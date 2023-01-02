@@ -1,7 +1,10 @@
 const { ethers } = require("hardhat");
 
-let spectreToken;
+const tokens = (n) => {
+	return ethers.utils.parseUnits(n.toString(), "ether");
+};
 
+let spectreToken;
 // beforeEach method will run before tests
 beforeEach(async () => {
 	// Fetch the contract using ethers.js
@@ -24,6 +27,5 @@ test("Token decimals should be 18", async () => {
 });
 
 test("Total number of tokens in circulation should be 1 million SPEC", async () => {
-	const value = Number(ethers.utils.parseUnits("1000000", "ether")); // convert 1 million ether to wei
-	expect(Number(await spectreToken.totalSupply())).toStrictEqual(value);
+	expect(Number(await spectreToken.totalSupply())).toStrictEqual(Number(tokens(1000000)));
 });
