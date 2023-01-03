@@ -5,7 +5,7 @@
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^13.5.0",
+		"@testing-library/user-event": "^14.4.3",
 		"dotenv": "^16.0.3",
 		"lodash": "^4.17.21",
 		"moment": "^2.29.4",
@@ -19,7 +19,7 @@
 		"redux-devtools-extension": "^2.13.9",
 		"redux-thunk": "^2.4.2",
 		"reselect": "^4.1.7",
-		"web-vitals": "^2.1.4"
+		"web-vitals": "^3.1.0"
 	},
 	"scripts": {
 		"start": "react-scripts start",
@@ -51,7 +51,7 @@
 		"@nomiclabs/hardhat-ethers": "^2.2.1",
 		"chai": "^4.3.7",
 		"ethers": "^5.7.2",
-		"hardhat": "^2.12.4",
+		"hardhat": "^2.12.5",
 		"hardhat-jest": "^1.0.4"
 	}
 }
