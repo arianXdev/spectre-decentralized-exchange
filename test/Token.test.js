@@ -41,6 +41,6 @@ describe("Token Contract Deployment", () => {
 	});
 
 	test("Assign totalSupply to deployer (owner)", async () => {
-		expect((await token.balanceOf(deployer)).toString()).toEqual(tokens(totalSupply).toString());
+		expect(await token.balanceOf(deployer)).toStrictEqual(tokens(totalSupply));
 	});
 });

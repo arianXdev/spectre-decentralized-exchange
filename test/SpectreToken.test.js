@@ -5,13 +5,18 @@ const tokens = (n) => {
 };
 
 describe("Spectre Token Deployment", () => {
-	let spectreToken;
+	let spectreToken, accounts, deployer;
 
 	// beforeEach method will run before tests
 	beforeEach(async () => {
 		// Fetch the contract using ethers.js
 		const SpectreToken = await ethers.getContractFactory("SpectreToken");
 		spectreToken = await SpectreToken.deploy();
+
+		// Get all the accounts
+		accounts = await ethers.getSigners();
+		// Get the address of the deployer / owner account
+		deployer = accounts[0].address;
 	});
 
 	test("Token Name should be Spectre", async () => {
@@ -30,5 +35,9 @@ describe("Spectre Token Deployment", () => {
 
 	test("Total number of tokens in circulation should be 1 million SPEC", async () => {
 		expect(Number(await spectreToken.totalSupply())).toStrictEqual(Number(tokens(1000000)));
+	});
+
+	test("Assign all totalSupply to deployer / owner", async () => {
+		expect(await spectreToken.balanceOf(deployer)).toStrictEqual(tokens(1000000));
 	});
 });
