@@ -5,7 +5,7 @@ const tokens = (n) => {
 };
 
 describe("Token Contract Deployment", () => {
-	let token;
+	let token, accounts, deployer;
 
 	const name = "Arian";
 	const symbol = "ARN";
@@ -17,6 +17,11 @@ describe("Token Contract Deployment", () => {
 		// Fetch the contract using ethers.js
 		const Token = await ethers.getContractFactory("Token");
 		token = await Token.deploy(name, symbol, totalSupply);
+
+		// Get all the ethereum accounts
+		accounts = await ethers.getSigners();
+		// Get the deployer / owner account
+		deployer = accounts[0].address;
 	});
 
 	test("Token Name should be correct", async () => {
@@ -33,5 +38,9 @@ describe("Token Contract Deployment", () => {
 
 	test("Total number of tokens in circulation should be correct", async () => {
 		expect(Number(await token.totalSupply())).toStrictEqual(Number(tokens(totalSupply)));
+	});
+
+	test("Assign totalSupply to deployer (owner)", async () => {
+		expect((await token.balanceOf(deployer)).toString()).toEqual(tokens(totalSupply).toString());
 	});
 });
