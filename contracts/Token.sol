@@ -21,10 +21,16 @@ contract Token {
     /// @notice Total number of tokens in circulation
     uint256 public totalSupply;
 
+	/// @notice Official record of token balances for each account
+	mapping (address => uint256) internal balances;
 
     constructor(string memory _name, string memory _symbol, uint256 _totalSupply) {
         name = _name;
         symbol = _symbol;
         totalSupply = _totalSupply * (10 ** decimals);
     }
+
+	function balanceOf(address account) public view returns (uint256 balance) {
+		return balances[account];
+	}
 }
