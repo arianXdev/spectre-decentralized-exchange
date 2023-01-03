@@ -30,7 +30,12 @@ contract Token {
         totalSupply = _totalSupply * (10 ** decimals);
     }
 
-	function balanceOf(address account) public view returns (uint256 balance) {
+	/**
+		* @notice Get the number of tokens held by the `account`
+		* @param account The address of the account to get the balance of
+		* @return The number of tokens held
+	*/
+	function balanceOf(address account) public view returns (uint256) {
 		return balances[account];
 	}
 }
