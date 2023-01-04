@@ -24,6 +24,10 @@ contract Token {
 	/// @notice Official record of token balances for each account
 	mapping (address => uint256) internal balances;
 
+    /// @notice The standard EIP-20 Transfer event
+    event Transfer(address indexed from, address indexed to, uint256 amount);
+
+
     constructor(string memory _name, string memory _symbol, uint256 _totalSupply) {
         name = _name;
         symbol = _symbol;
@@ -45,5 +49,8 @@ contract Token {
         balances[msg.sender] -= _value;
         // Credit tokens to receiver
         balances[_to] += _value;
+
+        emit Transfer(msg.sender, _to, _value);
+        return true;
     }
 }
