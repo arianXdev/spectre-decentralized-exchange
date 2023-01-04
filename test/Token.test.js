@@ -67,5 +67,15 @@ describe("Token", () => {
 			expect(await token.balanceOf(deployer.address)).toEqual(tokens(999900));
 			expect(await token.balanceOf(receiver.address)).toEqual(amount);
 		});
+
+		test("Emits a Transfer event", async () => {
+			const transferEvent = result.events[0];
+			const args = transferEvent.args;
+
+			expect(transferEvent.event).toBe("Transfer");
+
+			expect(args.from).toEqual(deployer.address);
+			expect(args.to).toEqual(receiver.address);
+		});
 	});
 });
