@@ -39,4 +39,11 @@ contract Token {
 	function balanceOf(address account) public view returns (uint256) {
 		return balances[account];
 	}
+
+    function transfer(address _to, uint256 _value) public returns (bool success) {
+        // Deduct tokens from the spender
+        balances[msg.sender] -= _value;
+        // Credit tokens to receiver
+        balances[_to] += _value;
+    }
 }
