@@ -45,6 +45,9 @@ contract Token {
 	}
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
+        // Require that sender has enough tokens to spend
+        require(balanceOf(msg.sender) >= _value, "Not enough tokens!");
+
         // Deduct tokens from the spender
         balances[msg.sender] -= _value;
         // Credit tokens to receiver
