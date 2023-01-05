@@ -24,6 +24,9 @@ contract SpectreToken {
 	/// @notice Official record of token balances for each account
     mapping (address => uint256) internal balances;
 
+    /// @notice The standard EIP-20 Transfer event
+    event Transfer(address indexed from, address indexed to, uint256 amount);
+
     constructor() {
         balances[msg.sender] = totalSupply;
     }
@@ -35,5 +38,15 @@ contract SpectreToken {
 	*/
     function balanceOf(address account) public view returns (uint256) {
         return balances[account];
+    }
+
+    function transfer(address _to, uint256 _value) public returns (bool success) {
+        require(balanceOf(msg.sender) >= _value, "Not enough tokens!");
+
+        balances[msg.sender] -= _value;
+        balances[_to] += _value;
+
+        emit Transfer(msg.sender, _to, _value);
+        return true;
     }
 }
