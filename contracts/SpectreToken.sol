@@ -51,6 +51,7 @@ contract SpectreToken {
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
         require(balanceOf(msg.sender) >= _value, "Not enough tokens!");
+        require(_to != address(0));
 
         balances[msg.sender] -= _value;
         balances[_to] += _value;
