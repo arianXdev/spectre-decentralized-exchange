@@ -5,7 +5,7 @@ const tokens = (n) => {
 };
 
 describe("Token", () => {
-	let token, accounts, deployer, receiver;
+	let token, accounts, deployer, receiver, exchange;
 
 	const name = "Arian";
 	const symbol = "ARN";
@@ -24,6 +24,8 @@ describe("Token", () => {
 		deployer = accounts[0];
 		// Get the receiver / customer account
 		receiver = accounts[1];
+		// Get the exchange account [pretend to be the exchange accout]
+		exchange = accounts[2];
 	});
 
 	describe("Contract Deployment", () => {
@@ -76,6 +78,23 @@ describe("Token", () => {
 
 			expect(args.from).toEqual(deployer.address);
 			expect(args.to).toEqual(receiver.address);
+		});
+	});
+
+	describe("Approving Tokens", () => {
+		let amount, transaction, result;
+
+		beforeEach(async () => {
+			amount = tokens(100);
+
+			transaction = await token.connect(deployer).approve(exchange.address, amount);
+			result = await transaction.wait();
+		});
+
+		test("allocates an allowance for delegated token spender", async () => {
+			// approve: in order to call transferFrom, the _from account must first call approve and give it our exchange address, so we can transfer from their account
+			// allowance: whenever you say a person can spend your tokens, it's gonna save it inside of a field called allowance.
+			expect(await token.allowance(deployer.address, exchange.address)).toEqual(amount);
 		});
 	});
 });
