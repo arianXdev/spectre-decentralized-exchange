@@ -55,6 +55,7 @@ contract Token {
     function transfer(address _to, uint256 _value) public returns (bool success) {
         // Require that sender has enough tokens to spend
         require(balanceOf(msg.sender) >= _value, "Not enough tokens!");
+        require(_to != address(0), "invalid address!");
 
         // Deduct tokens from the spender
         balances[msg.sender] -= _value;
@@ -68,6 +69,8 @@ contract Token {
     /// @notice approve function allows _spender (third-party) to withdraw from your account multiple times, up to the _value (using transferFrom)
     // the preson who's approving and calling this function is always msg.sender
     function approve(address _spender, uint256 _value) public returns (bool success) {
+        require(_spender != address(0), "invalid address!");
+
         allowance[msg.sender][_spender] = _value;
 
         emit Approval(msg.sender, _spender, _value);
