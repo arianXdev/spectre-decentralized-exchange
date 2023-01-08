@@ -96,5 +96,16 @@ describe("Token", () => {
 			// allowance: whenever you say a person can spend your tokens, it's gonna save it inside of a field called allowance.
 			expect(await token.allowance(deployer.address, exchange.address)).toEqual(amount);
 		});
+
+		test("emits an Approval event", async () => {
+			const approvalEvent = result.events[0];
+			const args = approvalEvent.args;
+
+			expect(approvalEvent.event).toBe("Approval");
+
+			expect(args.owner).toEqual(deployer.address);
+			expect(args.spender).toEqual(exchange.address);
+			expect(args.amount).toEqual(amount);
+		});
 	});
 });
