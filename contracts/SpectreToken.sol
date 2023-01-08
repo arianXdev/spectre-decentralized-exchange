@@ -55,4 +55,15 @@ contract SpectreToken {
         emit Transfer(msg.sender, _to, _value);
         return true;
     }
+
+    /// @notice approve function allows _spender (third-party) to withdraw from your account multiple times, up to the _value (using transferFrom)
+    // the preson who's approving and calling this function is always msg.sender
+    function approve(address _spender, uint256 _value) public returns (bool success) {
+        require(_spender != address(0), "Invalid address!");
+
+        allowance[msg.sender][_spender] = _value;
+
+        emit Approval(msg.sender, _spender, _value);
+        return true;
+    }
 }
