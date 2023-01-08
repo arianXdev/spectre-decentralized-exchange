@@ -24,8 +24,14 @@ contract SpectreToken {
 	/// @notice Official record of token balances for each account
     mapping (address => uint256) internal balances;
 
+	/// @notice Allowance amounts on behalf of others
+    mapping (address => mapping (address => uint256)) public allowance;
+
     /// @notice The standard EIP-20 Transfer event
     event Transfer(address indexed from, address indexed to, uint256 amount);
+
+    /// @notice The standard EIP-20 Approval event
+    event Approval(address indexed owner, address indexed spender, uint256 amount);
 
     constructor() {
         balances[msg.sender] = totalSupply;
