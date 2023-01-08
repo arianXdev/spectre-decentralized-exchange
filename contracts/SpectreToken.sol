@@ -35,6 +35,9 @@ contract SpectreToken {
 
     constructor() {
         balances[msg.sender] = totalSupply;
+
+        /// @dev A token contract which creates new tokens SHOULD trigger a Transfer event with the _from address set to 0x0 when tokens are created.
+        emit Transfer(address(0), msg.sender, totalSupply);
     }
 
 	/**
