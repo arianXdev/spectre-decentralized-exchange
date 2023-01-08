@@ -30,6 +30,9 @@ contract Token {
     /// @notice The standard EIP-20 Transfer event
     event Transfer(address indexed from, address indexed to, uint256 amount);
 
+    /// @notice The standard EIP-20 Approval event
+    event Approval(address indexed owner, address indexed spender, uint256 amount);
+
 
     constructor(string memory _name, string memory _symbol, uint256 _totalSupply) {
         name = _name;
