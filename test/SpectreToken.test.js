@@ -5,7 +5,7 @@ const tokens = (n) => {
 };
 
 describe("Spectre Token", () => {
-	let spectreToken, accounts, deployer;
+	let spectreToken, accounts, deployer, exchange;
 
 	// beforeEach method will run before tests
 	beforeEach(async () => {
@@ -19,6 +19,8 @@ describe("Spectre Token", () => {
 		deployer = accounts[0];
 		// Get the receiver account
 		receiver = accounts[1];
+		// Get the exchange account [pretend to be the exchange accout]
+		exchange = accounts[2];
 	});
 
 	describe("Contract Deployment", () => {
@@ -69,6 +71,32 @@ describe("Spectre Token", () => {
 
 			expect(args.from).toEqual(deployer.address);
 			expect(args.to).toEqual(receiver.address);
+		});
+	});
+
+	describe("Approving tokens", () => {
+		let amount, transaction, result;
+
+		beforeEach(async () => {
+			amount = tokens(200); // 200 SPEC
+
+			transaction = await spectreToken.connect(deployer).approve(exchange.address, amount);
+			result = await transaction.wait();
+		});
+
+		test("allocates an allowance for delegated token spender", async () => {
+			expect(await spectreToken.allowance(deployer.address, exchange.address)).toEqual(amount);
+		});
+
+		test("emits an Approval event", async () => {
+			const approvalEvent = result.events[0];
+			const args = approvalEvent.args;
+
+			expect(approvalEvent.event).toBe("Approval");
+
+			expect(args.owner).toEqual(deployer.address);
+			expect(args.spender).toEqual(exchange.address);
+			expect(args.amount).toEqual(amount);
 		});
 	});
 });
