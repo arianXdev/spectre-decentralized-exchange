@@ -64,7 +64,7 @@ contract Token {
 
 
     function _transfer(address _from, address _to, uint256 _value) internal {
-        require(_to != address(0), "invalid address!");
+        require(_from != address(0) && _to != address(0), "invalid address!");
 
         // Deduct tokens from the spender
         balances[_from] -= _value;
@@ -89,6 +89,8 @@ contract Token {
 
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
         address spender = msg.sender;
+
+        require(_from != address(0) && _to != address(0), "invalid address!");
         // Check approval
         require(balanceOf(_from) >= _value, "Not enough balance!");
         require(allowance[_from][spender] >= _value, "You're not approved to withdraw!");
