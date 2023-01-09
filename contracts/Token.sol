@@ -85,4 +85,20 @@ contract Token {
         emit Approval(msg.sender, _spender, _value);
         return true;
     }
+
+
+    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+        address spender = msg.sender;
+        // Check approval
+        require(balanceOf(_from) >= _value, "Not enough balance!");
+        require(allowance[_from][spender] >= _value, "You're not approved to withdraw!");
+
+        // Reset allowance (Prevent double spending)
+        allowance[_from][spender] -= _value;
+
+        // Spend tokens
+        _transfer(_from, _to, _value);
+
+        return true;
+    }
 }
