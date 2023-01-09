@@ -51,13 +51,19 @@ contract SpectreToken {
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
         require(balanceOf(msg.sender) >= _value, "Not enough tokens!");
-        require(_to != address(0));
 
-        balances[msg.sender] -= _value;
+        _transfer(msg.sender, _to, _value);
+     
+        return true;
+    }
+
+    function _transfer(address _from, address _to, uint256 _value) internal {
+        require(_from != address(0) && _to != address(0), "Invalid address!");
+
+        balances[_from] -= _value;
         balances[_to] += _value;
 
-        emit Transfer(msg.sender, _to, _value);
-        return true;
+        emit Transfer(_from, _to, _value);
     }
 
     /// @notice approve function allows _spender (third-party) to withdraw from your account multiple times, up to the _value (using transferFrom)
