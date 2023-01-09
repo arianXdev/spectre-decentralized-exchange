@@ -108,4 +108,38 @@ describe("Token", () => {
 			expect(args.amount).toEqual(amount);
 		});
 	});
+
+	describe("Delegated Token Transfers", () => {
+		let amount, transaction, result;
+
+		beforeEach(async () => {
+			amount = tokens(365); // 365 ARN tokens
+
+			// In order to transferFrom function work, we first need to approve spender (exchange) to withdraw from our account
+			await token.connect(deployer).approve(exchange.address, amount);
+
+			transaction = await token.connect(exchange).transferFrom(deployer.address, receiver.address, amount);
+			result = await transaction.wait();
+		});
+
+		test("Transfers token balances successfully", async () => {
+			expect(await token.balanceOf(deployer.address)).toEqual(tokens(999635));
+			expect(await token.balanceOf(receiver.address)).toEqual(amount);
+		});
+
+		test("Resets the allowance", async () => {
+			expect(await token.allowance(deployer.address, exchange.address)).toEqual(tokens(0));
+		});
+
+		test("Emits a Transfer event", async () => {
+			const transferEvent = result.events[0];
+			const args = transferEvent.args;
+
+			expect(transferEvent.event).toBe("Transfer");
+
+			expect(args.from).toEqual(deployer.address);
+			expect(args.to).toEqual(receiver.address);
+			expect(args.amount).toEqual(amount);
+		});
+	});
 });
