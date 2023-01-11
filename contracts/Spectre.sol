@@ -7,5 +7,9 @@ pragma solidity ^0.8.0;
  * @notice the smart contract that handles all the functionalities of Spectre DEX
  */
 contract Spectre { 
+    address public feeAccount;
 
+    constructor(address _feeAccount) {
+        feeAccount = _feeAccount;
+    }
 }
