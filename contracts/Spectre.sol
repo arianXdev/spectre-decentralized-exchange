@@ -8,8 +8,10 @@ pragma solidity ^0.8.0;
  */
 contract Spectre { 
     address public feeAccount;
+    uint24 public feePercent;
 
-    constructor(address _feeAccount) {
+    constructor(address _feeAccount, uint24 _feePercent) {
         feeAccount = _feeAccount;
+        feePercent = _feePercent;
     }
 }
