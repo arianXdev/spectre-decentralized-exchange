@@ -55,7 +55,7 @@ contract Token {
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
         // Require that sender has enough tokens to spend
-        require(balanceOf(msg.sender) >= _value, "Not enough tokens!");
+        require(balanceOf(msg.sender) >= _value, "Insufficient balance!");
 
         _transfer(msg.sender, _to, _value);
 
@@ -92,8 +92,8 @@ contract Token {
 
         require(_from != address(0) && _to != address(0), "Invalid address!");
         // Check approval
-        require(balanceOf(_from) >= _value, "Not enough balance!");
-        require(allowance[_from][spender] >= _value, "You're not approved to withdraw!");
+        require(balanceOf(_from) >= _value, "Insufficient balance!");
+        require(allowance[_from][spender] >= _value, "Insufficient allowance!");
 
         // Reset allowance (Prevent double spending)
         allowance[_from][spender] -= _value;
