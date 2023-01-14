@@ -134,4 +134,23 @@ describe("Spectre Exchange", () => {
 			expect(await args.balance).toEqual(convertTokens(0));
 		});
 	});
+
+	describe("Checking Balances", () => {
+		let transaction, result;
+		let amount = convertTokens(42); // 42 SPEC
+
+		beforeEach(async () => {
+			// **** DEPOSIT TOKENS BEFORE WITHDRAWING ****
+			await spectreToken.connect(user1).approve(spectre.address, amount);
+			await spectre.connect(user1).deposit(spectreToken.address, amount);
+
+			// **** WITHDRAW TOKENS ****
+			transaction = await spectre.connect(user1).withdraw(spectreToken.address, convertTokens(22)); // withdrawing 22 SPEC
+			result = await transaction.wait();
+		});
+
+		test("returns the User balance properly", async () => {
+			expect(await spectre.balanceOf(spectreToken.address, user1.address)).toEqual(convertTokens(20));
+		});
+	});
 });
