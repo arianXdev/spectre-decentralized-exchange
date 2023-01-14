@@ -86,4 +86,52 @@ describe("Spectre Exchange", () => {
 			expect(args.balance).toEqual(amount); // Check the balance of Spectre DEX
 		});
 	});
+
+	describe("Withdrawing Tokens", () => {
+		let transaction, result;
+		let amount = convertTokens(85); // 85 SPEC and USDT
+
+		beforeEach(async () => {
+			// **** DEPOSIT TOKENS BEFORE WITHDRAWING ****
+			// Approve depositing SPEC tokens
+			await spectreToken.connect(user1).approve(spectre.address, amount);
+			// Deposit 85 SPEC into the exchange
+			await spectre.connect(user1).deposit(spectreToken.address, amount);
+
+			// Approve depositing Mock Tether (USDT) tokens
+			await tether.connect(user1).approve(spectre.address, amount);
+			// Deposit 85 Mock Tether (USDT) to the exchange
+			await spectre.connect(user1).deposit(tether.address, amount);
+
+			// **** WITHDRAW TOKENS ****
+			// Withdraw 85 SPEC from the exchange
+			transaction = await spectre.connect(user1).withdraw(spectreToken.address, amount);
+			result = await transaction.wait();
+
+			// Withdraw 85 USDT from the exchange
+			transaction = await spectre.connect(user1).withdraw(tether.address, amount);
+			result = await transaction.wait();
+		});
+
+		test("should be able to withdraw Mock Tether tokens properly", async () => {
+			expect(await tether.balanceOf(user1.address)).toEqual(convertTokens(100));
+			expect(await spectre.balanceOf(tether.address, user1.address)).toEqual(convertTokens(0));
+		});
+
+		test("should be able to withdraw SPEC tokens properly", async () => {
+			expect(await spectreToken.balanceOf(user1.address)).toEqual(convertTokens(100));
+			expect(await spectre.balanceOf(spectreToken.address, user1.address)).toEqual(convertTokens(0));
+		});
+
+		test("emits a Withdraw event", async () => {
+			const withdrawEvent = result.events[1]; // 2 events are emitted
+			const args = withdrawEvent.args;
+
+			expect(await withdrawEvent.event).toBe("Withdraw");
+			expect(await args.token).toEqual(tether.address);
+			expect(await args.user).toEqual(user1.address);
+			expect(await args.amount).toEqual(amount);
+			expect(await args.balance).toEqual(convertTokens(0));
+		});
+	});
 });
