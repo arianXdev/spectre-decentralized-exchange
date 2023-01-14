@@ -40,6 +40,7 @@ contract Spectre {
     } 
 
     /// @notice get the deposited amount of each user for all tokens
+    /// @param _token is the token contract address
      function balanceOf(address _token, address _user) public view returns (uint256 depositedBalance) {
         return depositedTokens[_token][_user];
     }
