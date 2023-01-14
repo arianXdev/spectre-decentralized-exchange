@@ -18,8 +18,10 @@ describe("Spectre Exchange", () => {
 		accounts = await ethers.getSigners();
 		deployer = await accounts[0];
 		feeAccount = await accounts[1];
-		user1 = accounts[2];
-		user2 = accounts[3];
+
+		// Users / Customers
+		user1 = await accounts[2];
+		user2 = await accounts[3];
 
 		// Deploy mock Tether token
 		tether = await Token.deploy("Tether", "USDT", 1000000);
