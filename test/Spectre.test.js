@@ -74,5 +74,16 @@ describe("Spectre Exchange", () => {
 			expect(await tether.balanceOf(spectre.address)).toEqual(amount);
 			expect(await spectre.balanceOf(tether.address, user1.address)).toEqual(amount);
 		});
+
+		test("emits a Deposit event", async () => {
+			const depositEvent = result.events[1]; // 2 events are emitted
+			const args = depositEvent.args;
+
+			expect(depositEvent.event).toBe("Deposit");
+			expect(args.token).toEqual(tether.address);
+			expect(args.user).toEqual(user1.address);
+			expect(args.amount).toEqual(amount);
+			expect(args.balance).toEqual(amount); // Check the balance of Spectre DEX
+		});
 	});
 });
