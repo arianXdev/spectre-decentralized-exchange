@@ -44,7 +44,7 @@ contract Spectre {
 
     /// @notice withdraw lets users withdraw their tokens
     function withdraw(address _tokenAddr, uint256 _amount) public {
-        require(depositedTokens[_tokenAddr][msg.sender] > 0, "You haven't deposited any tokens yet!");
+        require(depositedTokens[_tokenAddr][msg.sender] >= _amount, "You haven't deposited any tokens yet!");
 
         if (_tokenAddr == address(Token(_tokenAddr))) {
             Token(_tokenAddr).transfer(msg.sender, _amount);
