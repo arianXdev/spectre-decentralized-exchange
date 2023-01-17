@@ -10,14 +10,16 @@ import "./Token.sol";
  * @author Arian Hosseini
  * @notice the smart contract that handles all the functionalities of Spectre DEX
  */
-contract Spectre { 
+contract Spectre {
     address public feeAccount;
     uint24 public feePercent;
 
     /// @notice a record of all orders
     mapping (uint256 => _Order) public orders;
-
     uint256 public orderCount;
+    /// @notice a record of all cancelled orders
+    mapping (uint256 => bool) public cancelledOrders;
+
 
     /// @notice a record of all deposited amounts of each user for all tokens
     mapping (address => mapping (address => uint256)) internal depositedTokens;
@@ -25,6 +27,15 @@ contract Spectre {
     event Deposit(address token, address user, uint256 amount, uint256 balance);
     event Withdraw(address token, address user, uint256 amount, uint256 balance);
     event Order(
+        uint256 id,
+        address user,
+        address tokenGet, 
+        uint256 amountGet,
+        address tokenGive, 
+        uint256 amountGive,
+        uint256 timestamp
+    );
+    event CancelOrder(
         uint256 id,
         address user,
         address tokenGet, 
@@ -63,7 +74,7 @@ contract Spectre {
         }
 
         emit Deposit(_tokenAddr, msg.sender, _amount, depositedTokens[_tokenAddr][msg.sender]);
-    } 
+    }
 
     /// @notice withdraw lets users withdraw their tokens
     function withdraw(address _tokenAddr, uint256 _amount) public {
@@ -105,5 +116,22 @@ contract Spectre {
         );
 
         emit Order(orderCount, msg.sender, _tokenGet, _amountGet, _tokenGive, _amountGive, block.timestamp);
-    }           
+    }
+
+    function cancelOrder(uint256 _id) public {
+
+        // Fetching the order
+        _Order storage order = orders[_id];
+
+        // Ensure the caller of the function is the owner of the order
+        require(address(order.user) == msg.sender);
+
+        // Order must exist
+        require(order.id == _id, "the Order not found!"); 
+
+        // Cancel the order
+        cancelledOrders[_id] = true;
+
+        emit CancelOrder(order.id, msg.sender, order.tokenGet, order.amountGet, order.tokenGive, order.amountGive, block.timestamp);
+    }
 }

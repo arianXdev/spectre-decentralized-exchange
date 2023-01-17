@@ -188,4 +188,45 @@ describe("Spectre Exchange", () => {
 			expect(Number(args.timestamp)).toBeGreaterThanOrEqual(1);
 		});
 	});
+
+	describe("Order actions", () => {
+		let transaction, result;
+		let amount = convertTokens(1); // 1 mUSDT
+
+		beforeEach(async () => {
+			// In order to make an order in the exchange, the user needs to deposit some tokens
+			// and in order to deposit some tokens, the user needs to approve and allow the exchange to transferFrom their wallet
+			await tether.connect(user1).approve(spectre.address, amount);
+			await spectre.connect(user1).deposit(tether.address, amount);
+
+			transaction = await spectre.connect(user1).makeOrder(spectreToken.address, amount, tether.address, amount);
+			result = await transaction.wait();
+		});
+
+		describe("Cancelling orders", () => {
+			beforeEach(async () => {
+				transaction = await spectre.connect(user1).cancelOrder(1);
+				result = await transaction.wait();
+			});
+
+			test("updates cancelled orders", async () => {
+				expect(await spectre.cancelledOrders(1)).toEqual(true);
+			});
+
+			test("tracks a CancelOrder event", async () => {
+				const cancelOrderEvent = result.events[0];
+				const args = cancelOrderEvent.args;
+
+				expect(cancelOrderEvent.event).toStrictEqual("CancelOrder");
+				expect(args.id).toEqual(await spectre.orderCount());
+				expect(args.user).toEqual(user1.address);
+				expect(args.tokenGive).toEqual(tether.address);
+				expect(args.amountGive).toEqual(amount);
+				expect(args.tokenGet).toEqual(spectreToken.address);
+				expect(args.amountGet).toEqual(amount);
+				expect(Number(args.timestamp)).toBeGreaterThanOrEqual(1);
+			});
+		});
+		describe("Filling orders", () => {});
+	});
 });
