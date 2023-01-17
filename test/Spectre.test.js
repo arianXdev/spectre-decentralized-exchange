@@ -23,8 +23,8 @@ describe("Spectre Exchange", () => {
 		user1 = await accounts[2];
 		user2 = await accounts[3];
 
-		// Deploy mock Tether token
-		tether = await Token.deploy("Tether", "USDT", 1000000);
+		// Deploy Mock Tether token
+		tether = await Token.deploy("Mock Tether", "mUSDT", 1000000);
 		// Deploy Spectre Token
 		spectreToken = await SpectreToken.deploy();
 		// Deploy the exchange contract
@@ -151,6 +151,41 @@ describe("Spectre Exchange", () => {
 
 		test("returns the User balance properly", async () => {
 			expect(await spectre.balanceOf(spectreToken.address, user1.address)).toEqual(convertTokens(20));
+		});
+	});
+
+	describe("Making Orders", () => {
+		let transaction, result;
+		let amount = convertTokens(1);
+
+		beforeEach(async () => {
+			// Aporove Spectre Exchange in order to use transferFrom
+			await tether.connect(user1).approve(spectre.address, amount);
+
+			// Deposit USDT into the exchange before making orders
+			await spectre.connect(user1).deposit(tether.address, amount);
+
+			// Make the order
+			transaction = await spectre.connect(user1).makeOrder(spectreToken.address, amount, tether.address, amount);
+			result = await transaction.wait();
+		});
+
+		test("tracks the newly created order", async () => {
+			expect(Number(await spectre.orderCount())).toStrictEqual(1);
+		});
+
+		test("tracks an Order event", async () => {
+			const orderEvent = result.events[0];
+			const args = orderEvent.args;
+
+			expect(orderEvent.event).toStrictEqual("Order");
+			expect(args.id).toEqual(await spectre.orderCount());
+			expect(args.user).toEqual(user1.address);
+			expect(args.tokenGive).toEqual(tether.address);
+			expect(args.amountGive).toEqual(amount);
+			expect(args.tokenGet).toEqual(spectreToken.address);
+			expect(args.amountGet).toEqual(amount);
+			expect(Number(args.timestamp)).toBeGreaterThanOrEqual(1);
 		});
 	});
 });
