@@ -14,13 +14,36 @@ contract Spectre {
     address public feeAccount;
     uint24 public feePercent;
 
+    /// @notice a record of all orders
+    mapping (uint256 => _Order) public orders;
+
+    uint256 public orderCount;
 
     /// @notice a record of all deposited amounts of each user for all tokens
     mapping (address => mapping (address => uint256)) internal depositedTokens;
 
     event Deposit(address token, address user, uint256 amount, uint256 balance);
     event Withdraw(address token, address user, uint256 amount, uint256 balance);
+    event Order(
+        uint256 id,
+        address user,
+        address tokenGet, 
+        uint256 amountGet,
+        address tokenGive, 
+        uint256 amountGive,
+        uint256 timestamp
+    );
 
+    // A way to model the order
+    struct _Order {
+        uint256 id; // unique identifer for each order
+        address user; // the user who made the order
+        address tokenGet; // address of the token they receive
+        uint256 amountGet; // amount they receive
+        address tokenGive; // address of the token they give
+        uint256 amountGive; // amount they give
+        uint256 timestamp; // when order was created
+    }
 
     constructor(address _feeAccount, uint24 _feePercent) {
         feeAccount = _feeAccount;
@@ -62,4 +85,25 @@ contract Spectre {
      function balanceOf(address _token, address _user) public view returns (uint256 depositedBalance) {
         return depositedTokens[_token][_user];
     }
+
+    // ------------------------
+    // MAKE AND CANCEL ORDERS
+    /// @param _tokenGive (the token they want to spend) - which token, and how much (_amountGive)?
+    /// @param _tokenGet (the token they want to receive) - which token, and how much (_amountGet)?
+    function makeOrder(address _tokenGet, uint _amountGet, address _tokenGive, uint256 _amountGive) public {
+        require(balanceOf(_tokenGive, msg.sender) >= _amountGive, "You haven't deposited any tokens yet!");
+
+        orderCount += 1;
+        orders[orderCount] = _Order(
+            orderCount,
+            msg.sender,
+            _tokenGet, 
+            _amountGet,
+            _tokenGive,
+            _amountGive,
+            block.timestamp
+        );
+
+        emit Order(orderCount, msg.sender, _tokenGet, _amountGet, _tokenGive, _amountGive, block.timestamp);
+    }           
 }
