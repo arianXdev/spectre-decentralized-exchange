@@ -16,9 +16,11 @@ contract Spectre {
 
     /// @notice a record of all orders
     mapping (uint256 => _Order) public orders;
-    uint256 public orderCount;
+
     /// @notice a record of all cancelled orders
     mapping (uint256 => bool) public cancelledOrders;
+
+    uint256 public orderCount;
 
 
     /// @notice a record of all deposited amounts of each user for all tokens
@@ -97,8 +99,7 @@ contract Spectre {
         return depositedTokens[_token][_user];
     }
 
-    // ------------------------
-    // MAKE AND CANCEL ORDERS
+    // ORDERS
     /// @param _tokenGive (the token they want to spend) - which token, and how much (_amountGive)?
     /// @param _tokenGet (the token they want to receive) - which token, and how much (_amountGet)?
     function makeOrder(address _tokenGet, uint _amountGet, address _tokenGive, uint256 _amountGive) public {
@@ -133,5 +134,30 @@ contract Spectre {
         cancelledOrders[_id] = true;
 
         emit CancelOrder(order.id, msg.sender, order.tokenGet, order.amountGet, order.tokenGive, order.amountGive, block.timestamp);
+    }
+
+    function fillOrder(uint256 _id) public {
+        // Fetch the order
+        _Order storage order = orders[_id];
+
+        // Swapping Tokens (Trading)
+        _trade(order.id, order.user, order.tokenGet, order.amountGet, order.tokenGive, order.amountGive);
+    }
+
+    function _trade(uint256 _orderId, address _user, address _tokenGet, uint256 _amountGet, address _tokenGive, uint256 _amountGive) internal {
+        // Fee is paid by the user who filled the order (msg.sender)
+        // Fee is deducted from _amountGet
+        uint256 _feeAmount = (_amountGet * feePercent) / 100;
+
+        // Execute the trade
+        // msg.sender is the user who is filled the order, while _user is who created the order
+        depositedTokens[_tokenGet][msg.sender] -= _amountGet + _feeAmount;
+        depositedTokens[_tokenGet][_user] += _amountGet;
+
+        // Charge fees
+        depositedTokens[_tokenGet][feeAccount] += _feeAmount;
+
+        depositedTokens[_tokenGive][_user] -= _amountGive;
+        depositedTokens[_tokenGive][msg.sender] += _amountGive;
     }
 }
