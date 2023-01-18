@@ -120,7 +120,7 @@ contract Spectre {
     function makeOrder(address _tokenGet, uint _amountGet, address _tokenGive, uint256 _amountGive) public {
         require(balanceOf(_tokenGive, msg.sender) >= _amountGive, "You haven't deposited any tokens yet!");
 
-        orderCount += 1;
+        orderCount++;
         orders[orderCount] = _Order(
             orderCount,
             msg.sender,
