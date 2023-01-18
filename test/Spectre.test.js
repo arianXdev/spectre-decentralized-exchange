@@ -251,6 +251,10 @@ describe("Spectre Exchange", () => {
 				expect(await spectre.balanceOf(spectreToken.address, feeAccount.address)).toEqual(convertTokens(0.1));
 			});
 
+			test("Updates filled orders", async () => {
+				expect(await spectre.filledOrders(1)).toEqual(true);
+			});
+
 			test("emits a Trade event", async () => {
 				const tradeEvent = result.events[0];
 				const args = tradeEvent.args;
