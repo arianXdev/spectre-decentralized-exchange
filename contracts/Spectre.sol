@@ -46,6 +46,18 @@ contract Spectre {
         uint256 amountGive,
         uint256 timestamp
     );
+    /// @param creator the person who is created the order
+    /// @param user  the person who is done the trade | filled the order | taker 
+    event Trade(
+        uint256 id,
+        address user,
+        address tokenGet,
+        uint256 amountGet,
+        address tokenGive,
+        uint256 amountGive,
+        address creator,
+        uint256 timestamp
+    );
 
     // A way to model the order
     struct _Order {
@@ -159,5 +171,16 @@ contract Spectre {
 
         depositedTokens[_tokenGive][_user] -= _amountGive;
         depositedTokens[_tokenGive][msg.sender] += _amountGive;
+
+        emit Trade(
+            _orderId,
+            msg.sender,
+            _tokenGet,
+            _amountGet,
+            _tokenGive,
+            _amountGive,
+            _user,
+            block.timestamp
+        );
     }
 }
