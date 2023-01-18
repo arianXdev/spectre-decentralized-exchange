@@ -250,6 +250,21 @@ describe("Spectre Exchange", () => {
 				expect(await spectre.balanceOf(spectreToken.address, user2.address)).toEqual(convertTokens(0.9));
 				expect(await spectre.balanceOf(spectreToken.address, feeAccount.address)).toEqual(convertTokens(0.1));
 			});
+
+			test("emits a Trade event", async () => {
+				const tradeEvent = result.events[0];
+				const args = tradeEvent.args;
+
+				expect(tradeEvent.event).toStrictEqual("Trade");
+				expect(args.id).toEqual(await spectre.orderCount());
+				expect(args.creator).toEqual(user1.address); // creator is User1
+				expect(args.user).toEqual(user2.address); // user is User2
+				expect(args.tokenGive).toEqual(tether.address);
+				expect(args.amountGive).toEqual(amount);
+				expect(args.tokenGet).toEqual(spectreToken.address);
+				expect(args.amountGet).toEqual(amount);
+				expect(Number(args.timestamp)).toBeGreaterThanOrEqual(1);
+			});
 		});
 	});
 });
