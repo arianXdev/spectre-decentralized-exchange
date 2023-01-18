@@ -30,7 +30,7 @@ describe("Spectre Exchange", () => {
 		// Deploy the exchange contract
 		spectre = await SpectreExchange.deploy(feeAccount.address, feePercent);
 
-		// Charge / Give user1 and user2, 100 USDT in order to work with the exchange
+		// Charge / Give user1 and user2, 100 mUSDT in order to work with the exchange
 		await tether.connect(deployer).transfer(user1.address, convertTokens(100));
 		await tether.connect(deployer).transfer(user2.address, convertTokens(100));
 
@@ -196,8 +196,13 @@ describe("Spectre Exchange", () => {
 		beforeEach(async () => {
 			// In order to make an order in the exchange, the user needs to deposit some tokens
 			// and in order to deposit some tokens, the user needs to approve and allow the exchange to transferFrom their wallet
+			// User1 deposits 1 mUSDT
 			await tether.connect(user1).approve(spectre.address, amount);
 			await spectre.connect(user1).deposit(tether.address, amount);
+
+			// User2 deposits tokens (deposits 2 SPEC)
+			await spectreToken.connect(user2).approve(spectre.address, convertTokens(2));
+			await spectre.connect(user2).deposit(spectreToken.address, convertTokens(2));
 
 			transaction = await spectre.connect(user1).makeOrder(spectreToken.address, amount, tether.address, amount);
 			result = await transaction.wait();
@@ -227,6 +232,24 @@ describe("Spectre Exchange", () => {
 				expect(Number(args.timestamp)).toBeGreaterThanOrEqual(1);
 			});
 		});
-		describe("Filling orders", () => {});
+
+		describe("Filling orders", () => {
+			beforeEach(async () => {
+				// User2 is going to fill the order (created by user1)
+				transaction = await spectre.connect(user2).fillOrder("1");
+				result = await transaction.wait();
+			});
+
+			test("executes the trade and charge fees", async () => {
+				// Token Give
+				expect(await spectre.balanceOf(tether.address, user1.address)).toEqual(convertTokens(0));
+				expect(await spectre.balanceOf(tether.address, user2.address)).toEqual(convertTokens(1));
+				expect(await spectre.balanceOf(tether.address, feeAccount.address)).toEqual(convertTokens(0));
+				// Token Get
+				expect(await spectre.balanceOf(spectreToken.address, user1.address)).toEqual(convertTokens(1));
+				expect(await spectre.balanceOf(spectreToken.address, user2.address)).toEqual(convertTokens(0.9));
+				expect(await spectre.balanceOf(spectreToken.address, feeAccount.address)).toEqual(convertTokens(0.1));
+			});
+		});
 	});
 });
