@@ -20,6 +20,9 @@ contract Spectre {
     /// @notice a record of all cancelled orders
     mapping (uint256 => bool) public cancelledOrders;
 
+    /// @notice a record of all filled orders
+    mapping (uint256 => bool) public filledOrders;
+
     uint256 public orderCount;
 
 
@@ -154,6 +157,8 @@ contract Spectre {
 
         // Swapping Tokens (Trading)
         _trade(order.id, order.user, order.tokenGet, order.amountGet, order.tokenGive, order.amountGive);
+
+        filledOrders[order.id] = true;
     }
 
     function _trade(uint256 _orderId, address _user, address _tokenGet, uint256 _amountGet, address _tokenGive, uint256 _amountGive) internal {
