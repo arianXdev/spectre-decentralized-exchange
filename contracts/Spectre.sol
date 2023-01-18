@@ -152,6 +152,10 @@ contract Spectre {
     }
 
     function fillOrder(uint256 _id) public {
+        require(_id > 0 && _id <= orderCount, "Order does not exist!");
+        require(!filledOrders[_id], "Order can't be filled already!");
+        require(!cancelledOrders[_id], "Order can't be cancelled!");
+
         // Fetch the order
         _Order storage order = orders[_id];
 
