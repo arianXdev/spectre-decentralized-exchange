@@ -17,20 +17,20 @@ const main = async () => {
 	console.log(`Using ChainId: ${chainId}`);
 
 	// Fetch the deployed tokens
-	const spectreToken = await ethers.getContractAt("SpectreToken", config[chainId].spectreToken);
+	const spectreToken = await ethers.getContractAt("SpectreToken", config[chainId].spectreToken.address);
 	console.log(`Spectre Token fetched: ${spectreToken.address}\n`);
 
-	const mTether = await ethers.getContractAt("Token", config[chainId].mTether);
+	const mTether = await ethers.getContractAt("Token", config[chainId].mTether.address);
 	console.log(`Mock Tether (mUSDT) fetched: ${mTether.address}\n`);
 
-	const mETH = await ethers.getContractAt("Token", config[chainId].mETH);
+	const mETH = await ethers.getContractAt("Token", config[chainId].mETH.address);
 	console.log(`Mock Ether (mETH) fetched: ${mETH.address}\n`);
 
-	const mDAI = await ethers.getContractAt("Token", config[chainId].mDAI);
+	const mDAI = await ethers.getContractAt("Token", config[chainId].mDAI.address);
 	console.log(`Mock DAI (mDAI) fetched: ${mDAI.address}\n`);
 
 	// Fetch the deployed exchange
-	const spectre = await ethers.getContractAt("Spectre", config[chainId].spectre);
+	const spectre = await ethers.getContractAt("Spectre", config[chainId].spectre.address);
 	console.log(`Spectre Exchange fetched: ${spectre.address}\n`);
 
 	// Set up users
