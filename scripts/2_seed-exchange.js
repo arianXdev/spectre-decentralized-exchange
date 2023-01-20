@@ -1,4 +1,5 @@
 const { ethers } = require("hardhat");
+const config = require("../src/config.json");
 
 const convertTokens = (n) => {
 	return ethers.utils.parseUnits(n.toString(), "ether");
@@ -12,21 +13,24 @@ const wait = (seconds) => {
 const main = async () => {
 	const accounts = await ethers.getSigners();
 
+	const { chainId } = await ethers.provider.getNetwork();
+	console.log(`Using ChainId: ${chainId}`);
+
 	// Fetch the deployed tokens
-	const spectreToken = await ethers.getContractAt("SpectreToken", "0x5fbdb2315678afecb367f032d93f642f64180aa3");
+	const spectreToken = await ethers.getContractAt("SpectreToken", config[chainId].spectreToken);
 	console.log(`Spectre Token fetched: ${spectreToken.address}\n`);
 
-	const mTether = await ethers.getContractAt("Token", "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512");
+	const mTether = await ethers.getContractAt("Token", config[chainId].mTether);
 	console.log(`Mock Tether (mUSDT) fetched: ${mTether.address}\n`);
 
-	const mETH = await ethers.getContractAt("Token", "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0");
+	const mETH = await ethers.getContractAt("Token", config[chainId].mETH);
 	console.log(`Mock Ether (mETH) fetched: ${mETH.address}\n`);
 
-	const mDAI = await ethers.getContractAt("Token", "0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9");
+	const mDAI = await ethers.getContractAt("Token", config[chainId].mDAI);
 	console.log(`Mock DAI (mDAI) fetched: ${mDAI.address}\n`);
 
 	// Fetch the deployed exchange
-	const spectre = await ethers.getContractAt("Spectre", "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9");
+	const spectre = await ethers.getContractAt("Spectre", config[chainId].spectre);
 	console.log(`Spectre Exchange fetched: ${spectre.address}\n`);
 
 	// Set up users
