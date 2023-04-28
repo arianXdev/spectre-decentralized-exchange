@@ -1,57 +1,32 @@
 {
 	"name": "spectre-decentralized-exchange",
-	"version": "0.1.0",
 	"private": true,
-	"dependencies": {
-		"@testing-library/jest-dom": "^5.16.5",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^14.4.3",
-		"dotenv": "^16.0.3",
-		"lodash": "^4.17.21",
-		"moment": "^2.29.4",
-		"react": "^18.2.0",
-		"react-apexcharts": "^1.4.0",
-		"react-blockies": "^1.4.1",
-		"react-dom": "^18.2.0",
-		"react-redux": "^8.0.5",
-		"react-scripts": "5.0.1",
-		"redux": "^4.2.0",
-		"redux-devtools-extension": "^2.13.9",
-		"redux-thunk": "^2.4.2",
-		"reselect": "^4.1.7",
-		"web-vitals": "^3.1.1"
-	},
+	"version": "0.1.0",
+	"type": "module",
 	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"dev": "vite",
+		"build": "vite build",
+		"lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+		"preview": "vite preview"
 	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
+	"dependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"lodash": "^4.17.21",
+		"dotenv": "^16.0.3"
 	},
 	"devDependencies": {
-		"@nomicfoundation/hardhat-chai-matchers": "^1.0.5",
-		"@nomicfoundation/hardhat-toolbox": "^2.0.1",
-		"@nomiclabs/hardhat-ethers": "^2.2.2",
+		"@types/react": "^18.2.0",
+		"@types/react-dom": "^18.2.1",
+		"@vitejs/plugin-react": "^4.0.0",
+		"eslint": "^8.39.0",
+		"eslint-plugin-react": "^7.32.2",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-react-refresh": "^0.3.5",
+		"vite": "^4.3.3",
 		"chai": "^4.3.7",
-		"ethers": "^5.7.2",
-		"hardhat": "^2.12.6",
+		"ethers": "^6.3.0",
+		"hardhat": "^2.14.0",
 		"hardhat-jest": "^1.0.8"
 	}
 }
