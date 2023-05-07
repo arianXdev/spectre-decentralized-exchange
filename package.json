@@ -10,11 +10,13 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@reduxjs/toolkit": "^1.9.5",
 		"dotenv": "^16.0.3",
 		"immer": "^10.0.1",
 		"lodash": "^4.17.21",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-redux": "^8.0.5",
 		"use-immer": "^0.9.0"
 	},
 	"devDependencies": {
