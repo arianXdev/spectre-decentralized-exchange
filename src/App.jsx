@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { connectionLoaded } from "./features/connection/connectionSlice";
+import { tokensLoaded } from "./features/tokens/tokensSlice";
 
 import { ethers } from "ethers";
 
@@ -46,6 +47,16 @@ const App = () => {
 			mDAI: { symbol: "mDAI", contract: mDAI },
 			mTether: { symbol: "mUSDT", contract: mUSDT },
 		});
+
+		// Save the information of all tokens inside of the Redux store (except their contracts)
+		dispatch(
+			tokensLoaded({
+				SPEC: config[chainId].spectreToken,
+				mETH: config[chainId].mETH,
+				mDAI: config[chainId].mDAI,
+				mUSDT: config[chainId].mDAI,
+			})
+		);
 
 		// Get the Spectre exchange contract
 		const exchange = await loadExchange(provider, config[chainId].spectre.address);
