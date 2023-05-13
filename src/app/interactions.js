@@ -10,16 +10,21 @@ import { connectionLoaded } from "../features/connection/connectionSlice";
 import { tokensLoaded } from "../features/tokens/tokensSlice";
 
 export const loadConnection = async (provider, dispatch) => {
-	// Get all the accounts from Metamask
-	const account = await window.ethereum.request({ method: "eth_requestAccounts" }); // makes an RPC call to our node to get our accounts
+	// Get all the accounts from Metamask Injected Provider API
+	const accounts = await window.ethereum.request({ method: "eth_requestAccounts" }); // makes an RPC call to our node to get our accounts
+	const account = ethers.utils.getAddress(accounts[0]);
 
-	// Connect to the Blockchain using Ethers.js
+	// Get the ETH balance of the current account from Metamask
+	let balance = await provider.getBalance(account);
+	balance = ethers.utils.formatEther(balance);
+
+	// Fetch current network's chainId (e.g. Hardhat: 31337)
 	const { chainId } = await provider.getNetwork();
 
 	// Save the current connection information into the Redux store
-	dispatch(connectionLoaded(chainId, account[0]));
+	dispatch(connectionLoaded(chainId, account, balance));
 
-	return { chainId };
+	return { chainId, balance };
 };
 
 export const loadTokens = async (provider, addresses, dispatch) => {

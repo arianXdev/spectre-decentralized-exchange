@@ -11,11 +11,12 @@ const connectionSlice = createSlice({
 				state.current = action.payload;
 			},
 
-			prepare: (chainId, account) => {
+			prepare: (chainId, account, balance) => {
 				return {
 					payload: {
-						account,
 						chainId,
+						account,
+						balance,
 					},
 				};
 			},
