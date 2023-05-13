@@ -5,7 +5,24 @@ const initialState = {};
 const connectionSlice = createSlice({
 	name: "connection",
 	initialState,
-	reducers: {},
+	reducers: {
+		connectionLoaded: {
+			reducer: (state, action) => {
+				state.current = action.payload;
+			},
+
+			prepare: (chainId, account) => {
+				return {
+					payload: {
+						account,
+						chainId,
+					},
+				};
+			},
+		},
+	},
 });
+
+export const { connectionLoaded } = connectionSlice.actions;
 
 export default connectionSlice.reducer;

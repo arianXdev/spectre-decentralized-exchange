@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 
+import { useDispatch } from "react-redux";
+import { connectionLoaded } from "./features/connection/connectionSlice";
+
 import { ethers } from "ethers";
 
 import TOKEN_ABI from "./abis/Token.json";
@@ -7,15 +10,20 @@ import config from "./config.json";
 import "./App.css";
 
 const App = () => {
+	const dispatch = useDispatch();
+
 	const loadBlockchainData = async () => {
 		// Get all the accounts from Metamask
-		const accounts = await window.ethereum.request({ method: "eth_requestAccounts" }); // makes an RPC call to our node to get our accounts
+		const account = await window.ethereum.request({ method: "eth_requestAccounts" }); // makes an RPC call to our node to get our accounts
 
 		// Connect Ethers.js to the blockchain
 		// RECAP: Ethers.js is a library that lets us talk to the blockchain, in order to connect to that, we have to create a new provider
 		// You can think about this "provider" as our connection to the blockchain
 		const provider = new ethers.providers.Web3Provider(window.ethereum);
 		const { chainId } = await provider.getNetwork();
+
+		// Save current connection information into the Redux store
+		dispatch(connectionLoaded(chainId, account[0]));
 
 		// Talking to our smart contracts
 		const mETH = new ethers.Contract(config[chainId].mETH.address, TOKEN_ABI, provider); // accessing to this smart contract
