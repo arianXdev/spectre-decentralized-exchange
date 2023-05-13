@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { ethers } from "ethers";
 
@@ -7,12 +7,9 @@ import config from "./config.json";
 import "./App.css";
 
 const App = () => {
-	const [account, setAccount] = useState("");
-
 	const loadBlockchainData = async () => {
 		// Get all the accounts from Metamask
 		const accounts = await window.ethereum.request({ method: "eth_requestAccounts" }); // makes an RPC call to our node to get our accounts
-		setAccount(accounts[0]); // gets current active account
 
 		// Connect Ethers.js to the blockchain
 		// RECAP: Ethers.js is a library that lets us talk to the blockchain, in order to connect to that, we have to create a new provider
