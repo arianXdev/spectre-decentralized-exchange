@@ -5,12 +5,12 @@ import { connectionLoaded } from "./features/connection/connectionSlice";
 
 import { ethers } from "ethers";
 
-import TOKEN_ABI from "./abis/Token.json";
-import SPECTRE_TOKEN_API from "./abis/SpectreToken.json";
 import config from "./config.json";
 
 import { EthersContext } from "./context/EthersContext";
 import { TokensContext } from "./context/TokensContext";
+
+import { loadTokens } from "./app/interactions";
 
 import "./App.css";
 
@@ -36,10 +36,7 @@ const App = () => {
 		dispatch(connectionLoaded(chainId, account[0]));
 
 		// Talking to our smart contracts
-		const SPEC = new ethers.Contract(config[chainId].spectreToken.address, SPECTRE_TOKEN_API, provider); // accessing to this smart contract
-		const mETH = new ethers.Contract(config[chainId].mETH.address, TOKEN_ABI, provider); // accessing to this smart contract
-		const mDAI = new ethers.Contract(config[chainId].mDAI.address, TOKEN_ABI, provider);
-		const mUSDT = new ethers.Contract(config[chainId].mTether.address, TOKEN_ABI, provider);
+		const { SPEC, mETH, mDAI, mUSDT } = await loadTokens(provider, [config[chainId]][0]);
 
 		setTokens({
 			SPEC: { symbol: "SPEC", contract: SPEC },
