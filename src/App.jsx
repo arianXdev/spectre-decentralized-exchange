@@ -11,6 +11,8 @@ import { TokensContext } from "./context/TokensContext";
 
 import { loadConnection, loadTokens, loadExchange } from "./app/interactions";
 
+import useMetaMask from "./hooks/useMetaMask";
+
 import "./App.css";
 
 const App = () => {
@@ -22,7 +24,7 @@ const App = () => {
 
 	const loadBlockchainData = async () => {
 		// the term "provider" in this case is our connection to the blockchain
-		const provider = new ethers.providers.Web3Provider(window.ethereum);
+		const provider = new ethers.providers.Web3Provider(useMetaMask());
 		setProvider(provider);
 
 		// load connections & save the current connection information in the store

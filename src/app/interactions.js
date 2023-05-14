@@ -9,9 +9,11 @@ import config from "../config.json";
 import { connectionLoaded } from "../features/connection/connectionSlice";
 import { tokensLoaded } from "../features/tokens/tokensSlice";
 
+import useMetaMask from "../hooks/useMetaMask";
+
 export const loadConnection = async (provider, dispatch) => {
 	// Get all the accounts from Metamask Injected Provider API
-	const accounts = await window.ethereum.request({ method: "eth_requestAccounts" }); // makes an RPC call to our node to get our accounts
+	const accounts = await useMetaMask().request({ method: "eth_requestAccounts" }); // makes an RPC call to our node to get our accounts
 	const account = ethers.utils.getAddress(accounts[0]);
 
 	// Get the ETH balance of the current account from Metamask
