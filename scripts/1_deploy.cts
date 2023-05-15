@@ -1,4 +1,4 @@
-const { ethers } = require("hardhat");
+import { ethers } from "hardhat";
 
 const main = async () => {
 	console.log("Preparing deployment...\n");
@@ -16,8 +16,8 @@ const main = async () => {
 	const spectreToken = await SpectreToken.deploy();
 	await spectreToken.deployed();
 
-	const mTether = await Token.deploy("Mock Tether", "mUSDT", "1000000");
-	await mTether.deployed();
+	const mUSDT = await Token.deploy("Mock Tether", "mUSDT", "1000000");
+	await mUSDT.deployed();
 
 	const mETH = await Token.deploy("Mock Ether", "mETH", "1000000");
 	await mETH.deployed();
@@ -26,7 +26,7 @@ const main = async () => {
 	await mDAI.deployed();
 
 	console.log(`Spectre Token deployed to: ${spectreToken.address}`);
-	console.log(`Mock Tether (mUSDT) deployed to: ${mTether.address}`);
+	console.log(`Mock Tether (mUSDT) deployed to: ${mUSDT.address}`);
 	console.log(`Mock Ether (mETH) deployed to: ${mETH.address}`);
 	console.log(`Mock DAI (mDAI) deployed to: ${mDAI.address}`);
 

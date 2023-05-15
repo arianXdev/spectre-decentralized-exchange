@@ -1,13 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// import type { RootState } from "../../app/store";
 
-const initialState = {};
+// Define a type for the slice state
+export interface TokensState {
+	SPEC: { name: string; address: string; symbol: string; decimals: number };
+	mETH: { name: string; address: string; symbol: string; decimals: number };
+	mDAI: { name: string; address: string; symbol: string; decimals: number };
+	mUSDT: { name: string; address: string; symbol: string; decimals: number };
+}
+
+const initialState = {} as TokensState;
 
 const tokensSlice = createSlice({
 	name: "tokens",
 	initialState,
 	reducers: {
 		tokensLoaded: {
-			reducer: (state, action) => {
+			reducer: (state, action: PayloadAction<TokensState>) => {
 				const { SPEC, mETH, mDAI, mUSDT } = action.payload;
 
 				state.SPEC = SPEC;

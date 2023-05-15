@@ -1,4 +1,4 @@
-const { ethers } = require("hardhat");
+import { ethers } from "hardhat";
 
 const convertTokens = (n) => {
 	return ethers.utils.parseUnits(n.toString(), "ether");
@@ -51,7 +51,7 @@ describe("Spectre Exchange", () => {
 
 	describe("Depositing Tokens", () => {
 		let transaction, result;
-		let amount = convertTokens(10);
+		const amount = convertTokens(10);
 
 		beforeEach(async () => {
 			// Approve transfering tokens (First step)
@@ -89,7 +89,7 @@ describe("Spectre Exchange", () => {
 
 	describe("Withdrawing Tokens", () => {
 		let transaction, result;
-		let amount = convertTokens(85); // 85 SPEC and USDT
+		const amount = convertTokens(85); // 85 SPEC and USDT
 
 		beforeEach(async () => {
 			// **** DEPOSIT TOKENS BEFORE WITHDRAWING ****
@@ -137,7 +137,7 @@ describe("Spectre Exchange", () => {
 
 	describe("Checking Balances", () => {
 		let transaction, result;
-		let amount = convertTokens(42); // 42 SPEC
+		const amount = convertTokens(42); // 42 SPEC
 
 		beforeEach(async () => {
 			// **** DEPOSIT TOKENS BEFORE WITHDRAWING ****
@@ -156,7 +156,7 @@ describe("Spectre Exchange", () => {
 
 	describe("Making Orders", () => {
 		let transaction, result;
-		let amount = convertTokens(1);
+		const amount = convertTokens(1);
 
 		beforeEach(async () => {
 			// Aporove Spectre Exchange in order to use transferFrom
@@ -191,7 +191,7 @@ describe("Spectre Exchange", () => {
 
 	describe("Order actions", () => {
 		let transaction, result;
-		let amount = convertTokens(1); // 1 mUSDT
+		const amount = convertTokens(1); // 1 mUSDT
 
 		beforeEach(async () => {
 			// In order to make an order in the exchange, the user needs to deposit some tokens

@@ -10,8 +10,9 @@ import { connectionLoaded } from "../features/connection/connectionSlice";
 import { tokensLoaded } from "../features/tokens/tokensSlice";
 
 import useMetaMask from "../hooks/useMetaMask";
+import { AppDispatch } from "./store";
 
-export const loadConnection = async (provider, dispatch) => {
+export const loadConnection = async (provider: any, dispatch: AppDispatch) => {
 	// Get all the accounts from Metamask Injected Provider API
 	const accounts = await useMetaMask().request({ method: "eth_requestAccounts" }); // makes an RPC call to our node to get our accounts
 	const account = ethers.utils.getAddress(accounts[0]);
@@ -29,9 +30,7 @@ export const loadConnection = async (provider, dispatch) => {
 	return { chainId, balance };
 };
 
-export const loadTokens = async (provider, addresses, dispatch) => {
-	const { chainId } = await provider.getNetwork();
-
+export const loadTokens = async (provider: any, addresses: any, dispatch: AppDispatch) => {
 	const SPEC = new ethers.Contract(addresses.spectreToken.address, SPECTRE_TOKEN_ABI, provider);
 	const mETH = new ethers.Contract(addresses.mETH.address, TOKEN_ABI, provider); // accessing to this smart contract
 	const mDAI = new ethers.Contract(addresses.mDAI.address, TOKEN_ABI, provider);
@@ -40,17 +39,17 @@ export const loadTokens = async (provider, addresses, dispatch) => {
 	// Save the information of all tokens inside of the Redux store (except their contracts)
 	dispatch(
 		tokensLoaded({
-			SPEC: config[chainId].spectreToken,
-			mETH: config[chainId].mETH,
-			mDAI: config[chainId].mDAI,
-			mUSDT: config[chainId].mDAI,
+			SPEC: config.spectreToken,
+			mETH: config.mETH,
+			mDAI: config.mDAI,
+			mUSDT: config.mDAI,
 		})
 	);
 
 	return { SPEC, mETH, mDAI, mUSDT };
 };
 
-export const loadExchange = async (provider, address) => {
+export const loadExchange = async (provider: any, address: string) => {
 	const exchange = new ethers.Contract(address, EXCHANGE_ABI, provider);
 	return exchange;
 };

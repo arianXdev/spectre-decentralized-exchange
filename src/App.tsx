@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "./app/hooks";
 
 import { ethers } from "ethers";
 
@@ -10,29 +10,28 @@ import { ExchangeContext } from "./context/ExchangeContext";
 import { TokensContext } from "./context/TokensContext";
 
 import { loadConnection, loadTokens, loadExchange } from "./app/interactions";
-
 import useMetaMask from "./hooks/useMetaMask";
 
 import "./App.css";
 
-const App = () => {
-	const dispatch = useDispatch();
+const App: React.FC = () => {
+	const dispatch = useAppDispatch();
 
 	const [provider, setProvider] = useState({});
 	const [exchange, setExchange] = useState({});
-	const [tokens, setTokens] = useState({});
+	const [tokens, setTokens] = useState<any>({});
 
 	const loadBlockchainData = async () => {
 		// the term "provider" in this case is our connection to the blockchain
+		// eslint-disable-next-line
 		const provider = new ethers.providers.Web3Provider(useMetaMask());
 		setProvider(provider);
 
 		// load connections & save the current connection information in the store
-		const { chainId } = await loadConnection(provider, dispatch);
+		await loadConnection(provider, dispatch);
 
 		// Load all tokens contracts
-		const tokensConfig = [config[chainId]][0];
-		const { SPEC, mETH, mDAI, mUSDT } = await loadTokens(provider, tokensConfig, dispatch);
+		const { SPEC, mETH, mDAI, mUSDT } = await loadTokens(provider, config, dispatch);
 
 		// Save the contracts of all tokens in state & make it globally accessible across the entire app using context
 		setTokens({
@@ -43,8 +42,7 @@ const App = () => {
 		});
 
 		// Get the Spectre exchange contract
-		const exchangeConfig = config[chainId].spectre;
-		const exchange = await loadExchange(provider, exchangeConfig.address);
+		const exchange = await loadExchange(provider, config.spectre.address);
 		setExchange(exchange);
 	};
 

@@ -1,11 +1,11 @@
-const { ethers } = require("hardhat");
-const config = require("../src/config.json");
+import { ethers } from "hardhat";
+import config from "../src/config.json";
 
-const convertTokens = (n) => {
+const convertTokens = (n: number | string) => {
 	return ethers.utils.parseUnits(n.toString(), "ether");
 };
 
-const wait = (seconds) => {
+const wait = (seconds: number) => {
 	const milliseconds = seconds * 1000;
 	return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
@@ -17,20 +17,20 @@ const main = async () => {
 	console.log(`Using ChainId: ${chainId}`);
 
 	// Fetch the deployed tokens
-	const spectreToken = await ethers.getContractAt("SpectreToken", config[chainId].spectreToken.address);
+	const spectreToken = await ethers.getContractAt("SpectreToken", config.spectreToken.address);
 	console.log(`Spectre Token fetched: ${spectreToken.address}\n`);
 
-	const mTether = await ethers.getContractAt("Token", config[chainId].mTether.address);
-	console.log(`Mock Tether (mUSDT) fetched: ${mTether.address}\n`);
+	const mUSDT = await ethers.getContractAt("Token", config.mUSDT.address);
+	console.log(`Mock Tether (mUSDT) fetched: ${mUSDT.address}\n`);
 
-	const mETH = await ethers.getContractAt("Token", config[chainId].mETH.address);
+	const mETH = await ethers.getContractAt("Token", config.mETH.address);
 	console.log(`Mock Ether (mETH) fetched: ${mETH.address}\n`);
 
-	const mDAI = await ethers.getContractAt("Token", config[chainId].mDAI.address);
+	const mDAI = await ethers.getContractAt("Token", config.mDAI.address);
 	console.log(`Mock DAI (mDAI) fetched: ${mDAI.address}\n`);
 
 	// Fetch the deployed exchange
-	const spectre = await ethers.getContractAt("Spectre", config[chainId].spectre.address);
+	const spectre = await ethers.getContractAt("Spectre", config.spectre.address);
 	console.log(`Spectre Exchange fetched: ${spectre.address}\n`);
 
 	// Set up users
@@ -144,7 +144,9 @@ const main = async () => {
 
 	// user1 makes 12 orders
 	for (let i = 1; i <= 12; i++) {
-		transaction = await spectre.connect(user1).makeOrder(mDAI.address, convertTokens(i * 10 + 10), spectreToken.address, convertTokens(10));
+		transaction = await spectre
+			.connect(user1)
+			.makeOrder(mDAI.address, convertTokens(i * 10 + 10), spectreToken.address, convertTokens(10));
 		result = await transaction.wait();
 		console.log(`Made an order from ${user1.address}`);
 
@@ -154,7 +156,9 @@ const main = async () => {
 
 	// user2 makes 12 orders
 	for (let i = 1; i <= 12; i++) {
-		transaction = await spectre.connect(user2).makeOrder(spectreToken.address, convertTokens(10), mDAI.address, convertTokens(i * 10 + 10));
+		transaction = await spectre
+			.connect(user2)
+			.makeOrder(spectreToken.address, convertTokens(10), mDAI.address, convertTokens(i * 10 + 10));
 		result = await transaction.wait();
 		console.log(`Made an order from ${user2.address}`);
 

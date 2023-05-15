@@ -1,11 +1,11 @@
-const { ethers } = require("hardhat");
+import { ethers } from "hardhat";
 
 const tokens = (n) => {
 	return ethers.utils.parseUnits(n.toString(), "ether");
 };
 
 describe("Spectre Token", () => {
-	let spectreToken, accounts, deployer, exchange;
+	let spectreToken, accounts, deployer, exchange, receiver;
 
 	// beforeEach method will run before tests
 	beforeEach(async () => {
