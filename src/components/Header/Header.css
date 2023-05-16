@@ -1,0 +1,89 @@
+.Header {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 30% 35% 1fr;
+	padding-top: 0.8rem;
+	padding-inline: 2rem;
+	font-size: 16px;
+}
+
+/* Header Logo Section */
+.Header__logo {
+	color: white !important;
+	user-select: none;
+}
+
+.Header__link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.Header__img {
+	max-width: 4rem;
+}
+
+.Header__title {
+	font-family: var(--oxanium-font);
+	font-size: 1.7em;
+	margin-inline-start: 0.4rem;
+	margin-inline-end: 0.6rem;
+	letter-spacing: 4px;
+}
+
+.Header__span {
+	font-family: var(--oxanium-font);
+	font-size: 0.8em;
+	margin-block-start: 6px;
+	letter-spacing: 3px;
+}
+
+/* Header Tabs Section */
+.Header__tabs-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.Header__tabs {
+	position: relative;
+	width: 90%;
+	height: 50px;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	color: white;
+	background: rgba(3, 5, 58, 0.3);
+	box-shadow: 0px 2px 10px rgba(18, 16, 38, 0.4);
+	border-radius: 30px;
+	letter-spacing: 3px;
+}
+
+.Header__tab {
+	position: absolute;
+	width: 40%;
+	font-size: 15px;
+	padding-block: 0.7rem;
+	border-radius: inherit;
+	background: var(--non-active-color);
+	transition: all 0.4s ease-in-out;
+	z-index: 3;
+}
+
+.Header__tab--swap {
+	left: 2%;
+}
+
+.Header__tab--trade {
+	right: 2%;
+}
+
+.Header__tab--active {
+	width: 60%;
+	background: var(--primary-color);
+	box-shadow: inherit;
+	font-weight: 900;
+	z-index: 5;
+}

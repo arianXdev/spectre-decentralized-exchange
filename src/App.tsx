@@ -12,6 +12,8 @@ import { TokensContext } from "./context/TokensContext";
 import { loadConnection, loadTokens, loadExchange } from "./app/interactions";
 import useMetaMask from "./hooks/useMetaMask";
 
+import { Header } from "./components";
+
 import "./App.css";
 
 const App: React.FC = () => {
@@ -55,9 +57,9 @@ const App: React.FC = () => {
 		<EthersContext.Provider value={{ provider }}>
 			<ExchangeContext.Provider value={{ exchange }}>
 				<TokensContext.Provider value={{ tokens }}>
-					<main>
-						<h1>Hello, World!</h1>
-					</main>
+					<div className="container">
+						<Header />
+					</div>
 				</TokensContext.Provider>
 			</ExchangeContext.Provider>
 		</EthersContext.Provider>

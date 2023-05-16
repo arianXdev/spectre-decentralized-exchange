@@ -15,6 +15,7 @@
 	--yellow-color: #ffe600;
 	--gray-color: #505050;
 	--black-color: #101824;
+	--non-active-color: rgba(0, 71, 255, 0.1);
 	--background-color: linear-gradient(245deg, #000428 -2.05%, #0862b0 116.34%);
 
 	/* Fonts */
@@ -73,7 +74,6 @@ select {
 }
 
 .container {
-	max-width: 1300px !important;
 	width: 100%;
 	margin: 0 auto !important;
 	padding: 0.2em !important;
@@ -111,5 +111,36 @@ button {
 		animation-iteration-count: 1 !important;
 		transition-duration: 0.01ms !important;
 		scroll-behavior: auto !important;
+	}
+}
+
+@media (min-width: 768px) {
+	.container {
+		max-width: 800px;
+	}
+}
+@media (min-width: 992px) {
+	.container {
+		max-width: 1100px;
+	}
+}
+@media (min-width: 1200px) {
+	.container {
+		max-width: 1300px;
+	}
+}
+@media (min-width: 1400px) {
+	.container {
+		max-width: 1350px;
+	}
+}
+@media (min-width: 1600px) {
+	.container {
+		max-width: 1500px;
+	}
+}
+@media (min-width: 200px) {
+	.container {
+		max-width: 1800px;
 	}
 }
