@@ -26,7 +26,7 @@ const Header: FC = (): ReactElement => {
 	const account = useAppSelector((state) => state.connection.current?.account);
 
 	// It only shows a few parts of the whole address
-	const accountAddress = `${account?.substring(0, 6)}...${account?.substring(38, 42)}`;
+	const accountAddress = `${account?.substring(0, 6) || "0x000"}...${account?.substring(38, 42) || "0000"}`;
 
 	const [activeTab, setActiveTab] = useState(Tabs.SWAP);
 	const [showNetworkMenu, setShowNetworkMenu] = useState(false);
@@ -57,9 +57,7 @@ const Header: FC = (): ReactElement => {
 	// Account Menu state
 	const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
 
-	const handleAccountMenuToggle = () => {
-		setIsAccountMenuOpen(!isAccountMenuOpen);
-	};
+	const handleAccountMenuToggle = () => (account ? setIsAccountMenuOpen(!isAccountMenuOpen) : null);
 
 	const onNetworkChanged = (network: Networks) => {
 		setSelectedNetwork(network);

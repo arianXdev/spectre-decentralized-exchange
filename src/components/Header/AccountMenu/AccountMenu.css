@@ -76,13 +76,12 @@
 	display: grid;
 	grid-template-columns: 18% 60% 1fr;
 	align-items: center;
-	padding-top: 0.4rem;
-	padding-left: 0.3rem;
+	padding-top: 0.5rem;
+	padding-left: 0.5rem;
 }
 
-.account-menu__figure {
-	font-size: 3.5rem;
-	margin-right: 0.2em;
+.account-menu__avatar {
+	border-radius: 50px;
 }
 
 .account-menu__address {
@@ -130,4 +129,31 @@
 
 .account-menu__logout:hover {
 	background: #bd183e21;
+}
+
+.account-menu__body {
+	display: flex;
+	margin-top: 1rem;
+	padding-top: 1.3rem;
+	margin-inline: 1.5rem;
+	border-top: 1px dashed #ffffff73;
+}
+
+.account-menu__balance {
+	width: 100%;
+	display: grid;
+	align-items: center;
+	grid-template-columns: 10% 30% 1fr;
+	font-family: var(--oxanium-font);
+	font-size: 1.2rem;
+}
+
+.account-menu__balance small {
+	justify-self: end;
+	font-family: var(--mono-font);
+	user-select: all;
+}
+
+.account-menu__balance ion-icon {
+	font-size: 1.3rem;
 }
