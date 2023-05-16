@@ -1,4 +1,5 @@
 import { FC, ReactElement, useState } from "react";
+import { useAppSelector } from "../../app/hooks";
 
 import { Link } from "react-router-dom";
 
@@ -13,6 +14,12 @@ enum Tabs {
 }
 
 const Header: FC = (): ReactElement => {
+	// Get the current account address
+	const account = useAppSelector((state) => state.connection.current?.account);
+
+	// It only shows a few parts of the whole address
+	const accountAddress = `${account?.substring(0, 6)}...${account?.substring(38, 42)}`;
+
 	const [activeTab, setActiveTab] = useState(Tabs.SWAP);
 
 	const headerSwapTabClass = classNames({
@@ -59,9 +66,9 @@ const Header: FC = (): ReactElement => {
 					</div>
 				</div>
 				<div className="Header__account">
-					<button className="Header__account-btn">
-						<Icon name="person" />
-						<p className="Header__account-address">0x87f3fs43d4</p>
+					<button className="Header__account-btn" title={account ? account : "Please connect your wallet!"}>
+						{account ? <Icon name="person" /> : <Icon name="wallet" />}
+						<p className="Header__account-address">{account ? accountAddress : "Connect"}</p>
 					</button>
 				</div>
 				<div className="Header__settings">

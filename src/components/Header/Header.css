@@ -5,6 +5,7 @@
 	padding-top: 0.4rem;
 	padding-inline: 2rem;
 	font-size: 16px;
+	user-select: none;
 }
 
 /* Header Logo Section */
@@ -27,15 +28,15 @@
 	font-family: var(--oxanium-font);
 	font-size: 1.7em;
 	margin-inline-start: 0.4rem;
-	margin-inline-end: 0.6rem;
+	margin-inline-end: 0.5rem;
 	letter-spacing: 4px;
 }
 
 .Header__span {
 	font-family: var(--oxanium-font);
-	font-size: 0.8em;
-	margin-block-start: 6px;
-	letter-spacing: 3px;
+	font-size: 0.75em;
+	margin-block-start: 0.6em;
+	letter-spacing: 2px;
 }
 
 /* Header Tabs Section */
@@ -126,6 +127,7 @@
 
 .Header__network-icon {
 	font-size: 1.4em;
+	margin-left: 10px;
 	margin-right: 10px;
 	color: #01c0fd;
 }
@@ -145,11 +147,12 @@
 }
 
 .Header__account-btn {
-	padding-block: 0.8rem;
+	width: max-content;
+	padding: 0.7rem 1.5rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 0.9rem;
+	font-size: 1rem;
 	font-weight: 500;
 	color: var(--primary-color);
 	border-radius: 40px;
@@ -158,7 +161,7 @@
 }
 
 .Header__account-btn > ion-icon {
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 	padding-right: 10px;
 }
 
