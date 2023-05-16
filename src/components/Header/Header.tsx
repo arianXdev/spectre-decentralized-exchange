@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import classNames from "classnames";
 
+import { Icon } from "..";
 import "./Header.css";
 
 enum Tabs {
@@ -47,7 +48,28 @@ const Header: FC = (): ReactElement => {
 				</menu>
 			</div>
 
-			<div className="Header__connection">Header Connection stuff</div>
+			<div className="Header__connection">
+				<div className="Header__networks">
+					<div className="Header__network">
+						<button className="Header__network-btn">
+							<i className="Header__network-icon fa-brands fa-ethereum"></i>
+							<span>Ethereum</span>
+							<Icon name="chevron-down-outline" />
+						</button>
+					</div>
+				</div>
+				<div className="Header__account">
+					<button className="Header__account-btn">
+						<Icon name="person" />
+						<p className="Header__account-address">0x87f3fs43d4</p>
+					</button>
+				</div>
+				<div className="Header__settings">
+					<Link to="/settings">
+						<Icon name="settings-outline" />
+					</Link>
+				</div>
+			</div>
 		</header>
 	);
 };
