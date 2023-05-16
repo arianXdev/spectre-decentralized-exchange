@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState } from "react";
+import { FC, ReactElement, useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 
 import { Link } from "react-router-dom";
@@ -13,6 +13,12 @@ enum Tabs {
 	TRADE,
 }
 
+enum Networks {
+	ETHEREUM = "Ethereum",
+	GOERLI = "Goerli",
+	LOCALHOST = "Localhost",
+}
+
 const Header: FC = (): ReactElement => {
 	// Get the current account address
 	const account = useAppSelector((state) => state.connection.current?.account);
@@ -21,6 +27,18 @@ const Header: FC = (): ReactElement => {
 	const accountAddress = `${account?.substring(0, 6)}...${account?.substring(38, 42)}`;
 
 	const [activeTab, setActiveTab] = useState(Tabs.SWAP);
+	const [showNetworkMenu, setShowNetworkMenu] = useState(false);
+	const [selectedNetwork, setSelectedNetwork] = useState(Networks.ETHEREUM);
+
+	const networkMenuRef = useRef<HTMLDivElement>(null);
+
+	// get the network icon based on the selected network
+	const getSelectedNetworkIcon = (): ReactElement => {
+		if (selectedNetwork === Networks.ETHEREUM) return <i className="Header__network-icon fa-brands fa-ethereum"></i>;
+		else if (selectedNetwork === Networks.GOERLI) return <i className="Header__network-icon fa-brands fa-gofore"></i>;
+		else if (selectedNetwork === Networks.LOCALHOST) return <i className="Header__network-icon fa-solid fa-server"></i>;
+		else return <i className="Header__network-icon fa-brands fa-ethereum"></i>;
+	};
 
 	const headerSwapTabClass = classNames({
 		Header__tab: true,
@@ -33,6 +51,24 @@ const Header: FC = (): ReactElement => {
 		"Header__tab--trade": true,
 		"Header__tab--active": activeTab === Tabs.TRADE,
 	});
+
+	const onNetworkChanged = (network: Networks) => {
+		setSelectedNetwork(network);
+		setShowNetworkMenu(false);
+	};
+
+	const handleOutsideClick = (event: MouseEvent) => {
+		if (networkMenuRef.current && !networkMenuRef.current.contains(event.target as Node)) {
+			setShowNetworkMenu(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener("click", handleOutsideClick);
+		return () => {
+			document.removeEventListener("click", handleOutsideClick);
+		};
+	}, []);
 
 	return (
 		<header className="Header">
@@ -57,12 +93,49 @@ const Header: FC = (): ReactElement => {
 
 			<div className="Header__connection">
 				<div className="Header__networks">
-					<div className="Header__network">
-						<button className="Header__network-btn">
-							<i className="Header__network-icon fa-brands fa-ethereum"></i>
-							<span>Ethereum</span>
+					<div className="Header__network" ref={networkMenuRef}>
+						<button onClick={() => setShowNetworkMenu(!showNetworkMenu)} className="Header__network-btn">
+							{getSelectedNetworkIcon()}
+							<span>{selectedNetwork}</span>
 							<Icon name="chevron-down-outline" />
 						</button>
+
+						{showNetworkMenu ? (
+							<div className="network-menu">
+								<ul className="network-menu__list">
+									<li
+										className={
+											selectedNetwork === Networks.ETHEREUM
+												? "network-menu__item network-menu__item--selected"
+												: "network-menu__item"
+										}
+										onClick={() => onNetworkChanged(Networks.ETHEREUM)}
+									>
+										<i className="network-menu__icon fa-brands fa-ethereum"></i> {Networks.ETHEREUM}
+									</li>
+									<li
+										className={
+											selectedNetwork === Networks.GOERLI
+												? "network-menu__item network-menu__item--selected"
+												: "network-menu__item"
+										}
+										onClick={() => onNetworkChanged(Networks.GOERLI)}
+									>
+										<i className="network-menu__icon fa-brands fa-gofore"></i> {Networks.GOERLI}
+									</li>
+									<li
+										className={
+											selectedNetwork === Networks.LOCALHOST
+												? "network-menu__item network-menu__item--selected"
+												: "network-menu__item"
+										}
+										onClick={() => onNetworkChanged(Networks.LOCALHOST)}
+									>
+										<i className="network-menu__icon fa-solid fa-server"></i> {Networks.LOCALHOST}
+									</li>
+								</ul>
+							</div>
+						) : null}
 					</div>
 				</div>
 				<div className="Header__account">
