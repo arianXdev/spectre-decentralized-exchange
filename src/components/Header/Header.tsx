@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import classNames from "classnames";
 
-import AccountMenu from "./AccountMenu/AccountMenu";
+import { AccountMenu } from "..";
 import { Icon } from "..";
 
 import "./Header.css";

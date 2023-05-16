@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import { useAppSelector } from "../../../app/hooks";
-import { Icon } from "../..";
+import { useAppSelector } from "../../app/hooks";
+import { Icon } from "..";
 
 import Blockies from "react-18-blockies";
 
