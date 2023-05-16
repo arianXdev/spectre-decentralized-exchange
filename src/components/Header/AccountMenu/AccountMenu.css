@@ -1,0 +1,133 @@
+.overlay {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	left: -100%;
+	min-height: 100vh;
+	backdrop-filter: blur(10px);
+	opacity: 0;
+	transition: all 0.1s ease-in-out;
+	z-index: 7;
+}
+
+.overlay.active {
+	left: 0;
+	opacity: 1;
+}
+
+.account-menu {
+	position: fixed;
+	top: 3vh;
+	right: -388px;
+	width: 388px;
+	height: 95%;
+	background-color: #010816;
+	border-top-left-radius: 50px;
+	box-shadow: -2px 1px 10px rgba(0, 0, 0, 0.3);
+	border-end-start-radius: 50px;
+	transition: right 0.5s ease-in-out;
+	z-index: 10;
+}
+
+.close-menu {
+	position: fixed;
+	top: 3vh;
+	right: -455px;
+	width: 455px;
+	height: 95%;
+	background: rgba(255, 255, 255, 0.03);
+	border-radius: 50px;
+	transition: all 0.4s ease-in-out;
+	transition-delay: 0.09s;
+	z-index: 8;
+	cursor: pointer;
+}
+
+.account-menu.open,
+.close-menu.open {
+	right: 0;
+}
+
+.close-menu:hover {
+	opacity: 0.8;
+	width: 440px;
+}
+
+.close-menu:hover .close-menu__btn {
+	transform: translateX(0.3em);
+}
+
+.close-menu__btn {
+	position: absolute;
+	top: 15%;
+	left: 0.7em;
+	font-size: 1.3rem;
+	color: white;
+	opacity: 0.6;
+	background: transparent;
+	transition: all 0.3s ease-in-out;
+}
+
+.account-menu__wrapper {
+	padding: 1rem 1rem;
+}
+
+.account-menu__header {
+	display: grid;
+	grid-template-columns: 18% 60% 1fr;
+	align-items: center;
+	padding-top: 0.4rem;
+	padding-left: 0.3rem;
+}
+
+.account-menu__figure {
+	font-size: 3.5rem;
+	margin-right: 0.2em;
+}
+
+.account-menu__address {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	cursor: pointer;
+}
+
+.account-menu__address p {
+	font-family: var(--mono-font);
+	font-weight: 700;
+	font-size: 1.3em;
+	transition: all 0.2s ease;
+}
+
+.account-menu__address > ion-icon {
+	display: none;
+	font-size: 1.1em;
+	padding-left: 10px;
+	color: #777;
+}
+
+.account-menu__address:hover {
+	color: #777;
+}
+
+.account-menu__address:hover > ion-icon {
+	display: inline;
+}
+
+.account-menu__logout {
+	width: max-content;
+	justify-self: center;
+	font-size: 1.9rem;
+	padding: 0.25em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	background: none;
+	color: var(--red-color);
+	transition: all 0.2s ease-in-out;
+}
+
+.account-menu__logout:hover {
+	background: #bd183e21;
+}

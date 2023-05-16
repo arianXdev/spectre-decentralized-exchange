@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 
 import classNames from "classnames";
 
+import AccountMenu from "./AccountMenu/AccountMenu";
 import { Icon } from "..";
+
 import "./Header.css";
 
 enum Tabs {
@@ -51,6 +53,13 @@ const Header: FC = (): ReactElement => {
 		"Header__tab--trade": true,
 		"Header__tab--active": activeTab === Tabs.TRADE,
 	});
+
+	// Account Menu state
+	const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
+
+	const handleAccountMenuToggle = () => {
+		setIsAccountMenuOpen(!isAccountMenuOpen);
+	};
 
 	const onNetworkChanged = (network: Networks) => {
 		setSelectedNetwork(network);
@@ -139,10 +148,15 @@ const Header: FC = (): ReactElement => {
 					</div>
 				</div>
 				<div className="Header__account">
-					<button className="Header__account-btn" title={account ? account : "Please connect your wallet!"}>
+					<button
+						onClick={handleAccountMenuToggle}
+						className="Header__account-btn"
+						title={account ? account : "Please connect your wallet!"}
+					>
 						{account ? <Icon name="person" /> : <Icon name="wallet" />}
 						<p className="Header__account-address">{account ? accountAddress : "Connect"}</p>
 					</button>
+					<AccountMenu isOpen={isAccountMenuOpen} onClose={handleAccountMenuToggle} account={accountAddress} />
 				</div>
 				<div className="Header__settings">
 					<Link to="/settings">
