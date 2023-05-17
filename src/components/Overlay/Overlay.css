@@ -1,0 +1,35 @@
+/* Overlay styles */
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 100vh;
+	backdrop-filter: blur(10px);
+	transition: all 0.05s ease-in-out;
+	z-index: 8;
+	scale: 0;
+	opacity: 0;
+}
+
+.overlay.active {
+	scale: 1;
+	opacity: 1;
+}
+
+.overlay--account-menu {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	left: -100%;
+	min-height: 100vh;
+	backdrop-filter: blur(10px);
+	opacity: 0;
+	transition: all 0.1s ease-in-out;
+	z-index: 8;
+}
+
+.overlay--account-menu.active {
+	left: 0;
+	opacity: 1;
+}
