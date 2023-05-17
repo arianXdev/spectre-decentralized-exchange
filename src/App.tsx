@@ -30,8 +30,10 @@ const App: React.FC = () => {
 		const provider = new ethers.providers.Web3Provider(useMetaMask());
 		setProvider(provider);
 
-		// load connections & save the current connection information in the store
-		await loadConnection(provider, dispatch);
+		// load connections & save the current connection information whenever the account has been changed
+		useMetaMask().on("accountsChanged", async () => {
+			await loadConnection(provider, dispatch);
+		});
 
 		// Load all tokens contracts
 		const { SPEC, mETH, mDAI, mUSDT } = await loadTokens(provider, config, dispatch);

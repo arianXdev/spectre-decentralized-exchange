@@ -1,9 +1,12 @@
-import { FC, ReactElement, useEffect, useRef, useState } from "react";
-import { useAppSelector } from "../../app/hooks";
+import { FC, ReactElement, useEffect, useRef, useState, useContext } from "react";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+
+import { EthersContext } from "../../context/EthersContext";
 
 import { Link, useLocation } from "react-router-dom";
-
 import classNames from "classnames";
+
+import { loadConnection } from "../../app/interactions";
 
 import { AccountMenu } from "..";
 import { Icon } from "..";
@@ -22,6 +25,11 @@ enum Networks {
 }
 
 const Header: FC = (): ReactElement => {
+	// Get the provider
+	const { provider } = useContext(EthersContext);
+
+	const dispatch = useAppDispatch();
+
 	// Get the current account address
 	const account = useAppSelector((state) => state.connection.current?.account);
 
@@ -60,6 +68,12 @@ const Header: FC = (): ReactElement => {
 	const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
 
 	const handleAccountMenuToggle = () => (account ? setIsAccountMenuOpen(!isAccountMenuOpen) : null);
+
+	// When the user clicks on Connect button, then handleLoadAccount will be called
+	const handleLoadAccount = async () => {
+		// load connections & save the current connection information in the store
+		await loadConnection(provider, dispatch);
+	};
 
 	const onNetworkChanged = (network: Networks) => {
 		setSelectedNetwork(network);
@@ -154,7 +168,7 @@ const Header: FC = (): ReactElement => {
 				</div>
 				<div className="Header__account">
 					<button
-						onClick={handleAccountMenuToggle}
+						onClick={account ? handleAccountMenuToggle : handleLoadAccount}
 						className="Header__account-btn"
 						title={account ? account : "Please connect your wallet!"}
 					>
