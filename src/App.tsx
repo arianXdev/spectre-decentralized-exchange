@@ -35,6 +35,9 @@ const App: React.FC = () => {
 			await loadConnection(provider, dispatch);
 		});
 
+		// Reload the page when the user changed their network
+		useMetaMask().on("chainChanged", () => window.location.reload());
+
 		// Load all tokens contracts
 		const { SPEC, mETH, mDAI, mUSDT } = await loadTokens(provider, config, dispatch);
 
@@ -66,8 +69,8 @@ const App: React.FC = () => {
 
 					<Routes>
 						<Route path="/" element={<Navigate to="/swap" />} />
-						{/* <Route path="swap" element={<Swap />} /> */}
-						{/* <Route path="trade" element={<Trade />} /> */}
+						<Route path="swap" element={<></>} />
+						<Route path="trade" element={<></>} />
 					</Routes>
 				</TokensContext.Provider>
 			</ExchangeContext.Provider>

@@ -19,9 +19,17 @@ enum Tabs {
 }
 
 enum Networks {
-	ETHEREUM = "Ethereum",
-	GOERLI = "Goerli",
-	LOCALHOST = "Localhost",
+	Ethereum = "Ethereum",
+	Sepolia = "Sepolia",
+	Goerli = "Goerli",
+	Localhost = "Localhost",
+}
+
+enum NetworksChainId {
+	Ethereum = "0x1",
+	Sepolia = "0xaa36a7",
+	Goerli = "0x5",
+	Localhost = "0x7a69", // Hardhat local network chainId in hexadecimal (31337)
 }
 
 const Header: FC = (): ReactElement => {
@@ -40,15 +48,16 @@ const Header: FC = (): ReactElement => {
 
 	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.SWAP);
 	const [showNetworkMenu, setShowNetworkMenu] = useState(false);
-	const [selectedNetwork, setSelectedNetwork] = useState(Networks.ETHEREUM);
+	const [selectedNetwork, setSelectedNetwork] = useState(Networks.Ethereum);
 
 	const networkMenuRef = useRef<HTMLDivElement>(null);
 
 	// get the network icon based on the selected network
 	const getSelectedNetworkIcon = (): ReactElement => {
-		if (selectedNetwork === Networks.ETHEREUM) return <i className="Header__network-icon fa-brands fa-ethereum"></i>;
-		else if (selectedNetwork === Networks.GOERLI) return <i className="Header__network-icon fa-brands fa-gofore"></i>;
-		else if (selectedNetwork === Networks.LOCALHOST) return <i className="Header__network-icon fa-solid fa-server"></i>;
+		if (selectedNetwork === Networks.Ethereum) return <i className="Header__network-icon fa-brands fa-ethereum"></i>;
+		else if (selectedNetwork === Networks.Sepolia) return <i className="Header__network-icon fa-solid fa-s"></i>;
+		else if (selectedNetwork === Networks.Goerli) return <i className="Header__network-icon fa-brands fa-gofore"></i>;
+		else if (selectedNetwork === Networks.Localhost) return <i className="Header__network-icon fa-solid fa-server"></i>;
 		else return <i className="Header__network-icon fa-brands fa-ethereum"></i>;
 	};
 
@@ -75,9 +84,22 @@ const Header: FC = (): ReactElement => {
 		await loadConnection(provider, dispatch);
 	};
 
-	const onNetworkChanged = (network: Networks) => {
+	const onNetworkChanged = async (network: Networks) => {
 		setSelectedNetwork(network);
 		setShowNetworkMenu(false);
+
+		// Get the chainId of the selected network by user
+		const chainId = NetworksChainId[network];
+
+		// Send a request to MetaMask to change the network
+		try {
+			await window.ethereum.request({
+				method: "wallet_switchEthereumChain",
+				params: [{ chainId }],
+			});
+		} catch (err: unknown) {
+			console.log(err);
+		}
 	};
 
 	const handleOutsideClick = (event: MouseEvent) => {
@@ -85,6 +107,17 @@ const Header: FC = (): ReactElement => {
 			setShowNetworkMenu(false);
 		}
 	};
+
+	// Get the current network's chain ID
+	const chainId = useAppSelector((state) => `0x${state.connection.current?.chainId?.toString(16).toLowerCase()}`);
+
+	useEffect(() => {
+		// Check to see which network the user has selected
+		if (chainId === NetworksChainId.Ethereum) setSelectedNetwork(Networks.Ethereum);
+		else if (chainId === NetworksChainId.Goerli) setSelectedNetwork(Networks.Goerli);
+		else if (chainId === NetworksChainId.Sepolia) setSelectedNetwork(Networks.Sepolia);
+		else if (chainId === NetworksChainId.Localhost) setSelectedNetwork(Networks.Localhost);
+	}, [account, chainId]);
 
 	useEffect(() => {
 		// Check the current URL to see which tabs is selected
@@ -133,33 +166,43 @@ const Header: FC = (): ReactElement => {
 								<ul className="network-menu__list">
 									<li
 										className={
-											selectedNetwork === Networks.ETHEREUM
+											selectedNetwork === Networks.Ethereum
 												? "network-menu__item network-menu__item--selected"
 												: "network-menu__item"
 										}
-										onClick={() => onNetworkChanged(Networks.ETHEREUM)}
+										onClick={() => onNetworkChanged(Networks.Ethereum)}
 									>
-										<i className="network-menu__icon fa-brands fa-ethereum"></i> {Networks.ETHEREUM}
+										<i className="network-menu__icon fa-brands fa-ethereum"></i> {Networks.Ethereum}
 									</li>
 									<li
 										className={
-											selectedNetwork === Networks.GOERLI
+											selectedNetwork === Networks.Sepolia
 												? "network-menu__item network-menu__item--selected"
 												: "network-menu__item"
 										}
-										onClick={() => onNetworkChanged(Networks.GOERLI)}
+										onClick={() => onNetworkChanged(Networks.Sepolia)}
 									>
-										<i className="network-menu__icon fa-brands fa-gofore"></i> {Networks.GOERLI}
+										<i className="network-menu__icon fa-brands fa-s"></i> {Networks.Sepolia}
 									</li>
 									<li
 										className={
-											selectedNetwork === Networks.LOCALHOST
+											selectedNetwork === Networks.Goerli
 												? "network-menu__item network-menu__item--selected"
 												: "network-menu__item"
 										}
-										onClick={() => onNetworkChanged(Networks.LOCALHOST)}
+										onClick={() => onNetworkChanged(Networks.Goerli)}
 									>
-										<i className="network-menu__icon fa-solid fa-server"></i> {Networks.LOCALHOST}
+										<i className="network-menu__icon fa-brands fa-gofore"></i> {Networks.Goerli}
+									</li>
+									<li
+										className={
+											selectedNetwork === Networks.Localhost
+												? "network-menu__item network-menu__item--selected"
+												: "network-menu__item"
+										}
+										onClick={() => onNetworkChanged(Networks.Localhost)}
+									>
+										<i className="network-menu__icon fa-solid fa-server"></i> {Networks.Localhost}
 									</li>
 								</ul>
 							</div>
