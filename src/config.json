@@ -1,29 +1,122 @@
 {
-	"spectre": {
-		"address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+	"31337": {
+		"explorerURL": "#",
+		"spectre": {
+			"address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+		},
+		"spectreToken": {
+			"name": "Spectre Token",
+			"symbol": "SPEC",
+			"address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+			"decimals": 18
+		},
+		"mETH": {
+			"name": "Mock Ether",
+			"symbol": "mETH",
+			"address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+			"decimals": 18
+		},
+		"mDAI": {
+			"name": "Mock DAI",
+			"symbol": "mDAI",
+			"address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+			"decimals": 18
+		},
+		"mUSDT": {
+			"name": "Mock Tether",
+			"symbol": "mUSDT",
+			"address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+			"decimals": 18
+		}
 	},
-	"spectreToken": {
-		"name": "Spectre Token",
-		"symbol": "SPEC",
-		"address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-		"decimals": 18
+	"1": {
+		"explorerURL": "https://etherscan.io/",
+		"spectre": {
+			"address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+		},
+		"spectreToken": {
+			"name": "Spectre Token",
+			"symbol": "SPEC",
+			"address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+			"decimals": 18
+		},
+		"mETH": {
+			"name": "Mock Ether",
+			"symbol": "mETH",
+			"address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+			"decimals": 18
+		},
+		"mDAI": {
+			"name": "Mock DAI",
+			"symbol": "mDAI",
+			"address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+			"decimals": 18
+		},
+		"mUSDT": {
+			"name": "Mock Tether",
+			"symbol": "mUSDT",
+			"address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+			"decimals": 18
+		}
 	},
-	"mETH": {
-		"name": "Mock Ether",
-		"symbol": "mETH",
-		"address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-		"decimals": 18
+	"5": {
+		"explorerURL": "https://goerli.etherscan.io/",
+		"spectre": {
+			"address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+		},
+		"spectreToken": {
+			"name": "Spectre Token",
+			"symbol": "SPEC",
+			"address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+			"decimals": 18
+		},
+		"mETH": {
+			"name": "Mock Ether",
+			"symbol": "mETH",
+			"address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+			"decimals": 18
+		},
+		"mDAI": {
+			"name": "Mock DAI",
+			"symbol": "mDAI",
+			"address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+			"decimals": 18
+		},
+		"mUSDT": {
+			"name": "Mock Tether",
+			"symbol": "mUSDT",
+			"address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+			"decimals": 18
+		}
 	},
-	"mDAI": {
-		"name": "Mock DAI",
-		"symbol": "mDAI",
-		"address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-		"decimals": 18
-	},
-	"mUSDT": {
-		"name": "Mock Tether",
-		"symbol": "mUSDT",
-		"address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-		"decimals": 18
+	"11155111": {
+		"explorerURL": "https://sepolia.etherscan.io/",
+		"spectre": {
+			"address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
+		},
+		"spectreToken": {
+			"name": "Spectre Token",
+			"symbol": "SPEC",
+			"address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+			"decimals": 18
+		},
+		"mETH": {
+			"name": "Mock Ether",
+			"symbol": "mETH",
+			"address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+			"decimals": 18
+		},
+		"mDAI": {
+			"name": "Mock DAI",
+			"symbol": "mDAI",
+			"address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+			"decimals": 18
+		},
+		"mUSDT": {
+			"name": "Mock Tether",
+			"symbol": "mUSDT",
+			"address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+			"decimals": 18
+		}
 	}
 }

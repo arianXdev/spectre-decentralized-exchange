@@ -30,6 +30,8 @@ const App: React.FC = () => {
 		const provider = new ethers.providers.Web3Provider(useMetaMask());
 		setProvider(provider);
 
+		const { chainId } = await provider.getNetwork();
+
 		// load connections & save the current connection information whenever the account has been changed
 		useMetaMask().on("accountsChanged", async () => {
 			await loadConnection(provider, dispatch);
@@ -39,7 +41,7 @@ const App: React.FC = () => {
 		useMetaMask().on("chainChanged", () => window.location.reload());
 
 		// Load all tokens contracts
-		const { SPEC, mETH, mDAI, mUSDT } = await loadTokens(provider, config, dispatch);
+		const { SPEC, mETH, mDAI, mUSDT } = await loadTokens(provider, config[chainId], dispatch);
 
 		// Save the contracts of all tokens in state & make it globally accessible across the entire app using context
 		setTokens({
@@ -50,7 +52,7 @@ const App: React.FC = () => {
 		});
 
 		// Get the Spectre exchange contract
-		const exchange = await loadExchange(provider, config.spectre.address);
+		const exchange = await loadExchange(provider, config[chainId].spectre.address);
 		setExchange(exchange);
 	};
 

@@ -74,7 +74,7 @@
 
 .account-menu__header {
 	display: grid;
-	grid-template-columns: 18% 60% 1fr;
+	grid-template-columns: 18% 55% 1fr;
 	align-items: center;
 	padding-top: 0.5rem;
 	padding-left: 0.5rem;
@@ -113,13 +113,18 @@
 	display: inline;
 }
 
-.account-menu__logout {
-	width: max-content;
+.account-menu__button-group {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.account-menu__disconnect {
 	display: flex;
 	justify-self: center;
 	align-items: center;
 	justify-content: center;
-	font-size: 1.9rem;
+	font-size: 1.7rem;
 	padding: 0.25em;
 	border-radius: 50%;
 	color: var(--red-color);
@@ -127,8 +132,25 @@
 	transition: all 0.2s ease-in-out;
 }
 
-.account-menu__logout:hover {
+.account-menu__disconnect:hover {
 	background: #bd183e21;
+}
+
+.account-menu__view {
+	display: flex;
+	justify-self: center;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.7rem;
+	padding: 0.25em;
+	color: white;
+	border-radius: 50%;
+	background: none;
+	transition: all 0.2s ease-in-out;
+}
+
+.account-menu__view:hover {
+	background: #80808021;
 }
 
 .account-menu__body {

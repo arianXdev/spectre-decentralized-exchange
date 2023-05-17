@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // import type { RootState } from "../../app/store";
 
 // Define a type for the slice state
-export interface TokensState {
+interface TokensState {
 	SPEC: { name: string; address: string; symbol: string; decimals: number };
 	mETH: { name: string; address: string; symbol: string; decimals: number };
 	mDAI: { name: string; address: string; symbol: string; decimals: number };

@@ -6,6 +6,8 @@ import { Icon } from "..";
 import Blockies from "react-18-blockies";
 import copy from "clipboard-copy";
 
+import config from "../../config.json";
+
 import "./AccountMenu.css";
 
 interface AccountMenuProps {
@@ -20,7 +22,16 @@ const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose }) => {
 	// Get the account balance from the Redux store
 	const balance = useAppSelector((state) => state.connection.current?.balance);
 
+	// Get the current network's chain ID
+	const chainId = useAppSelector((state) => state.connection.current?.chainId);
+
 	const [accountAddress, setAccountAddress] = useState("0x000...0000");
+
+	const handleViewOnExplorer = () => {
+		const explorerURL = `${config[chainId].explorerURL}address/${account}`;
+		// Redirect the user to another web page
+		window.open(explorerURL, "_blank");
+	};
 
 	const onAccountAddressCopied = () => {
 		if (account) {
@@ -59,9 +70,15 @@ const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose }) => {
 							<Icon name="copy-outline" />
 						</div>
 
-						<button className="account-menu__logout" title="Logout">
-							<Icon name="power" />
-						</button>
+						<div className="account-menu__button-group">
+							<button className="account-menu__view" title="View on Explorer" onClick={handleViewOnExplorer}>
+								<Icon name="earth" />
+							</button>
+
+							<button className="account-menu__disconnect" title="Disconnect">
+								<Icon name="power" />
+							</button>
+						</div>
 					</div>
 
 					<div className="account-menu__body">

@@ -31,6 +31,8 @@ export const loadConnection = async (provider: any, dispatch: AppDispatch) => {
 };
 
 export const loadTokens = async (provider: any, addresses: any, dispatch: AppDispatch) => {
+	const { chainId } = await provider.getNetwork();
+
 	const SPEC = new ethers.Contract(addresses.spectreToken.address, SPECTRE_TOKEN_ABI, provider);
 	const mETH = new ethers.Contract(addresses.mETH.address, TOKEN_ABI, provider); // accessing to this smart contract
 	const mDAI = new ethers.Contract(addresses.mDAI.address, TOKEN_ABI, provider);
@@ -39,10 +41,10 @@ export const loadTokens = async (provider: any, addresses: any, dispatch: AppDis
 	// Save the information of all tokens inside of the Redux store (except their contracts)
 	dispatch(
 		tokensLoaded({
-			SPEC: config.spectreToken,
-			mETH: config.mETH,
-			mDAI: config.mDAI,
-			mUSDT: config.mDAI,
+			SPEC: config[chainId].spectreToken,
+			mETH: config[chainId].mETH,
+			mDAI: config[chainId].mDAI,
+			mUSDT: config[chainId].mDAI,
 		})
 	);
 
