@@ -8,7 +8,7 @@ import classNames from "classnames";
 
 import { loadConnection } from "../../app/interactions";
 
-import { AccountMenu } from "..";
+import { AccountMenu, ConnectWallet } from "..";
 import { Icon } from "..";
 
 import "./Header.css";
@@ -76,10 +76,17 @@ const Header: FC = (): ReactElement => {
 	// Account Menu state
 	const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
 
-	const handleAccountMenuToggle = () => (account ? setIsAccountMenuOpen(!isAccountMenuOpen) : null);
+	// Connect Wallet display state
+	const [isConnectWalletOpen, setIsConnectWalletOpen] = useState(false);
 
-	// When the user clicks on Connect button, then handleLoadAccount will be called
-	const handleLoadAccount = async () => {
+	const handleAccountMenuToggle = () => (account ? setIsAccountMenuOpen(!isAccountMenuOpen) : null);
+	const handleConnectWalletToggle = async () =>
+		window.ethereum._state.accounts.length === 0
+			? setIsConnectWalletOpen(!isConnectWalletOpen)
+			: await loadConnection(provider, dispatch);
+
+	// When the user clicks on MetaMask wallet button, then handleMetaMaskWallet will be called
+	const handleMetaMaskWallet = async () => {
 		// load connections & save the current connection information in the store
 		await loadConnection(provider, dispatch);
 	};
@@ -211,14 +218,20 @@ const Header: FC = (): ReactElement => {
 				</div>
 				<div className="Header__account">
 					<button
-						onClick={account ? handleAccountMenuToggle : handleLoadAccount}
+						onClick={account ? handleAccountMenuToggle : handleConnectWalletToggle}
 						className="Header__account-btn"
 						title={account ? account : "Please connect your wallet!"}
 					>
 						{account ? <Icon name="person" /> : <Icon name="wallet" />}
 						<p className="Header__account-address">{account ? accountAddress : "Connect"}</p>
 					</button>
+
 					<AccountMenu isOpen={isAccountMenuOpen} onClose={handleAccountMenuToggle} />
+					<ConnectWallet
+						isOpen={isConnectWalletOpen}
+						onClose={handleConnectWalletToggle}
+						handleMetaMaskWallet={handleMetaMaskWallet}
+					/>
 				</div>
 				<div className="Header__settings">
 					<Link to="/settings">
