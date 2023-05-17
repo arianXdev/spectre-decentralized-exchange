@@ -1,21 +1,41 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { useAppSelector } from "../../app/hooks";
 import { Icon } from "..";
 
 import Blockies from "react-18-blockies";
+import copy from "clipboard-copy";
 
 import "./AccountMenu.css";
 
 interface AccountMenuProps {
 	isOpen: boolean;
 	onClose: () => void;
-	account: JSX.Element | string;
 }
 
-const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose, account }) => {
+const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose }) => {
+	// Get the account address from the Redux store
+	const account = useAppSelector((state) => state.connection.current?.account);
+
 	// Get the account balance from the Redux store
 	const balance = useAppSelector((state) => state.connection.current?.balance);
+
+	const [accountAddress, setAccountAddress] = useState("0x000...0000");
+
+	const onAccountAddressCopied = () => {
+		if (account) {
+			const wasCopySuccessful = copy(account);
+			wasCopySuccessful.then(() => setAccountAddress("Copied!")).catch(() => setAccountAddress("Couldn't copy!"));
+
+			setTimeout(() => {
+				setAccountAddress(`${account?.substring(0, 6) || "0x000"}...${account?.substring(38, 42) || "0000"}`);
+			}, 2500);
+		}
+	};
+
+	useEffect(() => {
+		if (account) setAccountAddress(`${account?.substring(0, 6) || "0x000"}...${account?.substring(38, 42) || "0000"}`);
+	}, [account]);
 
 	return (
 		<>
@@ -24,7 +44,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose, account }) => {
 					<div className="account-menu__header">
 						<figure className="account-menu__figure">
 							<Blockies
-								seed={account.toString()}
+								seed={account ? account.toString() : accountAddress}
 								className="account-menu__avatar"
 								size={10}
 								scale={4.5}
@@ -34,8 +54,8 @@ const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose, account }) => {
 							/>
 						</figure>
 
-						<div className="account-menu__address">
-							<p>{account}</p>
+						<div className="account-menu__address" onClick={onAccountAddressCopied}>
+							<p>{account ? accountAddress : "Connect your wallet!"}</p>
 							<Icon name="copy-outline" />
 						</div>
 

@@ -154,7 +154,7 @@ const Header: FC = (): ReactElement => {
 						{account ? <Icon name="person" /> : <Icon name="wallet" />}
 						<p className="Header__account-address">{account ? accountAddress : "Connect"}</p>
 					</button>
-					<AccountMenu isOpen={isAccountMenuOpen} onClose={handleAccountMenuToggle} account={accountAddress} />
+					<AccountMenu isOpen={isAccountMenuOpen} onClose={handleAccountMenuToggle} />
 				</div>
 				<div className="Header__settings">
 					<Link to="/settings">
