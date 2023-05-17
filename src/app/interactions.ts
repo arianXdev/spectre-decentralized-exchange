@@ -6,7 +6,7 @@ import TOKEN_ABI from "../abis/Token.json";
 
 import config from "../config.json";
 
-import { connectionLoaded } from "../features/connection/connectionSlice";
+import { connected } from "../features/connection/connectionSlice";
 import { tokensLoaded } from "../features/tokens/tokensSlice";
 
 import useMetaMask from "../hooks/useMetaMask";
@@ -25,7 +25,7 @@ export const loadConnection = async (provider: any, dispatch: AppDispatch) => {
 	const { chainId } = await provider.getNetwork();
 
 	// Save the current connection information into the Redux store
-	dispatch(connectionLoaded(chainId, account, balance));
+	dispatch(connected(chainId, account, balance));
 
 	return { chainId, balance };
 };

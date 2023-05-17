@@ -1,7 +1,9 @@
 import { FC, useEffect, useState } from "react";
 
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Icon } from "..";
+
+import { disconnected } from "~/features/connection/connectionSlice";
 
 import Blockies from "react-18-blockies";
 import copy from "clipboard-copy";
@@ -16,6 +18,8 @@ interface AccountMenuProps {
 }
 
 const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose }) => {
+	const dispatch = useAppDispatch();
+
 	// Get the account address from the Redux store
 	const account = useAppSelector((state) => state.connection.current?.account);
 
@@ -31,6 +35,11 @@ const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose }) => {
 		const explorerURL = `${config[chainId].explorerURL}address/${account}`;
 		// Redirect the user to another web page
 		window.open(explorerURL, "_blank");
+	};
+
+	const handleDisconnect = async () => {
+		dispatch(disconnected());
+		onClose();
 	};
 
 	const onAccountAddressCopied = () => {
@@ -75,7 +84,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose }) => {
 								<Icon name="earth" />
 							</button>
 
-							<button className="account-menu__disconnect" title="Disconnect">
+							<button className="account-menu__disconnect" title="Disconnect" onClick={handleDisconnect}>
 								<Icon name="power" />
 							</button>
 						</div>

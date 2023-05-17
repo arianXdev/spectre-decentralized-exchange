@@ -16,7 +16,7 @@ const connectionSlice = createSlice({
 	name: "connection",
 	initialState,
 	reducers: {
-		connectionLoaded: {
+		connected: {
 			reducer: (state, action: PayloadAction<{ chainId: number; account: string; balance: string }>) => {
 				state.current = action.payload;
 			},
@@ -31,9 +31,13 @@ const connectionSlice = createSlice({
 				};
 			},
 		},
+
+		disconnected: (state) => {
+			state.current = null;
+		},
 	},
 });
 
-export const { connectionLoaded } = connectionSlice.actions;
+export const { connected, disconnected } = connectionSlice.actions;
 
 export default connectionSlice.reducer;
