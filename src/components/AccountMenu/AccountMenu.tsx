@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { Icon } from "..";
+import { Icon, Overlay } from "..";
 
 import { disconnected } from "~/features/connection/connectionSlice";
 
@@ -106,7 +106,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose }) => {
 				</button>
 			</div>
 
-			<div className={`overlay ${isOpen ? "active" : ""}`} onClick={onClose}></div>
+			<Overlay isOpen={isOpen} onClose={onClose} accountMenu={true} />
 		</>
 	);
 };
