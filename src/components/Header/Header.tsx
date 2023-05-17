@@ -1,7 +1,7 @@
 import { FC, ReactElement, useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import classNames from "classnames";
 
@@ -11,8 +11,8 @@ import { Icon } from "..";
 import "./Header.css";
 
 enum Tabs {
-	SWAP,
-	TRADE,
+	SWAP = "swap",
+	TRADE = "trade",
 }
 
 enum Networks {
@@ -28,7 +28,9 @@ const Header: FC = (): ReactElement => {
 	// It only shows a few parts of the whole address
 	const accountAddress = `${account?.substring(0, 6) || "0x000"}...${account?.substring(38, 42) || "0000"}`;
 
-	const [activeTab, setActiveTab] = useState(Tabs.SWAP);
+	const { pathname } = useLocation();
+
+	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.SWAP);
 	const [showNetworkMenu, setShowNetworkMenu] = useState(false);
 	const [selectedNetwork, setSelectedNetwork] = useState(Networks.ETHEREUM);
 
@@ -71,6 +73,11 @@ const Header: FC = (): ReactElement => {
 	};
 
 	useEffect(() => {
+		// Check the current URL to see which tabs is selected
+		pathname !== "/" ? setActiveTab(pathname.substring(1) as Tabs) : null;
+	}, [pathname]);
+
+	useEffect(() => {
 		document.addEventListener("click", handleOutsideClick);
 		return () => {
 			document.removeEventListener("click", handleOutsideClick);
@@ -80,7 +87,7 @@ const Header: FC = (): ReactElement => {
 	return (
 		<header className="Header">
 			<div className="Header__logo">
-				<Link to="/" className="Header__link">
+				<Link to="/swap" className="Header__link">
 					<img src="/src/assets/images/spectre-logo-light.png" alt="Spectre-DEX-logo" className="Header__img" />
 					<h1 className="Header__title">Spectre</h1>
 					<span className="Header__span">DEX</span>

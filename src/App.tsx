@@ -15,6 +15,7 @@ import useMetaMask from "./hooks/useMetaMask";
 import { Header } from "./components";
 
 import "./App.css";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 const App: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -60,6 +61,12 @@ const App: React.FC = () => {
 					<div className="container">
 						<Header />
 					</div>
+
+					<Routes>
+						<Route path="/" element={<Navigate to="/swap" />} />
+						{/* <Route path="swap" element={<Swap />} /> */}
+						{/* <Route path="trade" element={<Trade />} /> */}
+					</Routes>
 				</TokensContext.Provider>
 			</ExchangeContext.Provider>
 		</EthersContext.Provider>
