@@ -80,6 +80,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, status, isConn
 						<article className={`connect-wallet__body  ${isConnecting ? "isConnecting" : ""}`}>
 							<img className="connect-wallet__logo" src={MetaMaskLogo} alt="MetaMask" />
 							<p ref={connectingToMetaMaskRef}></p>
+							<div className={`spinner ${isConnecting && status !== 1 ? "show" : ""}`}></div>
 						</article>
 
 						<div className="connect-wallet__wallets">

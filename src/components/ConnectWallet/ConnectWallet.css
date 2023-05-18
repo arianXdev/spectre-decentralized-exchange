@@ -293,3 +293,33 @@
 	scale: 1;
 	visibility: visible;
 }
+
+/* Spinner Styles */
+.spinner {
+	position: fixed;
+	right: 14%;
+	width: 2.5vw;
+	height: 2.5vw;
+	border-radius: 50%;
+	display: inline-block;
+	border-top: 0.24vw solid #fff;
+	border-right: 0.24vw solid transparent;
+	opacity: 0;
+	scale: 0;
+	transition: all 0.2s ease-in-out;
+}
+
+.spinner.show {
+	animation: rotation 1s linear infinite;
+	opacity: 1;
+	scale: 1;
+}
+
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
