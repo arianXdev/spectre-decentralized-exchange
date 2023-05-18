@@ -1,13 +1,14 @@
 import { FC, ReactElement, useEffect, useRef, useState, useContext } from "react";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { useAppSelector, useAppDispatch } from "~/app/hooks";
 
-import { EthersContext } from "../../context/EthersContext";
+import { EthersContext } from "~/context/EthersContext";
 
 import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
 
-import { loadConnection } from "../../app/interactions";
+import { loadConnection } from "~/app/interactions";
 
+import useMetaMask from "~/hooks/useMetaMask";
 import { AccountMenu, ConnectWallet } from "..";
 import { Icon } from "..";
 
@@ -30,6 +31,12 @@ enum NetworksChainId {
 	Sepolia = "0xaa36a7",
 	Goerli = "0x5",
 	Localhost = "0x7a69", // Hardhat local network chainId in hexadecimal (31337)
+}
+
+enum IsConnectingStatus {
+	CONNECTING,
+	SUCCESSFUL,
+	REJECTED,
 }
 
 const Header: FC = (): ReactElement => {
@@ -79,16 +86,42 @@ const Header: FC = (): ReactElement => {
 	// Connect Wallet display state
 	const [isConnectWalletOpen, setIsConnectWalletOpen] = useState(false);
 
+	// Is Wallet Connecting
+	const [isWalletConnecting, setIsWalletConnecting] = useState(false);
+	const [walletConnectingStatus, setWalletConnectingStatus] = useState(IsConnectingStatus.CONNECTING);
+
 	const handleAccountMenuToggle = () => (account ? setIsAccountMenuOpen(!isAccountMenuOpen) : null);
 	const handleConnectWalletToggle = async () =>
-		window.ethereum._state.accounts.length === 0
+		window.ethereum._state.accounts.length === 0 || window.ethereum._state.accounts !== null
 			? setIsConnectWalletOpen(!isConnectWalletOpen)
 			: await loadConnection(provider, dispatch);
 
 	// When the user clicks on MetaMask wallet button, then handleMetaMaskWallet will be called
 	const handleMetaMaskWallet = async () => {
 		// load connections & save the current connection information in the store
-		await loadConnection(provider, dispatch);
+		setIsWalletConnecting(true);
+		setWalletConnectingStatus(IsConnectingStatus.CONNECTING);
+		try {
+			await loadConnection(provider, dispatch)
+				.then(() => {
+					setWalletConnectingStatus(IsConnectingStatus.SUCCESSFUL);
+
+					setTimeout(() => {
+						setIsWalletConnecting(false);
+						setIsConnectWalletOpen(false);
+					}, 3000);
+				})
+				.catch((err) => {
+					setWalletConnectingStatus(IsConnectingStatus.REJECTED);
+					console.log(err);
+
+					setTimeout(() => {
+						setIsWalletConnecting(false);
+					}, 5000);
+				});
+		} catch (err) {
+			setWalletConnectingStatus(IsConnectingStatus.REJECTED);
+		}
 	};
 
 	const onNetworkChanged = async (network: Networks) => {
@@ -230,6 +263,8 @@ const Header: FC = (): ReactElement => {
 					<ConnectWallet
 						isOpen={isConnectWalletOpen}
 						onClose={handleConnectWalletToggle}
+						status={walletConnectingStatus}
+						isConnecting={isWalletConnecting}
 						handleMetaMaskWallet={handleMetaMaskWallet}
 					/>
 				</div>

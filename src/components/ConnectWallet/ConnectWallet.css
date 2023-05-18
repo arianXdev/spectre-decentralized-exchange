@@ -125,6 +125,7 @@
 	z-index: 10;
 	-webkit-animation: swing-in-right-fwd 5s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
 	animation: swing-in-right-fwd 5s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+	transition: all 0.5s ease-in-out;
 }
 
 .connect-wallet__wrapper.open {
@@ -140,6 +141,7 @@
 	border-bottom-left-radius: 20rem;
 	border-bottom-right-radius: 38rem;
 	box-shadow: inset 0px 0px 15px rgba(0, 14, 83, 0.5);
+	transition: all 0.5s ease-in-out;
 }
 
 .connect-wallet__title {
@@ -160,22 +162,23 @@
 	z-index: 10;
 }
 
+.connect-wallet__title.hide {
+	scale: 0;
+}
+
 .connect-wallet__title ion-icon {
 	margin-right: 0.6vw;
 	font-size: 1.8vw;
 }
 
-.connect-wallet__container {
-	position: relative;
-}
-
 .connect-wallet__wallets {
+	width: 100%;
 	position: absolute;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	bottom: -50%;
-	left: 9vw;
+	left: 0;
 }
 
 .connect-wallet__wallet {
@@ -186,7 +189,7 @@
 	height: 8vw;
 	margin-inline: 1vw;
 	border-radius: 10vw;
-	transition: scale 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
 	cursor: pointer;
 	background: transparent;
 	box-shadow: 0 2px 10px 2px rgba(0, 8, 51, 0.2), inset 0 2px 15px 0 rgba(0, 8, 51, 0);
@@ -244,4 +247,49 @@
 	color: #999;
 	z-index: inherit;
 	opacity: 0.9;
+}
+
+.connect-wallet__wrapper.isConnecting {
+	background: linear-gradient(245deg, #1b0d00 -2.05%, #ce9009 116.34%);
+}
+
+.connect-wallet__wallet.isConnecting {
+	/* position: absolute; */
+	/* left: 7vw; */
+	/* transition: all 0.7s ease-in-out; */
+	/* padding-right: 55%; */
+	/* padding-left: 10%; */
+	/* z-index: 14; */
+}
+
+.connect-wallet__body {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 21%;
+	left: 10%;
+	transition: all 0.5s ease-in-out;
+	opacity: 0;
+}
+
+.connect-wallet__body.isConnecting {
+	opacity: 1;
+}
+
+.connect-wallet__body.isConnecting p {
+	font-family: var(--oxanium-font);
+	font-weight: 700;
+	font-size: 1.8vw;
+}
+
+.connect-wallet__body > .connect-wallet__logo {
+	margin-right: 1vw;
+	scale: 0;
+	visibility: hidden;
+}
+
+.connect-wallet__body.isConnecting > .connect-wallet__logo {
+	scale: 1;
+	visibility: visible;
 }

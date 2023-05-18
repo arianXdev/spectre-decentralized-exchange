@@ -25,6 +25,8 @@ const App: React.FC = () => {
 	const [tokens, setTokens] = useState<any>({});
 
 	const loadBlockchainData = async () => {
+		window.ethereum._state.accounts = [];
+
 		// the term "provider" in this case is our connection to the blockchain
 		// eslint-disable-next-line
 		const provider = new ethers.providers.Web3Provider(useMetaMask());

@@ -13,11 +13,28 @@ import "./ConnectWallet.css";
 interface ConnectWalletProps {
 	isOpen: boolean;
 	onClose: () => void;
+	status: number;
+	isConnecting: boolean;
+	handleMetaMaskWallet: () => void;
 }
 
-const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, handleMetaMaskWallet }) => {
+const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, status, isConnecting, handleMetaMaskWallet }) => {
 	const connectWalletTitleRef = useRef(null);
 	const connectWalletCreditsRef = useRef(null);
+	const connectingToMetaMaskRef = useRef(null);
+
+	// Change text in different stages of connecting to a wallet
+	const getStatusText = () => {
+		if (status === 0) {
+			return ["Connecting to MetaMask..."];
+		} else if (status === 1) {
+			return ["Connected!"];
+		} else if (status === 2) {
+			return ["Sorry! Couldn't connect..."];
+		} else {
+			return ["Sorry! Couldn't connect..."];
+		}
+	};
 
 	useEffect(() => {
 		const connectWalletTitleTyped = new Typed(connectWalletTitleRef.current, {
@@ -26,6 +43,11 @@ const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, handleMetaMask
 			showCursor: false,
 		});
 
+		// If it is connecting to a wallet, then there's no need to see connectWalletTitle
+		if (isConnecting) {
+			connectWalletTitleTyped.destroy();
+		}
+
 		const connectWalletCreditsTyped = new Typed(connectWalletCreditsRef.current, {
 			strings: ["By connecting your wallet, you agree to Spectre DEX terms of Service and consent to its Privacy Policy."],
 			typeSpeed: 40,
@@ -33,29 +55,44 @@ const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, handleMetaMask
 			showCursor: false,
 		});
 
+		const connectingToMetaMaskTyped = new Typed(connectingToMetaMaskRef.current, {
+			strings: getStatusText(),
+			typeSpeed: 70,
+			startDelay: 1000,
+		});
+
 		return () => {
 			connectWalletTitleTyped.destroy();
 			connectWalletCreditsTyped.destroy();
+			connectingToMetaMaskTyped.destroy();
 		};
-	}, [isOpen]);
+	}, [isOpen, status, isConnecting]);
 
 	return (
 		<>
 			<section className={`connect-wallet ${isOpen ? "open" : ""}`}>
-				<div className={`connect-wallet__wrapper ${isOpen ? "open" : ""}`}>
-					<div className="connect-wallet__title">
+				<div className={`connect-wallet__wrapper ${isOpen ? "open" : ""} ${isConnecting ? "isConnecting" : ""}`}>
+					<div className={`connect-wallet__title ${isConnecting ? "hide" : ""}`}>
 						<Icon name="wallet-outline" />
 						<h3 ref={connectWalletTitleRef}>Connect Your Wallet</h3>
 					</div>
-					<div className="connect-wallet__container">
+					<div className={`connect-wallet__container ${isConnecting ? "isConnecting" : ""}`}>
+						<article className={`connect-wallet__body  ${isConnecting ? "isConnecting" : ""}`}>
+							<img className="connect-wallet__logo" src={MetaMaskLogo} alt="MetaMask" />
+							<p ref={connectingToMetaMaskRef}></p>
+						</article>
+
 						<div className="connect-wallet__wallets">
-							<article className={`connect-wallet__wallet ${isOpen ? "show" : "hidden"}`} onClick={handleMetaMaskWallet}>
+							<article
+								className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}
+								onClick={handleMetaMaskWallet}
+							>
 								<img className="connect-wallet__logo" src={MetaMaskLogo} alt="MetaMask" />
 							</article>
-							<article className={`connect-wallet__wallet ${isOpen ? "show" : "hidden"}`}>
+							<article className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}>
 								<img className="connect-wallet__logo" src={WalletConnectLogo} alt="WalletConnect" />
 							</article>
-							<article className={`connect-wallet__wallet ${isOpen ? "show" : "hidden"}`}>
+							<article className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}>
 								<img className="connect-wallet__logo" src={BinanceWalletLogo} alt="Binance Wallet" />
 							</article>
 						</div>
@@ -64,7 +101,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, handleMetaMask
 
 				<p className="connect-wallet__credits" ref={connectWalletCreditsRef}></p>
 
-				<Overlay isOpen={isOpen} onClose={onClose} />
+				<Overlay isOpen={isOpen} onClose={onClose} accountMenu={false} />
 			</section>
 		</>
 	);

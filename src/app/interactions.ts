@@ -27,7 +27,7 @@ export const loadConnection = async (provider: any, dispatch: AppDispatch) => {
 	// Save the current connection information into the Redux store
 	dispatch(connected(chainId, account, balance));
 
-	return { chainId, balance };
+	return { chainId, balance, accounts };
 };
 
 export const loadTokens = async (provider: any, addresses: any, dispatch: AppDispatch) => {
