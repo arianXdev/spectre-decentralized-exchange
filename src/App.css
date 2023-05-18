@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap");
+
+.arian-name {
+	position: fixed;
+	left: 50%;
+	bottom: 3%;
+	font-family: "MonteCarlo";
+	font-size: 4rem;
+	font-weight: 100;
+	transform: translate(-50%, -50%);
+	user-select: none;
+	-webkit-user-select: none;
+	pointer-events: none;
+	-webkit-pointer-events: none;
+	opacity: 0.2;
+	color: #fff;
+}

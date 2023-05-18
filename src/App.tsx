@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAppDispatch } from "./app/hooks";
 
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -15,6 +15,7 @@ import useMetaMask from "./hooks/useMetaMask";
 
 import { Header } from "./components";
 import { Toaster } from "react-hot-toast";
+import Typed from "typed.js";
 
 import "./App.css";
 
@@ -24,6 +25,8 @@ const App: React.FC = () => {
 	const [provider, setProvider] = useState({});
 	const [exchange, setExchange] = useState({});
 	const [tokens, setTokens] = useState<any>({});
+
+	const arianNameRef = useRef(null);
 
 	const loadBlockchainData = async () => {
 		window.ethereum._state.accounts = [];
@@ -64,6 +67,25 @@ const App: React.FC = () => {
 		loadBlockchainData();
 	}, []);
 
+	useEffect(() => {
+		const arianNameTyped = new Typed(arianNameRef.current, {
+			strings: [
+				"Arian Hosseini",
+				`<i style="font-family: var(--oxanium-font);font-size: 2.8rem">Blockchain Developer</i>`,
+				`Arian Hosseini <i style="font-family: var(--oxanium-font);font-size: 2.2rem"> | Blockchain Developer</i>`,
+				"Arian Hosseini",
+			],
+			typeSpeed: 100,
+			fadeOut: true,
+			startDelay: 3000,
+			showCursor: false,
+		});
+
+		return () => {
+			arianNameTyped.destroy();
+		};
+	}, []);
+
 	return (
 		<EthersContext.Provider value={{ provider }}>
 			<ExchangeContext.Provider value={{ exchange }}>
@@ -77,6 +99,8 @@ const App: React.FC = () => {
 							className: "Toaster",
 						}}
 					/>
+
+					<h2 className="arian-name" ref={arianNameRef}></h2>
 
 					<Routes>
 						<Route path="/" element={<Navigate to="/swap" />} />
