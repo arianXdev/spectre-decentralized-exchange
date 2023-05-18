@@ -72,7 +72,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, status, isConn
 		<>
 			<section className={`connect-wallet ${isOpen ? "open" : ""}`}>
 				<div className={`connect-wallet__wrapper ${isOpen ? "open" : ""} ${isConnecting ? "isConnecting" : ""}`}>
-					<div className={`connect-wallet__title ${isConnecting ? "hide" : ""}`}>
+					<div className={`connect-wallet__title ${isConnecting ? "hidden" : ""}`}>
 						<Icon name="wallet-outline" />
 						<h3 ref={connectWalletTitleRef}>Connect Your Wallet</h3>
 					</div>
@@ -80,7 +80,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, status, isConn
 						<article className={`connect-wallet__body  ${isConnecting ? "isConnecting" : ""}`}>
 							<img className="connect-wallet__logo" src={MetaMaskLogo} alt="MetaMask" />
 							<p ref={connectingToMetaMaskRef}></p>
-							<div className={`spinner ${isConnecting && status !== 1 ? "show" : ""}`}></div>
+							<div className={`spinner ${isConnecting && status !== 1 ? "visible" : ""}`}></div>
 						</article>
 
 						<div className="connect-wallet__wallets">

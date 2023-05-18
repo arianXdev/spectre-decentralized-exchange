@@ -8,7 +8,8 @@ import classNames from "classnames";
 
 import { loadConnection } from "~/app/interactions";
 
-import useMetaMask from "~/hooks/useMetaMask";
+import Logo from "~/assets/images/spectre-logo-light.png";
+
 import { AccountMenu, ConnectWallet } from "..";
 import { Icon } from "..";
 
@@ -175,7 +176,7 @@ const Header: FC = (): ReactElement => {
 		<header className="Header">
 			<div className="Header__logo">
 				<Link to="/swap" className="Header__link">
-					<img src="/src/assets/images/spectre-logo-light.png" alt="Spectre-DEX-logo" className="Header__img" />
+					<img src={Logo} alt="Spectre-DEX-logo" className="Header__img" />
 					<h1 className="Header__title">Spectre</h1>
 					<span className="Header__span">DEX</span>
 				</Link>

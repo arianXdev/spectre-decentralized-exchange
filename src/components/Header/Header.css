@@ -8,7 +8,9 @@
 	user-select: none;
 }
 
-/* Header Logo Section */
+/* ----------------------- */
+/* ----- Header LOGO ----- */
+/* ----------------------- */
 .Header__logo {
 	color: white !important;
 	user-select: none;
@@ -39,7 +41,9 @@
 	letter-spacing: 2px;
 }
 
-/* Header Tabs Section */
+/* ----------------------- */
+/* ----- Header TABS ----- */
+/* ----------------------- */
 .Header__tabs-wrapper {
 	display: flex;
 	justify-content: center;
@@ -89,7 +93,9 @@
 	z-index: 5;
 }
 
-/* Header Connection Section */
+/* ----------------------- */
+/* -- Header CONNECTION -- */
+/* ----------------------- */
 .Header__connection {
 	display: grid;
 	grid-template-columns: 46% 39% 15%;
@@ -203,8 +209,8 @@
 	padding: 0.8em 1.5em;
 	margin: 0.3em 0;
 	border-radius: 17px;
-	cursor: pointer;
 	transition: all 0.3s ease-out;
+	cursor: pointer;
 }
 
 .network-menu__item--selected {

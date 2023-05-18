@@ -36,6 +36,7 @@
 	-moz-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+/* Scrollbar styles */
 ::-webkit-scrollbar {
 	width: 10px;
 }

@@ -147,15 +147,15 @@
 .account-menu__balance {
 	width: 100%;
 	display: grid;
+	grid-template-columns: 10% 30% 1fr;
 	align-items: center;
 	font-family: var(--oxanium-font);
-	grid-template-columns: 10% 30% 1fr;
 	font-size: 1.2rem;
 }
 
 .account-menu__balance small {
-	font-family: var(--mono-font);
 	justify-self: end;
+	font-family: var(--mono-font);
 	user-select: all;
 }
 
