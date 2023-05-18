@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { BrowserTypes, isFirefox, browserName } from "react-device-detect";
 
-import { Icon } from "..";
+import { Icon, MetaMaskLogo } from "..";
 
 import "./InstallWallet.css";
 
@@ -24,6 +24,7 @@ const InstallWallet = () => {
 	return (
 		<main className="install-wallet">
 			<div className="install-wallet__container">
+				<MetaMaskLogo />
 				<div className="install-wallet__wrapper">
 					<div className="install-wallet__title">
 						<Icon name="alert-circle" />

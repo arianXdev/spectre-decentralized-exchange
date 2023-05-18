@@ -189,24 +189,6 @@ button {
 	}
 }
 
-/* MetaMask Animated Logo */
-#logo-container {
-	position: fixed;
-	top: 7.5vw;
-	left: 45vw;
-	z-index: 15;
-	display: none;
-}
-
-#logo-container > svg {
-	width: 9vw;
-	height: auto;
-}
-
-#logo-container.visible {
-	display: block;
-}
-
 @media (min-width: 768px) {
 	.container {
 		max-width: 800px;

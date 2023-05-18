@@ -22,7 +22,7 @@
 
 .install-wallet__wrapper {
 	position: absolute;
-	top: 45%;
+	top: 14vw;
 	padding-inline: 3vw;
 }
 
@@ -81,7 +81,24 @@
 	padding-right: 0.5em;
 }
 
-/* Down Arrow styles */
+/* --------------------- */
+/* --- MetaMask Logo --- */
+/* --------------------- */
+.MetaMask-logo {
+	position: absolute;
+	top: 2vw;
+	left: 10.5vw;
+	z-index: 15;
+}
+
+.MetaMask-logo svg {
+	width: 11vw !important;
+	height: 11vw !important;
+}
+
+/* ---------------------- */
+/* ----- Down Arrow ----- */
+/* ---------------------- */
 .downArrow {
 	position: absolute;
 	bottom: 10%;
