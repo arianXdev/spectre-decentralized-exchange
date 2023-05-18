@@ -4,7 +4,7 @@
 	right: -388px;
 	width: 388px;
 	height: 95%;
-	background-color: #010816;
+	background-color: var(--dark-color);
 	border-top-left-radius: 50px;
 	box-shadow: -2px 1px 10px rgba(0, 0, 0, 0.3);
 	border-end-start-radius: 50px;

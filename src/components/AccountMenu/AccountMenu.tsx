@@ -9,6 +9,7 @@ import Blockies from "react-18-blockies";
 import copy from "clipboard-copy";
 
 import config from "../../config.json";
+import { toast } from "react-hot-toast";
 
 import "./AccountMenu.css";
 
@@ -38,8 +39,35 @@ const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose }) => {
 	};
 
 	const handleDisconnect = async () => {
-		dispatch(disconnected());
-		onClose();
+		toast(
+			(t) => (
+				<div className="toast--flex">
+					<p>
+						Are you sure that you want to<small style={{ color: "var(--red-color)", marginInline: ".3rem" }}>disconnect</small>
+						your account?
+					</p>
+
+					<button
+						className="toast-btn toast-btn--confirm"
+						onClick={() => {
+							dispatch(disconnected());
+							onClose();
+
+							toast.dismiss(t.id);
+							toast.success("Your account has been disconnected.");
+						}}
+					>
+						Yes!
+					</button>
+					<button className="toast-btn toast-btn--dismiss" onClick={() => toast.dismiss(t.id)}>
+						Dismiss
+					</button>
+				</div>
+			),
+			{
+				icon: <Icon name="alert" />,
+			}
+		);
 	};
 
 	const onAccountAddressCopied = () => {

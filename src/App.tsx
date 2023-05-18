@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "./app/hooks";
 
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ethers } from "ethers";
 
 import config from "./config.json";
@@ -13,9 +14,9 @@ import { loadConnection, loadTokens, loadExchange } from "./app/interactions";
 import useMetaMask from "./hooks/useMetaMask";
 
 import { Header } from "./components";
+import { Toaster } from "react-hot-toast";
 
 import "./App.css";
-import { Navigate, Route, Routes } from "react-router-dom";
 
 const App: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -70,6 +71,12 @@ const App: React.FC = () => {
 					<div className="container">
 						<Header />
 					</div>
+
+					<Toaster
+						toastOptions={{
+							className: "Toaster",
+						}}
+					/>
 
 					<Routes>
 						<Route path="/" element={<Navigate to="/swap" />} />

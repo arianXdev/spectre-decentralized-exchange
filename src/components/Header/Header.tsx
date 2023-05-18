@@ -13,6 +13,8 @@ import Logo from "~/assets/images/spectre-logo-light.png";
 import { AccountMenu, ConnectWallet } from "..";
 import { Icon } from "..";
 
+import { toast, ErrorIcon, CheckmarkIcon } from "react-hot-toast";
+
 import "./Header.css";
 
 enum Tabs {
@@ -126,20 +128,31 @@ const Header: FC = (): ReactElement => {
 	};
 
 	const onNetworkChanged = async (network: Networks) => {
-		setSelectedNetwork(network);
 		setShowNetworkMenu(false);
 
-		// Get the chainId of the selected network by user
-		const chainId = NetworksChainId[network];
+		if (network !== selectedNetwork) {
+			// Get the chainId of the selected network by user
+			const chainId = NetworksChainId[network];
 
-		// Send a request to MetaMask to change the network
-		try {
-			await window.ethereum.request({
-				method: "wallet_switchEthereumChain",
-				params: [{ chainId }],
-			});
-		} catch (err: unknown) {
-			console.log(err);
+			let toastApprove;
+			// Send a request to MetaMask to change the network
+			try {
+				toastApprove = toast.loading("Please approve to switch the network...", {
+					icon: <span className={`toast-spinner ${network ? "visible" : ""}`}></span>,
+				});
+
+				await window.ethereum.request({
+					method: "wallet_switchEthereumChain",
+					params: [{ chainId }],
+				});
+
+				toast.success("The page will reload in a sec...", { id: toastApprove, duration: 6000, icon: <CheckmarkIcon /> });
+				setSelectedNetwork(network);
+			} catch (err: unknown) {
+				toast.error("Couldn't switch the network! - Please try again.", { id: toastApprove, duration: 4000, icon: <ErrorIcon /> });
+
+				console.log(err);
+			}
 		}
 	};
 

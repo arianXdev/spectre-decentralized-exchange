@@ -290,15 +290,6 @@
 /* ----------------------- */
 /* ------- SPINNER ------- */
 /* ----------------------- */
-@keyframes rotation {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
-}
-
 .spinner {
 	position: fixed;
 	right: 14%;

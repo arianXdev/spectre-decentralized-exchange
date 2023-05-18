@@ -15,6 +15,7 @@
 	--yellow-color: #ffe600;
 	--gray-color: #505050;
 	--black-color: #101824;
+	--dark-color: #010816;
 	--non-active-color: rgba(0, 71, 255, 0.1);
 	--background-color: linear-gradient(245deg, #000428 -2.05%, #0862b0 116.34%);
 
@@ -97,6 +98,82 @@ button {
 
 button {
 	cursor: pointer;
+}
+
+/* Custom Hot Toast */
+.Toaster {
+	max-width: 100% !important;
+	font-family: var(--oxanium-font) !important;
+	font-weight: 700 !important;
+	color: white !important;
+	background-color: var(--dark-color) !important;
+	border-radius: 20px !important;
+}
+
+.Toaster ion-icon {
+	padding-left: 0.3rem;
+	font-size: 1.5rem;
+}
+
+.Toaster .toast--flex {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.Toaster .toast-btn {
+	border-radius: 0.9rem;
+	padding-inline: 0.9rem;
+	padding-block: 0.4rem;
+	margin-left: 0.6rem;
+	transition: all 0.3s ease-in-out;
+}
+
+.Toaster .toast-btn--confirm {
+	color: white;
+	background: transparent;
+}
+
+.Toaster .toast-btn--confirm:hover {
+	background: var(--black-color);
+}
+
+.Toaster .toast-btn--dismiss {
+	color: white;
+	background: var(--red-color);
+	box-shadow: 0 1px 20px 5px rgba(151, 0, 25, 0.4);
+}
+
+.Toaster .toast-btn--dismiss:hover {
+	color: var(--red-color);
+	background: white;
+}
+
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.Toaster .toast-spinner {
+	width: 1.3vw;
+	height: 1.3vw;
+	border-radius: 50%;
+	display: inline-block;
+	border-top: 0.24vw solid #fff;
+	border-right: 0.24vw solid transparent;
+	opacity: 0;
+	scale: 0;
+	transition: all 0.3s ease-in-out;
+}
+
+.Toaster .toast-spinner.visible {
+	animation: rotation 1s linear infinite;
+	opacity: 1;
+	scale: 1;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */

@@ -7,6 +7,7 @@ import WalletConnectLogo from "../../assets/images/wallet-connect.png";
 import BinanceWalletLogo from "../../assets/images/binance-wallet.png";
 
 import Typed from "typed.js";
+import { toast } from "react-hot-toast";
 
 import "./ConnectWallet.css";
 
@@ -68,6 +69,28 @@ const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, status, isConn
 		};
 	}, [isOpen, status, isConnecting]);
 
+	const handleWalletConnect = () => {
+		toast(
+			<>
+				<span>Coming Soon!</span>
+				<small style={{ color: "var(--primary-color)", marginInline: ".3rem" }}>Wallet Connect</small>
+				<p>will be supported in the future versions!</p>
+			</>,
+			{ icon: <Icon name="flask-outline" /> }
+		);
+	};
+
+	const handleBinanceWallet = () => {
+		toast(
+			<>
+				<span>Coming Soon!</span>
+				<small style={{ color: "var(--yellow-color)", marginInline: ".3rem" }}>Binance Wallet</small>
+				<p>will be supported in the future versions!</p>
+			</>,
+			{ icon: <Icon name="flask-outline" /> }
+		);
+	};
+
 	return (
 		<>
 			<section className={`connect-wallet ${isOpen ? "open" : ""}`}>
@@ -90,10 +113,16 @@ const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, status, isConn
 							>
 								<img className="connect-wallet__logo" src={MetaMaskLogo} alt="MetaMask" />
 							</article>
-							<article className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}>
+							<article
+								className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}
+								onClick={handleWalletConnect}
+							>
 								<img className="connect-wallet__logo" src={WalletConnectLogo} alt="WalletConnect" />
 							</article>
-							<article className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}>
+							<article
+								className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}
+								onClick={handleBinanceWallet}
+							>
 								<img className="connect-wallet__logo" src={BinanceWalletLogo} alt="Binance Wallet" />
 							</article>
 						</div>
