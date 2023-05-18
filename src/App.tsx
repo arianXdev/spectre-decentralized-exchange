@@ -13,7 +13,7 @@ import { TokensContext } from "./context/TokensContext";
 import { loadConnection, loadTokens, loadExchange } from "./app/interactions";
 import useMetaMask from "./hooks/useMetaMask";
 
-import { Header } from "./components";
+import { Header, InstallWallet, Overlay } from "./components";
 import { Toaster } from "react-hot-toast";
 import Typed from "typed.js";
 
@@ -22,6 +22,7 @@ import "./App.css";
 const App: React.FC = () => {
 	const dispatch = useAppDispatch();
 
+	const [isMetaMaskInstalled, setIsMetaMaskInstalled] = useState(true);
 	const [provider, setProvider] = useState({});
 	const [exchange, setExchange] = useState({});
 	const [tokens, setTokens] = useState<any>({});
@@ -63,44 +64,59 @@ const App: React.FC = () => {
 	};
 
 	useEffect(() => {
-		// When the exchange runs, it's gonna get all the Blockchain data and contracts
-		loadBlockchainData();
+		if (typeof window.ethereum === "undefined") {
+			setIsMetaMaskInstalled(false);
+		} else {
+			// When the exchange runs, it's gonna get all the Blockchain data and contracts
+			loadBlockchainData();
+		}
 	}, []);
 
 	useEffect(() => {
-		const arianNameTyped = new Typed(arianNameRef.current, {
-			strings: [
-				"Arian Hosseini",
-				`<i style="font-family: var(--oxanium-font);font-size: 2.8rem">Blockchain Developer</i>`,
-				`Arian Hosseini <i style="font-family: var(--oxanium-font);font-size: 2.2rem"> | Blockchain Developer</i>`,
-				"Arian Hosseini",
-			],
-			typeSpeed: 100,
-			fadeOut: true,
-			startDelay: 3000,
-			showCursor: false,
-		});
+		if (isMetaMaskInstalled) {
+			const arianNameTyped = new Typed(arianNameRef.current, {
+				strings: [
+					"Arian Hosseini",
+					`<i style="font-family: var(--oxanium-font);font-size: 2.8rem">Blockchain Developer</i>`,
+					`Arian Hosseini <i style="font-family: var(--oxanium-font);font-size: 2.2rem"> | Blockchain Developer</i>`,
+					"Arian Hosseini",
+				],
+				typeSpeed: 100,
+				fadeOut: true,
+				startDelay: 3000,
+				showCursor: false,
+			});
 
-		return () => {
-			arianNameTyped.destroy();
-		};
+			return () => {
+				arianNameTyped.destroy();
+			};
+		}
 	}, []);
 
 	return (
 		<EthersContext.Provider value={{ provider }}>
 			<ExchangeContext.Provider value={{ exchange }}>
 				<TokensContext.Provider value={{ tokens }}>
-					<div className="container">
-						<Header />
-					</div>
+					{isMetaMaskInstalled === false ? (
+						<>
+							<InstallWallet />
+							<Overlay isOpen={true} />
+						</>
+					) : null}
 
-					<Toaster
-						toastOptions={{
-							className: "Toaster",
-						}}
-					/>
+					<>
+						<div className="container">
+							<Header />
+						</div>
 
-					<h2 className="arian-name" ref={arianNameRef}></h2>
+						<Toaster
+							toastOptions={{
+								className: "Toaster",
+							}}
+						/>
+
+						<h2 className="arian-name" ref={arianNameRef}></h2>
+					</>
 
 					<Routes>
 						<Route path="/" element={<Navigate to="/swap" />} />
