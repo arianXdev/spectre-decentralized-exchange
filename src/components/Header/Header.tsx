@@ -209,7 +209,10 @@ const Header: FC = (): ReactElement => {
 			<div className="Header__connection">
 				<div className="Header__networks">
 					<div className="Header__network" ref={networkMenuRef}>
-						<button onClick={() => setShowNetworkMenu(!showNetworkMenu)} className="Header__network-btn">
+						<button
+							onClick={() => setShowNetworkMenu(!showNetworkMenu)}
+							className={`Header__network-btn ${showNetworkMenu ? "active" : ""}`}
+						>
 							{getSelectedNetworkIcon()}
 							<span>{selectedNetwork}</span>
 							<Icon name="chevron-down-outline" />
