@@ -6,6 +6,8 @@
 	width: 100%;
 	min-height: 100vh;
 	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	-moz-backdrop-filter: blur(10px);
 	transition: all 0.05s ease-in-out;
 	z-index: 8;
 	scale: 0;

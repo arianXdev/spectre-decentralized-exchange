@@ -14,6 +14,7 @@ import { loadConnection, loadTokens, loadExchange } from "./app/interactions";
 import useMetaMask from "./hooks/useMetaMask";
 
 import { Header, InstallWallet, Overlay } from "./components";
+import { isMobile } from "react-device-detect";
 import { Toaster } from "react-hot-toast";
 import Typed from "typed.js";
 
@@ -30,7 +31,7 @@ const App: React.FC = () => {
 	const arianNameRef = useRef(null);
 
 	const loadBlockchainData = async () => {
-		window.ethereum._state.accounts = [];
+		if (!isMobile) window.ethereum._state.accounts = [];
 
 		// the term "provider" in this case is our connection to the blockchain
 		// eslint-disable-next-line
@@ -73,7 +74,7 @@ const App: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		if (isMetaMaskInstalled) {
+		if (isMetaMaskInstalled && !isMobile) {
 			const arianNameTyped = new Typed(arianNameRef.current, {
 				strings: [
 					"Arian Hosseini",
@@ -97,7 +98,7 @@ const App: React.FC = () => {
 		<EthersContext.Provider value={{ provider }}>
 			<ExchangeContext.Provider value={{ exchange }}>
 				<TokensContext.Provider value={{ tokens }}>
-					{isMetaMaskInstalled === false ? (
+					{!isMetaMaskInstalled && !isMobile ? (
 						<>
 							<InstallWallet />
 							<Overlay isOpen={true} />

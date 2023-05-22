@@ -69,7 +69,7 @@
 .Header__tab {
 	position: absolute;
 	width: 40%;
-	font-size: 15px;
+	font-size: 1em;
 	padding-block: 0.7rem;
 	border-radius: inherit;
 	background: var(--non-active-color);
@@ -133,13 +133,13 @@
 	transition: all 0.3s ease-out;
 }
 
-.Header__network-btn:focus {
+.Header__network-btn.active {
 	background: rgba(255, 255, 255, 0.09);
 	box-shadow: 0px 0px 1px 5px rgba(2, 14, 51, 0.7), 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
-.Header__network-btn:focus-within > ion-icon {
-	transform: rotateX(-180deg);
+.Header__network-btn.active > ion-icon {
+	transform: rotate(180deg);
 }
 
 .Header__network-icon {
@@ -151,7 +151,7 @@
 
 .Header__network-btn > ion-icon {
 	position: absolute;
-	right: 15px;
+	right: 0.7em;
 	font-size: 1.1em;
 	color: #01c0fd;
 	transition: all 0.5s ease-out;
@@ -180,7 +180,7 @@
 }
 
 .Header__account-btn > ion-icon {
-	font-size: 1.3rem;
+	font-size: 1.3em;
 	padding-right: 10px;
 }
 
@@ -225,6 +225,272 @@
 
 .network-menu__icon {
 	margin-right: 0.5em;
+}
+
+@media (max-width: 1200px) {
+	.Header {
+		grid-template-columns: 25% 45% 30%;
+	}
+
+	.Header__networks,
+	.Header__account-btn {
+		width: 100%;
+	}
+
+	.Header__network {
+		width: 70%;
+	}
+
+	.Header__network-btn span {
+		display: none;
+	}
+
+	.Header__network-icon {
+		font-size: 1.7em;
+	}
+
+	.Header__account-btn.connected p {
+		display: none;
+	}
+
+	.Header__account-btn > ion-icon {
+		font-size: 1.6rem;
+	}
+}
+
+@media (max-width: 1024px) {
+	.Header {
+		grid-template-columns: 26% 54% 1fr;
+	}
+
+	.Header__connection {
+		grid-template-columns: 60% 40%;
+		font-size: 1.1em;
+	}
+
+	.Header__network {
+		width: 100%;
+	}
+
+	.Header__account {
+		width: 25%;
+		position: fixed;
+		bottom: 2%;
+		right: 3%;
+	}
+
+	.Header__account-btn.connected {
+		border-radius: 1.6em;
+	}
+
+	.Header__account-btn {
+		font-size: 1.3rem;
+		padding-block: 1.1rem;
+		font-weight: 900;
+	}
+
+	.Header__settings {
+		font-size: 2.1rem;
+	}
+
+	.Header__network-btn {
+		padding-left: 2em;
+	}
+
+	.Header__network-btn > ion-icon {
+		font-size: 1.4em;
+	}
+
+	.Header__tabs {
+		height: 58px;
+	}
+
+	.Header__tab {
+		padding-block: 0.8rem;
+	}
+}
+
+@media (max-width: 992px) {
+	.Header {
+		align-items: center;
+		grid-template-columns: 12% 70% 1fr;
+		padding-top: 1rem;
+	}
+
+	.Header__title,
+	.Header__span {
+		display: none;
+	}
+
+	.Header__connection {
+		grid-template-columns: 100%;
+	}
+
+	.Header__settings {
+		position: fixed;
+		bottom: 2.7%;
+		right: 31%;
+		font-size: 2.2em;
+	}
+
+	.network-menu {
+		left: -5rem;
+	}
+
+	.Header__tabs {
+		height: 60px;
+	}
+
+	.Header__tab {
+		padding-block: 0.9rem;
+		font-size: 1.1em;
+	}
+}
+
+@media (max-width: 768px) {
+	.Header {
+		grid-template-columns: 1fr 65%;
+	}
+
+	.Header__img {
+		max-width: 5rem;
+	}
+
+	.Header__connection {
+		grid-template-columns: 23% 1fr 15%;
+	}
+
+	.Header__networks {
+		width: 70%;
+		align-items: center;
+	}
+
+	.Header__network-btn {
+		font-size: 1.1em;
+		padding-block: 0;
+		justify-content: center;
+		padding: 1rem;
+		border: none;
+	}
+
+	.Header__network-btn.active {
+		box-shadow: 0px 0px 1px 5px rgba(2, 14, 51, 0.3), 0px 0px 1px rgba(0, 0, 0, 0.1);
+	}
+
+	.Header__network-btn > ion-icon {
+		display: none;
+	}
+
+	.Header__network {
+		width: max-content;
+	}
+
+	.network-menu {
+		top: 5rem;
+		font-size: 1em;
+		border-radius: 30px;
+	}
+
+	.network-menu__item {
+		font-size: 1.03em;
+		border-radius: 22px;
+	}
+
+	.network-menu__icon {
+		font-size: 1.25em;
+	}
+
+	.Header__tabs-wrapper {
+		width: 100%;
+		position: fixed;
+		left: 0;
+		bottom: 3%;
+	}
+
+	.Header__tab--active {
+		width: 62%;
+	}
+
+	.Header__account {
+		position: relative;
+		width: 100%;
+		margin-left: 0;
+	}
+
+	.Header__account-btn {
+		border-radius: 1.1em;
+		font-size: 1.4em;
+		box-shadow: 0px 0 10px 0 #0000008a;
+	}
+
+	.Header__account-btn:not(.connected) > ion-icon {
+		display: none;
+	}
+
+	.Header__settings {
+		position: relative;
+		justify-content: center;
+		bottom: 0;
+		right: 0;
+	}
+}
+
+@media (max-width: 576px) {
+	.Header {
+		grid-template-columns: 50% 1fr;
+		padding-inline: 1.5rem;
+		font-size: 14px;
+	}
+
+	.Header__img {
+		max-width: 4rem;
+	}
+
+	.Header__connection {
+		grid-template-columns: 100%;
+		justify-content: end;
+	}
+
+	.Header__connection.connected {
+		grid-template-columns: 40% 60%;
+	}
+
+	.Header__settings {
+		display: none;
+	}
+
+	.Header__connection:not(.connected) > .Header__networks {
+		display: none;
+	}
+
+	.Header__connection.connected .Header__account-btn {
+		display: flex;
+	}
+
+	.Header__connection .Header__account-btn {
+		width: 70%;
+		justify-self: end;
+		padding-block: 0.8em;
+		font-size: 17px;
+		border-radius: 1.5em;
+	}
+
+	.Header__connection.connected .Header__account-btn {
+		width: 100%;
+		font-size: 17px;
+	}
+
+	.Header__connection.connected .Header__account-btn > ion-icon {
+		display: block;
+		padding-right: 0;
+		font-size: 1.4em;
+	}
+
+	.account-menu {
+	}
+
+	.account-menu.open {
+	}
 }
 
 @media (min-width: 1540px) {

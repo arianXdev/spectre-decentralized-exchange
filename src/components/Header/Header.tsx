@@ -206,7 +206,7 @@ const Header: FC = (): ReactElement => {
 				</menu>
 			</div>
 
-			<div className="Header__connection">
+			<div className={`Header__connection ${account ? "connected" : ""}`}>
 				<div className="Header__networks">
 					<div className="Header__network" ref={networkMenuRef}>
 						<button
@@ -269,7 +269,7 @@ const Header: FC = (): ReactElement => {
 				<div className="Header__account">
 					<button
 						onClick={account ? handleAccountMenuToggle : handleConnectWalletToggle}
-						className="Header__account-btn"
+						className={`Header__account-btn ${account ? "connected" : ""}`}
 						title={account ? account : "Please connect your wallet!"}
 					>
 						{account ? <Icon name="person" /> : <Icon name="wallet" />}
