@@ -10,7 +10,7 @@
 	transition: all 0.2s ease-in;
 	visibility: hidden;
 	opacity: 0;
-	z-index: 10;
+	z-index: 50;
 }
 
 .connect-wallet.open {
@@ -117,7 +117,7 @@
 .connect-wallet__wrapper {
 	position: relative;
 	width: 50%;
-	height: 20%;
+	height: 10vw;
 	padding: 0.6vw;
 	background: linear-gradient(136.9deg, #0085ff -10%, rgba(82, 50, 209, 0.52) 105.62%), linear-gradient(0deg, #09151d, #09151d);
 	border-top-left-radius: 20rem;
@@ -127,7 +127,7 @@
 	box-shadow: 0px 0px 76px 0px rgba(0, 19, 117, 0.54);
 	-webkit-animation: swing-in-right-fwd 5s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
 	animation: swing-in-right-fwd 5s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
-	z-index: 10;
+	z-index: 50;
 }
 
 .connect-wallet__wrapper.open {
@@ -161,7 +161,7 @@
 	background: linear-gradient(136.9deg, #0085ff -10%, rgba(82, 50, 209, 0.52) 105.62%), linear-gradient(0deg, #09151d, #09151d);
 	box-shadow: 0px 0px 76px 0px rgba(0, 19, 117, 0.54);
 	border-radius: 5vw;
-	z-index: 10;
+	z-index: 50;
 }
 
 .connect-wallet__title.hidden {
@@ -176,11 +176,12 @@
 .connect-wallet__wallets {
 	width: 100%;
 	position: absolute;
-	bottom: -50%;
+	bottom: -40%;
 	left: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	z-index: 50;
 }
 
 .connect-wallet__wallet {
@@ -308,4 +309,26 @@
 	animation: rotation 1s linear infinite;
 	opacity: 1;
 	scale: 1;
+}
+
+@media (max-width: 1200px) {
+	.connect-wallet__wallets {
+		bottom: -25%;
+	}
+}
+
+@media (max-width: 1024px) {
+	.connect-wallet__wrapper {
+		width: 70%;
+		height: 11vw;
+	}
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 576px) {
 }

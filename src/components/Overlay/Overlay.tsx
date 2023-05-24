@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { createPortal } from "react-dom";
 
 import "./Overlay.css";
 
@@ -9,7 +10,10 @@ interface OverlayProps {
 }
 
 const Overlay: FC<OverlayProps> = ({ isOpen, onClose = null, accountMenu = false }) => {
-	return <div className={`${!accountMenu ? "overlay" : "overlay--account-menu"} ${isOpen ? "active" : ""}`} onClick={onClose}></div>;
+	return createPortal(
+		<div className={`${!accountMenu ? "overlay" : "overlay--account-menu"} ${isOpen ? "active" : ""}`} onClick={onClose}></div>,
+		document?.body as HTMLBodyElement
+	);
 };
 
 export default Overlay;
