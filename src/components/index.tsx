@@ -5,3 +5,5 @@ export { default as InstallWallet } from "./InstallWallet/InstallWallet";
 export { default as MetaMaskLogo } from "./MetaMaskLogo/MetaMaskLogo";
 export { default as Icon } from "./Icon/Icon";
 export { default as Overlay } from "./Overlay/Overlay";
+
+export { default as Trade } from "./Trade/Trade";

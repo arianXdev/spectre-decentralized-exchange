@@ -1,0 +1,59 @@
+.Trade {
+	width: 100%;
+	margin-top: 2rem;
+}
+
+.Trade__container {
+	display: grid;
+	grid-template-columns: 390px 1fr;
+	padding: 0 2rem;
+}
+
+.Trade__exchange {
+	position: relative;
+	width: 100%;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+
+.Trade__exchange img {
+	width: 100%;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	pointer-events: none;
+}
+
+.Trade__markets {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 39.9%;
+	height: 6.3%;
+	background: var(--secondary-color);
+	border-bottom-right-radius: 1.7rem;
+	box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.38);
+	cursor: pointer;
+}
+
+.Trade__markets::before {
+	position: absolute;
+	top: 8%;
+	left: 3%;
+	content: " ";
+	width: 100%;
+	height: 100%;
+	background: #4a5171;
+	display: block;
+	border-bottom-right-radius: 1.8rem;
+	z-index: -1;
+}
+
+.Trade__markets-label {
+	color: #fff;
+	opacity: 0.2;
+	font-size: 0.85rem;
+	display: block;
+	padding: 0.55rem;
+}

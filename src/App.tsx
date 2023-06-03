@@ -13,7 +13,7 @@ import { TokensContext } from "./context/TokensContext";
 import { loadConnection, loadTokens, loadExchange } from "./app/interactions";
 import useMetaMask from "./hooks/useMetaMask";
 
-import { Header, InstallWallet, Overlay } from "./components";
+import { Header, InstallWallet, Overlay, Trade } from "./components";
 import { isMobile } from "react-device-detect";
 import { Toaster } from "react-hot-toast";
 import Typed from "typed.js";
@@ -122,7 +122,7 @@ const App: React.FC = () => {
 					<Routes>
 						<Route path="/" element={<Navigate to="/swap" />} />
 						<Route path="swap" element={<></>} />
-						<Route path="trade" element={<></>} />
+						<Route path="trade" element={<Trade />} />
 					</Routes>
 				</TokensContext.Provider>
 			</ExchangeContext.Provider>
