@@ -173,6 +173,103 @@ button {
 	scale: 1;
 }
 
+/* Animations */
+@-webkit-keyframes swing-in-left-fwd {
+	0% {
+		-webkit-transform: rotateY(100deg);
+		transform: rotateY(100deg);
+		-webkit-transform-origin: left;
+		transform-origin: left;
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: rotateY(0);
+		transform: rotateY(0);
+		-webkit-transform-origin: left;
+		transform-origin: left;
+		opacity: 1;
+	}
+}
+
+@keyframes swing-in-left-fwd {
+	0% {
+		-webkit-transform: rotateY(100deg);
+		transform: rotateY(100deg);
+		-webkit-transform-origin: left;
+		transform-origin: left;
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: rotateY(0);
+		transform: rotateY(0);
+		-webkit-transform-origin: left;
+		transform-origin: left;
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes swing-in-right-fwd {
+	100% {
+		-webkit-transform: rotateY(100deg);
+		transform: rotateY(100deg);
+		-webkit-transform-origin: left;
+		transform-origin: left;
+		opacity: 0;
+	}
+	75% {
+		-webkit-transform: rotateY(75deg);
+		transform: rotateY(75deg);
+		-webkit-transform-origin: left;
+		transform-origin: left;
+		opacity: 0.75;
+	}
+	50% {
+		-webkit-transform: rotateY(50deg);
+		transform: rotateY(50deg);
+		-webkit-transform-origin: left;
+		transform-origin: left;
+		opacity: 0.5;
+	}
+	0% {
+		-webkit-transform: rotateY(0);
+		transform: rotateY(0);
+		-webkit-transform-origin: left;
+		transform-origin: left;
+		opacity: 1;
+	}
+}
+
+@keyframes swing-in-right-fwd {
+	100% {
+		-webkit-transform: rotateY(100deg);
+		transform: rotateY(100deg);
+		-webkit-transform-origin: left;
+		transform-origin: left;
+		opacity: 0;
+	}
+	75% {
+		-webkit-transform: rotateY(75deg);
+		transform: rotateY(75deg);
+		-webkit-transform-origin: left;
+		transform-origin: left;
+		opacity: 0.75;
+	}
+	50% {
+		-webkit-transform: rotateY(50deg);
+		transform: rotateY(50deg);
+		-webkit-transform-origin: left;
+		transform-origin: left;
+		opacity: 0.5;
+	}
+	0% {
+		-webkit-transform: rotateY(0);
+		transform: rotateY(0);
+		-webkit-transform-origin: left;
+		transform-origin: left;
+		opacity: 1;
+	}
+}
+
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
 	html:focus-within {

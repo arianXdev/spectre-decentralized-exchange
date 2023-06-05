@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import TradeRectangle from "../../assets/images/trade-rectangle.svg";
 
-import { Icon } from "..";
+import { Markets, Overlay, Icon } from "..";
 
 import "./Trade.css";
 
@@ -12,10 +13,13 @@ enum Status {
 
 const Trade = () => {
 	const [exchangeStatus, setExchangeStatus] = useState(Status.WITHDRAW);
+	const [isMarketsModalOpen, setIsMarketsModalOpen] = useState(false);
 
 	const onExchangeStatusClicked = () => {
 		setExchangeStatus((prevStatus) => (prevStatus === Status.WITHDRAW ? Status.DEPOSIT : Status.WITHDRAW));
 	};
+
+	const onExchangeMarketsClicked = () => setIsMarketsModalOpen(!isMarketsModalOpen);
 
 	return (
 		<div className="Trade">
@@ -24,9 +28,17 @@ const Trade = () => {
 					<section className="Trade__exchange">
 						<img src={TradeRectangle} alt="trade-rectangle" />
 
-						<menu className="Trade__markets">
+						<menu className="Trade__markets" onClick={onExchangeMarketsClicked}>
 							<span className="Trade__markets-label">Market</span>
 						</menu>
+
+						{createPortal(
+							<>
+								<Markets isOpen={isMarketsModalOpen} setIsOpen={setIsMarketsModalOpen} />
+								<Overlay isOpen={isMarketsModalOpen} onClose={onExchangeMarketsClicked} />
+							</>,
+							document.getElementById("root") as HTMLBodyElement
+						)}
 
 						<div className="Trade__status" onClick={onExchangeStatusClicked}>
 							<button

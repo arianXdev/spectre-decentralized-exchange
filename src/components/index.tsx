@@ -7,3 +7,4 @@ export { default as Icon } from "./Icon/Icon";
 export { default as Overlay } from "./Overlay/Overlay";
 
 export { default as Trade } from "./Trade/Trade";
+export { default as Markets } from "./Markets/Markets";
