@@ -1,5 +1,9 @@
 import { FC, useEffect, useRef } from "react";
 
+import SPECLogo from "../../assets/images/spectre-logo-light.png";
+import ETHLogo from "../../assets/images/currencies/ethereum-logo.svg";
+import DAILogo from "../../assets/images/currencies/dai-logo.svg";
+import USDTLogo from "../../assets/images/currencies/usdt-logo.svg";
 import Typed from "typed.js";
 
 import { Icon } from "..";
@@ -8,6 +12,7 @@ import "./Markets.css";
 
 interface MarketsProps {
 	isOpen: boolean;
+	setIsOpen: (func: (state: boolean) => void) => void;
 }
 
 const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen }) => {
@@ -17,7 +22,7 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen }) => {
 	useEffect(() => {
 		const marketsTitleTyped = new Typed(marketsTitleRef.current, {
 			strings: ["<i>Select A Market</i>"],
-			typeSpeed: 70,
+			typeSpeed: 80,
 			showCursor: false,
 		});
 
@@ -43,16 +48,67 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen }) => {
 		<section className={`markets ${isOpen ? "open" : ""}`} ref={marketsRef}>
 			<div className={`markets__wrapper ${isOpen ? "open" : ""}`}>
 				<div className="markets__title">
-					<Icon name="bar-chart-outline" />
+					<Icon name="cash-outline" />
 					<h3 ref={marketsTitleRef}>Select A Market</h3>
 				</div>
 
 				<div className="markets__container">
 					<div className="markets__body">
 						<ul className="markets__list">
-							<li className="markets__item">SPEC / mETH</li>
-							<li className="markets__item">SPEC / mDAI</li>
-							<li className="markets__item">SPEC / mUSDT</li>
+							<li className="markets__item">
+								<div className="markets__item-right">
+									<img className="markets__spec" src={SPECLogo} alt="SPEC" />
+									<i>SPEC</i>
+								</div>
+
+								<div className="markets__item-left">
+									<img className="markets__icon markets__eth" src={ETHLogo} alt="ETH" />
+									<i>mETH</i>
+								</div>
+							</li>
+							<li className="markets__item">
+								<div className="markets__item-right">
+									<img className="markets__spec" src={SPECLogo} alt="SPEC" />
+									<i>SPEC</i>
+								</div>
+
+								<div className="markets__item-left">
+									<img className="markets__icon markets__dai" src={DAILogo} alt="DAI" />
+									<i>mDAI</i>
+								</div>
+							</li>
+							<li className="markets__item">
+								<div className="markets__item-right">
+									<img className="markets__spec" src={SPECLogo} alt="SPEC" />
+									<i>SPEC</i>
+								</div>
+								<div className="markets__item-left">
+									<img className="markets__icon markets__usdt" src={USDTLogo} alt="USDT" />
+									<i>mUSDT</i>
+								</div>
+							</li>
+
+							<li className="markets__item">
+								<div className="markets__item-right">
+									<img className="markets__icon markets__dai" src={DAILogo} alt="DAI" />
+									<i>mDAI</i>
+								</div>
+								<div className="markets__item-left">
+									<img className="markets__icon markets__eth" src={ETHLogo} alt="ETH" />
+									<i>mETH</i>
+								</div>
+							</li>
+
+							<li className="markets__item">
+								<div className="markets__item-right">
+									<img className="markets__icon markets__usdt" src={USDTLogo} alt="USDT" />
+									<i>mUSDT</i>
+								</div>
+								<div className="markets__item-left">
+									<img className="markets__icon markets__eth" src={ETHLogo} alt="ETH" />
+									<i>mETH</i>
+								</div>
+							</li>
 						</ul>
 					</div>
 				</div>
