@@ -92,48 +92,46 @@ const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, status, isConn
 	};
 
 	return (
-		<>
-			<section className={`connect-wallet ${isOpen ? "open" : ""}`}>
-				<div className={`connect-wallet__wrapper ${isOpen ? "open" : ""} ${isConnecting ? "isConnecting" : ""}`}>
-					<div className={`connect-wallet__title ${isConnecting ? "hidden" : ""}`}>
-						<Icon name="wallet-outline" />
-						<h3 ref={connectWalletTitleRef}>Connect Your Wallet</h3>
-					</div>
-					<div className={`connect-wallet__container ${isConnecting ? "isConnecting" : ""}`}>
-						<article className={`connect-wallet__body  ${isConnecting ? "isConnecting" : ""}`}>
-							<img className="connect-wallet__logo" src={MetaMaskLogo} alt="MetaMask" />
-							<p ref={connectingToMetaMaskRef}></p>
-							<div className={`spinner ${isConnecting && status !== 1 ? "visible" : ""}`}></div>
-						</article>
+		<section className={`connect-wallet ${isOpen ? "open" : ""}`}>
+			<div className={`connect-wallet__wrapper ${isOpen ? "open" : ""} ${isConnecting ? "isConnecting" : ""}`}>
+				<div className={`connect-wallet__title ${isConnecting ? "hidden" : ""}`}>
+					<Icon name="wallet-outline" />
+					<h3 ref={connectWalletTitleRef}>Connect Your Wallet</h3>
+				</div>
+				<div className={`connect-wallet__container ${isConnecting ? "isConnecting" : ""}`}>
+					<article className={`connect-wallet__body  ${isConnecting ? "isConnecting" : ""}`}>
+						<img className="connect-wallet__logo" src={MetaMaskLogo} alt="MetaMask" />
+						<p ref={connectingToMetaMaskRef}></p>
+						<div className={`spinner ${isConnecting && status !== 1 ? "visible" : ""}`}></div>
+					</article>
 
-						<div className="connect-wallet__wallets">
-							<article
-								className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}
-								onClick={handleMetaMaskWallet}
-							>
-								<img className="connect-wallet__logo" src={MetaMaskLogo} alt="MetaMask" />
-							</article>
-							<article
-								className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}
-								onClick={handleWalletConnect}
-							>
-								<img className="connect-wallet__logo" src={WalletConnectLogo} alt="WalletConnect" />
-							</article>
-							<article
-								className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}
-								onClick={handleBinanceWallet}
-							>
-								<img className="connect-wallet__logo" src={BinanceWalletLogo} alt="Binance Wallet" />
-							</article>
-						</div>
+					<div className="connect-wallet__wallets">
+						<article
+							className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}
+							onClick={handleMetaMaskWallet}
+						>
+							<img className="connect-wallet__logo" src={MetaMaskLogo} alt="MetaMask" />
+						</article>
+						<article
+							className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}
+							onClick={handleWalletConnect}
+						>
+							<img className="connect-wallet__logo" src={WalletConnectLogo} alt="WalletConnect" />
+						</article>
+						<article
+							className={`connect-wallet__wallet ${isOpen && !isConnecting ? "show" : "hidden"}`}
+							onClick={handleBinanceWallet}
+						>
+							<img className="connect-wallet__logo" src={BinanceWalletLogo} alt="Binance Wallet" />
+						</article>
 					</div>
 				</div>
+			</div>
 
-				<p className="connect-wallet__credits" ref={connectWalletCreditsRef}></p>
+			<p className="connect-wallet__credits" ref={connectWalletCreditsRef}></p>
 
-				<Overlay isOpen={isOpen} onClose={onClose} accountMenu={false} />
-			</section>
-		</>
+			<Overlay isOpen={isOpen} onClose={onClose} accountMenu={false} />
+		</section>
 	);
 };
 

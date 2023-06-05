@@ -64,6 +64,7 @@
 	box-shadow: 0px 2px 10px rgba(18, 16, 38, 0.4);
 	border-radius: 30px;
 	letter-spacing: 3px;
+	z-index: 0;
 }
 
 .Header__tab {
