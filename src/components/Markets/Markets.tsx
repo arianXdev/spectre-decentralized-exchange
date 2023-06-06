@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 import SPECLogo from "../../assets/images/spectre-logo-light.png";
 import ETHLogo from "../../assets/images/currencies/ethereum-logo.svg";
@@ -15,7 +15,9 @@ interface MarketsProps {
 	setIsOpen: (func: (state: boolean) => void) => void;
 }
 
-const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen }) => {
+const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen, MarketsList }) => {
+	const [market, setMarket] = useState(null);
+
 	const marketsTitleRef = useRef(null);
 	const marketsRef = useRef(null);
 
@@ -55,7 +57,7 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen }) => {
 				<div className="markets__container">
 					<div className="markets__body">
 						<ul className="markets__list">
-							<li className="markets__item">
+							<li className="markets__item" onClick={() => setMarket(MarketsList.SPEC_mETH)}>
 								<div className="markets__item-right">
 									<img className="markets__spec" src={SPECLogo} alt="SPEC" />
 									<i>SPEC</i>
@@ -66,7 +68,7 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen }) => {
 									<i>mETH</i>
 								</div>
 							</li>
-							<li className="markets__item">
+							<li className="markets__item" onClick={() => setMarket(MarketsList.SPEC_mDAI)}>
 								<div className="markets__item-right">
 									<img className="markets__spec" src={SPECLogo} alt="SPEC" />
 									<i>SPEC</i>
@@ -77,7 +79,7 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen }) => {
 									<i>mDAI</i>
 								</div>
 							</li>
-							<li className="markets__item">
+							<li className="markets__item" onClick={() => setMarket(MarketsList.SPEC_mUSDT)}>
 								<div className="markets__item-right">
 									<img className="markets__spec" src={SPECLogo} alt="SPEC" />
 									<i>SPEC</i>
@@ -87,8 +89,7 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen }) => {
 									<i>mUSDT</i>
 								</div>
 							</li>
-
-							<li className="markets__item">
+							<li className="markets__item" onClick={() => setMarket(MarketsList.mDAI_mETH)}>
 								<div className="markets__item-right">
 									<img className="markets__icon markets__dai" src={DAILogo} alt="DAI" />
 									<i>mDAI</i>
@@ -98,8 +99,7 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen }) => {
 									<i>mETH</i>
 								</div>
 							</li>
-
-							<li className="markets__item">
+							<li className="markets__item" onClick={() => setMarket(MarketsList.mUSDT_mETH)}>
 								<div className="markets__item-right">
 									<img className="markets__icon markets__usdt" src={USDTLogo} alt="USDT" />
 									<i>mUSDT</i>

@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import { useAppSelector } from "~/app/hooks";
+
 import TradeRectangle from "../../assets/images/trade-rectangle.svg";
+
+import config from "../../config.json";
 
 import { Markets, Overlay, Icon } from "..";
 
@@ -14,6 +18,17 @@ enum Status {
 const Trade = () => {
 	const [exchangeStatus, setExchangeStatus] = useState(Status.WITHDRAW);
 	const [isMarketsModalOpen, setIsMarketsModalOpen] = useState(false);
+
+	// Get the current connection's chainId from the Redux store
+	const chainId = useAppSelector(({ connection }) => connection.current?.chainId ?? 1);
+
+	enum MarketsList {
+		SPEC_mETH = `${config[chainId].spectre.address} ${config[chainId].mETH.address}`,
+		SPEC_mDAI = `${config[chainId].spectre.address} ${config[chainId].mDAI.address}`,
+		SPEC_mUSDT = `${config[chainId].spectre.address} ${config[chainId].mUSDT.address}`,
+		mDAI_mETH = `${config[chainId].mDAI.address} ${config[chainId].mETH.address}`,
+		mUSDT_mETH = `${config[chainId].mUSDT.address} ${config[chainId].mETH.address}`,
+	}
 
 	const onExchangeStatusClicked = () => {
 		setExchangeStatus((prevStatus) => (prevStatus === Status.WITHDRAW ? Status.DEPOSIT : Status.WITHDRAW));
@@ -34,7 +49,7 @@ const Trade = () => {
 
 						{createPortal(
 							<>
-								<Markets isOpen={isMarketsModalOpen} setIsOpen={setIsMarketsModalOpen} />
+								<Markets isOpen={isMarketsModalOpen} setIsOpen={setIsMarketsModalOpen} MarketsList={MarketsList} />
 								<Overlay isOpen={isMarketsModalOpen} onClose={onExchangeMarketsClicked} />
 							</>,
 							document.getElementById("root") as HTMLBodyElement
