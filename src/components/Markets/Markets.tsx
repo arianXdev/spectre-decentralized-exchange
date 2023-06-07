@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef } from "react";
 
 import SPECLogo from "../../assets/images/spectre-logo-light.png";
 import ETHLogo from "../../assets/images/currencies/ethereum-logo.svg";
@@ -12,14 +12,21 @@ import "./Markets.css";
 
 interface MarketsProps {
 	isOpen: boolean;
-	setIsOpen: (func: (state: boolean) => void) => void;
+	setIsOpen: (func: (state: boolean) => void | boolean) => void;
+	MarketsList: unknown;
+	setMarket: (a: string) => void;
 }
 
-const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen, MarketsList }) => {
-	const [market, setMarket] = useState(null);
-
+const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen, MarketsList, setMarket }) => {
 	const marketsTitleRef = useRef(null);
 	const marketsRef = useRef(null);
+
+	const handleSelectMarket = (market: string) => {
+		setMarket(market);
+
+		// Close the Markets modal after the user chose the market
+		setIsOpen(false);
+	};
 
 	useEffect(() => {
 		const marketsTitleTyped = new Typed(marketsTitleRef.current, {
@@ -57,7 +64,7 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen, MarketsList }) => {
 				<div className="markets__container">
 					<div className="markets__body">
 						<ul className="markets__list">
-							<li className="markets__item" onClick={() => setMarket(MarketsList.SPEC_mETH)}>
+							<li className="markets__item" onClick={() => handleSelectMarket(MarketsList.SPEC_mETH)}>
 								<div className="markets__item-right">
 									<img className="markets__spec" src={SPECLogo} alt="SPEC" />
 									<i>SPEC</i>
@@ -68,7 +75,7 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen, MarketsList }) => {
 									<i>mETH</i>
 								</div>
 							</li>
-							<li className="markets__item" onClick={() => setMarket(MarketsList.SPEC_mDAI)}>
+							<li className="markets__item" onClick={() => handleSelectMarket(MarketsList.SPEC_mDAI)}>
 								<div className="markets__item-right">
 									<img className="markets__spec" src={SPECLogo} alt="SPEC" />
 									<i>SPEC</i>
@@ -79,7 +86,7 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen, MarketsList }) => {
 									<i>mDAI</i>
 								</div>
 							</li>
-							<li className="markets__item" onClick={() => setMarket(MarketsList.SPEC_mUSDT)}>
+							<li className="markets__item" onClick={() => handleSelectMarket(MarketsList.SPEC_mUSDT)}>
 								<div className="markets__item-right">
 									<img className="markets__spec" src={SPECLogo} alt="SPEC" />
 									<i>SPEC</i>
@@ -89,7 +96,7 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen, MarketsList }) => {
 									<i>mUSDT</i>
 								</div>
 							</li>
-							<li className="markets__item" onClick={() => setMarket(MarketsList.mDAI_mETH)}>
+							<li className="markets__item" onClick={() => handleSelectMarket(MarketsList.mDAI_mETH)}>
 								<div className="markets__item-right">
 									<img className="markets__icon markets__dai" src={DAILogo} alt="DAI" />
 									<i>mDAI</i>
@@ -99,7 +106,7 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen, MarketsList }) => {
 									<i>mETH</i>
 								</div>
 							</li>
-							<li className="markets__item" onClick={() => setMarket(MarketsList.mUSDT_mETH)}>
+							<li className="markets__item" onClick={() => handleSelectMarket(MarketsList.mUSDT_mETH)}>
 								<div className="markets__item-right">
 									<img className="markets__icon markets__usdt" src={USDTLogo} alt="USDT" />
 									<i>mUSDT</i>

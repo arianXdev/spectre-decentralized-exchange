@@ -23,12 +23,14 @@ const Trade = () => {
 	const chainId = useAppSelector(({ connection }) => connection.current?.chainId ?? 1);
 
 	enum MarketsList {
-		SPEC_mETH = `${config[chainId].spectre.address} ${config[chainId].mETH.address}`,
-		SPEC_mDAI = `${config[chainId].spectre.address} ${config[chainId].mDAI.address}`,
-		SPEC_mUSDT = `${config[chainId].spectre.address} ${config[chainId].mUSDT.address}`,
-		mDAI_mETH = `${config[chainId].mDAI.address} ${config[chainId].mETH.address}`,
-		mUSDT_mETH = `${config[chainId].mUSDT.address} ${config[chainId].mETH.address}`,
+		SPEC_mETH = `${config[chainId].spectre.address},${config[chainId].mETH.address}`,
+		SPEC_mDAI = `${config[chainId].spectre.address},${config[chainId].mDAI.address}`,
+		SPEC_mUSDT = `${config[chainId].spectre.address},${config[chainId].mUSDT.address}`,
+		mDAI_mETH = `${config[chainId].mDAI.address},${config[chainId].mETH.address}`,
+		mUSDT_mETH = `${config[chainId].mUSDT.address},${config[chainId].mETH.address}`,
 	}
+
+	const [market, setMarket] = useState(MarketsList.SPEC_mETH);
 
 	const onExchangeStatusClicked = () => {
 		setExchangeStatus((prevStatus) => (prevStatus === Status.WITHDRAW ? Status.DEPOSIT : Status.WITHDRAW));
@@ -45,11 +47,17 @@ const Trade = () => {
 
 						<menu className="Trade__markets" onClick={onExchangeMarketsClicked}>
 							<span className="Trade__markets-label">Market</span>
+							<h3 className="Trade__selected-market">{MarketsList[market].replace("_", " / ")}</h3>
 						</menu>
 
 						{createPortal(
 							<>
-								<Markets isOpen={isMarketsModalOpen} setIsOpen={setIsMarketsModalOpen} MarketsList={MarketsList} />
+								<Markets
+									isOpen={isMarketsModalOpen}
+									setIsOpen={setIsMarketsModalOpen}
+									MarketsList={MarketsList}
+									setMarket={setMarket}
+								/>
 								<Overlay isOpen={isMarketsModalOpen} onClose={onExchangeMarketsClicked} />
 							</>,
 							document.getElementById("root") as HTMLBodyElement

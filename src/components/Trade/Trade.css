@@ -31,10 +31,13 @@
 	left: 0;
 	width: 39.9%;
 	height: 6.3%;
+	padding-top: 0.6rem;
+	padding-left: 0.8rem;
 	background: var(--secondary-color);
 	border-bottom-right-radius: 1.7rem;
 	box-shadow: 2px 5px 5px 0px rgba(0, 0, 0, 0.38);
 	cursor: pointer;
+	color: #fff;
 }
 
 .Trade__markets::before {
@@ -51,11 +54,15 @@
 }
 
 .Trade__markets-label {
-	color: #fff;
-	opacity: 0.2;
-	font-size: 0.85rem;
+	opacity: 0.3;
+	font-size: 0.83rem;
 	display: block;
-	padding: 0.55rem;
+}
+
+.Trade__selected-market {
+	font-weight: 500;
+	margin-top: 0.28em;
+	font-size: 0.95em;
 }
 
 .Trade__status {
@@ -63,7 +70,7 @@
 	top: 0;
 	right: 0;
 	width: 34%;
-	height: 3.9rem;
+	height: 3.95rem;
 	border-radius: 20rem;
 }
 
