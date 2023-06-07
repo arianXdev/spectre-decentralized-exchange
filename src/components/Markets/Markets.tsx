@@ -1,4 +1,9 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useContext } from "react";
+
+import { useAppDispatch } from "~/app/hooks";
+import { loadTokens } from "~/app/interactions";
+
+import { EthersContext } from "~/context/EthersContext";
 
 import SPECLogo from "../../assets/images/spectre-logo-light.png";
 import ETHLogo from "../../assets/images/currencies/ethereum-logo.svg";
@@ -18,11 +23,18 @@ interface MarketsProps {
 }
 
 const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen, MarketsList, setMarket }) => {
+	const dispatch = useAppDispatch();
+	const { provider } = useContext(EthersContext);
+
 	const marketsTitleRef = useRef(null);
 	const marketsRef = useRef(null);
 
-	const handleSelectMarket = (market: string) => {
+	const handleSelectMarket = async (market: string) => {
 		setMarket(market);
+
+		// load those two token pairs that are needed
+		const addresses = market.split(",");
+		await loadTokens(provider, addresses, dispatch);
 
 		// Close the Markets modal after the user chose the market
 		setIsOpen(false);

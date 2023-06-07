@@ -3,13 +3,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Define a type for the slice state
 interface TokensState {
-	SPEC: { name: string; address: string; symbol: string; decimals: number };
-	mETH: { name: string; address: string; symbol: string; decimals: number };
-	mDAI: { name: string; address: string; symbol: string; decimals: number };
-	mUSDT: { name: string; address: string; symbol: string; decimals: number };
+	loaded: boolean;
+	token1: { name: string; address: string; symbol: string; decimals: number };
+	token2: { name: string; address: string; symbol: string; decimals: number };
 }
 
-const initialState = {} as TokensState;
+const initialState = {
+	loaded: false,
+} as TokensState;
 
 const tokensSlice = createSlice({
 	name: "tokens",
@@ -17,43 +18,35 @@ const tokensSlice = createSlice({
 	reducers: {
 		tokensLoaded: {
 			reducer: (state, action: PayloadAction<TokensState>) => {
-				const { SPEC, mETH, mDAI, mUSDT } = action.payload;
+				const { token1, token2 } = action.payload;
 
-				state.SPEC = SPEC;
-				state.mETH = mETH;
-				state.mDAI = mDAI;
-				state.mUSDT = mUSDT;
+				const previousToken1 = Object.keys(state)[1];
+				const previousToken2 = Object.keys(state)[2];
+
+				delete state[previousToken1];
+				state[token1.symbol] = token1;
+
+				delete state[previousToken2];
+				state[token2.symbol] = token2;
+
+				state.loaded = true;
 			},
 
-			prepare: ({ SPEC, mETH, mDAI, mUSDT }) => {
+			prepare: ({ token1, token2 }) => {
 				return {
 					payload: {
-						SPEC: {
-							name: SPEC.name,
-							address: SPEC.address,
-							symbol: SPEC.symbol,
-							decimals: SPEC.decimals,
+						token1: {
+							name: token1.name,
+							address: token1.address,
+							symbol: token1.symbol,
+							decimals: token1.decimals,
 						},
 
-						mETH: {
-							name: mETH.name,
-							address: mETH.address,
-							symbol: mETH.symbol,
-							decimals: mETH.decimals,
-						},
-
-						mDAI: {
-							name: mDAI.name,
-							address: mDAI.address,
-							symbol: mDAI.symbol,
-							decimals: mDAI.decimals,
-						},
-
-						mUSDT: {
-							name: mUSDT.name,
-							address: mUSDT.address,
-							symbol: mUSDT.symbol,
-							decimals: mUSDT.decimals,
+						token2: {
+							name: token2.name,
+							address: token2.address,
+							symbol: token2.symbol,
+							decimals: token2.decimals,
 						},
 					},
 				};

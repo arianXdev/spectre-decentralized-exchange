@@ -23,9 +23,9 @@ const Trade = () => {
 	const chainId = useAppSelector(({ connection }) => connection.current?.chainId ?? 1);
 
 	enum MarketsList {
-		SPEC_mETH = `${config[chainId].spectre.address},${config[chainId].mETH.address}`,
-		SPEC_mDAI = `${config[chainId].spectre.address},${config[chainId].mDAI.address}`,
-		SPEC_mUSDT = `${config[chainId].spectre.address},${config[chainId].mUSDT.address}`,
+		SPEC_mETH = `${config[chainId].spectreToken.address},${config[chainId].mETH.address}`,
+		SPEC_mDAI = `${config[chainId].spectreToken.address},${config[chainId].mDAI.address}`,
+		SPEC_mUSDT = `${config[chainId].spectreToken.address},${config[chainId].mUSDT.address}`,
 		mDAI_mETH = `${config[chainId].mDAI.address},${config[chainId].mETH.address}`,
 		mUSDT_mETH = `${config[chainId].mUSDT.address},${config[chainId].mETH.address}`,
 	}

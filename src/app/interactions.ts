@@ -4,8 +4,6 @@ import EXCHANGE_ABI from "../abis/Spectre.json";
 import SPECTRE_TOKEN_ABI from "../abis/SpectreToken.json";
 import TOKEN_ABI from "../abis/Token.json";
 
-import config from "../config.json";
-
 import { connected } from "../features/connection/connectionSlice";
 import { tokensLoaded } from "../features/tokens/tokensSlice";
 
@@ -30,25 +28,34 @@ export const loadConnection = async (provider: any, dispatch: AppDispatch) => {
 	return { chainId, balance, accounts };
 };
 
-export const loadTokens = async (provider: any, addresses: any, dispatch: AppDispatch) => {
-	const { chainId } = await provider.getNetwork();
+export const loadTokens = async (provider: any, addresses: string[], dispatch: AppDispatch) => {
+	const firstToken = new ethers.Contract(addresses[0], SPECTRE_TOKEN_ABI, provider); // SPEC token
 
-	const SPEC = new ethers.Contract(addresses.spectreToken.address, SPECTRE_TOKEN_ABI, provider);
-	const mETH = new ethers.Contract(addresses.mETH.address, TOKEN_ABI, provider); // accessing to this smart contract
-	const mDAI = new ethers.Contract(addresses.mDAI.address, TOKEN_ABI, provider);
-	const mUSDT = new ethers.Contract(addresses.mUSDT.address, TOKEN_ABI, provider);
+	const token1 = {
+		name: await firstToken.name(),
+		address: firstToken.address,
+		symbol: await firstToken.symbol(),
+		decimals: await firstToken.decimals(),
+	};
+
+	const secondToken = new ethers.Contract(addresses[1], TOKEN_ABI, provider); // any other tokens
+
+	const token2 = {
+		name: await secondToken.name(),
+		address: secondToken.address,
+		symbol: await secondToken.symbol(),
+		decimals: await secondToken.decimals(),
+	};
 
 	// Save the information of all tokens inside of the Redux store (except their contracts)
 	dispatch(
 		tokensLoaded({
-			SPEC: config[chainId].spectreToken,
-			mETH: config[chainId].mETH,
-			mDAI: config[chainId].mDAI,
-			mUSDT: config[chainId].mDAI,
+			token1,
+			token2,
 		})
 	);
 
-	return { SPEC, mETH, mDAI, mUSDT };
+	return { firstToken, secondToken };
 };
 
 export const loadExchange = async (provider: any, address: string) => {
