@@ -7,7 +7,8 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"deploy": "tsc scripts/1_deploy.cts;npx hardhat run --network localhost scripts/1_deploy.cjs;rm -rf scripts/1_deploy.cjs"
 	},
 	"dependencies": {
 		"@metamask/logo": "^3.1.1",
