@@ -10,6 +10,8 @@ import { tokensLoaded } from "../features/tokens/tokensSlice";
 import useMetaMask from "../hooks/useMetaMask";
 import { AppDispatch } from "./store";
 
+import cryptosLogo from "../helpers/cryptosLogo";
+
 export const loadConnection = async (provider: any, dispatch: AppDispatch) => {
 	// Get all the accounts from Metamask Injected Provider API
 	const accounts = await useMetaMask().request({ method: "eth_requestAccounts" }); // makes an RPC call to our node to get our accounts
@@ -36,6 +38,7 @@ export const loadTokens = async (provider: any, addresses: string[], dispatch: A
 		address: firstToken.address,
 		symbol: await firstToken.symbol(),
 		decimals: await firstToken.decimals(),
+		imageURL: cryptosLogo[await firstToken.symbol()],
 	};
 
 	const secondToken = new ethers.Contract(addresses[1], TOKEN_ABI, provider); // any other tokens
@@ -45,6 +48,7 @@ export const loadTokens = async (provider: any, addresses: string[], dispatch: A
 		address: secondToken.address,
 		symbol: await secondToken.symbol(),
 		decimals: await secondToken.decimals(),
+		imageURL: cryptosLogo[await secondToken.symbol()],
 	};
 
 	// Save the information of all tokens inside of the Redux store (except their contracts)

@@ -4,8 +4,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // Define a type for the slice state
 interface TokensState {
 	loaded: boolean;
-	token1: { name: string; address: string; symbol: string; decimals: number };
-	token2: { name: string; address: string; symbol: string; decimals: number };
+	token1?: { name: string; address: string; symbol: string; decimals: number; imageURL: string };
+	token2?: { name: string; address: string; symbol: string; decimals: number; imageURL: string };
 }
 
 const initialState = {
@@ -20,14 +20,8 @@ const tokensSlice = createSlice({
 			reducer: (state, action: PayloadAction<TokensState>) => {
 				const { token1, token2 } = action.payload;
 
-				const previousToken1 = Object.keys(state)[1];
-				const previousToken2 = Object.keys(state)[2];
-
-				delete state[previousToken1];
-				state[token1.symbol] = token1;
-
-				delete state[previousToken2];
-				state[token2.symbol] = token2;
+				state.token1 = token1;
+				state.token2 = token2;
 
 				state.loaded = true;
 			},
@@ -40,6 +34,7 @@ const tokensSlice = createSlice({
 							address: token1.address,
 							symbol: token1.symbol,
 							decimals: token1.decimals,
+							imageURL: token1.imageURL,
 						},
 
 						token2: {
@@ -47,6 +42,7 @@ const tokensSlice = createSlice({
 							address: token2.address,
 							symbol: token2.symbol,
 							decimals: token2.decimals,
+							imageURL: token2.imageURL,
 						},
 					},
 				};
