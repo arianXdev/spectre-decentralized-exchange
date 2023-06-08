@@ -6,7 +6,7 @@ import TradeRectangle from "../../assets/images/trade-rectangle.svg";
 
 import config from "../../config.json";
 
-import { Markets, Overlay, Icon } from "..";
+import { Markets, Overlay, Balance, Icon } from "..";
 
 import "./Trade.css";
 
@@ -79,6 +79,8 @@ const Trade = () => {
 								Withdraw
 							</button>
 						</div>
+
+						<Balance />
 					</section>
 				</div>
 			</div>

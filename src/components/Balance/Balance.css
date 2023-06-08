@@ -1,0 +1,51 @@
+.balance {
+	position: absolute;
+	top: 11%;
+	width: 100%;
+	padding-inline: 2rem;
+}
+
+.balance__info {
+	display: grid;
+	grid-template-columns: 60% 1fr;
+	align-items: center;
+	color: #fff;
+}
+
+.balance__info.error {
+	grid-template-columns: 50% 1fr;
+}
+
+.balance__info.error > .balance__fee {
+	grid-template-columns: 100%;
+}
+
+.balance__error {
+	font-size: 0.95em;
+}
+
+.balance__title {
+	font-weight: 800;
+	font-size: 1.1em;
+}
+
+.balance__fee {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	align-items: center;
+	opacity: 0.6;
+	font-family: var(--mono-font);
+	font-size: 0.9em;
+	user-select: auto;
+	-webkit-user-select: auto;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+}
+
+.balance__fee:hover {
+	opacity: 1;
+}
+
+.balance__fee i {
+	padding-inline: 0.4em;
+}

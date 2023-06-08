@@ -8,3 +8,4 @@ export { default as Overlay } from "./Overlay/Overlay";
 
 export { default as Trade } from "./Trade/Trade";
 export { default as Markets } from "./Markets/Markets";
+export { default as Balance } from "./Balance/Balance";
