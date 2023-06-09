@@ -44,8 +44,8 @@
 .markets__wrapper {
 	position: relative;
 	width: 28rem;
-	height: 30vw;
-	padding: 0.5rem;
+	height: 25rem;
+	padding: 0.45rem;
 	background: linear-gradient(136.9deg, #0085ff -10%, rgba(82, 50, 209, 0.52) 105.62%), linear-gradient(0deg, #09151d, #09151d);
 	border-radius: 5rem;
 	transition: all 0.5s ease-in-out;
@@ -113,10 +113,10 @@
 	font-weight: 500;
 	width: 100%;
 	height: 2.8rem;
-	padding: 0.1rem 1.8rem;
-	font-size: 1.2em;
-	transition: background 0.2s ease-in;
-	border-radius: 1.2rem;
+	padding: 0.1rem 1.5rem;
+	font-size: 1.1em;
+	transition: all 0.2s ease-out;
+	border-radius: 1.3rem;
 	margin-bottom: 0.6rem;
 	cursor: pointer;
 	user-select: none;
@@ -144,18 +144,6 @@
 	grid-template-columns: 1fr 1fr;
 }
 
-.markets__spec {
-	max-width: 1.9em;
-}
-
-.markets__dai {
-	max-width: 1.3em;
-}
-
-.markets__eth {
-	max-width: 0.95em;
-}
-
-.markets__usdt {
-	max-width: 1.4em;
+.markets__icon {
+	max-width: 2em;
 }

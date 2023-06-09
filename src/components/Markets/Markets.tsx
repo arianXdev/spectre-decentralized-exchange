@@ -5,10 +5,7 @@ import { loadTokens } from "~/app/interactions";
 
 import { EthersContext } from "~/context/EthersContext";
 
-import SPECLogo from "../../assets/images/spectre-logo-light.png";
-import ETHLogo from "../../assets/images/currencies/ethereum-logo.svg";
-import DAILogo from "../../assets/images/currencies/dai-logo.svg";
-import USDTLogo from "../../assets/images/currencies/usdt-logo.svg";
+import cryptosLogo from "~/helpers/cryptosLogo";
 import Typed from "typed.js";
 
 import { Icon } from "..";
@@ -78,53 +75,53 @@ const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen, MarketsList, setMarket }
 						<ul className="markets__list">
 							<li className="markets__item" onClick={() => handleSelectMarket(MarketsList.SPEC_mETH)}>
 								<div className="markets__item-right">
-									<img className="markets__spec" src={SPECLogo} alt="SPEC" />
+									<img className="markets__icon" src={cryptosLogo.SPEC} alt="SPEC" />
 									<i>SPEC</i>
 								</div>
 
 								<div className="markets__item-left">
-									<img className="markets__icon markets__eth" src={ETHLogo} alt="ETH" />
+									<img className="markets__icon" src={cryptosLogo.mETH} alt="ETH" />
 									<i>mETH</i>
 								</div>
 							</li>
 							<li className="markets__item" onClick={() => handleSelectMarket(MarketsList.SPEC_mDAI)}>
 								<div className="markets__item-right">
-									<img className="markets__spec" src={SPECLogo} alt="SPEC" />
+									<img className="markets__icon" src={cryptosLogo.SPEC} alt="SPEC" />
 									<i>SPEC</i>
 								</div>
 
 								<div className="markets__item-left">
-									<img className="markets__icon markets__dai" src={DAILogo} alt="DAI" />
+									<img className="markets__icon" src={cryptosLogo.mDAI} alt="DAI" />
 									<i>mDAI</i>
 								</div>
 							</li>
 							<li className="markets__item" onClick={() => handleSelectMarket(MarketsList.SPEC_mUSDT)}>
 								<div className="markets__item-right">
-									<img className="markets__spec" src={SPECLogo} alt="SPEC" />
+									<img className="markets__icon" src={cryptosLogo.SPEC} alt="SPEC" />
 									<i>SPEC</i>
 								</div>
 								<div className="markets__item-left">
-									<img className="markets__icon markets__usdt" src={USDTLogo} alt="USDT" />
+									<img className="markets__icon" src={cryptosLogo.mUSDT} alt="USDT" />
 									<i>mUSDT</i>
 								</div>
 							</li>
 							<li className="markets__item" onClick={() => handleSelectMarket(MarketsList.mDAI_mETH)}>
 								<div className="markets__item-right">
-									<img className="markets__icon markets__dai" src={DAILogo} alt="DAI" />
+									<img className="markets__icon" src={cryptosLogo.mDAI} alt="DAI" />
 									<i>mDAI</i>
 								</div>
 								<div className="markets__item-left">
-									<img className="markets__icon markets__eth" src={ETHLogo} alt="ETH" />
+									<img className="markets__icon" src={cryptosLogo.mETH} alt="ETH" />
 									<i>mETH</i>
 								</div>
 							</li>
 							<li className="markets__item" onClick={() => handleSelectMarket(MarketsList.mUSDT_mETH)}>
 								<div className="markets__item-right">
-									<img className="markets__icon markets__usdt" src={USDTLogo} alt="USDT" />
+									<img className="markets__icon" src={cryptosLogo.mUSDT} alt="USDT" />
 									<i>mUSDT</i>
 								</div>
 								<div className="markets__item-left">
-									<img className="markets__icon markets__eth" src={ETHLogo} alt="ETH" />
+									<img className="markets__icon" src={cryptosLogo.mETH} alt="ETH" />
 									<i>mETH</i>
 								</div>
 							</li>
