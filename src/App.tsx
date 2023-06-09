@@ -49,7 +49,7 @@ const App: React.FC = () => {
 		useMetaMask().on("chainChanged", () => window.location.reload());
 
 		// Load all tokens contracts
-		const { firstToken, secondToken } = await loadTokens(
+		const { SPEC, mETH, mDAI, mUSDT } = await loadTokens(
 			provider,
 			[config[chainId].spectreToken.address, config[chainId].mETH.address],
 			dispatch
@@ -57,8 +57,10 @@ const App: React.FC = () => {
 
 		// Save the contracts of all tokens in state & make it globally accessible across the entire app using context
 		setTokens({
-			[await firstToken.symbol()]: { symbol: await firstToken.symbol(), contract: firstToken },
-			[await secondToken.symbol()]: { symbol: await secondToken.symbol(), contract: secondToken },
+			SPEC: { symbol: "SPEC", contract: SPEC },
+			mETH: { symbol: "mETH", contract: mETH },
+			mDAI: { symbol: "mDAI", contract: mDAI },
+			mUSDT: { symbol: "mUSDT", contract: mUSDT },
 		});
 
 		// Get the Spectre exchange contract

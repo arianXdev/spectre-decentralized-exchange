@@ -1,9 +1,13 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
-import { useAppSelector } from "~/app/hooks";
+import { useAppSelector, useAppDispatch } from "~/app/hooks";
 
 import useFetchGasPrice from "~/hooks/useFetchGasPrice";
+import { ExchangeContext } from "~/context/ExchangeContext";
+import { TokensContext } from "~/context/TokensContext";
 import { TradeContext } from "~/context/TradeContext";
+
+import { loadBalances } from "~/app/interactions";
 
 import ETHPreloader from "~/assets/images/preloaders/eth-preloader.gif";
 import { Icon } from "..";
@@ -17,10 +21,21 @@ enum Status {
 
 const Balance = () => {
 	const { gasFee, transactionFee, fetchGasPrice } = useFetchGasPrice();
-	const { status, handleExchangeMarkets } = useContext(TradeContext);
 
-	const token1 = useAppSelector((state) => state.tokens.token1);
-	const token2 = useAppSelector((state) => state.tokens.token2);
+	const { status, handleExchangeMarkets } = useContext(TradeContext);
+	const { exchange } = useContext(ExchangeContext);
+	const { tokens } = useContext(TokensContext);
+
+	const dispatch = useAppDispatch();
+
+	const token1 = useAppSelector(({ tokens }) => tokens.token1);
+	const token2 = useAppSelector(({ tokens }) => tokens.token2);
+	const account = useAppSelector(({ connection }) => connection.current?.account);
+
+	useEffect(() => {
+		if (exchange && account && tokens && token1 && token2)
+			loadBalances(exchange, [tokens[token1?.symbol].contract, tokens[token2?.symbol].contract], account, dispatch);
+	}, [exchange, account, tokens, token1, token2, dispatch]);
 
 	return (
 		<section className="balance">

@@ -4,19 +4,19 @@ export const TokensContext = createContext({
 	tokens: {
 		SPEC: {
 			contract: null,
-			symbol: "",
+			symbol: "SPEC",
 		},
 		mETH: {
 			contract: null,
-			symbol: "",
+			symbol: "mETH",
 		},
 		mDAI: {
 			contract: null,
-			symbol: "",
+			symbol: "mDAI",
 		},
 		mUSDT: {
 			contract: null,
-			symbol: "",
+			symbol: "mUSDT",
 		},
 	},
 });

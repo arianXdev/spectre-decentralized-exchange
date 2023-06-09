@@ -5,7 +5,10 @@ import SPECTRE_TOKEN_ABI from "../abis/SpectreToken.json";
 import TOKEN_ABI from "../abis/Token.json";
 
 import { connected } from "../features/connection/connectionSlice";
-import { tokensLoaded } from "../features/tokens/tokensSlice";
+import { tokensLoaded, balancesLoaded } from "../features/tokens/tokensSlice";
+import { exchangeBalancesLoaded } from "../features/exchange/exchangeSlice";
+
+import config from "../config.json";
 
 import useMetaMask from "../hooks/useMetaMask";
 import { AppDispatch } from "./store";
@@ -31,6 +34,13 @@ export const loadConnection = async (provider: any, dispatch: AppDispatch) => {
 };
 
 export const loadTokens = async (provider: any, addresses: string[], dispatch: AppDispatch) => {
+	const { chainId } = await provider.getNetwork();
+
+	const SPEC = new ethers.Contract(config[chainId].spectreToken.address, SPECTRE_TOKEN_ABI, provider);
+	const mETH = new ethers.Contract(config[chainId].mETH.address, TOKEN_ABI, provider); // accessing to this smart contract
+	const mDAI = new ethers.Contract(config[chainId].mDAI.address, TOKEN_ABI, provider);
+	const mUSDT = new ethers.Contract(config[chainId].mUSDT.address, TOKEN_ABI, provider);
+
 	const firstToken = new ethers.Contract(addresses[0], SPECTRE_TOKEN_ABI, provider); // SPEC token
 
 	const token1 = {
@@ -59,10 +69,21 @@ export const loadTokens = async (provider: any, addresses: string[], dispatch: A
 		})
 	);
 
-	return { firstToken, secondToken };
+	return { SPEC, mETH, mDAI, mUSDT };
 };
 
 export const loadExchange = async (provider: any, address: string) => {
 	const exchange = new ethers.Contract(address, EXCHANGE_ABI, provider);
 	return exchange;
+};
+
+// Load User Balances (including Wallet balance & Exchange balance)
+export const loadBalances = async (exchange: any, tokens: [], account: string, dispatch: AppDispatch) => {
+	let token1WalletBalance = ethers.utils.formatUnits(await tokens[0].balanceOf(account), "wei"); // format it to wei
+	let token2WalletBalance = ethers.utils.formatUnits(await tokens[1].balanceOf(account), "wei");
+	dispatch(balancesLoaded({ token1Balance: token1WalletBalance, token2Balance: token2WalletBalance }));
+
+	const token1ExchangeBalance = ethers.utils.formatUnits(await exchange.balanceOf(tokens[0].address, account), 18);
+	const token2ExchangeBalance = ethers.utils.formatUnits(await exchange.balanceOf(tokens[1].address, account), 18);
+	dispatch(exchangeBalancesLoaded({ token1Balance: token1ExchangeBalance, token2Balance: token2ExchangeBalance }));
 };
