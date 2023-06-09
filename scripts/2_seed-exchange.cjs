@@ -1,11 +1,11 @@
-import { ethers } from "hardhat";
-import config from "../src/config.json";
+const { ethers } = require("hardhat");
+const config = require("../src/config.json");
 
-const convertTokens = (n: number | string) => {
+const convertTokens = (n) => {
 	return ethers.utils.parseUnits(n.toString(), "ether");
 };
 
-const wait = (seconds: number) => {
+const wait = (seconds) => {
 	const milliseconds = seconds * 1000;
 	return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
@@ -49,9 +49,13 @@ const main = async () => {
 	const user1 = accounts[2];
 	const user2 = accounts[3];
 
-	// Give user1 10,000 SPEC
-	await spectreToken.connect(deployer).transfer(user1.address, amount);
-	console.log(`Transferred ${amount} SPEC tokens from ${deployer.address} to ${user1.address}\n`);
+	// Give user1 20,000 SPEC
+	await spectreToken.connect(deployer).transfer(user1.address, convertTokens(20000));
+	console.log(`Transferred ${convertTokens(20000)} SPEC tokens from ${deployer.address} to ${user1.address}\n`);
+
+	// Give user1 10,000 mETH
+	await mETH.connect(deployer).transfer(user1.address, amount);
+	console.log(`Transferred ${amount} mETH tokens from ${deployer.address} to ${user1.address}\n`);
 
 	// Give user2 10,000 mDAI
 	await mDAI.connect(deployer).transfer(user2.address, amount);
@@ -62,10 +66,20 @@ const main = async () => {
 	result = await transaction.wait();
 	console.log(`Approved ${amount} SPEC tokens from ${user1.address}`);
 
+	// user1 approves 10,000 mETH deposit
+	transaction = await mETH.connect(user1).approve(spectre.address, amount);
+	result = await transaction.wait();
+	console.log(`Approved ${amount} mETH tokens from ${user1.address}`);
+
 	// user1 deposits 10,000 SPEC
 	transaction = await spectre.connect(user1).deposit(spectreToken.address, amount);
 	result = await transaction.wait();
 	console.log(`Deposited ${amount} SPEC from ${user1.address}\n`);
+
+	// user1 deposits 10,000 mETH
+	transaction = await spectre.connect(user1).deposit(mETH.address, amount);
+	result = await transaction.wait();
+	console.log(`Deposited ${amount} mETH from ${user1.address}\n`);
 
 	// user2 approves 10,000 mDAI deposit
 	transaction = await mDAI.connect(user2).approve(spectre.address, amount);
