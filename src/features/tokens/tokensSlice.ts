@@ -4,8 +4,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // Define a type for the slice state
 interface TokensState {
 	loaded: boolean;
-	token1?: { name: string; address: string; symbol: string; decimals: number; imageURL: string };
-	token2?: { name: string; address: string; symbol: string; decimals: number; imageURL: string };
+	token1?: { name: string; address: string; symbol: string; balance: string; decimals: number; imageURL: string };
+	token2?: { name: string; address: string; symbol: string; balance: string; decimals: number; imageURL: string };
 }
 
 const initialState = {
@@ -48,9 +48,16 @@ const tokensSlice = createSlice({
 				};
 			},
 		},
+
+		balancesLoaded: (state, action: PayloadAction<TokensState>) => {
+			const { token1Balance, token2Balance } = action.payload;
+
+			state.token1.balance = token1Balance;
+			state.token2.balance = token2Balance;
+		},
 	},
 });
 
-export const { tokensLoaded } = tokensSlice.actions;
+export const { tokensLoaded, balancesLoaded } = tokensSlice.actions;
 
 export default tokensSlice.reducer;
