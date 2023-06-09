@@ -2,17 +2,19 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useAppSelector } from "~/app/hooks";
 
+import { TradeContext } from "~/context/TradeContext";
+
 import TradeRectangle from "../../assets/images/trade-rectangle.svg";
 
 import config from "../../config.json";
 
-import { Markets, Overlay, Balance, Icon } from "..";
+import { Markets, Overlay, Balance } from "..";
 
 import "./Trade.css";
 
 enum Status {
-	WITHDRAW,
-	DEPOSIT,
+	WITHDRAW = "Withdraw",
+	DEPOSIT = "Deposit",
 }
 
 const Trade = () => {
@@ -42,46 +44,48 @@ const Trade = () => {
 		<div className="Trade">
 			<div className="container">
 				<div className="Trade__container">
-					<section className="Trade__exchange">
-						<img src={TradeRectangle} alt="trade-rectangle" />
+					<TradeContext.Provider value={{ status: exchangeStatus, handleExchangeMarkets: onExchangeMarketsClicked }}>
+						<section className="Trade__exchange">
+							<img src={TradeRectangle} alt="trade-rectangle" />
 
-						<menu className="Trade__markets" onClick={onExchangeMarketsClicked}>
-							<span className="Trade__markets-label">Market</span>
-							<h3 className="Trade__selected-market">{MarketsList[market].replace("_", " / ")}</h3>
-						</menu>
+							<menu className="Trade__markets" onClick={onExchangeMarketsClicked}>
+								<span className="Trade__markets-label">Market</span>
+								<h3 className="Trade__selected-market">{MarketsList[market].replace("_", " / ")}</h3>
+							</menu>
 
-						{createPortal(
-							<>
-								<Markets
-									isOpen={isMarketsModalOpen}
-									setIsOpen={setIsMarketsModalOpen}
-									MarketsList={MarketsList}
-									setMarket={setMarket}
-								/>
-								<Overlay isOpen={isMarketsModalOpen} onClose={onExchangeMarketsClicked} />
-							</>,
-							document.getElementById("root") as HTMLBodyElement
-						)}
+							{createPortal(
+								<>
+									<Markets
+										isOpen={isMarketsModalOpen}
+										setIsOpen={setIsMarketsModalOpen}
+										MarketsList={MarketsList}
+										setMarket={setMarket}
+									/>
+									<Overlay isOpen={isMarketsModalOpen} onClose={onExchangeMarketsClicked} />
+								</>,
+								document.getElementById("root") as HTMLBodyElement
+							)}
 
-						<div className="Trade__status" onClick={onExchangeStatusClicked}>
-							<button
-								className={`Trade__status-btn Trade__status-btn--deposit ${
-									exchangeStatus === Status.DEPOSIT ? "Trade__status-btn--active" : "Trade__status-btn--non-active"
-								}`}
-							>
-								Deposit
-							</button>
-							<button
-								className={`Trade__status-btn Trade__status-btn--withdraw ${
-									exchangeStatus === Status.WITHDRAW ? "Trade__status-btn--active" : "Trade__status-btn--non-active"
-								}`}
-							>
-								Withdraw
-							</button>
-						</div>
+							<div className="Trade__status" onClick={onExchangeStatusClicked}>
+								<button
+									className={`Trade__status-btn Trade__status-btn--deposit ${
+										exchangeStatus === Status.DEPOSIT ? "Trade__status-btn--active" : "Trade__status-btn--non-active"
+									}`}
+								>
+									Deposit
+								</button>
+								<button
+									className={`Trade__status-btn Trade__status-btn--withdraw ${
+										exchangeStatus === Status.WITHDRAW ? "Trade__status-btn--active" : "Trade__status-btn--non-active"
+									}`}
+								>
+									Withdraw
+								</button>
+							</div>
 
-						<Balance />
-					</section>
+							<Balance />
+						</section>
+					</TradeContext.Provider>
 				</div>
 			</div>
 		</div>

@@ -74,6 +74,10 @@
 	border-radius: 20rem;
 }
 
+.Trade__status:hover .Trade__status-btn--active {
+	height: 80%;
+}
+
 .Trade__status-btn {
 	position: absolute;
 	bottom: 0;
@@ -84,7 +88,7 @@
 	letter-spacing: 1px;
 	color: white;
 	border-radius: inherit;
-	transition: all 0.3s ease-in-out;
+	transition: all 0.2s ease-in-out;
 }
 
 .Trade__status-btn--active {
