@@ -35,7 +35,9 @@
 	-moz-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-/* Scrollbar styles */
+/* -------------------------
+  -------- SCROLLBAR -------
+  -------------------------- */
 ::-webkit-scrollbar {
 	width: 5px;
 }
@@ -98,7 +100,9 @@ button {
 	cursor: pointer;
 }
 
-/* Custom Hot Toast */
+/* -------------------------
+  ------ CUSTOM TOAST ------
+  -------------------------- */
 .Toaster {
 	max-width: 100% !important;
 	font-family: var(--oxanium-font) !important;
@@ -174,7 +178,9 @@ button {
 	scale: 1;
 }
 
-/* Animations */
+/* -------------------------
+  ---- GLOBAL ANIMATIONS ---
+  -------------------------- */
 @-webkit-keyframes swing-in-left-fwd {
 	0% {
 		-webkit-transform: rotateY(100deg);
@@ -287,6 +293,9 @@ button {
 	}
 }
 
+/* -------------------------
+  ------ CONTAINERS --------
+  -------------------------- */
 @media (min-width: 768px) {
 	.container {
 		max-width: 800px;
