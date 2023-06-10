@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useAppDispatch } from "./app/hooks";
 
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { ethers } from "ethers";
 
 import config from "./config.json";
@@ -22,6 +22,7 @@ import "./App.css";
 
 const App: React.FC = () => {
 	const dispatch = useAppDispatch();
+	const { pathname: routeName } = useLocation();
 
 	const [isMetaMaskInstalled, setIsMetaMaskInstalled] = useState(true);
 	const [provider, setProvider] = useState({});
@@ -78,7 +79,7 @@ const App: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		if (isMetaMaskInstalled && !isMobile) {
+		if (isMetaMaskInstalled && !isMobile && routeName === "/swap") {
 			const arianNameTyped = new Typed(arianNameRef.current, {
 				strings: [
 					"Arian Hosseini",
@@ -96,7 +97,7 @@ const App: React.FC = () => {
 				arianNameTyped.destroy();
 			};
 		}
-	}, []);
+	}, [routeName]);
 
 	return (
 		<EthersContext.Provider value={{ provider }}>
