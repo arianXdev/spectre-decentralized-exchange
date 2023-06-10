@@ -9,6 +9,7 @@ import { TradeContext } from "~/context/TradeContext";
 
 import { loadBalances } from "~/app/interactions";
 
+import SPECLogo from "~/assets/images/spectre-logo-light.png";
 import ETHPreloader from "~/assets/images/preloaders/eth-preloader.gif";
 import { Icon } from "..";
 
@@ -31,6 +32,8 @@ const Balance = () => {
 	const token1 = useAppSelector(({ tokens }) => tokens.token1);
 	const token2 = useAppSelector(({ tokens }) => tokens.token2);
 	const account = useAppSelector(({ connection }) => connection.current?.account);
+
+	const exchangeBalances = useAppSelector(({ exchange }) => exchange.balances);
 
 	useEffect(() => {
 		if (exchange && account && tokens && token1 && token2)
@@ -75,6 +78,22 @@ const Balance = () => {
 							<Icon name="chevron-forward-outline" />
 						</button>
 					</form>
+
+					{account ? (
+						<div className="balance__amounts">
+							<h4 className="balance__exchange" title="Exchange Balance">
+								<img src={SPECLogo} alt="SPEC" />
+								<small>{(exchangeBalances && parseFloat(exchangeBalances.token1)) || 0}</small>
+								<strong>{token1?.symbol || ""}</strong>
+							</h4>
+							<span></span>
+							<h4 className="balance__wallet" title="Wallet Balance">
+								<Icon name="wallet-outline" />
+								<small>{(token1 && parseFloat(token1?.balance)) || 0}</small>
+								<strong>{token1?.symbol || ""}</strong>
+							</h4>
+						</div>
+					) : null}
 				</div>
 
 				<div className="divider"></div>
@@ -95,6 +114,22 @@ const Balance = () => {
 							<Icon name="chevron-forward-outline" />
 						</button>
 					</form>
+
+					{account ? (
+						<div className="balance__amounts">
+							<h4 className="balance__exchange" title="Exchange Balance">
+								<img src={SPECLogo} alt="SPEC" />
+								<small>{(exchangeBalances && parseFloat(exchangeBalances.token2)) || 0}</small>
+								<strong>{token2?.symbol || ""}</strong>
+							</h4>
+							<span></span>
+							<h4 className="balance__wallet" title="Wallet Balance">
+								<Icon name="wallet-outline" />
+								<small>{(token2 && parseFloat(token2?.balance)) || 0}</small>
+								<strong>{token2?.symbol || ""}</strong>
+							</h4>
+						</div>
+					) : null}
 				</div>
 			</div>
 		</section>

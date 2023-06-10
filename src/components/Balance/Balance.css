@@ -6,6 +6,7 @@
 }
 
 .divider {
+	visibility: hidden;
 	width: 90%;
 	height: 2px;
 	background: white;
@@ -74,6 +75,10 @@
 	width: 100%;
 	position: relative;
 	margin-block: 2rem;
+}
+
+.balance__form:first-of-type {
+	margin-bottom: 2.4rem;
 }
 
 .balance__form form {
@@ -208,4 +213,57 @@
 
 .balance__btn:hover ion-icon {
 	margin-left: 0.4em;
+}
+
+/* -------------------------
+  -------- AMOUNTS --------- 
+  -------------------------- */
+
+.balance__amounts {
+	width: 100%;
+	position: absolute;
+	display: grid;
+	grid-template-columns: 1fr 10px 1fr;
+	align-items: center;
+	justify-items: center;
+	left: 0;
+	bottom: -3.93rem;
+	font-family: var(--mono-font) !important;
+	font-size: 1.05rem;
+	color: #fff;
+	opacity: 0.8;
+}
+
+.balance__exchange img {
+	max-width: 1.4rem;
+}
+
+.balance__exchange {
+	display: flex;
+	align-items: center;
+}
+
+.balance__wallet {
+	display: flex;
+	align-items: center;
+}
+
+.balance__exchange small,
+.balance__wallet small {
+	letter-spacing: 0.3px;
+	margin-left: 0.3em;
+	max-lines: 1;
+}
+
+.balance__exchange strong,
+.balance__wallet strong {
+	margin-left: 0.3em;
+	font-size: 0.8em;
+}
+
+.balance__amounts > span {
+	width: 0.085rem;
+	height: 100%;
+	opacity: 0.2;
+	background: whitesmoke;
 }
