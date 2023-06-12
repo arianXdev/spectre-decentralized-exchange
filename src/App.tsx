@@ -10,7 +10,7 @@ import { EthersContext } from "./context/EthersContext";
 import { ExchangeContext } from "./context/ExchangeContext";
 import { TokensContext } from "./context/TokensContext";
 
-import { loadConnection, loadTokens, loadExchange } from "./app/interactions";
+import { loadConnection, loadTokens, loadExchange, subscribeToEvents } from "./app/interactions";
 import useMetaMask from "./hooks/useMetaMask";
 
 import { Header, InstallWallet, Overlay, Trade } from "./components";
@@ -67,6 +67,9 @@ const App: React.FC = () => {
 		// Get the Spectre exchange contract
 		const exchange = await loadExchange(provider, config[chainId].spectre.address);
 		setExchange(exchange);
+
+		// Listen to all events from the Blockchain
+		subscribeToEvents(exchange, dispatch);
 	};
 
 	useEffect(() => {
