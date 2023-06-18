@@ -62,9 +62,11 @@ const Balance = () => {
 
 		if (token.address === token1?.address) {
 			transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token1?.symbol].contract, token1TransferAmount, dispatch);
+			// clear out the input after the button is triggered
 			setToken1TransferAmount("");
-		} else if (token.address == token2?.address) {
+		} else if (token.address === token2?.address) {
 			transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token2?.symbol].contract, token2TransferAmount, dispatch);
+			// clear out the input after the button is triggered
 			setToken2TransferAmount("");
 		}
 	};

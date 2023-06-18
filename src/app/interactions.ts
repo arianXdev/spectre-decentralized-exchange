@@ -98,7 +98,7 @@ export const subscribeToEvents = (exchange, dispatch) => {
 	// When DEPOSIT happens, it's gonna notify the app
 	exchange.on(TransferType.DEPOSIT, (token, user, amount, balance, event) => {
 		// Notify app that transfer was successful
-		dispatch(transferSuccess(event));
+		dispatch(transferSuccess());
 	});
 };
 
@@ -114,8 +114,6 @@ export const transferTokens = async (provider, exchange, transferType: TransferT
 
 		// Approve token transfering
 		transaction = await token.connect(signer).approve(exchange.address, amountToTransfer);
-
-		console.log(transaction);
 		await transaction.wait(); // wait to finish
 
 		// Do the transfer (after the approval)
@@ -123,6 +121,7 @@ export const transferTokens = async (provider, exchange, transferType: TransferT
 		await transaction.wait();
 	} catch (e) {
 		dispatch(transferFailed());
+		console.log(e);
 	}
 
 	// Recap: Events are a way for applications to subscribe to anything that's happened to the Blockchain and where / when it took place

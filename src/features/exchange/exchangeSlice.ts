@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface ExchangeState {
 	loaded: boolean;
 	balances: { token1: string; token2: string };
-	transaction: { transactionType: string; isPending: boolean; isSuccessful: boolean; isError?: boolean };
+	transaction: { transactionType: string; isPending: boolean; isSuccessful: boolean; hasError?: boolean };
 	transferInProgress: boolean;
 	events?: [];
 }
@@ -42,9 +42,7 @@ const exchangeSlice = createSlice({
 			state.transferInProgress = true;
 		},
 
-		transferSuccess: (state, action: PayloadAction<ExchangeState>) => {
-			const { events } = action.payload;
-
+		transferSuccess: (state) => {
 			state.transaction = {
 				transactionType: "TRANSFER",
 				isPending: false,
@@ -52,7 +50,7 @@ const exchangeSlice = createSlice({
 			};
 
 			state.transferInProgress = false;
-			state.events = events;
+			// state.events = events; // non-serialized value
 		},
 
 		transferFailed: (state) => {
@@ -60,11 +58,10 @@ const exchangeSlice = createSlice({
 				transactionType: "TRANSFER",
 				isPending: false,
 				isSuccessful: false,
-				isError: true,
+				hasError: true,
 			};
 
 			state.transferInProgress = false;
-			1;
 		},
 	},
 });
