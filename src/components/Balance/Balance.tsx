@@ -38,6 +38,9 @@ const Balance = () => {
 
 	const exchangeBalances = useAppSelector(({ exchange }) => exchange.balances);
 
+	// the current transfer status
+	const transferInProgress = useAppSelector(({ exchange }) => exchange.transferInProgress);
+
 	// Inputs values
 	const [token1TransferAmount, setToken1TransferAmount] = useImmer<string>("");
 	const [token2TransferAmount, setToken2TransferAmount] = useImmer<string>("");
@@ -52,11 +55,6 @@ const Balance = () => {
 		WITHDRAW = "Withdraw",
 		DEPOSIT = "Deposit",
 	}
-
-	// [x] Step 1: Do the transfer
-	// [x] Step 2: Notify app that transfer is pending
-	// [x] Step 3: Get confirmation from blockchain that transfer was successful
-	// [x] Step 4: Notify app that transfer was successful
 
 	// an event handler when the user clicks the deposit button
 	const handleDeposit = (e: ChangeEvent<HTMLInputElement>, token) => {
@@ -74,7 +72,7 @@ const Balance = () => {
 	useEffect(() => {
 		if (exchange && account && tokens && token1 && token2)
 			loadBalances(exchange, [tokens[token1?.symbol].contract, tokens[token2?.symbol].contract], account, dispatch);
-	}, [exchange, account, tokens, token1, token2, dispatch]);
+	}, [exchange, account, tokens, token1, token2, transferInProgress, dispatch]);
 
 	return (
 		<section className="balance">

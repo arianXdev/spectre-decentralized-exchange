@@ -6,7 +6,7 @@ import TOKEN_ABI from "../abis/Token.json";
 
 import { connected } from "../features/connection/connectionSlice";
 import { tokensLoaded, balancesLoaded } from "../features/tokens/tokensSlice";
-import { exchangeBalancesLoaded } from "../features/exchange/exchangeSlice";
+import { exchangeBalancesLoaded, transferRequested, transferSuccess, transferFailed } from "../features/exchange/exchangeSlice";
 
 import config from "../config.json";
 
@@ -86,4 +86,44 @@ export const loadBalances = async (exchange: any, tokens: [], account: string, d
 	const token1ExchangeBalance = ethers.utils.formatUnits(await exchange.balanceOf(tokens[0].address, account), "ether");
 	const token2ExchangeBalance = ethers.utils.formatUnits(await exchange.balanceOf(tokens[1].address, account), "ether");
 	dispatch(exchangeBalancesLoaded({ token1Balance: token1ExchangeBalance, token2Balance: token2ExchangeBalance }));
+};
+
+// Transfer tokens (Deposits & Withdraws)
+enum TransferType {
+	WITHDRAW = "Withdraw",
+	DEPOSIT = "Deposit",
+}
+
+export const subscribeToEvents = (exchange, dispatch) => {
+	// When DEPOSIT happens, it's gonna notify the app
+	exchange.on(TransferType.DEPOSIT, (token, user, amount, balance, event) => {
+		// Notify app that transfer was successful
+		dispatch(transferSuccess(event));
+	});
+};
+
+export const transferTokens = async (provider, exchange, transferType: TransferType, token, amount: string, dispatch: AppDispatch) => {
+	let transaction;
+
+	dispatch(transferRequested());
+
+	try {
+		// Get the current user (i.e. in this case from MetaMask)
+		const signer = await provider.getSigner();
+		const amountToTransfer = ethers.utils.parseUnits(amount.toString(), 18);
+
+		// Approve token transfering
+		transaction = await token.connect(signer).approve(exchange.address, amountToTransfer);
+
+		console.log(transaction);
+		await transaction.wait(); // wait to finish
+
+		// Do the transfer (after the approval)
+		transaction = await exchange.connect(signer).deposit(token.address, amountToTransfer);
+		await transaction.wait();
+	} catch (e) {
+		dispatch(transferFailed());
+	}
+
+	// Recap: Events are a way for applications to subscribe to anything that's happened to the Blockchain and where / when it took place
 };

@@ -4,9 +4,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface ExchangeState {
 	loaded: boolean;
 	balances: { token1: string; token2: string };
-	transaction: { transactionType: string; isPending: boolean; isSuccessful: boolean };
+	transaction: { transactionType: string; isPending: boolean; isSuccessful: boolean; isError?: boolean };
 	transferInProgress: boolean;
-	events: [];
+	events?: [];
 }
 
 const initialState = {
@@ -54,9 +54,21 @@ const exchangeSlice = createSlice({
 			state.transferInProgress = false;
 			state.events = events;
 		},
+
+		transferFailed: (state) => {
+			state.transaction = {
+				transactionType: "TRANSFER",
+				isPending: false,
+				isSuccessful: false,
+				isError: true,
+			};
+
+			state.transferInProgress = false;
+			1;
+		},
 	},
 });
 
-export const { exchangeBalancesLoaded, transferRequested, transferSuccess } = exchangeSlice.actions;
+export const { exchangeBalancesLoaded, transferRequested, transferSuccess, transferFailed } = exchangeSlice.actions;
 
 export default exchangeSlice.reducer;
