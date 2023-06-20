@@ -73,7 +73,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, status, isConn
 		toast(
 			<>
 				<span>Coming Soon!</span>
-				<small style={{ color: "var(--primary-color)", marginInline: ".3rem" }}>Wallet Connect</small>
+				<small style={{ color: "#0030ab", marginInline: ".3rem" }}>Wallet Connect</small>
 				<p>will be supported in the future versions!</p>
 			</>,
 			{ icon: <Icon name="flask-outline" /> }
@@ -84,7 +84,7 @@ const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, status, isConn
 		toast(
 			<>
 				<span>Coming Soon!</span>
-				<small style={{ color: "var(--yellow-color)", marginInline: ".3rem" }}>Binance Wallet</small>
+				<small style={{ color: "#ffe600", marginInline: ".3rem" }}>Binance Wallet</small>
 				<p>will be supported in the future versions!</p>
 			</>,
 			{ icon: <Icon name="flask-outline" /> }

@@ -135,12 +135,12 @@
 			background: rgba(255, 255, 255, 0.09);
 			box-shadow: 0px 0px 1px 5px rgba(2, 14, 51, 0.7), 0px 0px 10px rgba(0, 0, 0, 0.5);
 
-			> ion-icon {
+			& > ion-icon {
 				rotate: 180deg;
 			}
 		}
 
-		> ion-icon {
+		& > ion-icon {
 			position: absolute;
 			right: 0.7em;
 			font-size: 1.1em;
@@ -175,7 +175,7 @@
 		box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
 		transition: all 0.5s ease-out;
 
-		> ion-icon {
+		& > ion-icon {
 			font-size: 1.3em;
 			padding-right: 10px;
 		}
@@ -291,7 +291,7 @@
 		&__network-btn {
 			padding-left: 2em;
 
-			> ion-icon {
+			& > ion-icon {
 				font-size: 1.4em;
 			}
 		}
@@ -371,7 +371,7 @@
 				box-shadow: 0px 0px 1px 5px rgba(2, 14, 51, 0.3), 0px 0px 1px rgba(0, 0, 0, 0.1);
 			}
 
-			> ion-icon {
+			& > ion-icon {
 				display: none;
 			}
 		}
@@ -447,14 +447,22 @@
 
 			&.connected {
 				grid-template-columns: 40% 60%;
+
+				.Header__account-btn {
+					display: flex;
+					width: 100%;
+					font-size: 17px;
+
+					ion-icon {
+						display: block;
+						padding-right: 0;
+						font-size: 1.4em;
+					}
+				}
 			}
 
 			&:not(.connected) > .Header__networks {
 				display: none;
-			}
-
-			&.connected .Header__account-btn {
-				display: flex;
 			}
 
 			& > .Header__account-btn {
@@ -463,17 +471,6 @@
 				padding-block: 0.8em;
 				font-size: 17px;
 				border-radius: 1.5em;
-			}
-
-			&.connected .Header__account-btn {
-				width: 100%;
-				font-size: 17px;
-			}
-
-			&.connected .Header__account-btn > ion-icon {
-				display: block;
-				padding-right: 0;
-				font-size: 1.4em;
 			}
 		}
 

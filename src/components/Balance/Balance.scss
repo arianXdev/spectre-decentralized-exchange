@@ -226,6 +226,13 @@
 		font-size: 1.05rem;
 		color: #fff;
 		opacity: 0.8;
+
+		span {
+			width: 0.085rem;
+			height: 100%;
+			opacity: 0.2;
+			background: whitesmoke;
+		}
 	}
 
 	&__exchange {
@@ -240,23 +247,17 @@
 		@include displayFlex(unset);
 	}
 
-	&__exchange small,
-	&__wallet small {
-		letter-spacing: 0.3px;
-		margin-left: 0.3em;
-		max-lines: 1;
-	}
+	&__exchange,
+	&__wallet {
+		small {
+			letter-spacing: 0.3px;
+			margin-left: 0.3em;
+			max-lines: 1;
+		}
 
-	&__exchange strong,
-	&__wallet strong {
-		margin-left: 0.3em;
-		font-size: 0.8em;
-	}
-
-	&__amounts > span {
-		width: 0.085rem;
-		height: 100%;
-		opacity: 0.2;
-		background: whitesmoke;
+		strong {
+			margin-left: 0.3em;
+			font-size: 0.8em;
+		}
 	}
 }
