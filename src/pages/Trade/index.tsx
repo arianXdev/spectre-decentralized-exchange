@@ -8,7 +8,7 @@ import TradeRectangle from "../../assets/images/trade-rectangle.svg";
 
 import config from "../../config.json";
 
-import { Markets, Overlay, Balance } from "..";
+import { Markets, Overlay, Balance } from "../../components";
 
 import "./Trade.css";
 

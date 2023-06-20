@@ -9,7 +9,7 @@ import { ExchangeContext } from "~/context/ExchangeContext";
 import { TokensContext } from "~/context/TokensContext";
 import { TradeContext } from "~/context/TradeContext";
 
-import { loadBalances, transferTokens } from "~/app/interactions";
+import { loadBalances, transferTokens } from "~/utils/utils";
 
 import SPECLogo from "~/assets/images/spectre-logo-light.png";
 import ETHPreloader from "~/assets/images/preloaders/eth-preloader.gif";

@@ -61,7 +61,7 @@
 	font-size: 1.5vw;
 	font-weight: 700;
 	padding: 1vw 3vw;
-	transform: translate(-50%, -50%);
+	translate: -50% -50%;
 	background: linear-gradient(136.9deg, #0085ff -10%, rgba(82, 50, 209, 0.52) 105.62%), linear-gradient(0deg, #09151d, #09151d);
 	box-shadow: 0px 0px 76px 0px rgba(0, 19, 117, 0.54);
 	border-radius: 5vw;
@@ -114,7 +114,7 @@
 
 .connect-wallet__wallet.show:hover .connect-wallet__logo,
 .connect-wallet__wallet.show:active .connect-wallet__logo {
-	transform: scale(0.8);
+	scale: 0.8;
 }
 
 .connect-wallet__wallet.show:nth-of-type(1) {

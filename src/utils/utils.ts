@@ -11,7 +11,7 @@ import { exchangeBalancesLoaded, transferRequested, transferSuccess, transferFai
 import config from "../config.json";
 
 import useMetaMask from "../hooks/useMetaMask";
-import { AppDispatch } from "./store";
+import { AppDispatch } from "../app/store";
 
 import cryptosLogo from "../helpers/cryptosLogo";
 

@@ -79,7 +79,7 @@
 	font-size: 1.2rem;
 	font-weight: 700;
 	padding: 0.9rem 1.5rem;
-	transform: translate(-50%, -50%);
+	translate: -50% -50%;
 	background: linear-gradient(136.9deg, #0085ff -10%, rgba(82, 50, 209, 0.52) 105.62%), linear-gradient(0deg, #09151d, #09151d);
 	box-shadow: 0px 0px 76px 0px rgba(0, 19, 117, 0.54);
 	border-radius: 5rem;

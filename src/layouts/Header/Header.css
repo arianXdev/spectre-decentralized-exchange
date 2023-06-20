@@ -140,7 +140,7 @@
 }
 
 .Header__network-btn.active > ion-icon {
-	transform: rotate(180deg);
+	rotate: 180deg;
 }
 
 .Header__network-icon {

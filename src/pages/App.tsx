@@ -1,19 +1,24 @@
 import { useEffect, useState, useRef } from "react";
-import { useAppDispatch } from "./app/hooks";
+import { useAppDispatch } from "../app/hooks";
 
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { ethers } from "ethers";
 
-import config from "./config.json";
+import config from "../config.json";
 
-import { EthersContext } from "./context/EthersContext";
-import { ExchangeContext } from "./context/ExchangeContext";
-import { TokensContext } from "./context/TokensContext";
+import { EthersContext } from "../context/EthersContext";
+import { ExchangeContext } from "../context/ExchangeContext";
+import { TokensContext } from "../context/TokensContext";
 
-import { loadConnection, loadTokens, loadExchange, subscribeToEvents } from "./app/interactions";
-import useMetaMask from "./hooks/useMetaMask";
+import Header from "~/layouts/Header";
+import InstallWallet from "./InstallWallet";
+import Trade from "./Trade";
 
-import { Header, InstallWallet, Overlay, Trade } from "./components";
+import { Overlay } from "../components";
+
+import { loadConnection, loadTokens, loadExchange, subscribeToEvents } from "../utils/utils";
+import useMetaMask from "../hooks/useMetaMask";
+
 import { isMobile } from "react-device-detect";
 import { Toaster } from "react-hot-toast";
 import Typed from "typed.js";

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { BrowserTypes, isFirefox, browserName } from "react-device-detect";
 
-import { Icon, MetaMaskLogo } from "..";
+import { Icon, MetaMaskLogo } from "../../components";
 
 import "./InstallWallet.css";
 

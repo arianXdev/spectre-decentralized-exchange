@@ -6,12 +6,12 @@ import { EthersContext } from "~/context/EthersContext";
 import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
 
-import { loadConnection } from "~/app/interactions";
+import { loadConnection } from "~/utils/utils";
 
 import Logo from "~/assets/images/spectre-logo-light.png";
 
-import { AccountMenu, ConnectWallet } from "..";
-import { Icon } from "..";
+import { AccountMenu, ConnectWallet } from "../../components";
+import { Icon } from "../../components";
 
 import { toast, ErrorIcon, CheckmarkIcon } from "react-hot-toast";
 
