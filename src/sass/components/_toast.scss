@@ -1,0 +1,66 @@
+// Custom Toast
+.Toaster {
+	max-width: 100% !important;
+	font-family: $font-oxanium !important;
+	font-weight: 700 !important;
+	color: white !important;
+	background-color: $color-dark !important;
+	border-radius: 20px !important;
+
+	ion-icon {
+		padding-left: 0.3rem;
+		font-size: 1.5rem;
+	}
+
+	.toast--flex {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.toast-btn {
+		border-radius: 0.9rem;
+		padding-inline: 0.9rem;
+		padding-block: 0.4rem;
+		margin-left: 0.6rem;
+		transition: all 0.3s ease-in-out;
+
+		&--confirm {
+			color: white;
+			background: transparent;
+		}
+
+		&--confirm:hover {
+			background: $color-black;
+		}
+
+		&--dismiss {
+			color: white;
+			background: $color-red;
+			box-shadow: 0 1px 20px 5px rgba(151, 0, 25, 0.4);
+		}
+
+		&--dismiss:hover {
+			color: $color-red;
+			background: white;
+		}
+	}
+
+	.toast-spinner {
+		width: 1.3vw;
+		height: 1.3vw;
+		border-radius: 50%;
+		display: inline-block;
+		border-top: 0.24vw solid #fff;
+		border-right: 0.24vw solid transparent;
+		opacity: 0;
+		scale: 0;
+		transition: all 0.3s ease-in-out;
+
+		&.visible {
+			animation: rotation 1s linear infinite;
+			opacity: 1;
+			scale: 1;
+		}
+	}
+}

@@ -4,7 +4,7 @@ import { BrowserTypes, isFirefox, browserName } from "react-device-detect";
 
 import { Icon, MetaMaskLogo } from "../../components";
 
-import "./InstallWallet.css";
+import "./InstallWallet.scss";
 
 const InstallWallet = () => {
 	const MetaMaskForFirefox = "https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/";

@@ -11,7 +11,7 @@ import copy from "clipboard-copy";
 import config from "../../config.json";
 import { toast } from "react-hot-toast";
 
-import "./AccountMenu.css";
+import "./AccountMenu.scss";
 
 interface AccountMenuProps {
 	isOpen: boolean;

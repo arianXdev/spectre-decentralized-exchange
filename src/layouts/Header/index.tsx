@@ -15,7 +15,7 @@ import { Icon } from "../../components";
 
 import { toast, ErrorIcon, CheckmarkIcon } from "react-hot-toast";
 
-import "./Header.css";
+import "./Header.scss";
 
 enum Tabs {
 	SWAP = "swap",

@@ -23,7 +23,7 @@ import { isMobile } from "react-device-detect";
 import { Toaster } from "react-hot-toast";
 import Typed from "typed.js";
 
-import "./App.css";
+import "./App.scss";
 
 const App: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -91,8 +91,8 @@ const App: React.FC = () => {
 			const arianNameTyped = new Typed(arianNameRef.current, {
 				strings: [
 					"Arian Hosseini",
-					`<i style="font-family: var(--oxanium-font);font-size: 2.8rem">Blockchain Developer</i>`,
-					`Arian Hosseini <i style="font-family: var(--oxanium-font);font-size: 2.2rem"> | Blockchain Developer</i>`,
+					`<i style="font-family: $font-oxanium;font-size: 2.8rem">Blockchain Developer</i>`,
+					`Arian Hosseini <i style="font-family: $font-oxanium;font-size: 2.2rem"> | Blockchain Developer</i>`,
 					"Arian Hosseini",
 				],
 				typeSpeed: 100,

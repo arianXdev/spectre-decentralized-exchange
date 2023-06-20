@@ -10,7 +10,7 @@ import config from "../../config.json";
 
 import { Markets, Overlay, Balance } from "../../components";
 
-import "./Trade.css";
+import "./Trade.scss";
 
 enum Status {
 	WITHDRAW = "Withdraw",

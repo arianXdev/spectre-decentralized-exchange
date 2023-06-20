@@ -10,7 +10,7 @@ import Typed from "typed.js";
 
 import { Icon } from "..";
 
-import "./Markets.css";
+import "./Markets.scss";
 
 interface MarketsProps {
 	isOpen: boolean;

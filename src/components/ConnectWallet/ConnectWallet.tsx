@@ -9,7 +9,7 @@ import BinanceWalletLogo from "../../assets/images/binance-wallet.png";
 import Typed from "typed.js";
 import { toast } from "react-hot-toast";
 
-import "./ConnectWallet.css";
+import "./ConnectWallet.scss";
 
 interface ConnectWalletProps {
 	isOpen: boolean;

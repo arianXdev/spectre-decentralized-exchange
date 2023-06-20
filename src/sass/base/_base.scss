@@ -1,0 +1,76 @@
+*,
+*::before,
+*::after {
+	padding: 0;
+	margin: 0;
+	outline: none;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-moz-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+// Custom Scrollbar
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+::-webkit-scrollbar-track {
+	background: $color-background;
+}
+
+::-webkit-scrollbar-thumb {
+	background: linear-gradient(245deg, #000428 -2.05%, #054883 116.34%);
+}
+
+html:focus-within {
+	scroll-behavior: smooth;
+}
+
+body {
+	min-height: 100vh;
+	font-family: $font-main !important;
+	background: $color-background !important;
+	mix-blend-mode: normal;
+	overflow-x: hidden; /* Hide horizontal scrollbar */
+	text-rendering: optimizeSpeed;
+}
+
+a {
+	text-decoration: none !important;
+	color: inherit !important;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+select,
+input,
+button {
+	font-family: $font-main !important;
+	outline: none;
+	border: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+	html:focus-within {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}

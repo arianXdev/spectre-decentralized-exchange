@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import "./Overlay.css";
+import "./Overlay.scss";
 
 interface OverlayProps {
 	isOpen: boolean;

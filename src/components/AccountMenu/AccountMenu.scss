@@ -1,0 +1,173 @@
+@import "../../sass/abstracts/variables";
+
+%menu-open {
+	right: 0;
+}
+
+.account-menu {
+	position: fixed;
+	top: 3vh;
+	right: -388px;
+	width: 388px;
+	height: 95%;
+	background-color: $color-dark;
+	border-top-left-radius: 50px;
+	box-shadow: -2px 1px 10px rgba(0, 0, 0, 0.3);
+	border-end-start-radius: 50px;
+	transition: right 0.5s ease-in-out;
+	z-index: 13;
+
+	&.open {
+		@extend %menu-open;
+	}
+
+	&__wrapper {
+		padding: 1rem 1rem;
+	}
+
+	&__header {
+		display: grid;
+		grid-template-columns: 18% 55% 1fr;
+		align-items: center;
+		padding-top: 0.5rem;
+		padding-left: 0.5rem;
+	}
+
+	&__avatar {
+		border-radius: 50px;
+	}
+
+	&__address {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		cursor: pointer;
+
+		p {
+			font-family: $font-mono;
+			font-weight: 700;
+			font-size: 1.3em;
+			transition: all 0.2s ease;
+		}
+
+		> ion-icon {
+			display: none;
+			font-size: 1.1em;
+			padding-left: 10px;
+			color: #777;
+		}
+
+		&:hover {
+			color: #777;
+		}
+
+		&:hover > ion-icon {
+			display: inline;
+		}
+	}
+
+	&__button-group {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
+	&__disconnect {
+		display: flex;
+		justify-self: center;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.7rem;
+		padding: 0.25em;
+		border-radius: 50%;
+		color: $color-red;
+		background: none;
+		transition: all 0.2s ease-in-out;
+
+		&:hover {
+			background: #bd183e21;
+		}
+	}
+
+	&__view {
+		display: flex;
+		justify-self: center;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.7rem;
+		padding: 0.25em;
+		color: white;
+		border-radius: 50%;
+		background: none;
+		transition: all 0.2s ease-in-out;
+
+		&:hover {
+			background: #80808021;
+		}
+	}
+
+	&__body {
+		display: flex;
+		margin-top: 1rem;
+		padding-top: 1.3rem;
+		margin-inline: 1.5rem;
+		border-top: 1px dashed #ffffff73;
+	}
+
+	&__balance {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 10% 30% 1fr;
+		align-items: center;
+		font-family: $font-oxanium;
+		font-size: 1.2rem;
+
+		small {
+			justify-self: end;
+			font-family: $font-mono;
+			user-select: all;
+		}
+
+		ion-icon {
+			font-size: 1.3rem;
+		}
+	}
+}
+
+.close-menu {
+	position: fixed;
+	top: 3vh;
+	right: -455px;
+	width: 455px;
+	height: 95%;
+	background: rgba(255, 255, 255, 0.03);
+	border-radius: 50px;
+	transition: all 0.4s ease-in-out;
+	transition-delay: 0.09s;
+	z-index: 10;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.8;
+		width: 440px;
+	}
+
+	&__btn {
+		position: absolute;
+		top: 15%;
+		left: 0.7em;
+		font-size: 1.3rem;
+		color: white;
+		opacity: 0.6;
+		background: transparent;
+		transition: all 0.3s ease-in-out;
+	}
+
+	&:hover &__btn {
+		translate: 0.3em;
+	}
+
+	&.open {
+		@extend %menu-open;
+	}
+}

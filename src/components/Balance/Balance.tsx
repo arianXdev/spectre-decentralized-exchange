@@ -15,7 +15,7 @@ import SPECLogo from "~/assets/images/spectre-logo-light.png";
 import ETHPreloader from "~/assets/images/preloaders/eth-preloader.gif";
 import { Icon } from "..";
 
-import "./Balance.css";
+import "./Balance.scss";
 
 enum Status {
 	WITHDRAW = "Withdraw",
