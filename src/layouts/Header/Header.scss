@@ -1,4 +1,5 @@
 @import "../../sass/abstracts/variables";
+@import "../../sass/abstracts/mixins";
 
 .Header {
 	width: 100%;
@@ -46,19 +47,15 @@
 	/* ----- Header TABS ----- */
 	/* ----------------------- */
 	&__tabs-wrapper {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		@include displayFlex(center);
 	}
 
 	&__tabs {
+		@include displayFlex(center);
 		position: relative;
 		width: 90%;
 		height: 50px;
 		padding: 10px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		text-align: center;
 		color: white;
 		background: rgba(3, 5, 58, 0.3);
@@ -167,11 +164,9 @@
 	}
 
 	&__account-btn {
+		@include displayFlex(center);
 		width: max-content;
 		padding: 0.7rem 1.5rem;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		font-size: 1rem;
 		font-weight: 500;
 		color: $color-primary;
@@ -187,9 +182,7 @@
 	}
 
 	&__settings {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		@include displayFlex(center);
 		font-size: 1.8rem;
 	}
 }

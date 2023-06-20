@@ -1,4 +1,5 @@
 @import "../../sass/abstracts/variables";
+@import "../../sass/abstracts/mixins";
 
 .divider {
 	visibility: hidden;
@@ -64,10 +65,8 @@
 	/* ------- TRANSFERS -------- */
 	/* -------------------------- */
 	&__transfers {
-		display: flex;
+		@include displayFlex(center);
 		flex-direction: column;
-		justify-content: center;
-		align-items: center;
 		margin-top: 0.7rem;
 	}
 
@@ -88,10 +87,8 @@
 	}
 
 	&__token {
+		@include displayFlex(space-between);
 		position: absolute;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
 		width: max-content;
 		top: -1rem;
 		right: 2rem;
@@ -146,13 +143,23 @@
 		width: 100%;
 		height: 6.5rem;
 		padding: 0.5rem 2rem;
-		font-family: $font-mono !important;
+		font-family: $font-mono;
 		font-size: 1.8rem;
 		background: $color-purple;
 		border-radius: 2.6rem;
 		box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.42), inset 7px 10px 31px rgba(0, 0, 0, 0.49);
 		transition: all 0.3s ease-in;
 		color: #fff;
+
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		&[type="number"] {
+			-moz-appearance: textfield;
+		}
 	}
 
 	&__form.withdraw &__input:focus {
@@ -163,21 +170,9 @@
 		box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.42), inset 7px 10px 31px rgba(3, 197, 123, 0.8);
 	}
 
-	&__input::-webkit-outer-spin-button,
-	&__input::-webkit-inner-spin-button {
-		-webkit-appearance: none;
-		margin: 0;
-	}
-
-	&__input[type="number"] {
-		-moz-appearance: textfield;
-	}
-
 	&__btn {
+		@include displayFlex(space-between);
 		position: absolute;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
 		bottom: -27%;
 		left: 50%;
 		translate: -50%;
@@ -227,15 +222,14 @@
 		justify-items: center;
 		left: 0;
 		bottom: -3.93rem;
-		font-family: $font-mono !important;
+		font-family: $font-mono;
 		font-size: 1.05rem;
 		color: #fff;
 		opacity: 0.8;
 	}
 
 	&__exchange {
-		display: flex;
-		align-items: center;
+		@include displayFlex(unset);
 
 		img {
 			max-width: 1.4rem;
@@ -243,8 +237,7 @@
 	}
 
 	&__wallet {
-		display: flex;
-		align-items: center;
+		@include displayFlex(unset);
 	}
 
 	&__exchange small,

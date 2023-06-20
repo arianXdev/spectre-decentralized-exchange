@@ -1,4 +1,5 @@
 @import "../../sass/abstracts/variables";
+@import "../../sass/abstracts/mixins";
 
 .connect-wallet {
 	position: fixed;
@@ -56,12 +57,10 @@
 	}
 
 	&__title {
+		@include displayFlex(center);
 		position: absolute;
 		top: 0.3vw;
 		left: 50%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		font-family: $font-oxanium;
 		font-size: 1.5vw;
 		font-weight: 700;
@@ -83,20 +82,16 @@
 	}
 
 	&__wallets {
+		@include displayFlex(center);
 		width: 100%;
 		position: absolute;
 		bottom: -40%;
 		left: 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		z-index: 50;
 	}
 
 	&__wallet {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		@include displayFlex(center);
 		width: 8vw;
 		height: 8vw;
 		scale: 0.5;
@@ -162,10 +157,8 @@
 	}
 
 	&__body {
+		@include displayFlex(center);
 		position: absolute;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		top: 21%;
 		left: 10%;
 		opacity: 0;

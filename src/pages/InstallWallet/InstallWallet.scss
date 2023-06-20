@@ -1,4 +1,5 @@
 @import "../../sass/abstracts/variables";
+@import "../../sass/abstracts/mixins";
 
 .install-wallet {
 	position: fixed;
@@ -28,8 +29,7 @@
 	}
 
 	&__title {
-		display: flex;
-		align-items: center;
+		@include displayFlex(unset);
 		font-family: $font-oxanium;
 		font-weight: 800;
 		color: #da1111;
@@ -51,12 +51,10 @@
 	}
 
 	&__button {
+		@include displayFlex(space-between);
 		position: absolute;
 		bottom: -1vw;
 		left: 11%;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
 		font-family: $font-mono !important;
 		font-weight: 700;
 		font-size: 1.2vw;

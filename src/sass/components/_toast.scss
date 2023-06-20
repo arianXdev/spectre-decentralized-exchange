@@ -13,9 +13,7 @@
 	}
 
 	.toast--flex {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		@include displayFlex(center);
 	}
 
 	.toast-btn {
