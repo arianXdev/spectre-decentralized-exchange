@@ -12,7 +12,7 @@ import { TradeContext } from "~/context/TradeContext";
 import { loadBalances, transferTokens } from "~/utils";
 
 import SPECLogo from "~/assets/images/spectre-logo-light.png";
-import ETHPreloader from "~/assets/images/preloaders/eth-preloader.gif";
+import ETHPreloader from "~/assets/preloaders/eth-preloader.gif";
 import { Icon } from "..";
 
 import "./Balance.scss";
