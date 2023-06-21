@@ -16,7 +16,7 @@ import Trade from "./Trade";
 
 import { Overlay } from "../components";
 
-import { loadConnection, loadTokens, loadExchange, subscribeToEvents } from "../utils/utils";
+import { loadConnection, loadTokens, loadExchange, subscribeToEvents } from "../utils";
 import useMetaMask from "../hooks/useMetaMask";
 
 import { isMobile } from "react-device-detect";

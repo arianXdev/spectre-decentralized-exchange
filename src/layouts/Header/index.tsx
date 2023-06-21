@@ -6,7 +6,7 @@ import { EthersContext } from "~/context/EthersContext";
 import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
 
-import { loadConnection } from "~/utils/utils";
+import { loadConnection } from "~/utils";
 
 import Logo from "~/assets/images/spectre-logo-light.png";
 
