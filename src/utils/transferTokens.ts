@@ -4,7 +4,20 @@ import { transferRequested, transferFailed } from "../features/exchange/exchange
 
 import { AppDispatch } from "../app/store";
 
-export const transferTokens = async (provider, exchange, transferType: TransferType, token, amount: string, dispatch: AppDispatch) => {
+// Transfer tokens (Deposits & Withdraws)
+enum TransferType {
+	WITHDRAW = "Withdraw",
+	DEPOSIT = "Deposit",
+}
+
+export const transferTokens = async (
+	provider: any,
+	exchange: any,
+	transferType: TransferType,
+	token,
+	amount: string,
+	dispatch: AppDispatch
+) => {
 	let transaction;
 
 	dispatch(transferRequested());
@@ -14,17 +27,23 @@ export const transferTokens = async (provider, exchange, transferType: TransferT
 		const signer = await provider.getSigner();
 		const amountToTransfer = ethers.utils.parseUnits(amount.toString(), 18);
 
-		// Approve token transfering
-		transaction = await token.connect(signer).approve(exchange.address, amountToTransfer);
-		await transaction.wait(); // wait to finish
+		if (transferType === TransferType.DEPOSIT) {
+			// Approve token transfering
+			transaction = await token.connect(signer).approve(exchange.address, amountToTransfer);
+			await transaction.wait(); // wait to finish
 
-		// Do the transfer (after the approval)
-		transaction = await exchange.connect(signer).deposit(token.address, amountToTransfer);
+			// Do the transfer (after the approval)
+			transaction = await exchange.connect(signer).deposit(token.address, amountToTransfer);
+		} else if (transferType === TransferType.WITHDRAW) {
+			// Do the WITHDRAW transfer
+			transaction = await exchange.connect(signer).withdraw(token.address, amountToTransfer);
+		} else {
+			dispatch(transferFailed());
+			throw new Error("Invalid Transfer Type! Make sure the Transfer Type has been passed properly.");
+		}
+
 		await transaction.wait();
 	} catch (e) {
 		dispatch(transferFailed());
-		console.log(e);
 	}
-
-	// Recap: Events are a way for applications to subscribe to anything that's happened to the Blockchain and where / when it took place
 };

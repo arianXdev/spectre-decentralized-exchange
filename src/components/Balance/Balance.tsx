@@ -17,6 +17,15 @@ import { Icon } from "..";
 
 import "./Balance.scss";
 
+interface TokenType {
+	name: string;
+	address: string;
+	symbol: string;
+	balance: string;
+	decimals: number;
+	imageURL: string;
+}
+
 enum Status {
 	WITHDRAW = "Withdraw",
 	DEPOSIT = "Deposit",
@@ -46,7 +55,7 @@ const Balance = () => {
 	const [token2TransferAmount, setToken2TransferAmount] = useImmer<string>("");
 
 	// an event handler to handle the user input
-	const handleAmount = (e: ChangeEvent<HTMLInputElement>, token: any) => {
+	const handleAmount = (e: ChangeEvent<HTMLInputElement>, token: TokenType) => {
 		if (token.address === token1?.address) {
 			Number(e.target.value) >= 0 ? setToken1TransferAmount(e.target.value) : setToken1TransferAmount("");
 		} else if (token.address === token2?.address) {
@@ -59,15 +68,30 @@ const Balance = () => {
 		DEPOSIT = "Deposit",
 	}
 
-	// an event handler when the user clicks the deposit button
-	const handleDeposit = (e: ChangeEvent<HTMLInputElement>, token: any) => {
+	// an event handler when the user clicks the DEPOSIT button
+	const handleDeposit = (e: ChangeEvent<HTMLInputElement>, token: TokenType) => {
 		e.preventDefault();
 
-		if (token.address === token1?.address && Number(token1TransferAmount) !== 0 && Number(token1TransferAmount) > 0)
-			transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token1?.symbol].contract, token1TransferAmount, dispatch);
-		else if (token.address === token2?.address && Number(token2TransferAmount) !== 0 && Number(token2TransferAmount) > 0)
-			transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token2?.symbol].contract, token2TransferAmount, dispatch);
-		else console.log("Not valid amount!");
+		if (token1TransferAmount !== "" || token2TransferAmount !== "") {
+			if (token.address === token1?.address && Number(token1TransferAmount) !== 0 && Number(token1TransferAmount) > 0)
+				transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token1?.symbol].contract, token1TransferAmount, dispatch);
+			else if (token.address === token2?.address && Number(token2TransferAmount) !== 0 && Number(token2TransferAmount) > 0)
+				transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token2?.symbol].contract, token2TransferAmount, dispatch);
+			else console.log("Not valid amount!");
+		}
+	};
+
+	// an event handler when the user clicks the WITHDRAW button
+	const handleWithdraw = (e: ChangeEvent<HTMLInputElement>, token: TokenType) => {
+		e.preventDefault();
+
+		if (token1TransferAmount !== "" || token2TransferAmount !== "") {
+			if (token.address === token1?.address && Number(token1TransferAmount) !== 0 && Number(token1TransferAmount) > 0)
+				transferTokens(provider, exchange, TransferType.WITHDRAW, tokens[token1?.symbol].contract, token1TransferAmount, dispatch);
+			else if (token.address === token2?.address && Number(token2TransferAmount) !== 0 && Number(token2TransferAmount) > 0)
+				transferTokens(provider, exchange, TransferType.WITHDRAW, tokens[token2?.symbol].contract, token2TransferAmount, dispatch);
+			else console.log("Not valid amount!");
+		}
 	};
 
 	// clear out all the amount inputs
@@ -114,7 +138,10 @@ const Balance = () => {
 						<h3 className="balance__token-name">{token1?.symbol ?? "SPEC"}</h3>
 					</article>
 
-					<form onSubmit={(e) => handleDeposit(e, token1)} noValidate>
+					<form
+						onSubmit={status === Status.DEPOSIT ? (e) => handleDeposit(e, token1) : (e) => handleWithdraw(e, token1)}
+						noValidate
+					>
 						<label className="balance__label" htmlFor="token1">
 							{token1 && token1.symbol} AMOUNT
 						</label>
@@ -158,7 +185,10 @@ const Balance = () => {
 						<h3 className="balance__token-name">{token2?.symbol ?? "mETH"}</h3>
 					</article>
 
-					<form onSubmit={(e) => handleDeposit(e, token2)} noValidate>
+					<form
+						onSubmit={status === Status.DEPOSIT ? (e) => handleDeposit(e, token2) : (e) => handleWithdraw(e, token2)}
+						noValidate
+					>
 						<label className="balance__label" htmlFor="token2">
 							{token2 && token2.symbol} AMOUNT
 						</label>

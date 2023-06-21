@@ -13,4 +13,10 @@ export const subscribeToEvents = (exchange, dispatch: AppDispatch) => {
 		// Notify app that transfer was successful
 		dispatch(transferSuccess());
 	});
+
+	// When WITHDRAW happens, it's gonna notify the app
+	exchange.on(TransferType.WITHDRAW, (event) => {
+		// Notify app that transfer was successful
+		dispatch(transferSuccess());
+	});
 };
