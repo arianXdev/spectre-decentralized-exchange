@@ -46,9 +46,12 @@ const Balance = () => {
 	const [token2TransferAmount, setToken2TransferAmount] = useImmer<string>("");
 
 	// an event handler to handle the user input
-	const handleAmount = (e: ChangeEvent<HTMLInputElement>, token) => {
-		if (token.address === token1?.address) setToken1TransferAmount(e.target.value);
-		else if (token.address === token2?.address) setToken2TransferAmount(e.target.value);
+	const handleAmount = (e: ChangeEvent<HTMLInputElement>, token: any) => {
+		if (token.address === token1?.address) {
+			Number(e.target.value) >= 0 ? setToken1TransferAmount(e.target.value) : setToken1TransferAmount("");
+		} else if (token.address === token2?.address) {
+			Number(e.target.value) >= 0 ? setToken2TransferAmount(e.target.value) : setToken2TransferAmount("");
+		}
 	};
 
 	enum TransferType {
@@ -57,13 +60,14 @@ const Balance = () => {
 	}
 
 	// an event handler when the user clicks the deposit button
-	const handleDeposit = (e: ChangeEvent<HTMLInputElement>, token) => {
+	const handleDeposit = (e: ChangeEvent<HTMLInputElement>, token: any) => {
 		e.preventDefault();
 
-		if (token.address === token1?.address)
+		if (token.address === token1?.address && Number(token1TransferAmount) !== 0 && Number(token1TransferAmount) > 0)
 			transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token1?.symbol].contract, token1TransferAmount, dispatch);
-		else if (token.address === token2?.address)
+		else if (token.address === token2?.address && Number(token2TransferAmount) !== 0 && Number(token2TransferAmount) > 0)
 			transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token2?.symbol].contract, token2TransferAmount, dispatch);
+		else console.log("Not valid amount!");
 	};
 
 	// clear out all the amount inputs
