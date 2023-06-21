@@ -15,6 +15,8 @@ import SPECLogo from "~/assets/images/spectre-logo-light.png";
 import ETHPreloader from "~/assets/preloaders/eth-preloader.gif";
 import { Icon } from "..";
 
+import { toast, ErrorIcon, CheckmarkIcon } from "react-hot-toast";
+
 import "./Balance.scss";
 
 interface TokenType {
@@ -77,7 +79,11 @@ const Balance = () => {
 				transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token1?.symbol].contract, token1TransferAmount, dispatch);
 			else if (token.address === token2?.address && Number(token2TransferAmount) !== 0 && Number(token2TransferAmount) > 0)
 				transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token2?.symbol].contract, token2TransferAmount, dispatch);
-			else console.log("Not valid amount!");
+			else
+				toast.error("Oops! It looks like the amount you entered is invalid. Please ensure it is accurate before proceeding.", {
+					duration: 5500,
+					icon: <ErrorIcon />,
+				});
 		}
 	};
 
@@ -90,7 +96,11 @@ const Balance = () => {
 				transferTokens(provider, exchange, TransferType.WITHDRAW, tokens[token1?.symbol].contract, token1TransferAmount, dispatch);
 			else if (token.address === token2?.address && Number(token2TransferAmount) !== 0 && Number(token2TransferAmount) > 0)
 				transferTokens(provider, exchange, TransferType.WITHDRAW, tokens[token2?.symbol].contract, token2TransferAmount, dispatch);
-			else console.log("Not valid amount!");
+			else
+				toast.error("Oops! It looks like the amount you entered is invalid. Please ensure it is accurate before proceeding.", {
+					duration: 5500,
+					icon: <ErrorIcon />,
+				});
 		}
 	};
 

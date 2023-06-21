@@ -7,7 +7,7 @@ enum TransferType {
 	DEPOSIT = "Deposit",
 }
 
-export const subscribeToEvents = (exchange, dispatch: AppDispatch) => {
+export const subscribeToEvents = (exchange: any, dispatch: AppDispatch) => {
 	// When DEPOSIT happens, it's gonna notify the app
 	exchange.on(TransferType.DEPOSIT, (event) => {
 		// Notify app that transfer was successful
