@@ -73,6 +73,9 @@ const App: React.FC = () => {
 		const exchange = await loadExchange(provider, config[chainId].spectre.address);
 		setExchange(exchange);
 
+		// Load the connection if the user has been connected already
+		useMetaMask().selectedAddress ? await loadConnection(provider, dispatch) : null;
+
 		// Listen to all events from the Blockchain
 		subscribeToEvents(exchange, dispatch);
 	};
