@@ -52,12 +52,12 @@
 		cursor: pointer;
 		transition: all 0.2s ease-in-out;
 
+		i {
+			padding-inline: 0.4em;
+		}
+
 		&:hover {
 			opacity: 1;
-
-			i {
-				padding-inline: 0.4em;
-			}
 		}
 	}
 
