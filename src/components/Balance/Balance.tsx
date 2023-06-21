@@ -15,7 +15,7 @@ import SPECLogo from "~/assets/images/spectre-logo-light.png";
 import ETHPreloader from "~/assets/preloaders/eth-preloader.gif";
 import { Icon } from "..";
 
-import { toast, ErrorIcon, CheckmarkIcon } from "react-hot-toast";
+import { toast, ErrorIcon } from "react-hot-toast";
 
 import "./Balance.scss";
 
@@ -74,16 +74,34 @@ const Balance = () => {
 	const handleDeposit = (e: ChangeEvent<HTMLInputElement>, token: TokenType) => {
 		e.preventDefault();
 
-		if (token1TransferAmount !== "" || token2TransferAmount !== "") {
-			if (token.address === token1?.address && Number(token1TransferAmount) !== 0 && Number(token1TransferAmount) > 0)
-				transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token1?.symbol].contract, token1TransferAmount, dispatch);
-			else if (token.address === token2?.address && Number(token2TransferAmount) !== 0 && Number(token2TransferAmount) > 0)
-				transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token2?.symbol].contract, token2TransferAmount, dispatch);
-			else
-				toast.error("Oops! It looks like the amount you entered is invalid. Please ensure it is accurate before proceeding.", {
-					duration: 5500,
-					icon: <ErrorIcon />,
-				});
+		if (account) {
+			if (token1TransferAmount !== "" || token2TransferAmount !== "") {
+				if (token.address === token1?.address && Number(token1TransferAmount) !== 0 && Number(token1TransferAmount) > 0)
+					transferTokens(
+						provider,
+						exchange,
+						TransferType.DEPOSIT,
+						tokens[token1?.symbol].contract,
+						token1TransferAmount,
+						dispatch
+					);
+				else if (token.address === token2?.address && Number(token2TransferAmount) !== 0 && Number(token2TransferAmount) > 0)
+					transferTokens(
+						provider,
+						exchange,
+						TransferType.DEPOSIT,
+						tokens[token2?.symbol].contract,
+						token2TransferAmount,
+						dispatch
+					);
+				else
+					toast.error("Oops! It looks like the amount you entered is invalid. Please ensure it is accurate before proceeding.", {
+						duration: 5500,
+						icon: <ErrorIcon />,
+					});
+			}
+		} else {
+			toast("Please connect your wallet!", { icon: <Icon name="alert" /> });
 		}
 	};
 
@@ -91,16 +109,34 @@ const Balance = () => {
 	const handleWithdraw = (e: ChangeEvent<HTMLInputElement>, token: TokenType) => {
 		e.preventDefault();
 
-		if (token1TransferAmount !== "" || token2TransferAmount !== "") {
-			if (token.address === token1?.address && Number(token1TransferAmount) !== 0 && Number(token1TransferAmount) > 0)
-				transferTokens(provider, exchange, TransferType.WITHDRAW, tokens[token1?.symbol].contract, token1TransferAmount, dispatch);
-			else if (token.address === token2?.address && Number(token2TransferAmount) !== 0 && Number(token2TransferAmount) > 0)
-				transferTokens(provider, exchange, TransferType.WITHDRAW, tokens[token2?.symbol].contract, token2TransferAmount, dispatch);
-			else
-				toast.error("Oops! It looks like the amount you entered is invalid. Please ensure it is accurate before proceeding.", {
-					duration: 5500,
-					icon: <ErrorIcon />,
-				});
+		if (account) {
+			if (token1TransferAmount !== "" || token2TransferAmount !== "") {
+				if (token.address === token1?.address && Number(token1TransferAmount) !== 0 && Number(token1TransferAmount) > 0)
+					transferTokens(
+						provider,
+						exchange,
+						TransferType.WITHDRAW,
+						tokens[token1?.symbol].contract,
+						token1TransferAmount,
+						dispatch
+					);
+				else if (token.address === token2?.address && Number(token2TransferAmount) !== 0 && Number(token2TransferAmount) > 0)
+					transferTokens(
+						provider,
+						exchange,
+						TransferType.WITHDRAW,
+						tokens[token2?.symbol].contract,
+						token2TransferAmount,
+						dispatch
+					);
+				else
+					toast.error("Oops! It looks like the amount you entered is invalid. Please ensure it is accurate before proceeding.", {
+						duration: 5500,
+						icon: <ErrorIcon />,
+					});
+			}
+		} else {
+			toast("Please connect your wallet!", { icon: <Icon name="alert" /> });
 		}
 	};
 
