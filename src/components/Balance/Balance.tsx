@@ -60,13 +60,16 @@ const Balance = () => {
 	const handleDeposit = (e: ChangeEvent<HTMLInputElement>, token) => {
 		e.preventDefault();
 
-		if (token.address === token1?.address) {
+		if (token.address === token1?.address)
 			transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token1?.symbol].contract, token1TransferAmount, dispatch);
-			// clear out the input after the button is triggered
-			setToken1TransferAmount("");
-		} else if (token.address === token2?.address) {
+		else if (token.address === token2?.address)
 			transferTokens(provider, exchange, TransferType.DEPOSIT, tokens[token2?.symbol].contract, token2TransferAmount, dispatch);
-			// clear out the input after the button is triggered
+	};
+
+	// clear out all the amount inputs
+	const clearAmountInputs = () => {
+		if (!transferInProgress) {
+			setToken1TransferAmount("");
 			setToken2TransferAmount("");
 		}
 	};
@@ -74,6 +77,9 @@ const Balance = () => {
 	useEffect(() => {
 		if (exchange && account && tokens && token1 && token2)
 			loadBalances(exchange, [tokens[token1?.symbol].contract, tokens[token2?.symbol].contract], account, dispatch);
+
+		// clear out all the amount inputs after the transaction is done (whether successful or failed)
+		clearAmountInputs();
 	}, [exchange, account, tokens, token1, token2, transferInProgress, dispatch]);
 
 	return (

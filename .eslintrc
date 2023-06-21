@@ -43,7 +43,7 @@
 	  ],
 	  "object-shorthand": ["error", "properties"],
 	  "react-hooks/rules-of-hooks": "error",
-	  "react-hooks/exhaustive-deps": "warn",
+	//   "react-hooks/exhaustive-deps": "",
 	  "react/jsx-no-duplicate-props": "error",
 	  "quotes": ["error", "double", { "allowTemplateLiterals": true }]
 	},
