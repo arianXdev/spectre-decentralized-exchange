@@ -2,9 +2,9 @@ import { FC, useEffect, useRef } from "react";
 
 import { Icon, Overlay } from "..";
 
-import MetaMaskLogo from "../../assets/images/metamask.webp";
-import WalletConnectLogo from "../../assets/images/wallet-connect.png";
-import BinanceWalletLogo from "../../assets/images/binance-wallet.png";
+import MetaMaskLogo from "../../assets/wallets/metamask-icon.webp";
+import WalletConnectLogo from "../../assets/wallets/walletconnect-icon.png";
+import BinanceWalletLogo from "../../assets/wallets/binance-wallet-icon.png";
 
 import Typed from "typed.js";
 import { toast } from "react-hot-toast";
