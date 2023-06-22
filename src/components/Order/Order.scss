@@ -1,0 +1,215 @@
+@import "../../sass/abstracts/variables";
+@import "../../sass/abstracts/mixins";
+
+$order-text-color: #fff;
+
+$order-bg-tabs: rgba(3, 5, 58, 0.5);
+
+$order-bg-buy-tab: linear-gradient(85deg, #0fa85e, #023f11);
+$order-bg-sell-tab: linear-gradient(70deg, rgba(161, 15, 50, 1), rgb(70, 0, 22));
+
+$order-bg-buy-tab--non-active: darken(#03c56733, 8%);
+$order-bg-sell-tab--non-active: darken(rgba(161, 15, 50, 0.2), 5%);
+
+.order {
+	position: absolute;
+	bottom: 13%;
+	width: 100%;
+	padding-inline: 1.8rem;
+	font-size: 16px;
+	color: $order-text-color;
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 50%;
+		translate: -50% -50%;
+		width: 80%;
+		height: 1px;
+		background: white;
+		opacity: 0.2;
+		z-index: 5;
+	}
+
+	/* -------------------------- */
+	/* --------- HEADER --------- */
+	/* -------------------------- */
+	&__header {
+		display: grid;
+		grid-template-columns: 1fr 55%;
+		align-items: center;
+		padding: 1em;
+	}
+
+	&__title {
+		font-family: $font-main;
+		font-weight: 700;
+		font-size: 1.1em;
+	}
+
+	/* -------------------------- */
+	/* ---------- TABS ---------- */
+	/* -------------------------- */
+	&__tabs {
+		position: relative;
+		width: 100%;
+		height: 1.8rem;
+		text-align: center;
+		color: $order-text-color;
+		background: $order-bg-tabs;
+		box-shadow: 0 0 20px 0 rgba(18, 16, 38, 0.4);
+		border-radius: 30px;
+		z-index: 0;
+
+		.order__tab {
+			position: absolute;
+			top: 8.5%;
+			width: 44%;
+			height: 83%;
+			font-size: 0.89em;
+			border-radius: inherit;
+			color: inherit;
+			background: $color-non-active;
+			transition: all 0.35s ease-in-out;
+			box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
+			letter-spacing: 1px;
+			z-index: 3;
+
+			&--buy {
+				left: 1.5%;
+				background: $order-bg-buy-tab--non-active;
+			}
+
+			&--sell {
+				right: 1.5%;
+				background: $order-bg-sell-tab--non-active;
+			}
+
+			&--active {
+				width: 60%;
+				font-weight: 900;
+				z-index: 5;
+			}
+
+			&--active.order__tab--buy {
+				background: $order-bg-buy-tab;
+			}
+
+			&--active.order__tab--sell {
+				background: $order-bg-sell-tab;
+			}
+		}
+	}
+
+	/* -------------------------- */
+	/* ---------- FORM ---------- */
+	/* -------------------------- */
+	&__form {
+		width: 100%;
+		@include displayFlex(center);
+		flex-direction: column;
+		position: relative;
+
+		&-group {
+			width: 95%;
+			position: relative;
+			margin-bottom: 1em;
+		}
+
+		&.buy .order__input:focus {
+			box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.42), inset 7px 10px 31px rgba(3, 197, 123, 0.8);
+		}
+
+		&.sell .order__input:focus {
+			box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.42), inset 7px 10px 31px rgba(211, 22, 22, 0.8);
+		}
+	}
+
+	&__label {
+		position: absolute;
+		top: 0.78rem;
+		left: 2.1rem;
+		font-size: 0.7rem;
+		opacity: 0.2;
+	}
+
+	&__input {
+		width: 100%;
+		height: 5.2rem;
+		padding: 1rem 2rem;
+		font-family: $font-mono;
+		font-size: 1.6rem;
+		background: $color-purple;
+		border-radius: 2.2rem;
+		box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.42), inset 7px 10px 31px rgba(0, 0, 0, 0.49);
+		transition: all 0.3s ease-in;
+		color: #fff;
+
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		&[type="number"] {
+			-moz-appearance: textfield;
+		}
+	}
+
+	&__btn {
+		@include displayFlex(space-between);
+		position: absolute;
+		width: 57%;
+		bottom: -8%;
+		left: 50%;
+		translate: -50%;
+		padding: 1rem 2.48rem;
+		font-weight: 500;
+		font-size: 1.05rem;
+		letter-spacing: 1px;
+		border-radius: 10rem;
+		transition: all 0.5s ease-in-out;
+		mix-blend-mode: normal;
+		color: white;
+		z-index: 4;
+
+		&--buy {
+			background: linear-gradient(96.04deg, #04c769 -14.79%, #006b3e 115.02%);
+			box-shadow: 0px -5px 10px rgba(29, 66, 37, 0.2), inset 0px 4px 8px rgba(0, 0, 0, 0.3), 0 0 5px rgba(29, 66, 37, 0.2);
+			backdrop-filter: blur(18px);
+			-webkit-backdrop-filter: blur(18px);
+		}
+
+		&--sell {
+			background: linear-gradient(129.07deg, #c01e45 25.18%, #22000b 131.04%);
+			box-shadow: 0px -5px 20px rgba(37, 1, 1, 0.4), inset 0px 4px 8px rgba(0, 0, 0, 0.25), 0 0 5px rgba(51, 36, 36, 0.2);
+			backdrop-filter: blur(18px);
+			-webkit-backdrop-filter: blur(18px);
+		}
+
+		ion-icon {
+			font-size: 1em;
+			transition: all 0.3s ease-out;
+		}
+
+		&:hover ion-icon {
+			translate: 0.4rem;
+		}
+	}
+
+	&__info {
+		position: absolute;
+		bottom: -4.5rem;
+		display: grid;
+		padding-inline: 1.8rem;
+		grid-template-columns: 1fr 70% 15%;
+		align-items: center;
+		margin-top: 2rem;
+
+		ion-icon {
+			font-size: 1.5em;
+			color: $color-yellow;
+		}
+	}
+}

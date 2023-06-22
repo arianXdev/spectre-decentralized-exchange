@@ -8,7 +8,7 @@ import TradeRectangle from "../../assets/images/trade-rectangle.svg";
 
 import config from "../../config.json";
 
-import { Markets, Overlay, Balance } from "../../components";
+import { Markets, Overlay, Balance, Order } from "../../components";
 
 import "./Trade.scss";
 
@@ -84,6 +84,8 @@ const Trade = () => {
 							</div>
 
 							<Balance />
+
+							<Order />
 						</section>
 					</TradeContext.Provider>
 				</div>

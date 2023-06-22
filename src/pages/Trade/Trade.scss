@@ -30,8 +30,8 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 39.9%;
-		height: 6.3%;
+		width: 39.5%;
+		height: 6.15%;
 		padding-top: 0.6rem;
 		padding-left: 0.8rem;
 		background: $color-secondary;
@@ -43,9 +43,9 @@
 		&::before {
 			position: absolute;
 			top: 8%;
-			left: 3%;
+			left: 3.5%;
 			content: " ";
-			width: 100%;
+			width: 99.5%;
 			height: 100%;
 			background: #4a5171;
 			display: block;
@@ -56,14 +56,15 @@
 
 	&__markets-label {
 		opacity: 0.3;
-		font-size: 0.83rem;
+		font-size: 0.85rem;
 		display: block;
 	}
 
 	&__selected-market {
 		font-weight: 500;
-		margin-top: 0.28em;
-		font-size: 0.95em;
+		margin-top: 0.5em;
+		letter-spacing: 1px;
+		font-size: 1em;
 	}
 
 	&__status {
