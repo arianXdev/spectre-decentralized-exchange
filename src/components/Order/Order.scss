@@ -8,7 +8,7 @@ $order-bg-tabs: rgba(3, 5, 58, 0.5);
 $order-bg-buy-tab: linear-gradient(85deg, #0fa85e, #023f11);
 $order-bg-sell-tab: linear-gradient(70deg, rgba(161, 15, 50, 1), rgb(70, 0, 22));
 
-$order-bg-buy-tab--non-active: darken(#03c56733, 8%);
+$order-bg-buy-tab--non-active: darken(#07bb6456, 8%);
 $order-bg-sell-tab--non-active: darken(rgba(161, 15, 50, 0.2), 5%);
 
 .order {
@@ -74,7 +74,7 @@ $order-bg-sell-tab--non-active: darken(rgba(161, 15, 50, 0.2), 5%);
 			transition: all 0.35s ease-in-out;
 			box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
 			letter-spacing: 1px;
-			z-index: 3;
+			opacity: 0.6;
 
 			&--buy {
 				left: 1.5%;
@@ -86,9 +86,14 @@ $order-bg-sell-tab--non-active: darken(rgba(161, 15, 50, 0.2), 5%);
 				background: $order-bg-sell-tab--non-active;
 			}
 
+			&:not(.order__tab--active):hover {
+				box-shadow: 0 0 7px rgba(0, 0, 0, 0.5), inset 1px 1px 6px rgba(0, 0, 0, 0.85);
+			}
+
 			&--active {
 				width: 60%;
 				font-weight: 900;
+				opacity: 1;
 				z-index: 5;
 			}
 
