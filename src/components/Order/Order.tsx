@@ -141,14 +141,14 @@ const Order = () => {
 
 				<div className="order__form-group order__form-group--price">
 					<label className="order__label" htmlFor="price">
-						{activeTab === Tabs.BUY ? "Buy" : "Sell"} PRICE ($)
+						{activeTab === Tabs.BUY ? "Buy" : "Sell"} PRICE
 					</label>
 					<input
 						className="order__input order__input--price"
 						type="number"
 						name="price"
 						tabIndex={4}
-						placeholder="0.00"
+						placeholder="0.0000"
 						autoComplete="off"
 						value={price}
 						onChange={(e) => setPrice(Number(e.target.value) >= 0 ? e.target.value : "")}

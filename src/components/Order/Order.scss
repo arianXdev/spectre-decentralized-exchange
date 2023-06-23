@@ -122,29 +122,10 @@ $color-dollar-sign: #ffffff5b;
 			width: 95%;
 			position: relative;
 			margin-bottom: 1em;
-
-			&--price::after {
-				position: absolute;
-				top: 48.5%;
-				right: 7%;
-				translate: -50% -50%;
-				content: "$";
-				font-family: $font-mono;
-				font-size: 2.8rem;
-				color: $color-dollar-sign;
-				user-select: none;
-				-webkit-user-select: none;
-				pointer-events: none;
-				-webkit-pointer-events: none;
-			}
 		}
 
 		&.buy .order__input:focus {
 			box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.42), inset 7px 10px 31px rgba(3, 197, 123, 0.8);
-		}
-
-		&.buy .order__input--price:focus {
-			box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.42), inset 7px 10px 31px rgba(15, 75, 243, 0.8);
 		}
 
 		&.sell .order__input:focus {
@@ -180,10 +161,6 @@ $color-dollar-sign: #ffffff5b;
 
 		&[type="number"] {
 			-moz-appearance: textfield;
-		}
-
-		&--price {
-			padding-right: 5rem;
 		}
 	}
 
