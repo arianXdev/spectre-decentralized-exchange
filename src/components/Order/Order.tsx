@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useImmer } from "use-immer";
 
 import classNames from "classnames";
 import { Icon } from "..";
+
+import { useAppDispatch, useAppSelector } from "~/app/hooks";
+
+import { EthersContext } from "~/context/EthersContext";
+import { ExchangeContext } from "~/context/ExchangeContext";
+import { TokensContext } from "~/context/TokensContext";
+
+import { makeBuyOrder, makeSellOrder } from "~/utils";
 
 import "./Order.scss";
 
@@ -14,8 +22,18 @@ enum Tabs {
 const Order = () => {
 	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.BUY);
 
+	const dispatch = useAppDispatch();
+
 	const [amount, setAmount] = useImmer<string>("");
 	const [price, setPrice] = useImmer<string>("");
+
+	const { provider } = useContext(EthersContext);
+	const { exchange } = useContext(ExchangeContext);
+	const { tokens } = useContext(TokensContext);
+
+	// tokens
+	const token1 = useAppSelector(({ tokens }) => tokens.token1);
+	const token2 = useAppSelector(({ tokens }) => tokens.token2);
 
 	const orderBuyTabClass = classNames({
 		order__tab: true,
@@ -32,11 +50,19 @@ const Order = () => {
 	// an Event Handler to handle buy orders
 	const handleBuyOrder = (e) => {
 		e.preventDefault();
+
+		const order = { amount, price };
+
+		makeBuyOrder(provider, exchange, [tokens[token1?.symbol].contract, tokens[token2?.symbol].contract], order, dispatch);
 	};
 
 	// an Event Handler to handle sell orders
 	const handleSellOrder = (e) => {
 		e.preventDefault();
+
+		const order = { amount, price };
+
+		makeSellOrder(provider, exchange, [tokens[token1?.symbol].contract, tokens[token2?.symbol].contract], order, dispatch);
 	};
 
 	return (

@@ -1,5 +1,5 @@
-import { transferSuccess } from "../features/exchange/exchangeSlice";
 import { AppDispatch } from "~/app/store";
+import { transferSuccess, makeOrderSuccess } from "../features/exchange/exchangeSlice";
 
 // Transfer tokens (Deposits & Withdraws)
 enum TransferType {
@@ -19,4 +19,32 @@ export const subscribeToEvents = (exchange: any, dispatch: AppDispatch) => {
 		// Notify app that transfer was successful
 		dispatch(transferSuccess());
 	});
+
+	// When MAKE ORDER happens, it's gonna notify the app
+	exchange.on(
+		"Order",
+		async (
+			id: string,
+			user: string,
+			tokenGet: string,
+			amountGet: string,
+			tokenGive: string,
+			amountGive: string,
+			timestamp: string,
+			event
+		) => {
+			const order = {
+				id: id.toString(),
+				user,
+				tokenGet,
+				amountGet: amountGet.toString(),
+				tokenGive,
+				amountGive: amountGive.toString(),
+				timestamp: timestamp.toString(),
+			};
+
+			// Notify app that the make order trx was successful
+			dispatch(makeOrderSuccess(order));
+		}
+	);
 };

@@ -4,3 +4,6 @@ export { loadExchange } from "./loadExchange";
 export { loadBalances } from "./loadBalances";
 export { subscribeToEvents } from "./subscribeToEvents";
 export { transferTokens } from "./transferTokens";
+
+export { makeBuyOrder } from "./makeBuyOrder";
+export { makeSellOrder } from "./makeSellOrder";

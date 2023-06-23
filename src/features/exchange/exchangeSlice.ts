@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { produce } from "immer";
+
 // Define a type for the slice state
 interface ExchangeState {
 	loaded: boolean;
 	balances: { token1: string; token2: string };
-	transaction: { transactionType: string; isPending: boolean; isSuccessful: boolean; hasError?: boolean };
+	orders?: { loaded: boolean; allOrders: unknown[] | object };
+	transaction: { transactionType: TransactionType; isPending: boolean; isSuccessful: boolean; hasError?: boolean };
 	transferInProgress: boolean;
 	events?: [];
 }
@@ -12,12 +15,23 @@ interface ExchangeState {
 const initialState = {
 	loaded: false,
 	balances: {
-		token1: "0",
-		token2: "0",
+		token1: "0.00",
+		token2: "0.00",
+	},
+	orders: {
+		loaded: false,
+		allOrders: [],
 	},
 	transferInProgress: false,
 	events: [],
 } as ExchangeState;
+
+enum TransactionType {
+	TRANSFER = "TRANSFER",
+	MAKE_ORDER = "MAKE ORDER",
+	FILL_ORDER = "FILL ORDER",
+	CANCEL_ORDER = "CANCEL ORDER",
+}
 
 const exchangeSlice = createSlice({
 	name: "exchange",
@@ -34,7 +48,7 @@ const exchangeSlice = createSlice({
 
 		transferRequested: (state) => {
 			state.transaction = {
-				transactionType: "TRANSFER",
+				transactionType: TransactionType.TRANSFER,
 				isPending: true,
 				isSuccessful: false,
 			};
@@ -42,9 +56,20 @@ const exchangeSlice = createSlice({
 			state.transferInProgress = true;
 		},
 
+		transferFailed: (state) => {
+			state.transaction = {
+				transactionType: TransactionType.TRANSFER,
+				isPending: false,
+				isSuccessful: false,
+				hasError: true,
+			};
+
+			state.transferInProgress = false;
+		},
+
 		transferSuccess: (state) => {
 			state.transaction = {
-				transactionType: "TRANSFER",
+				transactionType: TransactionType.TRANSFER,
 				isPending: false,
 				isSuccessful: true,
 			};
@@ -53,19 +78,51 @@ const exchangeSlice = createSlice({
 			// state.events = events; // non-serialized value
 		},
 
-		transferFailed: (state) => {
+		// ORDERS
+		makeOrderRequested: (state) => {
 			state.transaction = {
-				transactionType: "TRANSFER",
+				transactionType: TransactionType.MAKE_ORDER,
+				isPending: true,
+				isSuccessful: false,
+			};
+		},
+
+		makeOrderFailed: (state) => {
+			state.transaction = {
+				transactionType: TransactionType.MAKE_ORDER,
 				isPending: false,
 				isSuccessful: false,
 				hasError: true,
 			};
+		},
 
-			state.transferInProgress = false;
+		makeOrderSuccess: (state, action: PayloadAction<ExchangeState>) => {
+			const order = action.payload;
+
+			state.orders = {
+				loaded: true,
+				allOrders: [...state.orders?.allOrders, order],
+			};
+
+			state.transaction = {
+				transactionType: TransactionType.MAKE_ORDER,
+				isPending: false,
+				isSuccessful: true,
+			};
+
+			// state.events = events; // non-serialized value
 		},
 	},
 });
 
-export const { exchangeBalancesLoaded, transferRequested, transferSuccess, transferFailed } = exchangeSlice.actions;
+export const {
+	exchangeBalancesLoaded,
+	transferRequested,
+	transferSuccess,
+	transferFailed,
+	makeOrderRequested,
+	makeOrderFailed,
+	makeOrderSuccess,
+} = exchangeSlice.actions;
 
 export default exchangeSlice.reducer;
