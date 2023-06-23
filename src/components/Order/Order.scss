@@ -206,7 +206,10 @@ $color-dollar-sign: #ffffff5b;
 		}
 	}
 
+	// !!! HIDDEN FOR NOW !!!
 	&__info {
+		display: none;
+		visibility: hidden;
 		position: absolute;
 		bottom: -4.5rem;
 		display: grid;
