@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useImmer } from "use-immer";
 
 import classNames from "classnames";
@@ -11,6 +11,8 @@ import { ExchangeContext } from "~/context/ExchangeContext";
 import { TokensContext } from "~/context/TokensContext";
 
 import { makeBuyOrder, makeSellOrder } from "~/utils";
+
+import { toast } from "react-hot-toast";
 
 import "./Order.scss";
 
@@ -31,9 +33,14 @@ const Order = () => {
 	const { exchange } = useContext(ExchangeContext);
 	const { tokens } = useContext(TokensContext);
 
+	const account = useAppSelector(({ connection }) => connection.current?.account);
+
 	// tokens
 	const token1 = useAppSelector(({ tokens }) => tokens.token1);
 	const token2 = useAppSelector(({ tokens }) => tokens.token2);
+
+	// the current order trx status
+	const orderInProgress = useAppSelector(({ exchange }) => exchange.orderInProgress);
 
 	const orderBuyTabClass = classNames({
 		order__tab: true,
@@ -51,19 +58,51 @@ const Order = () => {
 	const handleBuyOrder = (e) => {
 		e.preventDefault();
 
-		const order = { amount, price };
-
-		makeBuyOrder(provider, exchange, [tokens[token1?.symbol].contract, tokens[token2?.symbol].contract], order, dispatch);
+		if (account) {
+			if (amount !== "" || price !== "") {
+				if (Number(amount) !== 0 && Number(amount) > 0 && Number(price) !== 0 && Number(price) > 0) {
+					const order = { amount, price };
+					makeBuyOrder(provider, exchange, [tokens[token1?.symbol].contract, tokens[token2?.symbol].contract], order, dispatch);
+				} else
+					toast.error("Oops! It looks like the amount you entered is invalid. Please ensure it is accurate before proceeding.", {
+						duration: 5500,
+					});
+			}
+		} else {
+			toast("Please connect your wallet!", { icon: <Icon name="alert" /> });
+		}
 	};
 
 	// an Event Handler to handle sell orders
 	const handleSellOrder = (e) => {
 		e.preventDefault();
 
-		const order = { amount, price };
-
-		makeSellOrder(provider, exchange, [tokens[token1?.symbol].contract, tokens[token2?.symbol].contract], order, dispatch);
+		if (account) {
+			if (amount !== "" || price !== "") {
+				if (Number(amount) !== 0 && Number(amount) > 0 && Number(price) !== 0 && Number(price) > 0) {
+					const order = { amount, price };
+					makeSellOrder(provider, exchange, [tokens[token1?.symbol].contract, tokens[token2?.symbol].contract], order, dispatch);
+				} else
+					toast.error("Oops! It looks like the amount you entered is invalid. Please ensure it is accurate before proceeding.", {
+						duration: 5500,
+					});
+			}
+		} else {
+			toast("Please connect your wallet!", { icon: <Icon name="alert" /> });
+		}
 	};
+
+	// clear out all the order inputs
+	const clearOrderInputs = () => {
+		if (!orderInProgress) {
+			setAmount("");
+			setPrice("");
+		}
+	};
+
+	useEffect(() => {
+		clearOrderInputs();
+	}, [orderInProgress]);
 
 	return (
 		<section className="order">
@@ -96,7 +135,7 @@ const Order = () => {
 						placeholder="0.0000"
 						autoComplete="off"
 						value={amount}
-						onChange={(e) => setAmount(e.target.value)}
+						onChange={(e) => setAmount(Number(e.target.value) >= 0 ? e.target.value : "")}
 					/>
 				</div>
 
@@ -112,7 +151,7 @@ const Order = () => {
 						placeholder="0.00"
 						autoComplete="off"
 						value={price}
-						onChange={(e) => setPrice(e.target.value)}
+						onChange={(e) => setPrice(Number(e.target.value) >= 0 ? e.target.value : "")}
 					/>
 				</div>
 

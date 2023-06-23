@@ -9,6 +9,7 @@ interface ExchangeState {
 	orders?: { loaded: boolean; allOrders: unknown[] | object };
 	transaction: { transactionType: TransactionType; isPending: boolean; isSuccessful: boolean; hasError?: boolean };
 	transferInProgress: boolean;
+	orderInProgress: boolean;
 	events?: [];
 }
 
@@ -23,6 +24,7 @@ const initialState = {
 		allOrders: [],
 	},
 	transferInProgress: false,
+	orderInProgress: false,
 	events: [],
 } as ExchangeState;
 
@@ -85,6 +87,8 @@ const exchangeSlice = createSlice({
 				isPending: true,
 				isSuccessful: false,
 			};
+
+			state.orderInProgress = true;
 		},
 
 		makeOrderFailed: (state) => {
@@ -94,6 +98,8 @@ const exchangeSlice = createSlice({
 				isSuccessful: false,
 				hasError: true,
 			};
+
+			state.orderInProgress = false;
 		},
 
 		makeOrderSuccess: (state, action: PayloadAction<ExchangeState>) => {
@@ -110,6 +116,7 @@ const exchangeSlice = createSlice({
 				isSuccessful: true,
 			};
 
+			state.orderInProgress = false;
 			// state.events = events; // non-serialized value
 		},
 	},
