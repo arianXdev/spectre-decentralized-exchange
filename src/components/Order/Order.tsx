@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useImmer } from "use-immer";
 
 import classNames from "classnames";
 import { Icon } from "..";
@@ -13,6 +14,9 @@ enum Tabs {
 const Order = () => {
 	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.BUY);
 
+	const [amount, setAmount] = useImmer<string>("");
+	const [price, setPrice] = useImmer<string>("");
+
 	const orderBuyTabClass = classNames({
 		order__tab: true,
 		"order__tab--buy": true,
@@ -24,6 +28,16 @@ const Order = () => {
 		"order__tab--sell": true,
 		"order__tab--active": activeTab === Tabs.SELL,
 	});
+
+	// an Event Handler to handle buy orders
+	const handleBuyOrder = (e) => {
+		e.preventDefault();
+	};
+
+	// an Event Handler to handle sell orders
+	const handleSellOrder = (e) => {
+		e.preventDefault();
+	};
 
 	return (
 		<section className="order">
@@ -39,7 +53,11 @@ const Order = () => {
 				</div>
 			</div>
 
-			<form className={`order__form ${activeTab === Tabs.BUY ? "buy" : "sell"}`} noValidate>
+			<form
+				className={`order__form ${activeTab === Tabs.BUY ? "buy" : "sell"}`}
+				onSubmit={activeTab === Tabs.BUY ? handleBuyOrder : handleSellOrder}
+				noValidate
+			>
 				<div className="order__form-group">
 					<label className="order__label" htmlFor="amount">
 						{activeTab === Tabs.BUY ? "Buy" : "Sell"} AMOUNT
@@ -51,20 +69,24 @@ const Order = () => {
 						tabIndex={3}
 						placeholder="0.0000"
 						autoComplete="off"
+						value={amount}
+						onChange={(e) => setAmount(e.target.value)}
 					/>
 				</div>
 
-				<div className="order__form-group">
+				<div className="order__form-group order__form-group--price">
 					<label className="order__label" htmlFor="price">
-						{activeTab === Tabs.BUY ? "Buy" : "Sell"} PRICE
+						{activeTab === Tabs.BUY ? "Buy" : "Sell"} PRICE ($)
 					</label>
 					<input
 						className="order__input order__input--price"
 						type="number"
 						name="price"
 						tabIndex={4}
-						placeholder="$0.00"
+						placeholder="0.00"
 						autoComplete="off"
+						value={price}
+						onChange={(e) => setPrice(e.target.value)}
 					/>
 				</div>
 

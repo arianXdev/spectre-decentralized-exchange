@@ -187,8 +187,9 @@
 		z-index: 4;
 
 		&--deposit {
-			background: linear-gradient(96.04deg, #04c769 -14.79%, #006b3e 115.02%);
-			box-shadow: 0px -5px 10px rgba(29, 66, 37, 0.4), inset 0px 4px 8px rgba(0, 0, 0, 0.3), 0 0 5px rgba(29, 66, 37, 0.2);
+			background: rgb(6, 217, 102);
+			background: linear-gradient(120deg, rgba(6, 217, 102, 1) 0%, rgb(5, 83, 13) 100%);
+			box-shadow: 0px -5px 10px rgba(29, 66, 37, 0.2), inset 0px 4px 8px rgba(0, 0, 0, 0.3), 0 0 5px rgba(29, 66, 37, 0.2);
 			backdrop-filter: blur(18px);
 			-webkit-backdrop-filter: blur(18px);
 		}
