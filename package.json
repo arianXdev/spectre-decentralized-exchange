@@ -1,14 +1,17 @@
 {
 	"name": "spectre-decentralized-exchange",
+	"description": "SPECTRE Decentralized Exchange (DEX)",
 	"private": true,
 	"version": "0.1.0",
+	"author": "Arian H",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
-		"deploy": "tsc scripts/1_deploy.cts;npx hardhat run --network localhost scripts/1_deploy.cjs;rm -rf scripts/1_deploy.cjs;npx hardhat run --network localhost scripts/2_seed-exchange.cjs"
+		"deploy": "tsc scripts/1_deploy.cts;npx hardhat run --network localhost scripts/1_deploy.cjs;rm -rf scripts/1_deploy.cjs;npx hardhat run --network localhost scripts/2_seed-exchange.cjs",
+		"typecheck": "tsc"
 	},
 	"dependencies": {
 		"@metamask/logo": "^3.1.1",
@@ -19,7 +22,6 @@
 		"dotenv": "^16.3.1",
 		"immer": "^10.0.2",
 		"lodash": "^4.17.21",
-		"process": "^0.11.10",
 		"react": "^18.2.0",
 		"react-18-blockies": "^1.0.6",
 		"react-device-detect": "^2.2.3",
