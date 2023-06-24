@@ -13,7 +13,7 @@ enum TransferType {
 }
 
 export const transferTokens = async (
-	provider: any,
+	provider: ethers.BrowserProvider,
 	exchange: any,
 	transferType: TransferType,
 	token: any,
@@ -29,7 +29,7 @@ export const transferTokens = async (
 	try {
 		// Get the current user (i.e. in this case from MetaMask)
 		const signer = await provider.getSigner();
-		const amountToTransfer = ethers.utils.parseUnits(amount.toString(), 18);
+		const amountToTransfer = ethers.parseUnits(amount.toString(), 18);
 
 		if (transferType === TransferType.DEPOSIT) {
 			toastApprove = toast.loading(`Please approve to do the ${transferType.toLowerCase()}...`, {
@@ -37,7 +37,7 @@ export const transferTokens = async (
 			});
 
 			// Approve token transfering
-			transaction = await token.connect(signer).approve(exchange.address, amountToTransfer);
+			transaction = await token.connect(signer).approve(await exchange.getAddress(), amountToTransfer);
 			await transaction.wait(); // wait to finish
 
 			toastApprove = toast.loading(`Please confirm the ${transferType.toLowerCase()} transaction`, {
@@ -46,7 +46,7 @@ export const transferTokens = async (
 			});
 
 			// Do the transfer (after the approval)
-			transaction = await exchange.connect(signer).deposit(token.address, amountToTransfer);
+			transaction = await exchange.connect(signer).deposit(await token.getAddress(), amountToTransfer);
 
 			toastApprove = toast.loading(`Proccessing...`, {
 				icon: <span className={`toast-spinner ${token ? "visible" : ""}`}></span>,
@@ -77,7 +77,7 @@ export const transferTokens = async (
 			});
 
 			// Do the WITHDRAW transfer
-			transaction = await exchange.connect(signer).withdraw(token.address, amountToTransfer);
+			transaction = await exchange.connect(signer).withdraw(await token.getAddress(), amountToTransfer);
 
 			toastApprove = toast.loading(`Proccessing...`, {
 				icon: <span className={`toast-spinner ${token ? "visible" : ""}`}></span>,

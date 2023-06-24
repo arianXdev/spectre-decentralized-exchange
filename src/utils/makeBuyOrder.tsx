@@ -1,4 +1,4 @@
-import { utils } from "ethers";
+import { ethers } from "ethers";
 
 import { AppDispatch } from "~/app/store";
 import { makeOrderRequested, makeOrderFailed } from "~/features/exchange/exchangeSlice";
@@ -13,12 +13,12 @@ export const makeBuyOrder = async (
 	order: { [key: string]: number },
 	dispatch: AppDispatch
 ) => {
-	const tokenGet = tokens[0].address;
-	const amountGet = utils.parseUnits(order.amount.toString(), 18);
+	const tokenGet = await tokens[0].getAddress();
+	const amountGet = ethers.parseUnits(order.amount.toString(), 18);
 
-	const tokenGive = tokens[1].address;
+	const tokenGive = await tokens[1].getAddress();
 	// amountGive = orderAmount x orderPrice
-	const amountGive = utils.parseUnits((order.amount * order.price).toString(), 18);
+	const amountGive = ethers.parseUnits((order.amount * order.price).toString(), 18);
 
 	dispatch(makeOrderRequested());
 

@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 
 const tokens = (n) => {
-	return ethers.utils.parseUnits(n.toString(), "ether");
+	return ethers.parseUnits(n.toString(), "ether");
 };
 
 describe("Token", () => {
@@ -63,8 +63,8 @@ describe("Token", () => {
 
 		test("Transfer tokens should be done", async () => {
 			// Log the balance before transfer
-			// console.log("Deployer balance before transfer ", ethers.utils.formatEther(await token.balanceOf(deployer.address)), " ARN");
-			// console.log("Receiver balance before transfer ", ethers.utils.formatEther(await token.balanceOf(receiver.address)), " ARN");
+			// console.log("Deployer balance before transfer ", ethers.formatEther(await token.balanceOf(deployer.address)), " ARN");
+			// console.log("Receiver balance before transfer ", ethers.formatEther(await token.balanceOf(receiver.address)), " ARN");
 
 			expect(await token.balanceOf(deployer.address)).toEqual(tokens(999900));
 			expect(await token.balanceOf(receiver.address)).toEqual(amount);

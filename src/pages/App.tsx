@@ -41,7 +41,7 @@ const App: React.FC = () => {
 
 		// the term "provider" in this case is our connection to the blockchain
 		// eslint-disable-next-line
-		const provider = new ethers.providers.Web3Provider(useMetaMask());
+		const provider = new ethers.BrowserProvider(window.ethereum);
 		setProvider(provider);
 
 		const { chainId } = await provider.getNetwork();
@@ -57,7 +57,7 @@ const App: React.FC = () => {
 		// Load all tokens contracts
 		const { SPEC, mETH, mDAI, mUSDT } = await loadTokens(
 			provider,
-			[config[chainId].spectreToken.address, config[chainId].mETH.address],
+			[config[chainId.toString()].spectreToken.address, config[chainId.toString()].mETH.address],
 			dispatch
 		);
 
@@ -70,7 +70,7 @@ const App: React.FC = () => {
 		});
 
 		// Get the Spectre exchange contract
-		const exchange = await loadExchange(provider, config[chainId].spectre.address);
+		const exchange = await loadExchange(provider, config[chainId.toString()].spectre.address);
 		setExchange(exchange);
 
 		// Load the connection if the user has been connected already

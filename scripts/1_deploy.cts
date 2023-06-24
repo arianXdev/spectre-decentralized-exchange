@@ -10,31 +10,31 @@ const main = async () => {
 
 	// Get Accounts
 	const [deployer, feeAccount] = await ethers.getSigners();
-	console.log(`Accounts fetched: ${deployer.address}\n${feeAccount.address}\n`);
+	console.log(`Accounts fetched: ${await deployer.getAddress()}\n${await feeAccount.getAddress()}\n`);
 
 	// Deploy tokens
 	const spectreToken = await SpectreToken.deploy();
-	await spectreToken.deployed();
+	await spectreToken.waitForDeployment();
 
 	const mUSDT = await Token.deploy("Mock Tether", "mUSDT", "1000000");
-	await mUSDT.deployed();
+	await mUSDT.waitForDeployment();
 
 	const mETH = await Token.deploy("Mock Ether", "mETH", "1000000");
-	await mETH.deployed();
+	await mETH.waitForDeployment();
 
 	const mDAI = await Token.deploy("Mock DAI", "mDAI", "1000000");
-	await mDAI.deployed();
+	await mDAI.waitForDeployment();
 
-	console.log(`Spectre Token deployed to: ${spectreToken.address}`);
-	console.log(`Mock Tether (mUSDT) deployed to: ${mUSDT.address}`);
-	console.log(`Mock Ether (mETH) deployed to: ${mETH.address}`);
-	console.log(`Mock DAI (mDAI) deployed to: ${mDAI.address}`);
+	console.log(`Spectre Token deployed to: ${await spectreToken.getAddress()}`);
+	console.log(`Mock Tether (mUSDT) deployed to: ${await mUSDT.getAddress()}`);
+	console.log(`Mock Ether (mETH) deployed to: ${await mETH.getAddress()}`);
+	console.log(`Mock DAI (mDAI) deployed to: ${await mDAI.getAddress()}`);
 
 	// Deploy the exchange
-	const spectre = await Spectre.deploy(feeAccount.address, 1);
-	await spectre.deployed();
+	const spectre = await Spectre.deploy(await feeAccount.getAddress(), 1);
+	await spectre.waitForDeployment();
 
-	console.log(`The Spectre Exchange deployed to: ${spectre.address}`);
+	console.log(`The Spectre Exchange deployed to: ${await spectre.getAddress()}`);
 };
 
 main().catch((error) => {

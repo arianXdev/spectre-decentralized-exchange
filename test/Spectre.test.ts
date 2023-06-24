@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 
 const convertTokens = (n) => {
-	return ethers.utils.parseUnits(n.toString(), "ether");
+	return ethers.parseUnits(n.toString(), "ether");
 };
 
 describe("Spectre Exchange", () => {
