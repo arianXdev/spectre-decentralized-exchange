@@ -18,7 +18,7 @@ export const loadConnection = async (provider: ethers.BrowserProvider, dispatch:
 	const { chainId } = await provider.getNetwork();
 
 	// Save the current connection information into the Redux store
-	dispatch(connected(chainId.toString(), account, balance));
+	dispatch(connected(Number(chainId), account, balance));
 
 	return { chainId, balance, accounts };
 };
