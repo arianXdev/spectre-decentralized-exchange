@@ -10,10 +10,12 @@
 		"build": "tsc && vite build",
 		"lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
-		"deploy": "tsc scripts/1_deploy.cts;npx hardhat run --network localhost scripts/1_deploy.cjs;rm -rf scripts/1_deploy.cjs;npx hardhat run --network localhost scripts/2_seed-exchange.cjs",
-		"typecheck": "tsc"
+		"typecheck": "tsc",
+		"seed": "tsc scripts/2_seed-exchange.cts;npx hardhat run --network localhost scripts/2_seed-exchange.cjs;rm -rf scripts/2_seed-exchange.cjs",
+		"deploy": "tsc scripts/*;npx hardhat run --network localhost scripts/1_deploy.cjs;npx hardhat run --network localhost scripts/2_seed-exchange.cjs;rm -rf scripts/*.cjs"
 	},
 	"dependencies": {
+		"@nomicfoundation/hardhat-toolbox": "^3.0.0",
 		"@metamask/logo": "^3.1.1",
 		"@reduxjs/toolkit": "^1.9.5",
 		"axios": "^1.4.0",
@@ -33,7 +35,6 @@
 		"use-immer": "^0.9.0"
 	},
 	"devDependencies": {
-		"@nomiclabs/hardhat-ethers": "^2.2.3",
 		"@types/jest": "^29.5.2",
 		"@types/react": "^18.2.14",
 		"@types/react-dom": "^18.2.6",
@@ -47,7 +48,7 @@
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-react-refresh": "^0.4.1",
 		"eslint-plugin-unused-imports": "^2.0.0",
-		"ethers": "6.6.1",
+		"ethers": "^6.6.1",
 		"hardhat": "^2.16.0",
 		"hardhat-jest": "^1.0.8",
 		"sass": "^1.63.6",
