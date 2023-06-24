@@ -94,7 +94,7 @@ const main = async () => {
 	// ------------------------------------------------------
 	// ------- ****** ------- ORDERS -------- ****** --------
 	// ------------------------------------------------------
-	let orderId = 1;
+	let orderId = 0;
 
 	// ------------------- A CANECL ORDER -------------------
 	// user1 makes an order to get mDAI tokens | user1 wants to pay 5 SPEC for 100 mDAI | user1 wants to have 100 mDAI
@@ -109,7 +109,6 @@ const main = async () => {
 	// orderId = result.events[0].args.id; // get the orderId from the "Order Event"
 	transaction = await spectre.connect(user1).cancelOrder(orderId);
 	result = await transaction.wait();
-	orderId++;
 
 	console.log(`Cancelled the order from ${await user1.getAddress()}\n`);
 
@@ -179,8 +178,8 @@ const main = async () => {
 			.connect(user1)
 			.makeOrder(await mDAI.getAddress(), convertTokens(i * 10 + 10), await spectreToken.getAddress(), convertTokens(10));
 		result = await transaction.wait();
-		console.log(`Made an order from ${await user1.getAddress()}`);
 		orderId++;
+		console.log(`Made an order from ${await user1.getAddress()}`);
 
 		// wait for 1 second
 		await wait(1);
@@ -192,8 +191,8 @@ const main = async () => {
 			.connect(user2)
 			.makeOrder(await spectreToken.getAddress(), convertTokens(10), await mDAI.getAddress(), convertTokens(i * 10 + 10));
 		result = await transaction.wait();
-		console.log(`Made an order from ${await user2.getAddress()}`);
 		orderId++;
+		console.log(`Made an order from ${await user2.getAddress()}`);
 
 		// wait for 1 second
 		await wait(1);
