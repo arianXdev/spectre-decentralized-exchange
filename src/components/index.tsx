@@ -7,3 +7,4 @@ export { default as Overlay } from "./Overlay/Overlay";
 export { default as Markets } from "./Markets/Markets";
 export { default as Balance } from "./Balance/Balance";
 export { default as Order } from "./Order/Order";
+export { default as OrderBook } from "./OrderBook/OrderBook";

@@ -8,7 +8,7 @@ import TradeRectangle from "../../assets/images/trade-rectangle.svg";
 
 import config from "../../config.json";
 
-import { Markets, Overlay, Balance, Order } from "../../components";
+import { Markets, Overlay, Balance, Order, OrderBook } from "../../components";
 
 import "./Trade.scss";
 
@@ -43,9 +43,9 @@ const Trade = () => {
 	return (
 		<div className="Trade">
 			<div className="container">
-				<div className="Trade__container">
+				<div className="Trade__wrapper">
 					<TradeContext.Provider value={{ status: exchangeStatus, handleExchangeMarkets: onExchangeMarketsClicked }}>
-						<section className="Trade__exchange">
+						<section className="Trade__left">
 							<img src={TradeRectangle} alt="trade-rectangle" />
 
 							<menu className="Trade__markets" onClick={onExchangeMarketsClicked}>
@@ -86,6 +86,10 @@ const Trade = () => {
 							<Balance />
 
 							<Order />
+						</section>
+
+						<section className="Trade__right">
+							<OrderBook />
 						</section>
 					</TradeContext.Provider>
 				</div>
