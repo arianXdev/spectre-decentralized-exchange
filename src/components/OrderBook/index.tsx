@@ -1,6 +1,13 @@
+import { useAppSelector } from "~/app/hooks";
+
+import { Icon } from "..";
+
 import "./OrderBook.scss";
 
 const OrderBook = () => {
+	const token1 = useAppSelector((state) => state.tokens.token1);
+	const token2 = useAppSelector((state) => state.tokens.token2);
+
 	return (
 		<section className="orderbook">
 			<div className="orderbook__header">
@@ -9,13 +16,37 @@ const OrderBook = () => {
 
 			<div className="orderbook__container">
 				<table className="orderbook__table orderbook__table--sell">
-					<caption>Selling</caption>
+					<caption>
+						<Icon name="caret-forward-outline" /> <i>Selling</i>
+					</caption>
 
 					<thead>
 						<tr>
-							<th></th>
-							<th></th>
-							<th></th>
+							<th>
+								{token1 && token1.symbol}
+								<span className="orderbook__sort">
+									<Icon name="chevron-expand" />
+								</span>
+							</th>
+
+							<th>
+								{token1 && token2 ? (
+									<strong>
+										{token1 && token1.symbol} / {token2 && token2.symbol}
+									</strong>
+								) : null}
+
+								<span className="orderbook__sort">
+									<Icon name="chevron-expand" />
+								</span>
+							</th>
+
+							<th>
+								{token2 && token2.symbol}
+								<span className="orderbook__sort">
+									<Icon name="chevron-expand" />
+								</span>
+							</th>
 						</tr>
 					</thead>
 
@@ -27,14 +58,35 @@ const OrderBook = () => {
 						</tr>
 					</tbody>
 				</table>
+
 				<table className="orderbook__table orderbook__table--buy">
-					<caption>Buying</caption>
+					<caption>
+						<Icon name="caret-forward-outline" /> <i>Buying</i>
+					</caption>
 
 					<thead>
 						<tr>
-							<th></th>
-							<th></th>
-							<th></th>
+							<th>
+								{token1 && token1.symbol}
+								<span className="orderbook__sort">
+									<Icon name="chevron-expand" />
+								</span>
+							</th>
+
+							<th>
+								{token1 && token2 ? (
+									<strong>
+										{token1 && token1.symbol} / {token2 && token2.symbol}
+									</strong>
+								) : null}
+							</th>
+
+							<th>
+								{token2 && token2.symbol}
+								<span className="orderbook__sort">
+									<Icon name="chevron-expand" />
+								</span>
+							</th>
 						</tr>
 					</thead>
 
