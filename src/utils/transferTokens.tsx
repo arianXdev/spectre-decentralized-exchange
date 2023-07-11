@@ -14,7 +14,7 @@ enum TransferType {
 
 export const transferTokens = async (
 	provider: ethers.BrowserProvider,
-	exchange: any,
+	exchange: ethers.ContractInterface,
 	transferType: TransferType,
 	token: any,
 	amount: string,

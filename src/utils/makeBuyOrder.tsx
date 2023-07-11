@@ -7,8 +7,8 @@ import { toast, ErrorIcon } from "react-hot-toast";
 
 // MAKE ORDERS (BUY)
 export const makeBuyOrder = async (
-	provider: any,
-	exchange: any,
+	provider: ethers.BrowserProvider,
+	exchange: ethers.ContractInterface,
 	tokens: any[],
 	order: { [key: string]: number },
 	dispatch: AppDispatch

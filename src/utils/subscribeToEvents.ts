@@ -1,3 +1,5 @@
+import { ethers } from "ethers";
+
 import { AppDispatch } from "~/app/store";
 import { transferSuccess, makeOrderSuccess } from "../features/exchange/exchangeSlice";
 
@@ -7,15 +9,15 @@ enum TransferType {
 	DEPOSIT = "Deposit",
 }
 
-export const subscribeToEvents = (exchange: any, dispatch: AppDispatch) => {
+export const subscribeToEvents = (exchange: ethers.ContractInterface, dispatch: AppDispatch) => {
 	// When DEPOSIT happens, it's gonna notify the app
-	exchange.on(TransferType.DEPOSIT, (event) => {
+	exchange.on(TransferType.DEPOSIT, (event: ethers.EventLog) => {
 		// Notify app that transfer was successful
 		dispatch(transferSuccess());
 	});
 
 	// When WITHDRAW happens, it's gonna notify the app
-	exchange.on(TransferType.WITHDRAW, (event) => {
+	exchange.on(TransferType.WITHDRAW, (event: ethers.EventLog) => {
 		// Notify app that transfer was successful
 		dispatch(transferSuccess());
 	});
@@ -44,7 +46,7 @@ export const subscribeToEvents = (exchange: any, dispatch: AppDispatch) => {
 			};
 
 			// Notify app that the make order trx was successful
-			dispatch(makeOrderSuccess(order));
+			dispatch(makeOrderSuccess());
 		}
 	);
 };

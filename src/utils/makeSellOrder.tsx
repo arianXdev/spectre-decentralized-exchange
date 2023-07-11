@@ -8,7 +8,7 @@ import { toast, ErrorIcon } from "react-hot-toast";
 // MAKE ORDERS (SELL)
 export const makeSellOrder = async (
 	provider: ethers.BrowserProvider,
-	exchange: any,
+	exchange: ethers.ContractInterface,
 	tokens: any[],
 	order: { [key: string]: number },
 	dispatch: AppDispatch
