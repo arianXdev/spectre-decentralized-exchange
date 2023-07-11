@@ -16,7 +16,7 @@ import Trade from "./Trade";
 
 import { Overlay } from "../components";
 
-import { loadConnection, loadTokens, loadExchange, subscribeToEvents } from "../utils";
+import { loadConnection, loadTokens, loadExchange, loadAllOrders, subscribeToEvents } from "../utils";
 import useMetaMask from "../hooks/useMetaMask";
 
 import { isMobile } from "react-device-detect";
@@ -75,6 +75,9 @@ const App: React.FC = () => {
 
 		// Load the connection if the user has been connected already
 		useMetaMask().selectedAddress ? await loadConnection(provider, dispatch) : null;
+
+		// Fetch all the orders | OPEN - FILLED - CANCELLED
+		loadAllOrders(provider, exchange, dispatch);
 
 		// Listen to all events from the Blockchain
 		subscribeToEvents(exchange, dispatch);

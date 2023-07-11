@@ -102,14 +102,7 @@ const exchangeSlice = createSlice({
 			state.orderInProgress = false;
 		},
 
-		makeOrderSuccess: (state, action: PayloadAction<ExchangeState>) => {
-			const order = action.payload;
-
-			state.orders = {
-				loaded: true,
-				allOrders: [...state.orders?.allOrders, order],
-			};
-
+		makeOrderSuccess: (state) => {
 			state.transaction = {
 				transactionType: TransactionType.MAKE_ORDER,
 				isPending: false,
@@ -118,6 +111,12 @@ const exchangeSlice = createSlice({
 
 			state.orderInProgress = false;
 			// state.events = events; // non-serialized value
+		},
+
+		allOrdersLoaded: (state) => {
+			state.orders = {
+				loaded: true,
+			};
 		},
 	},
 });
@@ -130,6 +129,7 @@ export const {
 	makeOrderRequested,
 	makeOrderFailed,
 	makeOrderSuccess,
+	allOrdersLoaded,
 } = exchangeSlice.actions;
 
 export default exchangeSlice.reducer;
