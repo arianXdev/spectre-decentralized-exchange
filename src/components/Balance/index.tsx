@@ -3,7 +3,7 @@ import { useImmer } from "use-immer";
 
 import { useAppSelector, useAppDispatch } from "~/app/hooks";
 
-import useFetchGasPrice from "~/hooks/useFetchGasPrice";
+// import useFetchGasPrice from "~/hooks/useFetchGasPrice";
 import { EthersContext } from "~/context/EthersContext";
 import { ExchangeContext } from "~/context/ExchangeContext";
 import { TokensContext } from "~/context/TokensContext";
@@ -36,7 +36,8 @@ enum Status {
 const Balance = () => {
 	const dispatch = useAppDispatch();
 
-	const { gasFee, transactionFee, fetchGasPrice } = useFetchGasPrice();
+	// DISABLED TEMPORARILY | REASON: THE API HAS BEEN SHUT DOWN, THERE IS NEED TO CHANGE THE API PROVIDER
+	// const { gasFee, transactionFee, fetchGasPrice } = useFetchGasPrice();
 
 	const { provider } = useContext(EthersContext);
 	const { status, handleExchangeMarkets } = useContext(TradeContext);
@@ -158,10 +159,12 @@ const Balance = () => {
 
 	return (
 		<section className="balance">
-			<div className={`balance__info ${!gasFee ? "error" : ""}`}>
+			{/* <div className={`balance__info ${!gasFee ? "error" : ""}`}> */}
+			<div className="balance__info">
 				<h3 className="balance__title">Trade / Balance</h3>
-				<h3 className="balance__fee" onClick={fetchGasPrice} title="Click to update!">
-					{gasFee && window.navigator.onLine ? (
+				<h3 className="balance__fee" title="Click to update!">
+					{/*  DISABLED TEMPORARILY | REASON: THE API HAS BEEN SHUT DOWN, THERE IS NEED TO CHANGE THE API PROVIDER */}
+					{/* {gasFee && window.navigator.onLine ? (
 						<>
 							<i className="fa-solid fa-gas-pump"></i>
 							<small>{gasFee.toFixed(0)}</small>
@@ -173,7 +176,7 @@ const Balance = () => {
 						<span className="balance__error">
 							{window.navigator.onLine ? "Loading, please wait..." : "Couldn't load the fees!"}
 						</span>
-					)}
+					)} */}
 				</h3>
 			</div>
 
