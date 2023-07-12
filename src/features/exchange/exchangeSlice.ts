@@ -15,6 +15,7 @@ const initialState = {
 	orders: {
 		loaded: false,
 		allOrders: [],
+		canceledOrders: [],
 	},
 	transferInProgress: false,
 	orderInProgress: false,
@@ -103,8 +104,18 @@ const exchangeSlice = createSlice({
 			const allOrders = action.payload;
 
 			state.orders = {
+				...state.orders,
 				loaded: true,
 				allOrders,
+			};
+		},
+
+		canceledOrdersLoaded: (state, action) => {
+			const canceledOrders = action.payload;
+
+			state.orders = {
+				...state.orders,
+				canceledOrders,
 			};
 		},
 	},
@@ -149,6 +160,7 @@ export const {
 	makeOrderRequested,
 	makeOrderFailed,
 	makeOrderSuccess,
+	canceledOrdersLoaded,
 	allOrdersLoaded,
 } = exchangeSlice.actions;
 
