@@ -126,7 +126,17 @@ export const orderBookSelector = createSelector(allOrders, tokens, (orders, toke
 
 	// decorate the orders (basically add more details about the orders)
 	orders = decorateOrderBookOrders(orders, tokens);
-	console.log(orders);
+
+	// group orders by 'orderType' property whether it's a BUY order or a SELL order
+	orders = _.groupBy(orders, "orderType");
+
+	// sort BUY orders by token price
+	const buyOrders = _.get(orders, "BUY", []);
+	orders = { ...orders, BUY: buyOrders.sort((a, b) => b.tokenPrice - a.tokenPrice) };
+
+	// sort SELL orders by token price
+	const sellOrders = _.get(orders, "SELL", []);
+	orders = { ...orders, SELL: sellOrders.sort((a, b) => b.tokenPrice - a.tokenPrice) };
 });
 
 export const {
