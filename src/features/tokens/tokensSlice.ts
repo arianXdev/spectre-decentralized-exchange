@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TokensState } from "./types";
 // import type { RootState } from "../../app/store";
-
-// Define a type for the slice state
-interface TokensState {
-	loaded: boolean;
-	token1?: { name: string; address: string; symbol: string; balance: string; decimals: number; imageURL: string };
-	token2?: { name: string; address: string; symbol: string; balance: string; decimals: number; imageURL: string };
-}
 
 const initialState = {
 	loaded: false,

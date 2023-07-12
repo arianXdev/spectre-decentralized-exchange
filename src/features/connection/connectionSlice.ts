@@ -1,14 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ConnectionState {
-	current: {
-		chainId: number | null;
-		account: string | null;
-		balance: string | null;
-	} | null;
-}
+import { ConnectionStateType } from "./types";
 
-const initialState: ConnectionState = {
+const initialState: ConnectionStateType = {
 	current: null,
 };
 
