@@ -2,6 +2,7 @@
 @import "../../sass/abstracts/mixins";
 
 $color-th: #c0c0c0;
+$color-no-order-warning-text: #7e7e7e;
 
 .orderbook {
 	max-width: 100%;
@@ -73,6 +74,10 @@ $color-th: #c0c0c0;
 			padding-top: 1.2em;
 			margin-top: 0.7em;
 
+			&.hidden {
+				visibility: hidden;
+			}
+
 			tr {
 				@include displayFlex(space-between);
 
@@ -94,5 +99,16 @@ $color-th: #c0c0c0;
 	&__sort {
 		cursor: pointer;
 		padding-left: 0.3em;
+	}
+
+	&__no-order-warning {
+		margin: 3em auto;
+		font-size: 1.3rem !important;
+		pointer-events: none;
+		-webkit-pointer-events: none;
+		user-select: none;
+		-webkit-user-select: none;
+		color: $color-no-order-warning-text;
+		letter-spacing: 1px;
 	}
 }

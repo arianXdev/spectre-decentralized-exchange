@@ -9,7 +9,7 @@ const OrderBook = () => {
 	const token1 = useAppSelector((state) => state.tokens.token1);
 	const token2 = useAppSelector((state) => state.tokens.token2);
 
-	const orderBook = useAppSelector(orderBookSelector);
+	const orders = useAppSelector(orderBookSelector);
 
 	return (
 		<section className="orderbook">
@@ -23,7 +23,7 @@ const OrderBook = () => {
 						<Icon name="caret-forward-outline" /> <i>Selling</i>
 					</caption>
 
-					<thead>
+					<thead className={!orders || orders.SELL?.length === 0 ? "hidden" : ""}>
 						<tr>
 							<th>
 								{token1 && token1.symbol}
@@ -53,13 +53,17 @@ const OrderBook = () => {
 						</tr>
 					</thead>
 
-					<tbody>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
+					{!orders || orders.SELL?.length === 0 ? (
+						<caption className="orderbook__no-order-warning">No Sell Orders!</caption>
+					) : (
+						<tbody>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					)}
 				</table>
 
 				<table className="orderbook__table orderbook__table--buy">
@@ -67,7 +71,7 @@ const OrderBook = () => {
 						<Icon name="caret-forward-outline" /> <i>Buying</i>
 					</caption>
 
-					<thead>
+					<thead className={!orders || orders.BUY?.length === 0 ? "hidden" : ""}>
 						<tr>
 							<th>
 								{token1 && token1.symbol}
@@ -93,13 +97,17 @@ const OrderBook = () => {
 						</tr>
 					</thead>
 
-					<tbody>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
+					{!orders || orders.BUY?.length === 0 ? (
+						<caption className="orderbook__no-order-warning">No Buy Orders!</caption>
+					) : (
+						<tbody>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					)}
 				</table>
 			</div>
 		</section>

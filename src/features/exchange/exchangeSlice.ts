@@ -137,6 +137,8 @@ export const orderBookSelector = createSelector(allOrders, tokens, (orders, toke
 	// sort SELL orders by token price
 	const sellOrders = _.get(orders, "SELL", []);
 	orders = { ...orders, SELL: sellOrders.sort((a, b) => b.tokenPrice - a.tokenPrice) };
+
+	return orders;
 });
 
 export const {
