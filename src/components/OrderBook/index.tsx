@@ -1,5 +1,6 @@
 import { useAppSelector } from "~/app/hooks";
 
+import { orderBookSelector } from "~/features/exchange/exchangeSlice";
 import { Icon } from "..";
 
 import "./OrderBook.scss";
@@ -7,6 +8,8 @@ import "./OrderBook.scss";
 const OrderBook = () => {
 	const token1 = useAppSelector((state) => state.tokens.token1);
 	const token2 = useAppSelector((state) => state.tokens.token2);
+
+	const orderBook = useAppSelector(orderBookSelector);
 
 	return (
 		<section className="orderbook">
