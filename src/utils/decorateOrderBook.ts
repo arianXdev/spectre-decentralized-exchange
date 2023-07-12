@@ -12,7 +12,7 @@ const decorateOrderBookOrder = (order: any, { token2 }: TokensStateType) => {
 	const token2Address = _.get(token2, "address", "");
 	const orderType = order.tokenGive === token2Address ? OrderType.BUY : OrderType.SELL;
 
-	const decoratedOrder = { ...order, orderType };
+	const decoratedOrder = { ...order, orderType, orderFillAction: orderType === OrderType.BUY ? OrderType.SELL : OrderType.BUY };
 	return decoratedOrder;
 };
 
