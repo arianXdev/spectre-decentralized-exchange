@@ -16,7 +16,7 @@ import Trade from "./Trade";
 
 import { Overlay } from "../components";
 
-import { loadConnection, loadTokens, loadExchange, loadAllOrders, subscribeToEvents } from "../utils";
+import { loadConnection, loadTokens, loadExchange, loadAllOrders, loadFilledOrders, loadCanceledOrders, subscribeToEvents } from "../utils";
 import useMetaMask from "../hooks/useMetaMask";
 
 import { isMobile } from "react-device-detect";
@@ -78,6 +78,12 @@ const App: React.FC = () => {
 
 		// Fetch all the orders | OPEN - FILLED - CANCELLED
 		loadAllOrders(provider, exchange, dispatch);
+
+		// Fetch all the filled orders
+		loadFilledOrders(provider, exchange, dispatch);
+
+		// Fetch all the canceled orders
+		loadCanceledOrders(provider, exchange, dispatch);
 
 		// Listen to all events from the Blockchain
 		subscribeToEvents(exchange, dispatch);

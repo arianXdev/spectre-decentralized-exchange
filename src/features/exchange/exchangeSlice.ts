@@ -16,6 +16,7 @@ const initialState = {
 		loaded: false,
 		allOrders: [],
 		canceledOrders: [],
+		filledOrders: [],
 	},
 	transferInProgress: false,
 	orderInProgress: false,
@@ -118,6 +119,15 @@ const exchangeSlice = createSlice({
 				canceledOrders,
 			};
 		},
+
+		filledOrdersLoaded: (state, action) => {
+			const filledOrders = action.payload;
+
+			state.orders = {
+				...state.orders,
+				filledOrders,
+			};
+		},
 	},
 });
 
@@ -160,8 +170,9 @@ export const {
 	makeOrderRequested,
 	makeOrderFailed,
 	makeOrderSuccess,
-	canceledOrdersLoaded,
 	allOrdersLoaded,
+	filledOrdersLoaded,
+	canceledOrdersLoaded,
 } = exchangeSlice.actions;
 
 export default exchangeSlice.reducer;
