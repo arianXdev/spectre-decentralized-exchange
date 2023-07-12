@@ -57,11 +57,14 @@ const OrderBook = () => {
 						<caption className="orderbook__no-order-warning">No Sell Orders!</caption>
 					) : (
 						<tbody>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+							{orders &&
+								orders.SELL.map((order) => (
+									<tr key={order.id}>
+										<td>{order.token1Amount}</td>
+										<td className="token-price">{order.tokenPrice}</td>
+										<td>{order.token2Amount}</td>
+									</tr>
+								))}
 						</tbody>
 					)}
 				</table>
@@ -86,6 +89,10 @@ const OrderBook = () => {
 										{token1 && token1.symbol} / {token2 && token2.symbol}
 									</strong>
 								) : null}
+
+								<span className="orderbook__sort">
+									<Icon name="chevron-expand" />
+								</span>
 							</th>
 
 							<th>
@@ -101,11 +108,14 @@ const OrderBook = () => {
 						<caption className="orderbook__no-order-warning">No Buy Orders!</caption>
 					) : (
 						<tbody>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+							{orders &&
+								orders.BUY.map((order) => (
+									<tr key={order.id}>
+										<td>{order.token1Amount}</td>
+										<td className="token-price">{order.tokenPrice}</td>
+										<td>{order.token2Amount}</td>
+									</tr>
+								))}
 						</tbody>
 					)}
 				</table>

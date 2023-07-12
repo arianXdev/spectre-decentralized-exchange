@@ -24,7 +24,8 @@ export const decorateOrder = (order: any, { token2 }: TokensStateType) => {
 
 	// calculate token price to 5 decimal places
 	const precision = 100000;
-	const tokenPrice = Math.round((token1Amount / token2Amount) * precision) / precision;
+	let tokenPrice = token1Amount / token2Amount;
+	tokenPrice = Math.round(tokenPrice * precision) / precision;
 
 	const decoratedOrder = {
 		...order,
