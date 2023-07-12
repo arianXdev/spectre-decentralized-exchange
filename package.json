@@ -15,8 +15,8 @@
 		"deploy": "tsc scripts/*;npx hardhat run --network localhost scripts/1_deploy.cjs;npx hardhat run --network localhost scripts/2_seed-exchange.cjs;rm -rf scripts/*.cjs"
 	},
 	"dependencies": {
-		"@nomicfoundation/hardhat-toolbox": "^3.0.0",
 		"@metamask/logo": "^3.1.1",
+		"@nomicfoundation/hardhat-toolbox": "^3.0.0",
 		"@reduxjs/toolkit": "^1.9.5",
 		"axios": "^1.4.0",
 		"classnames": "^2.3.2",
@@ -24,6 +24,7 @@
 		"dotenv": "^16.3.1",
 		"immer": "^10.0.2",
 		"lodash": "^4.17.21",
+		"moment": "^2.29.4",
 		"react": "^18.2.0",
 		"react-18-blockies": "^1.0.6",
 		"react-device-detect": "^2.2.3",
