@@ -4,3 +4,4 @@ interface Window {
 
 declare module "typed.js";
 declare module "@metamask/logo";
+declare module "lodash";
