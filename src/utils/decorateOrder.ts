@@ -1,14 +1,15 @@
 import { ethers } from "ethers";
 import _ from "lodash";
+import moment from "moment";
 
 import { TokensStateType } from "~/features/tokens/types";
 
 // decorates the order passing in (means it adds more details to the order and then returns the decorated order)
-export const decorateOrder = (order: any, { token1, token2 }: TokensStateType) => {
+export const decorateOrder = (order: any, { token1 }: TokensStateType) => {
 	let token1Amount, token2Amount;
 
 	const token1Address = _.get(token1, "address", "");
-	const token2Address = _.get(token2, "address", "");
+	// const token2Address = _.get(token2, "address", "");
 
 	// EXAMPLE: Giving mETH in exchange for SPEC (the official crypto currency of SPECTRE DEX)
 	// SPEC should be considered token1 & mETH is considered as token2
@@ -21,7 +22,17 @@ export const decorateOrder = (order: any, { token1, token2 }: TokensStateType) =
 		token2Amount = order.amountGive; // the amount of mETH we are giving
 	}
 
-	const decoratedOrder = { ...order, token1Amount: ethers.formatEther(token1Amount), token2Amount: ethers.formatEther(token2Amount) };
+	// calculate token price to 5 decimal places
+	const precision = 100000;
+	const tokenPrice = Math.round((token1Amount / token2Amount) * precision) / precision;
+
+	const decoratedOrder = {
+		...order,
+		token1Amount: ethers.formatEther(token1Amount),
+		token2Amount: ethers.formatEther(token2Amount),
+		tokenPrice,
+		formattedTimestamp: moment.unix(order.timestamp).format("h:mm:ssa d MMM D"),
+	};
 
 	return decoratedOrder;
 };
