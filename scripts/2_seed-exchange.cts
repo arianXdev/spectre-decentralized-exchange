@@ -61,6 +61,10 @@ const main = async () => {
 	await mDAI.connect(deployer).transfer(await user2.getAddress(), amount);
 	console.log(`Transferred ${amount} mDAI tokens from ${await deployer.getAddress()} to ${await user2.getAddress()}\n`);
 
+	// Give user2 10,000 mETH
+	await mETH.connect(deployer).transfer(await user2.getAddress(), amount);
+	console.log(`Transferred ${amount} mETH tokens from ${await deployer.getAddress()} to ${await user2.getAddress()}\n`);
+
 	// user1 approves 10,000 SPEC deposit
 	transaction = await spectreToken.connect(user1).approve(spectre.getAddress(), amount);
 	result = await transaction.wait();
@@ -91,16 +95,26 @@ const main = async () => {
 	result = await transaction.wait();
 	console.log(`Deposited ${amount} mDAI from ${await user2.getAddress()}\n`);
 
+	// user2 approves 10,000 mETH deposit
+	transaction = await mETH.connect(user2).approve(spectre.getAddress(), amount);
+	result = await transaction.wait();
+	console.log(`Approved ${amount} mETH tokens from ${await user2.getAddress()}`);
+
+	// user2 deposits 10,000 mETH
+	transaction = await spectre.connect(user2).deposit(await mETH.getAddress(), amount);
+	result = await transaction.wait();
+	console.log(`Deposited ${amount} mETH from ${await user2.getAddress()}\n`);
+
 	// ------------------------------------------------------
 	// ------- ****** ------- ORDERS -------- ****** --------
 	// ------------------------------------------------------
 	let orderId = 0;
 
 	// ------------------- A CANECL ORDER -------------------
-	// user1 makes an order to get mDAI tokens | user1 wants to pay 5 SPEC for 100 mDAI | user1 wants to have 100 mDAI
+	// user1 makes an order to get mETH tokens | user1 wants to pay 5 SPEC for 100 mETH | user1 wants to have 100 mETH
 	transaction = await spectre
 		.connect(user1)
-		.makeOrder(await mDAI.getAddress(), convertTokens(100), await spectreToken.getAddress(), convertTokens(5));
+		.makeOrder(await mETH.getAddress(), convertTokens(100), await spectreToken.getAddress(), convertTokens(5));
 	result = await transaction.wait();
 	orderId++;
 	console.log(`Made an order from ${await user1.getAddress()}`);
@@ -116,10 +130,10 @@ const main = async () => {
 	await wait(1);
 
 	// ------------------- FILLED ORDERS -------------------
-	// user1 makes an order to get mDAI tokens | user1 wants to pay 10 SPEC for 100 mDAI | user1 wants to have 100 mDAI
+	// user1 makes an order to get mETH tokens | user1 wants to pay 10 SPEC for 100 mETH | user1 wants to have 100 mETH
 	transaction = await spectre
 		.connect(user1)
-		.makeOrder(await mDAI.getAddress(), convertTokens(100), await spectreToken.getAddress(), convertTokens(10));
+		.makeOrder(await mETH.getAddress(), convertTokens(100), await spectreToken.getAddress(), convertTokens(10));
 	result = await transaction.wait();
 	// orderId = result.events[0].args.id; // get the orderId from the "Order Event"
 	orderId++;
@@ -134,10 +148,10 @@ const main = async () => {
 	// wait for 1 second
 	await wait(1);
 
-	// user1 makes an order to get mDAI tokens | user1 wants to pay 25 SPEC for 50 mDAI | user1 wants to have 50 mDAI
+	// user1 makes an order to get mETH tokens | user1 wants to pay 25 SPEC for 50 mETH | user1 wants to have 50 mETH
 	transaction = await spectre
 		.connect(user1)
-		.makeOrder(await mDAI.getAddress(), convertTokens(50), await spectreToken.getAddress(), convertTokens(25));
+		.makeOrder(await mETH.getAddress(), convertTokens(50), await spectreToken.getAddress(), convertTokens(25));
 	result = await transaction.wait();
 	// orderId = result.events[0].args.id; // get the orderId from the "Order Event"
 	orderId++;
@@ -152,10 +166,10 @@ const main = async () => {
 	// wait for 1 second
 	await wait(1);
 
-	// user1 makes an order to get mDAI tokens | user1 wants to pay 80 SPEC for 700 mDAI | user1 wants to have 700 mDAI
+	// user1 makes an order to get mETH tokens | user1 wants to pay 80 SPEC for 700 mETH | user1 wants to have 700 mETH
 	transaction = await spectre
 		.connect(user1)
-		.makeOrder(await mDAI.getAddress(), convertTokens(700), await spectreToken.getAddress(), convertTokens(80));
+		.makeOrder(await mETH.getAddress(), convertTokens(700), await spectreToken.getAddress(), convertTokens(80));
 	result = await transaction.wait();
 	// orderId = result.events[0].args.id; // get the orderId from the "Order Event"
 	orderId++;
@@ -176,7 +190,7 @@ const main = async () => {
 	for (let i = 1; i <= 12; i++) {
 		transaction = await spectre
 			.connect(user1)
-			.makeOrder(await mDAI.getAddress(), convertTokens(i * 10 + 10), await spectreToken.getAddress(), convertTokens(10));
+			.makeOrder(await mETH.getAddress(), convertTokens(i * 10 + 10), await spectreToken.getAddress(), convertTokens(10));
 		result = await transaction.wait();
 		orderId++;
 		console.log(`Made an order from ${await user1.getAddress()}`);
@@ -189,7 +203,7 @@ const main = async () => {
 	for (let i = 1; i <= 12; i++) {
 		transaction = await spectre
 			.connect(user2)
-			.makeOrder(await spectreToken.getAddress(), convertTokens(10), await mDAI.getAddress(), convertTokens(i * 10 + 10));
+			.makeOrder(await spectreToken.getAddress(), convertTokens(10), await mETH.getAddress(), convertTokens(i * 10 + 10));
 		result = await transaction.wait();
 		orderId++;
 		console.log(`Made an order from ${await user2.getAddress()}`);
