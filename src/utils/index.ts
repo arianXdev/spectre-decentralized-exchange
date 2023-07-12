@@ -10,3 +10,4 @@ export { makeBuyOrder } from "./makeBuyOrder";
 export { makeSellOrder } from "./makeSellOrder";
 
 export { decorateOrder } from "./decorateOrder";
+export { decorateOrderBookOrders } from "./decorateOrderBook";

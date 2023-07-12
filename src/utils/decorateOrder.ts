@@ -5,16 +5,16 @@ import moment from "moment";
 import { TokensStateType } from "~/features/tokens/types";
 
 // decorates the order passing in (means it adds more details to the order and then returns the decorated order)
-export const decorateOrder = (order: any, { token1 }: TokensStateType) => {
+export const decorateOrder = (order: any, { token2 }: TokensStateType) => {
 	let token1Amount, token2Amount;
 
-	const token1Address = _.get(token1, "address", "");
-	// const token2Address = _.get(token2, "address", "");
+	// const token1Address = _.get(token1, "address", "");
+	const token2Address = _.get(token2, "address", "");
 
 	// EXAMPLE: Giving mETH in exchange for SPEC (the official crypto currency of SPECTRE DEX)
 	// SPEC should be considered token1 & mETH is considered as token2
 	// NOTE: Crypto Currency symbols are for example purposes in here
-	if (order.tokenGive === token1Address) {
+	if (order.tokenGive === token2Address) {
 		token1Amount = order.amountGive; // the amount of SPEC we are giving
 		token2Amount = order.amountGet; // the amount of mETH we want
 	} else {
@@ -31,7 +31,7 @@ export const decorateOrder = (order: any, { token1 }: TokensStateType) => {
 		token1Amount: ethers.formatEther(token1Amount),
 		token2Amount: ethers.formatEther(token2Amount),
 		tokenPrice,
-		formattedTimestamp: moment.unix(order.timestamp).format("h:mm:ssa d MMM D"),
+		formattedTimestamp: moment.unix(order.timestamp).format("h:mm:ssa Y MMM D"),
 	};
 
 	return decoratedOrder;

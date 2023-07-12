@@ -4,7 +4,7 @@ import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ExchangeStateType, TransactionType } from "./types";
 import { TokensStateType } from "../tokens/types";
 
-import { decorateOrder } from "~/utils";
+import { decorateOrderBookOrders } from "~/utils/decorateOrderBook";
 
 const initialState = {
 	loaded: false,
@@ -115,18 +115,18 @@ const allOrders = (state: ExchangeStateType) => _.get(state, "exchange.orders.al
 const tokens = (state: TokensStateType) => _.get(state, "tokens", []);
 
 // Selectors
-export const orderBookSelector = createSelector(allOrders, tokens, (orders, { token1, token2 }: TokensStateType) => {
-	if (!token1 || !token2) return;
+export const orderBookSelector = createSelector(allOrders, tokens, (orders, tokens: TokensStateType) => {
+	if (!tokens.token1 || !tokens.token2) {
+		return;
+	}
 
 	// filter orders by selected token pairs
-	orders = orders.filter((order) => order.tokenGet === token1.address || order.tokenGet === token2.address);
-	orders = orders.filter((order) => order.tokenGive === token1.address || order.tokenGive === token2.address);
+	orders = orders.filter((o) => o.tokenGet === tokens.token1.address || o.tokenGet === tokens.token2.address);
+	orders = orders.filter((o) => o.tokenGive === tokens.token1.address || o.tokenGive === tokens.token2.address);
 
 	// decorate the orders (basically add more details about the orders)
-	orders.map((order: object) => {
-		let decoratedOrder = decorateOrder(order, tokens);
-		console.log(decoratedOrder);
-	});
+	orders = decorateOrderBookOrders(orders, tokens);
+	console.log(orders);
 });
 
 export const {
