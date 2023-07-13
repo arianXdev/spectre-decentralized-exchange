@@ -1,6 +1,8 @@
 @import "../../sass/abstracts/variables";
 @import "../../sass/abstracts/mixins";
 
+$color-bg-network-menu: $color-dark;
+
 .Header {
 	width: 100%;
 	display: grid;
@@ -194,7 +196,7 @@
 	width: 15rem;
 	color: #01c0fd;
 	padding: 0.2em 0.5em;
-	background-color: rgba(0, 0, 0, 0.39);
+	background-color: $color-bg-network-menu;
 	box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.3);
 	border-radius: 25px;
 	overflow: hidden;
@@ -214,7 +216,7 @@
 		}
 
 		&:not(.network-menu__item--selected):hover {
-			background-color: rgba(10, 10, 10, 0.3);
+			background-color: lighten($color-dark, 4%);
 		}
 	}
 
