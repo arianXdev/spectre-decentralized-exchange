@@ -132,11 +132,31 @@ const exchangeSlice = createSlice({
 });
 
 // Input Selectors
-const allOrders = (state: ExchangeStateType) => _.get(state, "exchange.orders.allOrders", []);
 const tokens = (state: TokensStateType) => _.get(state, "tokens", []);
 
+const allOrders = (state: ExchangeStateType) => _.get(state, "exchange.orders.allOrders", []);
+const filledOrders = (state: ExchangeStateType) => _.get(state, "exchange.orders.filledOrders", []);
+const canceledOrders = (state: ExchangeStateType) => _.get(state, "exchange.orders.canceledOrders", []);
+
+// Note: All Orders - (Filled Orders + Canceled Orders) = Open Orders
+const openOrders = (state) => {
+	const all = allOrders(state);
+	const filled = filledOrders(state);
+	const canceled = canceledOrders(state);
+
+	// make filled and canceled orders separated from all the orders - so we can get all the open orders eventually
+	const allOpenOrders = _.reject(all, (order) => {
+		const isOrderFilled = filled.some((o) => o.id.toString() === order.id.toString());
+		const isOrderCanceled = canceled.some((o) => o.id.toString() === order.id.toString());
+
+		return isOrderFilled || isOrderCanceled;
+	});
+
+	return allOpenOrders;
+};
+
 // Selectors
-export const orderBookSelector = createSelector(allOrders, tokens, (orders, tokens: TokensStateType) => {
+export const orderBookSelector = createSelector(openOrders, tokens, (orders, tokens: TokensStateType) => {
 	if (!tokens.token1 || !tokens.token2) {
 		return;
 	}
