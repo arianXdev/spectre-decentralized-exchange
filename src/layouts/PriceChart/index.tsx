@@ -12,9 +12,11 @@ const PriceChart = () => {
 	return (
 		<section className="chart">
 			<div className="chart__header">
-				<strong className="chart__token-pair">
-					{tokens && tokens.token1?.symbol} / {tokens && tokens.token2?.symbol}
-				</strong>
+				{tokens && tokens.loaded ? (
+					<strong className="chart__token-pair">
+						{tokens && tokens.token1?.symbol} / {tokens && tokens.token2?.symbol}
+					</strong>
+				) : null}
 			</div>
 
 			<div className="chart__container">
