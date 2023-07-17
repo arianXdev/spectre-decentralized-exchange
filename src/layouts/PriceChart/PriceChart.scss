@@ -6,23 +6,28 @@ $color--connect-wallet-text: #dedede;
 .chart {
 	max-width: 100%;
 	height: 22rem;
-	padding-inline: 2.5rem;
 	color: white;
+	padding: 2rem;
+	margin-inline: 2.5rem;
 	margin-bottom: 4rem;
+	background: $color-black;
+	border-radius: 2.8rem;
+	box-shadow: 0 0 15px rgba(16, 24, 36, 1);
 
 	&__header {
+		.chart__token-pair {
+			font-size: 1em;
+			font-weight: 600;
+			letter-spacing: 0.5px;
+		}
 	}
 
 	&__container {
 		width: 100%;
 		height: 100%;
-		padding: 2.1rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		background: $color-black;
-		border-radius: 2.8rem;
-		box-shadow: 0 0 15px rgba(16, 24, 36, 1);
 	}
 
 	&__connect-wallet-alert {
