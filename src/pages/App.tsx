@@ -10,7 +10,7 @@ import { EthersContext } from "../context/EthersContext";
 import { ExchangeContext } from "../context/ExchangeContext";
 import { TokensContext } from "../context/TokensContext";
 
-import Header from "~/layouts/Header";
+import { Header } from "~/layouts";
 import InstallWallet from "./InstallWallet";
 import Trade from "./Trade";
 
