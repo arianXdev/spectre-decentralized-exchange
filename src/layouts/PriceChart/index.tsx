@@ -1,5 +1,8 @@
 import { useAppSelector } from "~/app/hooks";
 
+import Chart from "react-apexcharts";
+import { options, series } from "./PriceChart.config.js";
+
 import "./PriceChart.scss";
 
 const PriceChart = () => {
@@ -20,7 +23,11 @@ const PriceChart = () => {
 			</div>
 
 			<div className="chart__container">
-				{account ? <p>Candlestick Chart goes here!</p> : <p className="chart__connect-wallet-alert">Please CONNECT YOUR WALLET</p>}
+				{account ? (
+					<Chart type="candlestick" options={options} series={series} width="100%" height="100%" className="chart__candlestick" />
+				) : (
+					<p className="chart__connect-wallet-alert">Please CONNECT YOUR WALLET</p>
+				)}
 			</div>
 		</section>
 	);
