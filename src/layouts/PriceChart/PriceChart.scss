@@ -50,3 +50,22 @@ $color--connect-wallet-text: #dedede;
 		text-shadow: 0 2px 15px rgba($color: #fff, $alpha: 0.55);
 	}
 }
+
+.apexcharts-tooltip {
+	background: $color-dark;
+	color: $color-cyan;
+	font-family: $font-mono;
+	font-size: 1rem !important;
+	line-height: 1.5;
+	padding: 0.18rem;
+	box-shadow: 0 0 7px rgba(35, 50, 75, 0.2) !important;
+	border-radius: 1rem !important;
+}
+
+.apexcharts-xaxistooltip {
+	background: $color-dark !important;
+	color: $color-cyan !important;
+	border: none !important;
+	border-radius: 0.7rem !important;
+	box-shadow: 0 0 5px rgba(16, 27, 48, 0.7);
+}
