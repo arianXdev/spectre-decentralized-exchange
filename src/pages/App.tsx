@@ -11,8 +11,10 @@ import { ExchangeContext } from "../context/ExchangeContext";
 import { TokensContext } from "../context/TokensContext";
 
 import { Header } from "~/layouts";
+
 import InstallWallet from "./InstallWallet";
 import Trade from "./Trade";
+import Settings from "./Settings";
 
 import { Overlay } from "../components";
 
@@ -148,6 +150,7 @@ const App: React.FC = () => {
 						<Route path="/" element={<Navigate to="/swap" />} />
 						<Route path="swap" element={<></>} />
 						<Route path="trade" element={<Trade />} />
+						<Route path="settings" element={<Settings />} />
 					</Routes>
 				</TokensContext.Provider>
 			</ExchangeContext.Provider>
