@@ -155,7 +155,11 @@ const openOrders = (state) => {
 	return allOpenOrders;
 };
 
-// Selectors
+// ----------------------------
+// --------- Selectors --------
+// ----------------------------
+
+// Order Book
 export const orderBookSelector = createSelector(openOrders, tokens, (orders, tokens: TokensStateType) => {
 	if (!tokens.token1 || !tokens.token2) {
 		return;
@@ -180,6 +184,19 @@ export const orderBookSelector = createSelector(openOrders, tokens, (orders, tok
 	orders = { ...orders, SELL: sellOrders.sort((a, b) => b.tokenPrice - a.tokenPrice) };
 
 	return orders;
+});
+
+// Price Chart
+export const priceChartSelector = createSelector(filledOrders, tokens, (orders, tokens: TokensStateType) => {
+	if (!tokens.token1 || !tokens.token2) {
+		return;
+	}
+
+	// filter orders by selected token pairs
+	orders = orders.filter((o) => o.tokenGet === tokens.token1.address || o.tokenGet === tokens.token2.address);
+	orders = orders.filter((o) => o.tokenGive === tokens.token1.address || o.tokenGive === tokens.token2.address);
+
+	console.log(orders);
 });
 
 export const {
