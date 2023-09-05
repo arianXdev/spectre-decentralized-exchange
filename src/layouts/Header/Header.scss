@@ -200,6 +200,12 @@ $color-bg-network-menu: $color-dark;
 		justify-self: center;
 		align-self: center;
 		cursor: pointer;
+		transition: all 0.2s ease-out;
+		border-radius: 4rem;
+
+		&:hover:not(.Header__settings--enabled) a {
+			rotate: 20deg;
+		}
 
 		&::after {
 			position: absolute;
@@ -209,7 +215,7 @@ $color-bg-network-menu: $color-dark;
 			scale: 0;
 			background: #e2e2e21c;
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-			transition: all 0.35s ease-in-out;
+			transition: all 0.3s ease-out;
 			border-radius: 4rem;
 		}
 
@@ -219,6 +225,7 @@ $color-bg-network-menu: $color-dark;
 
 		a {
 			display: inherit;
+			transition: all 0.2s ease-out;
 		}
 	}
 }
