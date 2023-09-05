@@ -75,12 +75,14 @@ const Header: FC = (): ReactElement => {
 		Header__tab: true,
 		"Header__tab--swap": true,
 		"Header__tab--active": activeTab === Tabs.SWAP,
+		"Header__tab--settings-activated": pathname === "/settings",
 	});
 
 	const headerTradeTabClass = classNames({
 		Header__tab: true,
 		"Header__tab--trade": true,
 		"Header__tab--active": activeTab === Tabs.TRADE,
+		"Header__tab--settings-activated": pathname === "/settings",
 	});
 
 	// Account Menu state
@@ -285,7 +287,7 @@ const Header: FC = (): ReactElement => {
 						handleMetaMaskWallet={handleMetaMaskWallet}
 					/>
 				</div>
-				<div className="Header__settings">
+				<div className={pathname === "/settings" ? "Header__settings Header__settings--enabled" : "Header__settings"}>
 					<Link to="/settings">
 						<Icon name="settings-outline" />
 					</Link>
