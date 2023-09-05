@@ -1,7 +1,7 @@
 import { useAppSelector } from "~/app/hooks";
 
 import Chart from "react-apexcharts";
-import { options, series } from "./PriceChart.config.js";
+import { options } from "./PriceChart.config.ts";
 
 import { priceChartSelector } from "~/features/exchange/exchangeSlice.js";
 
@@ -29,7 +29,14 @@ const PriceChart = () => {
 
 			<div className="chart__container">
 				{account ? (
-					<Chart type="candlestick" options={options} series={series} width="100%" height="100%" className="chart__candlestick" />
+					<Chart
+						type="candlestick"
+						options={options}
+						series={priceChart?.series}
+						width="100%"
+						height="100%"
+						className="chart__candlestick"
+					/>
 				) : (
 					<p className="chart__connect-wallet-alert">Please CONNECT YOUR WALLET</p>
 				)}
