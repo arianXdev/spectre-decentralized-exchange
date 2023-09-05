@@ -160,21 +160,23 @@ const Balance = () => {
 		<section className="balance">
 			<div className={`balance__info ${!gasFee ? "error" : ""}`}>
 				<h3 className="balance__title">Trade / Balance</h3>
-				<h3 className="balance__fee" title="Click to update!" onClick={fetchGasPrice}>
-					{gasFee && window.navigator.onLine ? (
-						<>
-							<i className="fa-solid fa-gas-pump"></i>
-							<small>{gasFee.toFixed(0)}</small>
-							<b>GWEI</b>
-							<i>/</i>
-							<strong>${transactionFee.toFixed(2)}</strong>
-						</>
-					) : (
-						<span className="balance__error">
-							{window.navigator.onLine ? "Loading, please wait..." : "Couldn't load the fees!"}
-						</span>
-					)}
-				</h3>
+				{localStorage.getItem("gasfee-status") === "true" ? (
+					<h3 className="balance__fee" title="Click to update!" onClick={fetchGasPrice}>
+						{gasFee && window.navigator.onLine ? (
+							<>
+								<i className="fa-solid fa-gas-pump"></i>
+								<small>{gasFee.toFixed(0)}</small>
+								<b>GWEI</b>
+								<i>/</i>
+								<strong>${transactionFee.toFixed(2)}</strong>
+							</>
+						) : (
+							<span className="balance__error">
+								{window.navigator.onLine ? "Loading, please wait..." : "Couldn't load the fees!"}
+							</span>
+						)}
+					</h3>
+				) : null}
 			</div>
 
 			<div className="balance__transfers">
