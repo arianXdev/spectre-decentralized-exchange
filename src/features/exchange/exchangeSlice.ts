@@ -4,7 +4,7 @@ import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ExchangeStateType, TransactionType } from "./types";
 import { TokensStateType } from "../tokens/types";
 
-import { decorateOrderBookOrders } from "~/utils/decorateOrderBook";
+import { buildGraphData, decorateOrder, decorateOrderBookOrders } from "~/utils";
 
 const initialState = {
 	loaded: false,
@@ -196,7 +196,15 @@ export const priceChartSelector = createSelector(filledOrders, tokens, (orders, 
 	orders = orders.filter((o) => o.tokenGet === tokens.token1.address || o.tokenGet === tokens.token2.address);
 	orders = orders.filter((o) => o.tokenGive === tokens.token1.address || o.tokenGive === tokens.token2.address);
 
-	console.log(orders);
+	// Sort the orders by date
+	orders = orders.sort((a, b) => a.timestamp - b.timestamp);
+
+	// decorate the orders (basically add more details about the orders)
+	orders = orders.map((order) => decorateOrder(order, tokens));
+
+	return {
+		series: [{ data: buildGraphData(orders) }],
+	};
 });
 
 export const {
