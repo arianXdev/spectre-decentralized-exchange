@@ -6,7 +6,7 @@ $color-bg-network-menu: $color-dark;
 .Header {
 	width: 100%;
 	display: grid;
-	grid-template-columns: 30% 33% 1fr;
+	grid-template-columns: 28% 33% 1fr;
 	padding-top: 0.4rem;
 	padding-inline: 2rem;
 	font-size: 16px;
@@ -195,8 +195,8 @@ $color-bg-network-menu: $color-dark;
 		position: relative;
 		@include displayFlex(center);
 
-		font-size: 1.8rem;
-		padding: 0.9rem;
+		font-size: 1.8em;
+		padding: 0.45em;
 		justify-self: center;
 		align-self: center;
 		cursor: pointer;
@@ -233,7 +233,7 @@ $color-bg-network-menu: $color-dark;
 .network-menu {
 	position: absolute;
 	top: 4rem;
-	left: -2rem;
+	left: -0.7rem;
 	width: 15rem;
 	color: #01c0fd;
 	padding: 0.2em 0.5em;
@@ -520,12 +520,5 @@ $color-bg-network-menu: $color-dark;
 		&__settings {
 			display: none;
 		}
-	}
-}
-
-@media (min-width: 1540px) {
-	.Header {
-		grid-template-columns: 27% 35% 30%;
-		gap: 4%;
 	}
 }
