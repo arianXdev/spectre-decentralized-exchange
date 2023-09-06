@@ -4,6 +4,7 @@
 	"private": true,
 	"version": "0.1.0",
 	"author": "Arian H",
+	"website": "https://spectre.arianh.ir",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -44,7 +45,6 @@
 		"@typescript-eslint/eslint-plugin": "^6.6.0",
 		"@typescript-eslint/parser": "^6.6.0",
 		"@vitejs/plugin-react": "^4.0.4",
-		"buffer": "^6.0.3",
 		"chai": "^4.3.8",
 		"eslint": "^8.48.0",
 		"eslint-plugin-react": "^7.33.2",
