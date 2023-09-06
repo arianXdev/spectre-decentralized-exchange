@@ -52,7 +52,7 @@ const Header: FC = (): ReactElement => {
 	const account = useAppSelector((state) => state.connection.current?.account);
 
 	// It only shows a few parts of the whole address
-	const accountAddress = `${account?.substring(0, 6) || "0x000"}...${account?.substring(38, 42) || "0000"}`;
+	const accountAddress = `${account?.substring(0, 7) || "0x000"}...${account?.substring(38, 42) || "0000"}`;
 
 	const { pathname } = useLocation();
 
