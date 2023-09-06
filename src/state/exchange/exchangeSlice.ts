@@ -131,18 +131,21 @@ const exchangeSlice = createSlice({
 	},
 });
 
-// Input Selectors
-const tokens = (state: TokensStateType) => _.get(state, "tokens", []);
+// ----------------------------
+// --------- Selectors --------
+// ----------------------------
 
-const allOrders = (state: ExchangeStateType) => _.get(state, "exchange.orders.allOrders", []);
-const filledOrders = (state: ExchangeStateType) => _.get(state, "exchange.orders.filledOrders", []);
-const canceledOrders = (state: ExchangeStateType) => _.get(state, "exchange.orders.canceledOrders", []);
+const selectTokens = (state: TokensStateType) => _.get(state, "tokens", []);
+
+const selectAllOrders = (state: ExchangeStateType) => _.get(state, "exchange.orders.allOrders", []);
+const selectFilledOrders = (state: ExchangeStateType) => _.get(state, "exchange.orders.filledOrders", []);
+const selectCanceledOrders = (state: ExchangeStateType) => _.get(state, "exchange.orders.canceledOrders", []);
 
 // Note: All Orders - (Filled Orders + Canceled Orders) = Open Orders
-const openOrders = (state) => {
-	const all = allOrders(state);
-	const filled = filledOrders(state);
-	const canceled = canceledOrders(state);
+const selectOpenOrders = (state: ExchangeStateType) => {
+	const all = selectAllOrders(state);
+	const filled = selectFilledOrders(state);
+	const canceled = selectCanceledOrders(state);
 
 	// make filled and canceled orders separated from all the orders - so we can get all the open orders eventually
 	const allOpenOrders = _.reject(all, (order) => {
@@ -156,11 +159,16 @@ const openOrders = (state) => {
 };
 
 // ----------------------------
-// --------- Selectors --------
+// ---- Memoized Selectors ----
 // ----------------------------
 
-// Order Book
-export const orderBookSelector = createSelector(openOrders, tokens, (orders, tokens: TokensStateType) => {
+/* REDUX NOTE:
+	- Memoized selectors will only recalculate the results if the input selectors return new values
+ 	- Whatever those input selectors return becomes the arguments for the output selector.
+*/
+
+// this selector returns all the orders that we need to display on the Order Book
+export const orderBookSelector = createSelector([selectOpenOrders, selectTokens], (orders, tokens: TokensStateType) => {
 	if (!tokens.token1 || !tokens.token2) {
 		return;
 	}
@@ -186,8 +194,8 @@ export const orderBookSelector = createSelector(openOrders, tokens, (orders, tok
 	return orders;
 });
 
-// Price Chart
-export const priceChartSelector = createSelector(filledOrders, tokens, (orders, tokens: TokensStateType) => {
+// this selectors returns all the graph data that we need to show on the candlestick chart (graph data - series)
+export const priceChartSelector = createSelector([selectFilledOrders, selectTokens], (orders, tokens: TokensStateType) => {
 	if (!tokens.token1 || !tokens.token2) {
 		return;
 	}
@@ -207,6 +215,7 @@ export const priceChartSelector = createSelector(filledOrders, tokens, (orders, 
 	};
 });
 
+// export action creators
 export const {
 	exchangeBalancesLoaded,
 	transferRequested,
