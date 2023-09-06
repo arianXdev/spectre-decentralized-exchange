@@ -1,7 +1,7 @@
 import { useContext, useEffect, ChangeEvent } from "react";
 import { useImmer } from "use-immer";
 
-import { useAppSelector, useAppDispatch } from "~/app/hooks";
+import { useAppSelector, useAppDispatch } from "~/state/hooks";
 
 import useFetchGasPrice from "~/hooks/useFetchGasPrice";
 import { EthersContext } from "~/context/EthersContext";
@@ -34,6 +34,9 @@ enum Status {
 }
 
 const Balance = () => {
+	// ATTENTION: IT IS TEMPORARY!
+	const GAS_FEE_STATUS = import.meta.env.VITE_GAS_FEE_STATUS;
+
 	const dispatch = useAppDispatch();
 
 	const { gasFee, transactionFee, fetchGasPrice } = useFetchGasPrice();
@@ -160,7 +163,7 @@ const Balance = () => {
 		<section className="balance">
 			<div className={`balance__info ${!gasFee ? "error" : ""}`}>
 				<h3 className="balance__title">Trade / Balance</h3>
-				{localStorage.getItem("gasfee-status") === "true" ? (
+				{GAS_FEE_STATUS === "true" ? (
 					<h3 className="balance__fee" title="Click to update!" onClick={fetchGasPrice}>
 						{gasFee && window.navigator.onLine ? (
 							<>

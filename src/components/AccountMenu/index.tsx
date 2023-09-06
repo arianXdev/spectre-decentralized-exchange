@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../state/hooks";
 import { Icon, Overlay } from "..";
 
-import { disconnected } from "~/features/connection/connectionSlice";
+import { disconnected } from "~/state/connection/connectionSlice";
 
 import Blockies from "react-18-blockies";
 import copy from "clipboard-copy";

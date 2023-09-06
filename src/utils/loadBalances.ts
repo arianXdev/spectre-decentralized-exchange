@@ -1,9 +1,9 @@
 import { ethers } from "ethers";
 
-import { balancesLoaded } from "../features/tokens/tokensSlice";
-import { exchangeBalancesLoaded } from "../features/exchange/exchangeSlice";
+import { balancesLoaded } from "../state/tokens/tokensSlice";
+import { exchangeBalancesLoaded } from "../state/exchange/exchangeSlice";
 
-import { AppDispatch } from "../app/store";
+import { AppDispatch } from "../state";
 
 // Load User Balances (including Wallet balance & Exchange balance)
 export const loadBalances = async (exchange: ethers.ContractInterface, tokens: [], account: string, dispatch: AppDispatch) => {

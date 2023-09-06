@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { TokensStateType } from "~/features/tokens/types";
+import { TokensStateType } from "~/state/tokens/types";
 
 import { decorateOrder } from ".";
 

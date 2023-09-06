@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TokensState } from "./types";
-// import type { RootState } from "../../app/store";
 
 const initialState = {
 	loaded: false,

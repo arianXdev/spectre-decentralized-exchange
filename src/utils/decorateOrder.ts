@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import _ from "lodash";
 import moment from "moment";
 
-import { TokensStateType } from "~/features/tokens/types";
+import { TokensStateType } from "~/state/tokens/types";
 
 // decorates the order passing in (means it adds more details to the order and then returns the decorated order)
 export const decorateOrder = (order: any, { token2 }: TokensStateType) => {

@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 
-import { AppDispatch } from "~/app/store";
-import { transferSuccess, makeOrderSuccess } from "../features/exchange/exchangeSlice";
+import { AppDispatch } from "../state";
+import { transferSuccess, makeOrderSuccess } from "../state/exchange/exchangeSlice";
 
 // Transfer tokens (Deposits & Withdraws)
 enum TransferType {

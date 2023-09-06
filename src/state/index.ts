@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import connectionReducer from "../features/connection/connectionSlice";
-import tokensReducer from "../features/tokens/tokensSlice";
-import exchangeReducer from "../features/exchange/exchangeSlice";
+import connectionReducer from "./connection/connectionSlice";
+import tokensReducer from "./tokens/tokensSlice";
+import exchangeReducer from "./exchange/exchangeSlice";
 
 export const store = configureStore({
 	reducer: {

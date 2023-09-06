@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useContext } from "react";
 
-import { useAppDispatch } from "~/app/hooks";
+import { useAppDispatch } from "~/state/hooks";
 import { loadTokens } from "~/utils";
 
 import { EthersContext } from "~/context/EthersContext";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { useAppSelector } from "~/app/hooks";
+import { useAppSelector } from "~/state/hooks";
 
 import { TradeContext } from "~/context/TradeContext";
 

@@ -1,5 +1,5 @@
 import { FC, ReactElement, useEffect, useRef, useState, useContext } from "react";
-import { useAppSelector, useAppDispatch } from "~/app/hooks";
+import { useAppSelector, useAppDispatch } from "~/state/hooks";
 
 import { EthersContext } from "~/context/EthersContext";
 

@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 
-import { AppDispatch } from "../app/store";
-import { connected } from "../features/connection/connectionSlice";
+import { AppDispatch } from "../state";
+import { connected } from "../state/connection/connectionSlice";
 
 import useMetaMask from "../hooks/useMetaMask";
 

@@ -1,9 +1,9 @@
-import { useAppSelector } from "~/app/hooks";
+import { useAppSelector } from "~/state/hooks";
 
 import Chart from "react-apexcharts";
 import { options } from "./PriceChart.config.ts";
 
-import { priceChartSelector } from "~/features/exchange/exchangeSlice.js";
+import { priceChartSelector } from "~/state/exchange/exchangeSlice.js";
 
 import "./PriceChart.scss";
 

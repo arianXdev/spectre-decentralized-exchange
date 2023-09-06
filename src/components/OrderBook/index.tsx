@@ -1,6 +1,6 @@
-import { useAppSelector } from "~/app/hooks";
+import { useAppSelector } from "~/state/hooks";
 
-import { orderBookSelector } from "~/features/exchange/exchangeSlice";
+import { orderBookSelector } from "~/state/exchange/exchangeSlice";
 import { Icon } from "..";
 
 import "./OrderBook.scss";

@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 
-import { AppDispatch } from "../app/store";
-import { filledOrdersLoaded } from "~/features/exchange/exchangeSlice";
+import { AppDispatch } from "../state";
+import { filledOrdersLoaded } from "~/state/exchange/exchangeSlice";
 
 export const loadFilledOrders = async (provider: ethers.BrowserProvider, exchange: ethers.ContractInterface, dispatch: AppDispatch) => {
 	// get the current block number out of blockchain

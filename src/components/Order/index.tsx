@@ -4,7 +4,7 @@ import { useImmer } from "use-immer";
 import classNames from "classnames";
 import { Icon } from "..";
 
-import { useAppDispatch, useAppSelector } from "~/app/hooks";
+import { useAppDispatch, useAppSelector } from "~/state/hooks";
 
 import { EthersContext } from "~/context/EthersContext";
 import { ExchangeContext } from "~/context/ExchangeContext";

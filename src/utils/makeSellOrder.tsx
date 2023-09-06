@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 
-import { AppDispatch } from "~/app/store";
-import { makeOrderRequested, makeOrderFailed } from "~/features/exchange/exchangeSlice";
+import { AppDispatch } from "../state";
+import { makeOrderRequested, makeOrderFailed } from "~/state/exchange/exchangeSlice";
 
 import { toast, ErrorIcon } from "react-hot-toast";
 

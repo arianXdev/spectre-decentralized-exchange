@@ -5,10 +5,10 @@ import TOKEN_ABI from "../abis/Token.json";
 
 import config from "../config.json";
 
-import { tokensLoaded } from "../features/tokens/tokensSlice";
+import { tokensLoaded } from "../state/tokens/tokensSlice";
 import cryptosLogo from "../helpers/cryptosLogo";
 
-import { AppDispatch } from "../app/store";
+import { AppDispatch } from "../state";
 
 export const loadTokens = async (provider: ethers.BrowserProvider, addresses: string[], dispatch: AppDispatch) => {
 	const { chainId } = await provider.getNetwork();

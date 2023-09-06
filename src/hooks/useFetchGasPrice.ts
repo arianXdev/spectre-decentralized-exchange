@@ -7,13 +7,16 @@ const useFetchGasPrice = () => {
 	const [gasFee, setGasFee] = useState<number>(0);
 	const [transactionFee, setTransactionFee] = useState<number>(0);
 
-	if (localStorage.getItem("gasfee-status") === "true") {
+	// ATTENTION: IT IS TEMPORARY!
+	const GAS_FEE_STATUS = import.meta.env.VITE_GAS_FEE_STATUS;
+
+	if (GAS_FEE_STATUS === "true") {
 		const fetchGasPrice = async () => {
 			try {
 				const ETHPrice = await getETHPrice();
 				const gasPrice = await getGasFee();
 
-				setGasFee(gasPrice.speeds[1].baseFee);
+				setGasFee(gasPrice.speeds[3].baseFee);
 
 				// A standard ETH transfer requires a gas limit of 21,000 units of gas
 				// convert gasFee from gwei to eth and then multiply by the current eth price
@@ -24,6 +27,7 @@ const useFetchGasPrice = () => {
 				setGasFee(0);
 			}
 		};
+
 		fetchGasPrice();
 
 		return { gasFee, transactionFee, fetchGasPrice };

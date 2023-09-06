@@ -1,8 +1,8 @@
 import { ethers } from "ethers";
 
-import { transferRequested, transferFailed } from "../features/exchange/exchangeSlice";
+import { transferRequested, transferFailed } from "../state/exchange/exchangeSlice";
 
-import { AppDispatch } from "../app/store";
+import { AppDispatch } from "../state";
 
 import { toast, ErrorIcon } from "react-hot-toast";
 
