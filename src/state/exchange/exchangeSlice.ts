@@ -168,7 +168,7 @@ const selectOpenOrders = (state: ExchangeStateType) => {
 */
 
 // this selector returns all the orders that we need to display on the Order Book
-export const orderBookSelector = createSelector([selectOpenOrders, selectTokens], (orders, tokens: TokensStateType) => {
+export const selectOrdersForOrderBook = createSelector([selectOpenOrders, selectTokens], (orders, tokens: TokensStateType) => {
 	if (!tokens.token1 || !tokens.token2) {
 		return;
 	}
@@ -194,8 +194,8 @@ export const orderBookSelector = createSelector([selectOpenOrders, selectTokens]
 	return orders;
 });
 
-// this selectors returns all the graph data that we need to show on the candlestick chart (graph data - series)
-export const priceChartSelector = createSelector([selectFilledOrders, selectTokens], (orders, tokens: TokensStateType) => {
+// this selector returns all the graph data that we need to show on the candlestick chart (graph data - series)
+export const selectGraphDataForPriceChart = createSelector([selectFilledOrders, selectTokens], (orders, tokens: TokensStateType) => {
 	if (!tokens.token1 || !tokens.token2) {
 		return;
 	}

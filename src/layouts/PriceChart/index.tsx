@@ -3,7 +3,7 @@ import { useAppSelector } from "~/state/hooks";
 import Chart from "react-apexcharts";
 import { options } from "./PriceChart.config.ts";
 
-import { priceChartSelector } from "~/state/exchange/exchangeSlice.js";
+import { selectGraphDataForPriceChart } from "~/state/exchange/exchangeSlice.js";
 
 import "./PriceChart.scss";
 
@@ -15,7 +15,7 @@ const PriceChart = () => {
 	const tokens = useAppSelector((state) => state.tokens);
 
 	// Get the needed information for the price candlestick chart
-	const priceChart = useAppSelector(priceChartSelector);
+	const priceChart = useAppSelector(selectGraphDataForPriceChart);
 
 	return (
 		<section className="chart">
