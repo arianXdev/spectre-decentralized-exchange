@@ -11,7 +11,7 @@ export const loadConnection = async (provider: ethers.BrowserProvider, dispatch:
 	const account = ethers.getAddress(accounts[0]);
 
 	// Get the ETH balance of the current account from Metamask
-	let balance = await provider.getBalance(account);
+	let balance: string | bigint = await provider.getBalance(account);
 	balance = ethers.formatEther(balance);
 
 	// Fetch current network's chainId (e.g. Hardhat: 31337)

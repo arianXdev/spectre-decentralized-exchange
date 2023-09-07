@@ -1,25 +1,22 @@
-import { useEffect, useState, useRef } from "react";
-import { useAppDispatch } from "../state/hooks";
+import { useEffect, useState, useRef, FC } from "react";
+import { useAppDispatch } from "~/state/hooks";
 
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { ethers } from "ethers";
 
-import config from "../config.json";
+import config from "~/config.json";
 
-import { EthersContext } from "../context/EthersContext";
-import { ExchangeContext } from "../context/ExchangeContext";
-import { TokensContext } from "../context/TokensContext";
-
-import { Header } from "~/layouts";
+import { EthersContext, ExchangeContext, TokensContext } from "~/context";
 
 import InstallWallet from "./InstallWallet";
 import Trade from "./Trade";
 import Settings from "./Settings";
 
-import { Overlay } from "../components";
+import { Header } from "~/layouts";
+import { Overlay } from "~/components";
 
 import { loadConnection, loadTokens, loadExchange, loadAllOrders, loadFilledOrders, loadCanceledOrders, subscribeToEvents } from "../utils";
-import useMetaMask from "../hooks/useMetaMask";
+import useMetaMask from "~/hooks/useMetaMask";
 
 import { isMobile } from "react-device-detect";
 import { Toaster } from "react-hot-toast";
@@ -27,9 +24,9 @@ import Typed from "typed.js";
 
 import "./App.scss";
 
-const App: React.FC = () => {
+const App: FC = () => {
 	const dispatch = useAppDispatch();
-	const { pathname: routeName } = useLocation();
+	const location = useLocation();
 
 	const [isMetaMaskInstalled, setIsMetaMaskInstalled] = useState(true);
 	const [provider, setProvider] = useState({});
@@ -38,7 +35,7 @@ const App: React.FC = () => {
 
 	const arianNameRef = useRef(null);
 
-	const loadBlockchainData = async () => {
+	const fetchBlockchain = async () => {
 		if (!isMobile) window.ethereum._state.accounts = [];
 
 		// the term "provider" in this case is our connection to the blockchain
@@ -96,12 +93,12 @@ const App: React.FC = () => {
 			setIsMetaMaskInstalled(false);
 		} else {
 			// When the exchange runs, it's gonna get all the Blockchain data and contracts
-			loadBlockchainData();
+			fetchBlockchain();
 		}
 	}, []);
 
 	useEffect(() => {
-		if (isMetaMaskInstalled && !isMobile && routeName === "/swap") {
+		if (isMetaMaskInstalled && !isMobile && location.pathname === "/swap") {
 			const arianNameTyped = new Typed(arianNameRef.current, {
 				strings: [
 					"Arian Hosseini",
@@ -119,7 +116,7 @@ const App: React.FC = () => {
 				arianNameTyped.destroy();
 			};
 		}
-	}, [routeName]);
+	}, [location.pathname]);
 
 	return (
 		<EthersContext.Provider value={{ provider }}>

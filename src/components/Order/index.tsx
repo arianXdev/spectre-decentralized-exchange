@@ -1,18 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 import { useImmer } from "use-immer";
 
-import classNames from "classnames";
-import { Icon } from "..";
-
 import { useAppDispatch, useAppSelector } from "~/state/hooks";
-
-import { EthersContext } from "~/context/EthersContext";
-import { ExchangeContext } from "~/context/ExchangeContext";
-import { TokensContext } from "~/context/TokensContext";
-
+import { EthersContext, ExchangeContext, TokensContext } from "~/context";
 import { makeBuyOrder, makeSellOrder } from "~/utils";
 
 import { toast } from "react-hot-toast";
+
+import classNames from "classnames";
+import { Icon } from "..";
 
 import "./Order.scss";
 

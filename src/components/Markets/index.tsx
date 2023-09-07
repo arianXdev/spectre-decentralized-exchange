@@ -3,7 +3,7 @@ import { FC, useEffect, useRef, useContext } from "react";
 import { useAppDispatch } from "~/state/hooks";
 import { loadTokens } from "~/utils";
 
-import { EthersContext } from "~/context/EthersContext";
+import { EthersContext } from "~/context";
 
 import cryptosLogo from "~/helpers/cryptosLogo";
 import Typed from "typed.js";

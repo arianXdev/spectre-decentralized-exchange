@@ -4,10 +4,8 @@ import { useImmer } from "use-immer";
 import { useAppSelector, useAppDispatch } from "~/state/hooks";
 
 import useFetchGasPrice from "~/hooks/useFetchGasPrice";
-import { EthersContext } from "~/context/EthersContext";
-import { ExchangeContext } from "~/context/ExchangeContext";
-import { TokensContext } from "~/context/TokensContext";
-import { TradeContext } from "~/context/TradeContext";
+
+import { EthersContext, ExchangeContext, TokensContext, TradeContext } from "~/context";
 
 import { loadBalances, transferTokens } from "~/utils";
 

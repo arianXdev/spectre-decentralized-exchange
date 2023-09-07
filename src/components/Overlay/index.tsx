@@ -1,11 +1,11 @@
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 
 import "./Overlay.scss";
 
-interface OverlayProps {
+interface OverlayProps<T extends MouseEvent> {
 	isOpen: boolean;
-	onClose: () => void;
-	accountMenu: boolean;
+	accountMenu?: boolean;
+	onClose?: () => T;
 }
 
 const Overlay: FC<OverlayProps> = ({ isOpen, onClose = null, accountMenu = false }) => {

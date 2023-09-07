@@ -4,11 +4,8 @@ import { useAppSelector, useAppDispatch } from "~/state/hooks";
 import { selectOrdersForOrderBook } from "~/state/exchange/exchangeSlice";
 import { OrderType } from "~/state/exchange/types";
 
-import { EthersContext } from "~/context/EthersContext";
-import { ExchangeContext } from "~/context/ExchangeContext";
-
+import { EthersContext, ExchangeContext } from "~/context";
 import { loadAllOrders, loadFilledOrders } from "~/utils";
-
 import { Icon } from "~/components";
 
 import "./OrderBook.scss";
