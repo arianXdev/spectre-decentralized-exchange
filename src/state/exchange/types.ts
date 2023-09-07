@@ -14,6 +14,7 @@ export interface ExchangeStateType {
 }
 
 export interface OrderType {
+	orderType: ORDER_TYPE;
 	address: string;
 	amountGet: string | number;
 	amountGive: string | number;
@@ -25,8 +26,15 @@ export interface OrderType {
 	transactionHash: string;
 	user: string;
 	tokenPrice: number;
-	token1Amount: number;
-	token2Amount: number;
+	token1Amount: number | string;
+	token2Amount: number | string;
+	formattedTimestamp: string;
+	orderFillAction: ORDER_TYPE;
+}
+
+export enum ORDER_TYPE {
+	BUY = "BUY",
+	SELL = "SELL",
 }
 
 export enum TransactionType {

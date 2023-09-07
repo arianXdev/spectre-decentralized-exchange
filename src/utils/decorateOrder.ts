@@ -3,10 +3,11 @@ import _ from "lodash";
 import moment from "moment";
 
 import { TokensStateType } from "~/state/tokens/types";
+import { OrderType } from "~/state/exchange/types";
 
 // decorates the order passing in (means it adds more details to the order and then returns the decorated order)
-export const decorateOrder = (order: any, { token2 }: TokensStateType) => {
-	let token1Amount, token2Amount;
+export const decorateOrder = (order: OrderType, { token2 }: TokensStateType) => {
+	let token1Amount: number | string, token2Amount: number | string;
 
 	// const token1Address = _.get(token1, "address", "");
 	const token2Address = _.get(token2, "address", "");
@@ -24,7 +25,7 @@ export const decorateOrder = (order: any, { token2 }: TokensStateType) => {
 
 	// calculate token price to 5 decimal places
 	const precision = 100000;
-	let tokenPrice = token1Amount / token2Amount;
+	let tokenPrice = Number(token1Amount) / Number(token2Amount);
 	tokenPrice = Math.round(tokenPrice * precision) / precision;
 
 	const decoratedOrder = {
