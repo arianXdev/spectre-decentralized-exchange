@@ -1,17 +1,40 @@
-import { useAppSelector } from "~/state/hooks";
+import { useEffect, useContext } from "react";
+import { useAppSelector, useAppDispatch } from "~/state/hooks";
 
 import { selectOrdersForOrderBook } from "~/state/exchange/exchangeSlice";
 import { OrderType } from "~/state/exchange/types";
+
+import { EthersContext } from "~/context/EthersContext";
+import { ExchangeContext } from "~/context/ExchangeContext";
+
+import { loadAllOrders, loadFilledOrders } from "~/utils";
 
 import { Icon } from "~/components";
 
 import "./OrderBook.scss";
 
 const OrderBook = () => {
+	const { provider } = useContext(EthersContext);
+	const { exchange } = useContext(ExchangeContext);
+
+	const dispatch = useAppDispatch();
+
 	const token1 = useAppSelector((state) => state.tokens.token1);
 	const token2 = useAppSelector((state) => state.tokens.token2);
 
+	const transaction = useAppSelector((state) => state.exchange.transaction) ?? null;
+
 	const orders = useAppSelector(selectOrdersForOrderBook);
+
+	useEffect(() => {
+		if (transaction?.transactionType === "MAKE ORDER" && transaction?.isSuccessful) {
+			// Fetch all the orders | OPEN - FILLED - CANCELLED
+			loadAllOrders(provider, exchange, dispatch);
+
+			// Fetch all the filled orders
+			loadFilledOrders(provider, exchange, dispatch);
+		}
+	}, [transaction]);
 
 	return (
 		<section className="orderbook">
