@@ -1,7 +1,7 @@
 import { useAppSelector } from "~/state/hooks";
 
 import { selectOrdersForOrderBook } from "~/state/exchange/exchangeSlice";
-import { Icon } from "..";
+import { Icon } from "~/components";
 
 import "./OrderBook.scss";
 

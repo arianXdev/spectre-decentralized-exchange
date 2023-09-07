@@ -8,8 +8,8 @@ import TradeRectangle from "../../assets/images/trade-rectangle.svg";
 
 import config from "../../config.json";
 
-import { Markets, Overlay, Balance, Order, OrderBook } from "../../components";
-import { PriceChart } from "~/layouts";
+import { Markets, Overlay, Balance, Order } from "~/components";
+import { PriceChart, OrderBook } from "~/layouts";
 
 import "./Trade.scss";
 

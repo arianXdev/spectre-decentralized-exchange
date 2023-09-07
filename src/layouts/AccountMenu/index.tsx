@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../state/hooks";
-import { Icon, Overlay } from "..";
+import { useAppDispatch, useAppSelector } from "~/state/hooks";
+import { Icon, Overlay } from "~/components";
 
 import { disconnected } from "~/state/connection/connectionSlice";
 

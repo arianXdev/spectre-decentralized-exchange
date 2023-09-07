@@ -10,8 +10,8 @@ import { loadConnection } from "~/utils";
 
 import Logo from "~/assets/images/spectre-logo-light.png";
 
-import { AccountMenu, ConnectWallet } from "../../components";
-import { Icon } from "../../components";
+import { ConnectWallet, Icon } from "~/components";
+import { AccountMenu } from "~/layouts";
 
 import { toast, ErrorIcon, CheckmarkIcon } from "react-hot-toast";
 
