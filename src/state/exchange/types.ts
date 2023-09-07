@@ -7,6 +7,26 @@ export interface ExchangeStateType {
 	transferInProgress: boolean;
 	orderInProgress: boolean;
 	events?: [];
+
+	// tokenBalances
+	token1: string;
+	token2: string;
+}
+
+export interface OrderType {
+	address: string;
+	amountGet: string | number;
+	amountGive: string | number;
+	eventName: "Order";
+	id: string | number;
+	timestamp: number;
+	tokenGet: string;
+	tokenGive: string;
+	transactionHash: string;
+	user: string;
+	tokenPrice: number;
+	token1Amount: number;
+	token2Amount: number;
 }
 
 export enum TransactionType {

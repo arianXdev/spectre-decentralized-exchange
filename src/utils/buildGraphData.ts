@@ -1,9 +1,11 @@
 import _ from "lodash";
 import moment from "moment";
 
+import { OrderType } from "~/state/exchange/types";
+
 export const buildGraphData = (orders: { [x: string]: any }) => {
 	// group the orders by hour for the graph
-	orders = _.groupBy(orders, (o) => moment.unix(o.timestamp).startOf("hour").format());
+	orders = _.groupBy(orders, (o: OrderType) => moment.unix(o.timestamp).startOf("hour").format());
 
 	// get each hour where the actual data exists
 	const hours = Object.keys(orders);

@@ -13,5 +13,5 @@ export const loadBalances = async (exchange: ethers.ContractInterface, tokens: [
 
 	const token1ExchangeBalance = ethers.formatUnits(await exchange.balanceOf(await tokens[0].getAddress(), account), "ether");
 	const token2ExchangeBalance = ethers.formatUnits(await exchange.balanceOf(await tokens[1].getAddress(), account), "ether");
-	dispatch(exchangeBalancesLoaded({ token1Balance: token1ExchangeBalance, token2Balance: token2ExchangeBalance }));
+	dispatch(exchangeBalancesLoaded(token1ExchangeBalance, token2ExchangeBalance));
 };

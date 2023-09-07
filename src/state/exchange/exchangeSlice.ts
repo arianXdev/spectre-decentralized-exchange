@@ -1,10 +1,10 @@
 import _ from "lodash";
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ExchangeStateType, TransactionType } from "./types";
-import { TokensStateType } from "../tokens/types";
+import { ExchangeStateType, TransactionType, OrderType } from "./types";
 
 import { buildGraphData, decorateOrder, decorateOrderBookOrders } from "~/utils";
+import { TokensStateType } from "../tokens/types";
 
 const initialState = {
 	loaded: false,
@@ -27,13 +27,24 @@ const exchangeSlice = createSlice({
 	name: "exchange",
 	initialState,
 	reducers: {
-		exchangeBalancesLoaded: (state, action: PayloadAction<ExchangeStateType>) => {
-			const { token1Balance, token2Balance } = action.payload;
+		exchangeBalancesLoaded: {
+			reducer: (state, action: PayloadAction<ExchangeStateType>) => {
+				const tokensBalances = action.payload;
 
-			state.balances.token1 = token1Balance;
-			state.balances.token2 = token2Balance;
+				state.balances.token1 = tokensBalances.token1;
+				state.balances.token2 = tokensBalances.token2;
 
-			state.loaded = true;
+				state.loaded = true;
+			},
+
+			prepare: (token1Balance, token2Balance) => {
+				return {
+					payload: {
+						token1: token1Balance,
+						token2: token2Balance,
+					},
+				};
+			},
 		},
 
 		transferRequested: (state) => {
@@ -148,9 +159,9 @@ const selectOpenOrders = (state: ExchangeStateType) => {
 	const canceled = selectCanceledOrders(state);
 
 	// make filled and canceled orders separated from all the orders - so we can get all the open orders eventually
-	const allOpenOrders = _.reject(all, (order) => {
-		const isOrderFilled = filled.some((o) => o.id.toString() === order.id.toString());
-		const isOrderCanceled = canceled.some((o) => o.id.toString() === order.id.toString());
+	const allOpenOrders = _.reject(all, (order: OrderType) => {
+		const isOrderFilled = filled.some((o: OrderType) => o.id.toString() === order.id.toString());
+		const isOrderCanceled = canceled.some((o: OrderType) => o.id.toString() === order.id.toString());
 
 		return isOrderFilled || isOrderCanceled;
 	});
@@ -174,8 +185,8 @@ export const selectOrdersForOrderBook = createSelector([selectOpenOrders, select
 	}
 
 	// filter orders by selected token pairs
-	orders = orders.filter((o) => o.tokenGet === tokens.token1.address || o.tokenGet === tokens.token2.address);
-	orders = orders.filter((o) => o.tokenGive === tokens.token1.address || o.tokenGive === tokens.token2.address);
+	orders = orders.filter((o: OrderType) => o.tokenGet === tokens.token1?.address || o.tokenGet === tokens.token2?.address);
+	orders = orders.filter((o: OrderType) => o.tokenGive === tokens.token1?.address || o.tokenGive === tokens.token2?.address);
 
 	// decorate the orders (basically add more details about the orders)
 	orders = decorateOrderBookOrders(orders, tokens);
@@ -185,11 +196,11 @@ export const selectOrdersForOrderBook = createSelector([selectOpenOrders, select
 
 	// sort BUY orders by token price
 	const buyOrders = _.get(orders, "BUY", []);
-	orders = { ...orders, BUY: buyOrders.sort((a, b) => b.tokenPrice - a.tokenPrice) };
+	orders = { ...orders, BUY: buyOrders.sort((a: OrderType, b: OrderType) => b.tokenPrice - a.tokenPrice) };
 
 	// sort SELL orders by token price
 	const sellOrders = _.get(orders, "SELL", []);
-	orders = { ...orders, SELL: sellOrders.sort((a, b) => b.tokenPrice - a.tokenPrice) };
+	orders = { ...orders, SELL: sellOrders.sort((a: OrderType, b: OrderType) => b.tokenPrice - a.tokenPrice) };
 
 	return orders;
 });
@@ -201,14 +212,14 @@ export const selectGraphDataForPriceChart = createSelector([selectFilledOrders, 
 	}
 
 	// filter orders by selected token pairs
-	orders = orders.filter((o) => o.tokenGet === tokens.token1.address || o.tokenGet === tokens.token2.address);
-	orders = orders.filter((o) => o.tokenGive === tokens.token1.address || o.tokenGive === tokens.token2.address);
+	orders = orders.filter((o: OrderType) => o.tokenGet === tokens.token1?.address || o.tokenGet === tokens.token2?.address);
+	orders = orders.filter((o: OrderType) => o.tokenGive === tokens.token1?.address || o.tokenGive === tokens.token2?.address);
 
 	// Sort the orders by date
-	orders = orders.sort((a, b) => a.timestamp - b.timestamp);
+	orders = orders.sort((a: OrderType, b: OrderType) => a.timestamp - b.timestamp);
 
 	// decorate the orders (basically add more details about the orders)
-	orders = orders.map((order) => decorateOrder(order, tokens));
+	orders = orders.map((order: OrderType) => decorateOrder(order, tokens));
 
 	return {
 		series: [{ data: buildGraphData(orders) }],

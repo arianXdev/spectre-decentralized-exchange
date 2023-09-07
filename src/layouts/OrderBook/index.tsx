@@ -1,6 +1,8 @@
 import { useAppSelector } from "~/state/hooks";
 
 import { selectOrdersForOrderBook } from "~/state/exchange/exchangeSlice";
+import { OrderType } from "~/state/exchange/types";
+
 import { Icon } from "~/components";
 
 import "./OrderBook.scss";
@@ -58,7 +60,7 @@ const OrderBook = () => {
 					) : (
 						<tbody>
 							{orders &&
-								orders.SELL.map((order) => (
+								orders.SELL.map((order: OrderType) => (
 									<tr key={order.id}>
 										<td>{order.token1Amount}</td>
 										<td className="token-price">{order.tokenPrice}</td>
@@ -109,7 +111,7 @@ const OrderBook = () => {
 					) : (
 						<tbody>
 							{orders &&
-								orders.BUY.map((order) => (
+								orders.BUY.map((order: OrderType) => (
 									<tr key={order.id}>
 										<td>{order.token1Amount}</td>
 										<td className="token-price">{order.tokenPrice}</td>
