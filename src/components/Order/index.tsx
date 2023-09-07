@@ -127,6 +127,7 @@ const Order = () => {
 						className="order__input order__input--amount"
 						type="number"
 						name="amount"
+						id="amount"
 						tabIndex={3}
 						placeholder="0.0000"
 						autoComplete="off"
@@ -143,6 +144,7 @@ const Order = () => {
 						className="order__input order__input--price"
 						type="number"
 						name="price"
+						id="price"
 						tabIndex={4}
 						placeholder="0.0000"
 						autoComplete="off"

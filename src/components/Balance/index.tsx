@@ -197,6 +197,7 @@ const Balance = () => {
 						<input
 							className="balance__input"
 							type="number"
+							id="token1"
 							name="token1"
 							tabIndex={1}
 							placeholder="0.0000"
@@ -245,6 +246,7 @@ const Balance = () => {
 							className="balance__input"
 							type="number"
 							name="token2"
+							id="token2"
 							tabIndex={2}
 							placeholder="0.0000"
 							value={token2TransferAmount}
