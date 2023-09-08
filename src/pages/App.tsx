@@ -4,7 +4,7 @@ import { useAppDispatch } from "~/state/hooks";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { ethers } from "ethers";
 
-import config from "~/config.json";
+import deployed from "~/data/deployed.json";
 
 import { EthersContext, ExchangeContext, TokensContext } from "~/context";
 
@@ -46,7 +46,7 @@ const App = () => {
 		const network = await provider.getNetwork();
 		const chainId = String(network.chainId);
 
-		const currentNetwork = config[chainId];
+		const currentNetwork = deployed[chainId];
 
 		// load connections & save the current connection information whenever the account has been changed
 		useMetaMask().on("accountsChanged", async () => {

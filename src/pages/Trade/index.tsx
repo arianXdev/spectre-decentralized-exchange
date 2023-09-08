@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { useAppSelector } from "~/state/hooks";
 
 import { TradeContext } from "~/context";
-import config from "~/config.json";
+import deployed from "~/data/deployed.json";
 
 import { Markets, Balance, Order, Overlay } from "~/components";
 import { PriceChart, OrderBook, Trades } from "~/layouts";
@@ -24,7 +24,7 @@ const Trade = () => {
 	// Get the current connection's chainId from the Redux store
 	const chainId = useAppSelector(({ connection }) => connection.current?.chainId ?? 1);
 
-	const currentNetwork = config[chainId];
+	const currentNetwork = deployed[chainId];
 
 	enum MarketsList {
 		SPEC_mETH = `${currentNetwork.spectreToken.address},${currentNetwork.mETH.address}` as never,

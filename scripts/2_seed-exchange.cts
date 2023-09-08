@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import * as config from "../src/config.json";
+import * as deployed from "../src/data/deployed.json";
 
 const convertTokens = (n: number) => {
 	return ethers.parseUnits(n.toString(), "ether");
@@ -17,20 +17,20 @@ const main = async () => {
 	console.log(`Using ChainId ${chainId.toString()}`);
 
 	// Fetch the deployed tokens
-	const spectreToken = await ethers.getContractAt("SpectreToken", config[chainId.toString()].spectreToken.address);
+	const spectreToken = await ethers.getContractAt("SpectreToken", deployed[chainId.toString()].spectreToken.address);
 	console.log(`Spectre Token fetched: ${await spectreToken.getAddress()}\n`);
 
-	const mUSDT = await ethers.getContractAt("Token", config[chainId.toString()].mUSDT.address);
+	const mUSDT = await ethers.getContractAt("Token", deployed[chainId.toString()].mUSDT.address);
 	console.log(`Mock Tether (mUSDT) fetched: ${await mUSDT.getAddress()}\n`);
 
-	const mETH = await ethers.getContractAt("Token", config[chainId.toString()].mETH.address);
+	const mETH = await ethers.getContractAt("Token", deployed[chainId.toString()].mETH.address);
 	console.log(`Mock Ether (mETH) fetched: ${await mETH.getAddress()}\n`);
 
-	const mDAI = await ethers.getContractAt("Token", config[chainId.toString()].mDAI.address);
+	const mDAI = await ethers.getContractAt("Token", deployed[chainId.toString()].mDAI.address);
 	console.log(`Mock DAI (mDAI) fetched: ${await mDAI.getAddress()}\n`);
 
 	// Fetch the deployed exchange
-	const spectre = await ethers.getContractAt("Spectre", config[chainId.toString()].spectre.address);
+	const spectre = await ethers.getContractAt("Spectre", deployed[chainId.toString()].spectre.address);
 	console.log(`Spectre Exchange fetched: ${await spectre.getAddress()}\n`);
 
 	// Set up users
