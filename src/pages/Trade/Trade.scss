@@ -28,6 +28,9 @@
 
 	&__right {
 		width: 100%;
+		display: grid;
+		grid-template-rows: 3;
+		gap: 2rem;
 	}
 
 	&__markets {

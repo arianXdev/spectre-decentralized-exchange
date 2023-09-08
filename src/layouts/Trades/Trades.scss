@@ -1,0 +1,34 @@
+@import "../../sass/abstracts/variables";
+@import "../../sass/abstracts/mixins";
+
+.trades {
+	width: 42%;
+	height: 15rem;
+	padding: 1.7rem;
+	margin-inline: 2.5rem;
+	background: $color-black;
+	color: white;
+	border-radius: 2.8rem;
+	box-shadow: 0 0 15px rgba(16, 24, 36, 1);
+	justify-self: end;
+
+	&__header {
+		margin-bottom: 0.5rem;
+	}
+
+	&__title {
+		font-family: $font-oxanium;
+		font-size: 1.1rem;
+		font-weight: 700;
+		display: inline-flex;
+		align-items: center;
+
+		ion-icon {
+			font-size: 1.5rem;
+			padding-right: 0.3em;
+		}
+	}
+
+	&__body {
+	}
+}
