@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ConnectionStateType } from "./types";
+import { ConnectionStateType, ConnectionType } from "./types";
 
 const initialState: ConnectionStateType = {
 	current: null,
@@ -11,11 +11,11 @@ const connectionSlice = createSlice({
 	initialState,
 	reducers: {
 		connected: {
-			reducer: (state, action: PayloadAction<{ chainId: number; account: string; balance: string }>) => {
+			reducer: (state, action: PayloadAction<ConnectionType>) => {
 				state.current = action.payload;
 			},
 
-			prepare: (chainId: number, account: string, balance: string) => {
+			prepare: (chainId, account, balance) => {
 				return {
 					payload: {
 						chainId,

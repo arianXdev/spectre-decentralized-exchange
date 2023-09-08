@@ -1,6 +1,14 @@
-// Define a type for the slice state
+interface Token {
+	name: string;
+	address: string;
+	symbol: string;
+	balance: string;
+	decimals: number;
+	imageURL: string;
+}
+
 export interface TokensStateType {
 	loaded: boolean;
-	token1?: { name: string; address: string; symbol: string; balance: string; decimals: number; imageURL: string };
-	token2?: { name: string; address: string; symbol: string; balance: string; decimals: number; imageURL: string };
+	token1: Token;
+	token2: Token;
 }

@@ -1,7 +1,8 @@
-import _ from "lodash";
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ethers } from "ethers";
+import _ from "lodash";
 
-import { ExchangeStateType, TransactionType, OrderType } from "./types";
+import { ExchangeStateType, OrdersType, OrderType, TRANSACTION_TYPE } from "./types";
 
 import { buildGraphData, decorateOrder, decorateOrderBookOrders } from "~/utils";
 import { TokensStateType } from "../tokens/types";
@@ -20,7 +21,7 @@ const initialState = {
 	},
 	transferInProgress: false,
 	orderInProgress: false,
-	events: [],
+	events: [] as Array<ethers.ContractEvent>,
 } as ExchangeStateType;
 
 const exchangeSlice = createSlice({
@@ -37,7 +38,7 @@ const exchangeSlice = createSlice({
 				state.loaded = true;
 			},
 
-			prepare: (token1Balance, token2Balance) => {
+			prepare: (token1Balance, token2Balance): any => {
 				return {
 					payload: {
 						token1: token1Balance,
@@ -49,7 +50,7 @@ const exchangeSlice = createSlice({
 
 		transferRequested: (state) => {
 			state.transaction = {
-				transactionType: TransactionType.TRANSFER,
+				transactionType: TRANSACTION_TYPE.TRANSFER,
 				isPending: true,
 				isSuccessful: false,
 			};
@@ -59,7 +60,7 @@ const exchangeSlice = createSlice({
 
 		transferFailed: (state) => {
 			state.transaction = {
-				transactionType: TransactionType.TRANSFER,
+				transactionType: TRANSACTION_TYPE.TRANSFER,
 				isPending: false,
 				isSuccessful: false,
 				hasError: true,
@@ -70,7 +71,7 @@ const exchangeSlice = createSlice({
 
 		transferSuccess: (state) => {
 			state.transaction = {
-				transactionType: TransactionType.TRANSFER,
+				transactionType: TRANSACTION_TYPE.TRANSFER,
 				isPending: false,
 				isSuccessful: true,
 			};
@@ -82,7 +83,7 @@ const exchangeSlice = createSlice({
 		// ORDERS
 		makeOrderRequested: (state) => {
 			state.transaction = {
-				transactionType: TransactionType.MAKE_ORDER,
+				transactionType: TRANSACTION_TYPE.MAKE_ORDER,
 				isPending: true,
 				isSuccessful: false,
 			};
@@ -92,7 +93,7 @@ const exchangeSlice = createSlice({
 
 		makeOrderFailed: (state) => {
 			state.transaction = {
-				transactionType: TransactionType.MAKE_ORDER,
+				transactionType: TRANSACTION_TYPE.MAKE_ORDER,
 				isPending: false,
 				isSuccessful: false,
 				hasError: true,
@@ -103,7 +104,7 @@ const exchangeSlice = createSlice({
 
 		makeOrderSuccess: (state) => {
 			state.transaction = {
-				transactionType: TransactionType.MAKE_ORDER,
+				transactionType: TRANSACTION_TYPE.MAKE_ORDER,
 				isPending: false,
 				isSuccessful: true,
 			};
@@ -119,7 +120,7 @@ const exchangeSlice = createSlice({
 				...state.orders,
 				loaded: true,
 				allOrders,
-			};
+			} as OrdersType;
 		},
 
 		canceledOrdersLoaded: (state, action) => {
@@ -128,7 +129,7 @@ const exchangeSlice = createSlice({
 			state.orders = {
 				...state.orders,
 				canceledOrders,
-			};
+			} as OrdersType;
 		},
 
 		filledOrdersLoaded: (state, action) => {
@@ -137,7 +138,7 @@ const exchangeSlice = createSlice({
 			state.orders = {
 				...state.orders,
 				filledOrders,
-			};
+			} as OrdersType;
 		},
 	},
 });

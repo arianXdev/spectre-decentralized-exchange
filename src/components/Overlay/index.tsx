@@ -1,6 +1,6 @@
 import "./Overlay.scss";
 
-interface OverlayProps {
+type OverlayProps = {
 	isOpen: boolean;
 	accountMenu?: boolean;
 	onClose?: () => void;

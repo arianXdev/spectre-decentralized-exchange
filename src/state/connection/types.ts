@@ -1,7 +1,9 @@
+export interface ConnectionType {
+	chainId: number;
+	account: string;
+	balance: string;
+}
+
 export interface ConnectionStateType {
-	current: {
-		chainId: number | null;
-		account: string | null;
-		balance: string | null;
-	} | null;
+	current: ConnectionType | null;
 }
