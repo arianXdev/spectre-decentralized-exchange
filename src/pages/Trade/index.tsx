@@ -24,12 +24,14 @@ const Trade = () => {
 	// Get the current connection's chainId from the Redux store
 	const chainId = useAppSelector(({ connection }) => connection.current?.chainId ?? 1);
 
+	const currentNetwork = config[chainId];
+
 	enum MarketsList {
-		SPEC_mETH = `${config[chainId].spectreToken.address},${config[chainId].mETH.address}`,
-		SPEC_mDAI = `${config[chainId].spectreToken.address},${config[chainId].mDAI.address}`,
-		SPEC_mUSDT = `${config[chainId].spectreToken.address},${config[chainId].mUSDT.address}`,
-		mDAI_mETH = `${config[chainId].mDAI.address},${config[chainId].mETH.address}`,
-		mUSDT_mETH = `${config[chainId].mUSDT.address},${config[chainId].mETH.address}`,
+		SPEC_mETH = `${currentNetwork.spectreToken.address},${currentNetwork.mETH.address}` as never,
+		SPEC_mDAI = `${currentNetwork.spectreToken.address},${currentNetwork.mDAI.address}` as never,
+		SPEC_mUSDT = `${currentNetwork.spectreToken.address},${currentNetwork.mUSDT.address}` as never,
+		mDAI_mETH = `${currentNetwork.mDAI.address},${currentNetwork.mETH.address}` as never,
+		mUSDT_mETH = `${currentNetwork.mUSDT.address},${currentNetwork.mETH.address}` as never,
 	}
 
 	const [market, setMarket] = useState<MarketsList>(MarketsList.SPEC_mETH);

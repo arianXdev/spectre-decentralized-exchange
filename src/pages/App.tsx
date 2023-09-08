@@ -43,7 +43,10 @@ const App = () => {
 		const provider = new ethers.BrowserProvider(window.ethereum);
 		setProvider(provider);
 
-		const { chainId } = await provider.getNetwork();
+		const network = await provider.getNetwork();
+		const chainId = String(network.chainId);
+
+		const currentNetwork = config[chainId];
 
 		// load connections & save the current connection information whenever the account has been changed
 		useMetaMask().on("accountsChanged", async () => {
@@ -56,7 +59,7 @@ const App = () => {
 		// Load all tokens contracts
 		const { SPEC, mETH, mDAI, mUSDT } = await loadTokens(
 			provider,
-			[config[chainId.toString()].spectreToken.address, config[chainId.toString()].mETH.address],
+			[currentNetwork.spectreToken.address, currentNetwork.mETH.address],
 			dispatch
 		);
 
@@ -69,7 +72,7 @@ const App = () => {
 		});
 
 		// Get the Spectre exchange contract
-		const exchange = await loadExchange(provider, config[chainId.toString()].spectre.address);
+		const exchange = await loadExchange(provider, currentNetwork.spectre.address);
 		setExchange(exchange);
 
 		// Load the connection if the user has been connected already

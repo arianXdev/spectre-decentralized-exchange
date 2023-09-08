@@ -13,10 +13,12 @@ import { AppDispatch } from "../state";
 export const loadTokens = async (provider: ethers.BrowserProvider, addresses: string[], dispatch: AppDispatch) => {
 	const { chainId } = await provider.getNetwork();
 
-	const SPEC = new ethers.Contract(config[chainId.toString()].spectreToken.address, SPECTRE_TOKEN_ABI, provider);
-	const mETH = new ethers.Contract(config[chainId.toString()].mETH.address, TOKEN_ABI, provider); // accessing to this smart contract
-	const mDAI = new ethers.Contract(config[chainId.toString()].mDAI.address, TOKEN_ABI, provider);
-	const mUSDT = new ethers.Contract(config[chainId.toString()].mUSDT.address, TOKEN_ABI, provider);
+	const currentNetwork = config[chainId.toString()];
+
+	const SPEC = new ethers.Contract(currentNetwork.spectreToken.address, SPECTRE_TOKEN_ABI, provider);
+	const mETH = new ethers.Contract(currentNetwork.mETH.address, TOKEN_ABI, provider); // accessing to this smart contract
+	const mDAI = new ethers.Contract(currentNetwork.mDAI.address, TOKEN_ABI, provider);
+	const mUSDT = new ethers.Contract(currentNetwork.mUSDT.address, TOKEN_ABI, provider);
 
 	const firstToken = new ethers.Contract(addresses[0], SPECTRE_TOKEN_ABI, provider); // SPEC token
 
