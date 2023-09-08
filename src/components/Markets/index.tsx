@@ -1,4 +1,4 @@
-import { useEffect, useRef, useContext } from "react";
+import { useEffect, useRef, useContext, Dispatch, SetStateAction } from "react";
 
 import { useAppDispatch } from "~/state/hooks";
 import { loadTokens } from "~/utils";
@@ -12,14 +12,14 @@ import { Icon } from "..";
 
 import "./Markets.scss";
 
-interface MarketsProps<T, U> {
+type MarketsProps = {
 	isOpen: boolean;
-	setIsOpen: (a: U) => void;
-	MarketsList: T;
-	setMarket: (a: string) => void;
-}
+	setIsOpen: Dispatch<SetStateAction<boolean>>;
+	MarketsList: any;
+	setMarket: Dispatch<SetStateAction<any>>;
+};
 
-const Markets = ({ isOpen, setIsOpen, MarketsList, setMarket }: MarketsProps<any, any>) => {
+const Markets = ({ isOpen, setIsOpen, MarketsList, setMarket }: MarketsProps) => {
 	const dispatch = useAppDispatch();
 	const { provider } = useContext(EthersContext);
 

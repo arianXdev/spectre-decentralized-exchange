@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TokensState } from "./types";
+import { TokensStateType } from "./types";
 
 const initialState = {
 	loaded: false,
-} as TokensState;
+} as TokensStateType;
 
 const tokensSlice = createSlice({
 	name: "tokens",
 	initialState,
 	reducers: {
 		tokensLoaded: {
-			reducer: (state, action: PayloadAction<TokensState>) => {
+			reducer: (state, action: PayloadAction<TokensStateType>) => {
 				const { token1, token2 } = action.payload;
 
 				state.token1 = token1;
@@ -42,7 +42,7 @@ const tokensSlice = createSlice({
 			},
 		},
 
-		balancesLoaded: (state, action: PayloadAction<TokensState>) => {
+		balancesLoaded: (state, action: PayloadAction<TokensStateType>) => {
 			const { token1Balance, token2Balance } = action.payload;
 
 			state.token1.balance = token1Balance;

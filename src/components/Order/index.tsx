@@ -6,6 +6,7 @@ import { EthersContext, ExchangeContext, TokensContext } from "~/context";
 import { makeBuyOrder, makeSellOrder } from "~/utils";
 
 import { toast } from "react-hot-toast";
+import { ethers } from "ethers";
 
 import classNames from "classnames";
 import { Icon } from "..";
@@ -58,7 +59,13 @@ const Order = () => {
 			if (amount !== "" || price !== "") {
 				if (Number(amount) !== 0 && Number(amount) > 0 && Number(price) !== 0 && Number(price) > 0) {
 					const order = { amount, price };
-					makeBuyOrder(provider, exchange, [tokens[token1?.symbol].contract, tokens[token2?.symbol].contract], order, dispatch);
+					makeBuyOrder(
+						provider,
+						exchange,
+						[tokens[token1?.symbol].contract, tokens[token2?.symbol].contract] as Array<ethers.Contract>,
+						order,
+						dispatch
+					);
 				} else
 					toast.error("Oops! It looks like the amount you entered is invalid. Please ensure it is accurate before proceeding.", {
 						duration: 5500,
@@ -77,7 +84,13 @@ const Order = () => {
 			if (amount !== "" || price !== "") {
 				if (Number(amount) !== 0 && Number(amount) > 0 && Number(price) !== 0 && Number(price) > 0) {
 					const order = { amount, price };
-					makeSellOrder(provider, exchange, [tokens[token1?.symbol].contract, tokens[token2?.symbol].contract], order, dispatch);
+					makeSellOrder(
+						provider,
+						exchange,
+						[tokens[token1?.symbol].contract, tokens[token2?.symbol].contract] as Array<ethers.Contract>,
+						order,
+						dispatch
+					);
 				} else
 					toast.error("Oops! It looks like the amount you entered is invalid. Please ensure it is accurate before proceeding.", {
 						duration: 5500,

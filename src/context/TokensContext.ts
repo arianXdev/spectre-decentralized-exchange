@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { TokensContextType } from ".";
 
 export const TokensContext = createContext({
 	tokens: {
@@ -19,4 +20,4 @@ export const TokensContext = createContext({
 			symbol: "mUSDT",
 		},
 	},
-});
+} as TokensContextType);

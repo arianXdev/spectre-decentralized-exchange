@@ -2,6 +2,9 @@ import ModelViewer from "@metamask/logo";
 import { Component } from "react";
 
 class MetaMaskLogo extends Component {
+	viewer: any;
+	el: any;
+
 	componentDidMount(): void {
 		this.viewer = ModelViewer({
 			pxNotRatio: true,

@@ -5,7 +5,7 @@ import { OrderType, ORDER_TYPE } from "~/state/exchange/types";
 
 import { decorateOrder } from ".";
 
-const decorateOrderBookOrder = (order: any, { token2 }: TokensStateType) => {
+const decorateOrderBookOrder = (order: OrderType, { token2 }: TokensStateType) => {
 	const token2Address = _.get(token2, "address", "");
 	const orderType = order.tokenGive === token2Address ? ORDER_TYPE.BUY : ORDER_TYPE.SELL;
 

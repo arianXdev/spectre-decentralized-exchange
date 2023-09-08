@@ -29,7 +29,7 @@ const App = () => {
 	const location = useLocation();
 
 	const [isMetaMaskInstalled, setIsMetaMaskInstalled] = useState(true);
-	const [provider, setProvider] = useState<object>({});
+	const [provider, setProvider] = useState<ethers.BrowserProvider>({} as ethers.BrowserProvider);
 	const [exchange, setExchange] = useState<object>({});
 	const [tokens, setTokens] = useState<any>({});
 

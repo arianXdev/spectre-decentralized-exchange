@@ -1,5 +1,6 @@
 import { useContext, useEffect, ChangeEvent, FormEvent } from "react";
 import { useImmer } from "use-immer";
+import { ethers } from "ethers";
 
 import { useAppSelector, useAppDispatch } from "~/state/hooks";
 
@@ -151,7 +152,12 @@ const Balance = () => {
 
 	useEffect(() => {
 		if (exchange && account && tokens && token1 && token2)
-			loadBalances(exchange, [tokens[token1?.symbol].contract, tokens[token2?.symbol].contract], account, dispatch);
+			loadBalances(
+				exchange,
+				[tokens[token1?.symbol].contract, tokens[token2?.symbol].contract] as Array<ethers.Contract>,
+				account,
+				dispatch
+			);
 
 		// clear out all the amount inputs after the transaction is done (whether successful or failed)
 		clearAmountInputs();

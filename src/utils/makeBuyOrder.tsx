@@ -9,8 +9,8 @@ import { toast, ErrorIcon } from "react-hot-toast";
 export const makeBuyOrder = async (
 	provider: ethers.BrowserProvider,
 	exchange: ethers.ContractInterface,
-	tokens: any[],
-	order: { [key: string]: number },
+	tokens: Array<ethers.Contract>,
+	order: { [key: string]: string },
 	dispatch: AppDispatch
 ) => {
 	const tokenGet = await tokens[0].getAddress();
@@ -18,7 +18,7 @@ export const makeBuyOrder = async (
 
 	const tokenGive = await tokens[1].getAddress();
 	// amountGive = orderAmount x orderPrice
-	const amountGive = ethers.parseUnits((order.amount * order.price).toString(), 18);
+	const amountGive = ethers.parseUnits((Number(order.amount) * Number(order.price)).toString(), 18);
 
 	dispatch(makeOrderRequested());
 

@@ -1,4 +1,4 @@
-export const options = {
+export const options: ApexCharts.ApexOptions = {
 	chart: {
 		animations: { enabled: true },
 		width: "100%",
