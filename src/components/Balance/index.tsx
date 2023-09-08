@@ -1,4 +1,4 @@
-import { useContext, useEffect, ChangeEvent } from "react";
+import { useContext, useEffect, ChangeEvent, FormEvent } from "react";
 import { useImmer } from "use-immer";
 
 import { useAppSelector, useAppDispatch } from "~/state/hooks";
@@ -72,7 +72,7 @@ const Balance = () => {
 	}
 
 	// an event handler when the user clicks the DEPOSIT button
-	const handleDeposit = (e: ChangeEvent<HTMLInputElement>, token: TokenType) => {
+	const handleDeposit = (e: FormEvent, token: TokenType) => {
 		e.preventDefault();
 
 		if (account) {
@@ -107,7 +107,7 @@ const Balance = () => {
 	};
 
 	// an event handler when the user clicks the WITHDRAW button
-	const handleWithdraw = (e: ChangeEvent<HTMLInputElement>, token: TokenType) => {
+	const handleWithdraw = (e: FormEvent, token: TokenType) => {
 		e.preventDefault();
 
 		if (account) {

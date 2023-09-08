@@ -1,14 +1,12 @@
-import { FC, MouseEvent } from "react";
-
 import "./Overlay.scss";
 
-interface OverlayProps<T extends MouseEvent> {
+interface OverlayProps {
 	isOpen: boolean;
 	accountMenu?: boolean;
-	onClose?: () => T;
+	onClose?: () => void;
 }
 
-const Overlay: FC<OverlayProps> = ({ isOpen, onClose = null, accountMenu = false }) => {
+const Overlay = ({ isOpen, onClose, accountMenu = false }: OverlayProps) => {
 	return <div className={`${!accountMenu ? "overlay" : "overlay--account-menu"} ${isOpen ? "active" : ""}`} onClick={onClose}></div>;
 };
 

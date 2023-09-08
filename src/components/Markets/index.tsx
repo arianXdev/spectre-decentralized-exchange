@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useContext } from "react";
+import { useEffect, useRef, useContext } from "react";
 
 import { useAppDispatch } from "~/state/hooks";
 import { loadTokens } from "~/utils";
@@ -12,19 +12,19 @@ import { Icon } from "..";
 
 import "./Markets.scss";
 
-interface MarketsProps {
+interface MarketsProps<T, U> {
 	isOpen: boolean;
-	setIsOpen: (func: (state: boolean) => void | boolean) => void;
-	MarketsList: unknown;
+	setIsOpen: (a: U) => void;
+	MarketsList: T;
 	setMarket: (a: string) => void;
 }
 
-const Markets: FC<MarketsProps> = ({ isOpen, setIsOpen, MarketsList, setMarket }) => {
+const Markets = ({ isOpen, setIsOpen, MarketsList, setMarket }: MarketsProps<any, any>) => {
 	const dispatch = useAppDispatch();
 	const { provider } = useContext(EthersContext);
 
-	const marketsTitleRef = useRef(null);
-	const marketsRef = useRef(null);
+	const marketsTitleRef = useRef<HTMLHeadingElement>(null);
+	const marketsRef = useRef<HTMLElement>(null);
 
 	const handleSelectMarket = async (market: string) => {
 		setMarket(market);

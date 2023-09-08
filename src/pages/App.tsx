@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, FC } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAppDispatch } from "~/state/hooks";
 
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
@@ -15,7 +15,7 @@ import Settings from "./Settings";
 import { Header } from "~/layouts";
 import { Overlay } from "~/components";
 
-import { loadConnection, loadTokens, loadExchange, loadAllOrders, loadFilledOrders, loadCanceledOrders, subscribeToEvents } from "../utils";
+import { loadConnection, loadTokens, loadExchange, loadAllOrders, loadFilledOrders, loadCanceledOrders, subscribeToEvents } from "~/utils";
 import useMetaMask from "~/hooks/useMetaMask";
 
 import { isMobile } from "react-device-detect";
@@ -24,16 +24,16 @@ import Typed from "typed.js";
 
 import "./App.scss";
 
-const App: FC = () => {
+const App = () => {
 	const dispatch = useAppDispatch();
 	const location = useLocation();
 
 	const [isMetaMaskInstalled, setIsMetaMaskInstalled] = useState(true);
-	const [provider, setProvider] = useState({});
-	const [exchange, setExchange] = useState({});
+	const [provider, setProvider] = useState<object>({});
+	const [exchange, setExchange] = useState<object>({});
 	const [tokens, setTokens] = useState<any>({});
 
-	const arianNameRef = useRef(null);
+	const arianNameRef = useRef<HTMLHeadingElement>(null);
 
 	const fetchBlockchain = async () => {
 		if (!isMobile) window.ethereum._state.accounts = [];

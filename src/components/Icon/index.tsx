@@ -1,12 +1,10 @@
-import { FC } from "react";
-
-type iconPropsType = {
+type IconProps = {
 	name: string;
 };
 
 const CustomTag = `ion-icon` as keyof JSX.IntrinsicElements;
 
-const Icon: FC<iconPropsType> = ({ name }) => {
+const Icon = ({ name }: IconProps) => {
 	return <CustomTag name={name}></CustomTag>;
 };
 

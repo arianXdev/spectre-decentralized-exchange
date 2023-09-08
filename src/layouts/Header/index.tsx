@@ -1,4 +1,4 @@
-import { FC, ReactElement, useEffect, useRef, useState, useContext } from "react";
+import { useState, useEffect, useRef, useContext, ReactElement } from "react";
 import { useAppSelector, useAppDispatch } from "~/state/hooks";
 
 import { EthersContext } from "~/context/EthersContext";
@@ -42,11 +42,11 @@ enum IsConnectingStatus {
 	REJECTED,
 }
 
-const Header: FC = (): ReactElement => {
+const Header = () => {
+	const dispatch = useAppDispatch();
+
 	// Get the provider
 	const { provider } = useContext(EthersContext);
-
-	const dispatch = useAppDispatch();
 
 	// Get the current account address
 	const account = useAppSelector((state) => state.connection.current?.account);
@@ -57,8 +57,8 @@ const Header: FC = (): ReactElement => {
 	const { pathname } = useLocation();
 
 	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.SWAP);
-	const [showNetworkMenu, setShowNetworkMenu] = useState(false);
-	const [selectedNetwork, setSelectedNetwork] = useState(Networks.Ethereum);
+	const [showNetworkMenu, setShowNetworkMenu] = useState<boolean>(false);
+	const [selectedNetwork, setSelectedNetwork] = useState<Networks>(Networks.Ethereum);
 
 	const networkMenuRef = useRef<HTMLDivElement>(null);
 
@@ -86,14 +86,14 @@ const Header: FC = (): ReactElement => {
 	});
 
 	// Account Menu state
-	const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
+	const [isAccountMenuOpen, setIsAccountMenuOpen] = useState<boolean>(false);
 
 	// Connect Wallet display state
-	const [isConnectWalletOpen, setIsConnectWalletOpen] = useState(false);
+	const [isConnectWalletOpen, setIsConnectWalletOpen] = useState<boolean>(false);
 
 	// Is Wallet Connecting
-	const [isWalletConnecting, setIsWalletConnecting] = useState(false);
-	const [walletConnectingStatus, setWalletConnectingStatus] = useState(IsConnectingStatus.CONNECTING);
+	const [isWalletConnecting, setIsWalletConnecting] = useState<boolean>(false);
+	const [walletConnectingStatus, setWalletConnectingStatus] = useState<IsConnectingStatus>(IsConnectingStatus.CONNECTING);
 
 	const handleAccountMenuToggle = () => (account ? setIsAccountMenuOpen(!isAccountMenuOpen) : null);
 	const handleConnectWalletToggle = async () =>

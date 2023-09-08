@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { Icon, Overlay } from "..";
 
@@ -11,18 +11,18 @@ import { toast } from "react-hot-toast";
 
 import "./ConnectWallet.scss";
 
-interface ConnectWalletProps {
+type ConnectWalletProps = {
 	isOpen: boolean;
 	onClose: () => void;
 	status: number;
 	isConnecting: boolean;
 	handleMetaMaskWallet: () => void;
-}
+};
 
-const ConnectWallet: FC<ConnectWalletProps> = ({ isOpen, onClose, status, isConnecting, handleMetaMaskWallet }) => {
-	const connectWalletTitleRef = useRef(null);
-	const connectWalletCreditsRef = useRef(null);
-	const connectingToMetaMaskRef = useRef(null);
+const ConnectWallet = ({ isOpen, onClose, status, isConnecting, handleMetaMaskWallet }: ConnectWalletProps) => {
+	const connectWalletTitleRef = useRef<HTMLHeadingElement>(null);
+	const connectWalletCreditsRef = useRef<HTMLParagraphElement>(null);
+	const connectingToMetaMaskRef = useRef<HTMLParagraphElement>(null);
 
 	// Change text in different stages of connecting to a wallet
 	const getStatusText = () => {

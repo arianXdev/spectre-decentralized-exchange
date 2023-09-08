@@ -1,24 +1,24 @@
-import { FC, useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "~/state/hooks";
-import { Icon, Overlay } from "~/components";
+import { Overlay, Icon } from "~/components";
 
 import { disconnected } from "~/state/connection/connectionSlice";
 
 import Blockies from "react-18-blockies";
 import copy from "clipboard-copy";
 
-import config from "../../config.json";
+import config from "~/config.json";
 import { toast } from "react-hot-toast";
 
 import "./AccountMenu.scss";
 
-interface AccountMenuProps {
+type AccountMenuProps = {
 	isOpen: boolean;
 	onClose: () => void;
-}
+};
 
-const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose }) => {
+const AccountMenu = ({ isOpen, onClose }: AccountMenuProps) => {
 	const dispatch = useAppDispatch();
 
 	// Get the account address from the Redux store
@@ -30,7 +30,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ isOpen, onClose }) => {
 	// Get the current network's chain ID
 	const chainId = useAppSelector((state) => state.connection.current?.chainId);
 
-	const [accountAddress, setAccountAddress] = useState("0x000...0000");
+	const [accountAddress, setAccountAddress] = useState<string>("0x000...0000");
 
 	const handleViewOnExplorer = () => {
 		const explorerURL = `${config[chainId].explorerURL}address/${account}`;

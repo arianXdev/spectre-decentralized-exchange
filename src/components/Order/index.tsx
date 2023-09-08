@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, FormEvent } from "react";
 import { useImmer } from "use-immer";
 
 import { useAppDispatch, useAppSelector } from "~/state/hooks";
@@ -18,9 +18,9 @@ enum Tabs {
 }
 
 const Order = () => {
-	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.BUY);
-
 	const dispatch = useAppDispatch();
+
+	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.BUY);
 
 	const [amount, setAmount] = useImmer<string>("");
 	const [price, setPrice] = useImmer<string>("");
@@ -51,7 +51,7 @@ const Order = () => {
 	});
 
 	// an Event Handler to handle buy orders
-	const handleBuyOrder = (e) => {
+	const handleBuyOrder = (e: FormEvent) => {
 		e.preventDefault();
 
 		if (account) {
@@ -70,7 +70,7 @@ const Order = () => {
 	};
 
 	// an Event Handler to handle sell orders
-	const handleSellOrder = (e) => {
+	const handleSellOrder = (e: FormEvent) => {
 		e.preventDefault();
 
 		if (account) {

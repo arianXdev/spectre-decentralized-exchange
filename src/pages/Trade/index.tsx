@@ -2,14 +2,13 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useAppSelector } from "~/state/hooks";
 
-import { TradeContext } from "~/context/TradeContext";
+import { TradeContext } from "~/context";
+import config from "~/config.json";
 
-import TradeRectangle from "../../assets/images/trade-rectangle.svg";
-
-import config from "../../config.json";
-
-import { Markets, Overlay, Balance, Order } from "~/components";
+import { Markets, Balance, Order, Overlay } from "~/components";
 import { PriceChart, OrderBook } from "~/layouts";
+
+import TradeRectangle from "~/assets/images/trade-rectangle.svg";
 
 import "./Trade.scss";
 
@@ -19,8 +18,8 @@ enum Status {
 }
 
 const Trade = () => {
-	const [exchangeStatus, setExchangeStatus] = useState(Status.WITHDRAW);
-	const [isMarketsModalOpen, setIsMarketsModalOpen] = useState(false);
+	const [exchangeStatus, setExchangeStatus] = useState<Status>(Status.WITHDRAW);
+	const [isMarketsModalOpen, setIsMarketsModalOpen] = useState<boolean>(false);
 
 	// Get the current connection's chainId from the Redux store
 	const chainId = useAppSelector(({ connection }) => connection.current?.chainId ?? 1);
@@ -33,7 +32,7 @@ const Trade = () => {
 		mUSDT_mETH = `${config[chainId].mUSDT.address},${config[chainId].mETH.address}`,
 	}
 
-	const [market, setMarket] = useState(MarketsList.SPEC_mETH);
+	const [market, setMarket] = useState<MarketsList>(MarketsList.SPEC_mETH);
 
 	const onExchangeStatusClicked = () => {
 		setExchangeStatus((prevStatus) => (prevStatus === Status.WITHDRAW ? Status.DEPOSIT : Status.WITHDRAW));
