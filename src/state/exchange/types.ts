@@ -31,6 +31,7 @@ export interface OrderType {
 	token2Amount: number | string;
 	formattedTimestamp?: string;
 	orderFillAction?: ORDER_TYPE;
+	tokenPriceColor?: string;
 }
 
 export interface OrdersType {

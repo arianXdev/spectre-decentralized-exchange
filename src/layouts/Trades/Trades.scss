@@ -1,14 +1,18 @@
 @import "../../sass/abstracts/variables";
 @import "../../sass/abstracts/mixins";
 
+$color-th: #c0c0c0;
+$color-td: #fff;
+$color-no-order-warning-text: #7e7e7e;
+
 .trades {
 	width: 42%;
-	height: 15rem;
+	height: 16rem;
 	padding: 1.7rem;
 	margin-inline: 2.5rem;
 	background: $color-black;
 	color: white;
-	border-radius: 2.8rem;
+	border-radius: 2.6rem;
 	box-shadow: 0 0 15px rgba(16, 24, 36, 1);
 	justify-self: end;
 
@@ -22,13 +26,141 @@
 		font-weight: 700;
 		display: inline-flex;
 		align-items: center;
+		justify-content: flex-start;
 
 		ion-icon {
-			font-size: 1.5rem;
+			font-size: 1.4rem;
 			padding-right: 0.3em;
 		}
 	}
 
 	&__body {
+		width: 100%;
+		height: 100%;
+		padding-bottom: 1.3rem;
+	}
+
+	&__table {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+
+		caption {
+			display: inline-flex;
+			align-items: center;
+			justify-content: space-between;
+			font-weight: 700;
+			font-size: 1.15em;
+			font-family: $font-oxanium;
+			pointer-events: none;
+			-webkit-pointer-events: none;
+			user-select: none;
+			-webkit-user-select: none;
+
+			ion-icon {
+				font-size: 0.95em;
+				margin-right: 0.3em;
+			}
+		}
+
+		thead {
+			width: 100%;
+			font-size: 0.79em;
+			text-rendering: optimizeLegibility;
+			margin-top: 0.7em;
+
+			&.hidden {
+				visibility: hidden;
+			}
+
+			tr {
+				@include displayFlex(space-between);
+
+				th {
+					@include displayFlex(space-between);
+					color: $color-th;
+				}
+			}
+		}
+
+		tbody {
+			width: 100%;
+			margin-top: 1rem;
+			overflow-y: scroll;
+
+			// Custom Scrollbar
+			&::-webkit-scrollbar {
+				width: 3px;
+			}
+
+			&::-webkit-scrollbar-track {
+				background: transparent;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				visibility: hidden;
+				background: $color-primary;
+			}
+
+			&:hover::-webkit-scrollbar-thumb {
+				visibility: visible;
+			}
+
+			tr {
+				display: grid;
+				gap: 5rem;
+				grid-template-columns: 1fr 1fr 1fr;
+				justify-items: start;
+
+				td {
+					font-family: $font-main;
+					color: $color-td;
+					font-size: 0.85em;
+					margin-bottom: 1.1rem;
+
+					&:last-of-type {
+						justify-self: end;
+						padding-right: 10px;
+					}
+
+					&.tokenAmount {
+						font-family: $font-oxanium !important;
+						font-size: 0.89em;
+						font-weight: 700;
+
+						&.GREEN {
+							color: $color-green;
+						}
+
+						&.RED {
+							color: $color-red;
+						}
+					}
+
+					&.tokenPrice {
+						font-size: 0.89em;
+						font-weight: 700;
+					}
+				}
+			}
+		}
+	}
+
+	&__sort {
+		cursor: pointer;
+		padding-left: 0.3em;
+	}
+
+	&__no-order-warning {
+		margin: 3em auto;
+		font-size: 1.3rem !important;
+		pointer-events: none;
+		-webkit-pointer-events: none;
+		user-select: none;
+		-webkit-user-select: none;
+		color: $color-no-order-warning-text;
+		letter-spacing: 1px;
 	}
 }

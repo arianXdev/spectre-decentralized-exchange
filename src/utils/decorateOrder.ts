@@ -33,7 +33,7 @@ export const decorateOrder = (order: OrderType, { token2 }: TokensStateType) => 
 		token1Amount: ethers.formatEther(token1Amount),
 		token2Amount: ethers.formatEther(token2Amount),
 		tokenPrice,
-		formattedTimestamp: moment.unix(order.timestamp).format("h:mm:ssa Y MMM D"),
+		formattedTimestamp: moment.unix(order.timestamp).format("h:mm:ss A MMM D"),
 	};
 
 	return decoratedOrder;
