@@ -4,7 +4,7 @@ import _ from "lodash";
 
 import { ExchangeStateType, OrdersType, OrderType, TRANSACTION_TYPE } from "./types";
 
-import { buildGraphData, decorateOrder, decorateOrderBookOrders } from "~/utils";
+import { buildGraphData, decorateOrder, decorateOrderBookOrders, decorateFilledOrders } from "~/utils";
 import { TokensStateType } from "../tokens/types";
 
 const initialState = {
@@ -225,6 +225,29 @@ export const selectGraphDataForPriceChart = createSelector([selectFilledOrders, 
 	return {
 		series: [{ data: buildGraphData(orders) }],
 	};
+});
+
+// this selector returns all the filled orders / trades (filled orders means trades) so that we can use to display in our UI
+export const selectTrades = createSelector([selectFilledOrders, selectTokens], (orders, tokens: TokensStateType) => {
+	// if the tokens don't exist, break and stop
+	if (!tokens.token1 || !tokens.token2) {
+		return;
+	}
+
+	// filter orders by selected token pairs
+	orders = orders.filter((o: OrderType) => o.tokenGet === tokens.token1?.address || o.tokenGet === tokens.token2?.address);
+	orders = orders.filter((o: OrderType) => o.tokenGive === tokens.token1?.address || o.tokenGive === tokens.token2?.address);
+
+	// sort the filled orders (trades) by time ascending for price comparison
+	orders = orders.sort((a: OrderType, b: OrderType) => a.timestamp - b.timestamp);
+
+	// decorate the filled orders
+	orders = decorateFilledOrders(orders, tokens);
+
+	// sort the filled orders (trades) by time descending for rendering in the UI
+	orders = orders.sort((a: OrderType, b: OrderType) => b.timestamp - a.timestamp);
+
+	return orders;
 });
 
 // export action creators
