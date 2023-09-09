@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useAppSelector } from "~/state/hooks";
 
 import { TradeContext } from "~/context";
+import { DeployedData } from "~/data/types";
 import deployed from "~/data/deployed.json";
 
 import { Markets, Balance, Order, Overlay } from "~/components";
@@ -24,14 +25,14 @@ const Trade = () => {
 	// Get the current connection's chainId from the Redux store
 	const chainId = useAppSelector(({ connection }) => connection.current?.chainId ?? 1);
 
-	const currentNetwork = deployed[chainId];
+	const currentConnection = (deployed as DeployedData)[chainId];
 
 	enum MarketsList {
-		SPEC_mETH = `${currentNetwork.spectreToken.address},${currentNetwork.mETH.address}` as never,
-		SPEC_mDAI = `${currentNetwork.spectreToken.address},${currentNetwork.mDAI.address}` as never,
-		SPEC_mUSDT = `${currentNetwork.spectreToken.address},${currentNetwork.mUSDT.address}` as never,
-		mDAI_mETH = `${currentNetwork.mDAI.address},${currentNetwork.mETH.address}` as never,
-		mUSDT_mETH = `${currentNetwork.mUSDT.address},${currentNetwork.mETH.address}` as never,
+		SPEC_mETH = `${currentConnection.spectreToken.address},${currentConnection.mETH.address}` as never,
+		SPEC_mDAI = `${currentConnection.spectreToken.address},${currentConnection.mDAI.address}` as never,
+		SPEC_mUSDT = `${currentConnection.spectreToken.address},${currentConnection.mUSDT.address}` as never,
+		mDAI_mETH = `${currentConnection.mDAI.address},${currentConnection.mETH.address}` as never,
+		mUSDT_mETH = `${currentConnection.mUSDT.address},${currentConnection.mETH.address}` as never,
 	}
 
 	const [market, setMarket] = useState<MarketsList>(MarketsList.SPEC_mETH);

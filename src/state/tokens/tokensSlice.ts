@@ -19,7 +19,7 @@ const tokensSlice = createSlice({
 				state.loaded = true;
 			},
 
-			prepare: ({ token1, token2 }) => {
+			prepare: ({ token1, token2 }): any => {
 				return {
 					payload: {
 						token1: {
@@ -42,7 +42,7 @@ const tokensSlice = createSlice({
 			},
 		},
 
-		balancesLoaded: (state, action: PayloadAction<TokensStateType>) => {
+		balancesLoaded: (state, action: PayloadAction<any>) => {
 			const { token1Balance, token2Balance } = action.payload;
 
 			state.token1.balance = token1Balance;

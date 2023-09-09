@@ -4,6 +4,7 @@ import { useAppDispatch } from "~/state/hooks";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { ethers } from "ethers";
 
+import { DeployedData } from "~/data/types";
 import deployed from "~/data/deployed.json";
 
 import { EthersContext, ExchangeContext, TokensContext } from "~/context";
@@ -39,14 +40,8 @@ const App = () => {
 		if (!isMobile) window.ethereum._state.accounts = [];
 
 		// the term "provider" in this case is our connection to the blockchain
-		// eslint-disable-next-line
 		const provider = new ethers.BrowserProvider(window.ethereum);
 		setProvider(provider);
-
-		const network = await provider.getNetwork();
-		const chainId = String(network.chainId);
-
-		const currentNetwork = deployed[chainId];
 
 		// load connections & save the current connection information whenever the account has been changed
 		useMetaMask().on("accountsChanged", async () => {
@@ -56,10 +51,13 @@ const App = () => {
 		// Reload the page when the user changed their network
 		useMetaMask().on("chainChanged", () => window.location.reload());
 
+		const currentDeployment = deployed as DeployedData;
+		const chainId: string = (await provider.getNetwork()).chainId.toString();
+
 		// Load all tokens contracts
 		const { SPEC, mETH, mDAI, mUSDT } = await loadTokens(
 			provider,
-			[currentNetwork.spectreToken.address, currentNetwork.mETH.address],
+			[currentDeployment[chainId].spectreToken.address, currentDeployment[chainId].mETH.address],
 			dispatch
 		);
 
@@ -72,7 +70,7 @@ const App = () => {
 		});
 
 		// Get the Spectre exchange contract
-		const exchange = await loadExchange(provider, currentNetwork.spectre.address);
+		const exchange = await loadExchange(provider, currentDeployment[chainId].spectre.address);
 		setExchange(exchange);
 
 		// Load the connection if the user has been connected already

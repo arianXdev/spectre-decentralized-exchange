@@ -8,7 +8,9 @@ import { disconnected } from "~/state/connection/connectionSlice";
 import Blockies from "react-18-blockies";
 import copy from "clipboard-copy";
 
+import { DeployedData } from "~/data/types";
 import deployed from "~/data/deployed.json";
+
 import { toast } from "react-hot-toast";
 
 import "./AccountMenu.scss";
@@ -33,7 +35,7 @@ const AccountMenu = ({ isOpen, onClose }: AccountMenuProps) => {
 	const [accountAddress, setAccountAddress] = useState<string>("0x000...0000");
 
 	const handleViewOnExplorer = () => {
-		const explorerURL = `${deployed[chainId].explorerURL}address/${account}`;
+		const explorerURL = `${(deployed as DeployedData)[chainId].explorerURL}address/${account}`;
 		// Redirect the user to another web page
 		window.open(explorerURL, "_blank");
 	};

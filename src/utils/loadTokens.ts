@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import SPECTRE_TOKEN_ABI from "../abis/SpectreToken.json";
 import TOKEN_ABI from "../abis/Token.json";
 
+import { DeployedData } from "~/data/types";
 import deployed from "~/data/deployed.json";
 
 import { tokensLoaded } from "../state/tokens/tokensSlice";
@@ -13,7 +14,7 @@ import { AppDispatch } from "../state";
 export const loadTokens = async (provider: ethers.BrowserProvider, addresses: string[], dispatch: AppDispatch) => {
 	const { chainId } = await provider.getNetwork();
 
-	const currentNetwork = deployed[chainId.toString()];
+	const currentNetwork = (deployed as DeployedData)[chainId.toString()];
 
 	const SPEC = new ethers.Contract(currentNetwork.spectreToken.address, SPECTRE_TOKEN_ABI, provider);
 	const mETH = new ethers.Contract(currentNetwork.mETH.address, TOKEN_ABI, provider); // accessing to this smart contract

@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from "~/state/hooks";
 
 import useFetchGasPrice from "~/hooks/useFetchGasPrice";
 
-import { EthersContext, ExchangeContext, TokensContext, TradeContext } from "~/context";
+import { EthersContext, ExchangeContext, ExchangeType, TokensContext, TradeContext } from "~/context";
 
 import { loadBalances, transferTokens } from "~/utils";
 
@@ -81,7 +81,7 @@ const Balance = () => {
 				if (token.address === token1?.address && Number(token1TransferAmount) !== 0 && Number(token1TransferAmount) > 0)
 					transferTokens(
 						provider,
-						exchange,
+						exchange as ExchangeType,
 						TransferType.DEPOSIT,
 						tokens[token1?.symbol].contract,
 						token1TransferAmount,
@@ -90,7 +90,7 @@ const Balance = () => {
 				else if (token.address === token2?.address && Number(token2TransferAmount) !== 0 && Number(token2TransferAmount) > 0)
 					transferTokens(
 						provider,
-						exchange,
+						exchange as ExchangeType,
 						TransferType.DEPOSIT,
 						tokens[token2?.symbol].contract,
 						token2TransferAmount,
@@ -116,7 +116,7 @@ const Balance = () => {
 				if (token.address === token1?.address && Number(token1TransferAmount) !== 0 && Number(token1TransferAmount) > 0)
 					transferTokens(
 						provider,
-						exchange,
+						exchange as ExchangeType,
 						TransferType.WITHDRAW,
 						tokens[token1?.symbol].contract,
 						token1TransferAmount,
@@ -125,7 +125,7 @@ const Balance = () => {
 				else if (token.address === token2?.address && Number(token2TransferAmount) !== 0 && Number(token2TransferAmount) > 0)
 					transferTokens(
 						provider,
-						exchange,
+						exchange as ExchangeType,
 						TransferType.WITHDRAW,
 						tokens[token2?.symbol].contract,
 						token2TransferAmount,

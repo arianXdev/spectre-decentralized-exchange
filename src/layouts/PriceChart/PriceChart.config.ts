@@ -20,7 +20,7 @@ export const options: ApexCharts.ApexOptions = {
 	},
 	tooltip: {
 		enabled: true,
-		theme: false,
+		theme: "false",
 		style: {
 			fontSize: "16px",
 			fontFamily: "Ubuntu",
@@ -31,9 +31,9 @@ export const options: ApexCharts.ApexOptions = {
 			formatter: undefined,
 		},
 		y: {
-			show: true,
+			show: "true",
 			title: "price",
-		},
+		} as any,
 		marker: {
 			show: false,
 		},
@@ -85,7 +85,7 @@ export const options: ApexCharts.ApexOptions = {
 				fontFamily: "Ubuntu Mono",
 				fontWeight: "500",
 				cssClass: "apexcharts-yaxis-label",
-			},
+			} as any,
 			offsetX: -15,
 			offsetY: 0,
 			rotate: 0,

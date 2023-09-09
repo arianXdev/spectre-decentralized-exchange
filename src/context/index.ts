@@ -4,3 +4,4 @@ export { TokensContext } from "./TokensContext";
 export { TradeContext } from "./TradeContext";
 
 export type { TokensContextType } from "./types";
+export type { ExchangeType } from "./types";

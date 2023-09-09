@@ -2,7 +2,7 @@ import { useState, useContext, useEffect, FormEvent } from "react";
 import { useImmer } from "use-immer";
 
 import { useAppDispatch, useAppSelector } from "~/state/hooks";
-import { EthersContext, ExchangeContext, TokensContext } from "~/context";
+import { EthersContext, ExchangeContext, ExchangeType, TokensContext } from "~/context";
 import { makeBuyOrder, makeSellOrder } from "~/utils";
 
 import { toast } from "react-hot-toast";
@@ -61,7 +61,7 @@ const Order = () => {
 					const order = { amount, price };
 					makeBuyOrder(
 						provider,
-						exchange,
+						exchange as ExchangeType,
 						[tokens[token1?.symbol].contract, tokens[token2?.symbol].contract] as Array<ethers.Contract>,
 						order,
 						dispatch
@@ -86,7 +86,7 @@ const Order = () => {
 					const order = { amount, price };
 					makeSellOrder(
 						provider,
-						exchange,
+						exchange as ExchangeType,
 						[tokens[token1?.symbol].contract, tokens[token2?.symbol].contract] as Array<ethers.Contract>,
 						order,
 						dispatch

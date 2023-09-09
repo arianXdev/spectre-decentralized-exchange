@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 
 import { AppDispatch } from "../state";
+import { ExchangeType } from "~/context";
 import { makeOrderRequested, makeOrderFailed } from "~/state/exchange/exchangeSlice";
 
 import { toast, ErrorIcon } from "react-hot-toast";
@@ -8,7 +9,7 @@ import { toast, ErrorIcon } from "react-hot-toast";
 // MAKE ORDERS (SELL)
 export const makeSellOrder = async (
 	provider: ethers.BrowserProvider,
-	exchange: ethers.ContractInterface,
+	exchange: ExchangeType,
 	tokens: Array<ethers.Contract>,
 	order: { [key: string]: string },
 	dispatch: AppDispatch

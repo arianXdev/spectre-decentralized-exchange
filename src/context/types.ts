@@ -8,3 +8,12 @@ export interface TokensContextType {
 		};
 	};
 }
+
+export interface ExchangeType {
+	getAddress(): string;
+	connect(signer: ethers.JsonRpcSigner): any;
+	exchange: {
+		makeOrder: any;
+		withdraw: any;
+	};
+}

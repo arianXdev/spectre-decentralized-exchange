@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import { transferRequested, transferFailed } from "../state/exchange/exchangeSlice";
 
 import { AppDispatch } from "../state";
+import { ExchangeType } from "~/context";
 
 import { toast, ErrorIcon } from "react-hot-toast";
 
@@ -14,7 +15,7 @@ enum TransferType {
 
 export const transferTokens = async (
 	provider: ethers.BrowserProvider,
-	exchange: ethers.ContractInterface,
+	exchange: ExchangeType,
 	transferType: TransferType,
 	token: any,
 	amount: string,
