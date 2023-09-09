@@ -3,3 +3,4 @@ export { default as PriceChart } from "./PriceChart";
 export { default as OrderBook } from "./OrderBook";
 export { default as AccountMenu } from "./AccountMenu";
 export { default as Trades } from "./Trades";
+export { default as Transactions } from "./Transactions";

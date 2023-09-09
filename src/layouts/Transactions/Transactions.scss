@@ -1,0 +1,243 @@
+@import "../../sass/abstracts/variables";
+@import "../../sass/abstracts/mixins";
+
+$order-text-color: #fff;
+
+$color-th: #c0c0c0;
+$color-td: #fff;
+$color-no-order-warning-text: #7e7e7e;
+
+$transactions-bg-tabs: rgba(3, 5, 58, 0.27);
+$transactions-bg-tab--non-active: rgba(29, 29, 29, 0.1);
+
+$transactions-bg-orders-tab: #192638;
+$transactions-bg-trades-tab: #192638;
+
+.transactions {
+	width: 42%;
+	height: 16rem;
+	padding: 1.3rem;
+	margin-inline: 2.5rem;
+	background: $color-black;
+	color: white;
+	border-radius: 2.6rem;
+	box-shadow: 0px 4px 14px 0px rgba(18, 16, 38, 0.43);
+	justify-self: start;
+
+	/* -------------------------- */
+	/* --------- HEADER --------- */
+	/* -------------------------- */
+	&__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 0.5rem;
+	}
+
+	&__title {
+		font-family: $font-oxanium;
+		font-size: 1.1rem;
+		font-weight: 700;
+		display: inline-flex;
+		align-items: center;
+		justify-content: flex-start;
+
+		ion-icon {
+			font-size: 1.4rem;
+			padding-right: 0.3em;
+		}
+	}
+
+	/* -------------------------- */
+	/* ---------- TABS ---------- */
+	/* -------------------------- */
+	&__tabs {
+		position: relative;
+		width: 44%;
+		height: 2.2rem;
+		text-align: center;
+		color: $order-text-color;
+		background: $transactions-bg-tabs;
+		box-shadow: 0 0 20px 0 rgba(18, 16, 38, 0.4);
+		border-radius: 30px;
+		z-index: 0;
+
+		.transactions__tab {
+			position: absolute;
+			top: 8.5%;
+			width: 39%;
+			height: 83%;
+			font-size: 0.8em;
+			border-radius: inherit;
+			color: inherit;
+			background: $color-non-active;
+			transition: all 0.35s ease-in-out;
+			box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
+			letter-spacing: 1px;
+			opacity: 0.6;
+
+			&--orders {
+				left: 1.5%;
+				background: $transactions-bg-tab--non-active;
+			}
+
+			&--trades {
+				right: 1.5%;
+				background: $transactions-bg-tab--non-active;
+			}
+
+			&:not(.transactions__tab--active):hover {
+				box-shadow: 0 0 7px rgba(0, 0, 0, 0.5), inset 1px 1px 6px rgba(0, 0, 0, 0.85);
+			}
+
+			&--active {
+				width: 60%;
+				font-weight: 900;
+				opacity: 1;
+				z-index: 5;
+			}
+
+			&--active.transactions__tab--orders {
+				background: $transactions-bg-orders-tab;
+			}
+
+			&--active.transactions__tab--trades {
+				background: $transactions-bg-trades-tab;
+			}
+		}
+	}
+
+	/* -------------------------- */
+	/* ---------- TABLE --------- */
+	/* -------------------------- */
+
+	&__body {
+		width: 100%;
+		height: 100%;
+		padding-bottom: 1.3rem;
+	}
+
+	// &__table {
+	// 	width: 100%;
+	// 	height: 100%;
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	align-items: flex-start;
+
+	// 	caption {
+	// 		display: inline-flex;
+	// 		align-items: center;
+	// 		justify-content: space-between;
+	// 		font-weight: 700;
+	// 		font-size: 1.15em;
+	// 		font-family: $font-oxanium;
+	// 		pointer-events: none;
+	// 		-webkit-pointer-events: none;
+	// 		user-select: none;
+	// 		-webkit-user-select: none;
+
+	// 		ion-icon {
+	// 			font-size: 0.95em;
+	// 			margin-right: 0.3em;
+	// 		}
+	// 	}
+
+	// 	thead {
+	// 		width: 100%;
+	// 		font-size: 0.79em;
+	// 		text-rendering: optimizeLegibility;
+	// 		margin-top: 0.7em;
+
+	// 		&.hidden {
+	// 			visibility: hidden;
+	// 		}
+
+	// 		tr {
+	// 			@include displayFlex(space-between);
+
+	// 			th {
+	// 				@include displayFlex(space-between);
+	// 				color: $color-th;
+	// 			}
+	// 		}
+	// 	}
+
+	// 	tbody {
+	// 		width: 100%;
+	// 		margin-top: 1rem;
+	// 		overflow-y: scroll;
+
+	// 		// Custom Scrollbar
+	// 		&::-webkit-scrollbar {
+	// 			width: 3px;
+	// 		}
+
+	// 		&::-webkit-scrollbar-track {
+	// 			background: transparent;
+	// 		}
+
+	// 		&::-webkit-scrollbar-thumb {
+	// 			visibility: hidden;
+	// 			background: $color-primary;
+	// 		}
+
+	// 		&:hover::-webkit-scrollbar-thumb {
+	// 			visibility: visible;
+	// 		}
+
+	// 		tr {
+	// 			display: grid;
+	// 			gap: 5rem;
+	// 			grid-template-columns: 1fr 1fr 1fr;
+	// 			justify-items: start;
+
+	// 			td {
+	// 				font-family: $font-main;
+	// 				color: $color-td;
+	// 				font-size: 0.85em;
+	// 				margin-bottom: 1.1rem;
+
+	// 				&:last-of-type {
+	// 					justify-self: end;
+	// 					padding-right: 10px;
+	// 				}
+
+	// 				&.tokenAmount {
+	// 					font-family: $font-oxanium !important;
+	// 					font-size: 0.89em;
+	// 					font-weight: 700;
+
+	// 					&.GREEN {
+	// 						color: $color-green;
+	// 					}
+
+	// 					&.RED {
+	// 						color: $color-red;
+	// 					}
+	// 				}
+
+	// 				&.tokenPrice {
+	// 					font-size: 0.89em;
+	// 					font-weight: 700;
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
+
+	// &__sort {
+	// 	cursor: pointer;
+	// 	padding-left: 0.3em;
+	// }
+
+	// &__no-order-warning {
+	// 	margin: 3em auto;
+	// 	font-size: 1.3rem !important;
+	// 	pointer-events: none;
+	// 	-webkit-pointer-events: none;
+	// 	user-select: none;
+	// 	-webkit-user-select: none;
+	// 	color: $color-no-order-warning-text;
+	// 	letter-spacing: 1px;
+	// }
+}
