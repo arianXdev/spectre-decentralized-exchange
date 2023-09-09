@@ -93,8 +93,8 @@ const Trade = () => {
 
 						<section className="Trade__right">
 							<PriceChart />
-							<Trades />
 							<Transactions />
+							<Trades />
 							<OrderBook />
 						</section>
 					</TradeContext.Provider>

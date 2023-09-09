@@ -10,6 +10,7 @@ $color-no-order-warning-text: #7e7e7e;
 	height: 22rem;
 	padding-inline: 2.5rem;
 	color: white;
+	grid-column: 1 /-1;
 
 	&__header {
 		@include displayFlex(center);
@@ -37,7 +38,7 @@ $color-no-order-warning-text: #7e7e7e;
 		display: flex;
 		justify-content: space-between;
 		background: $color-black;
-		border-radius: 2.8rem;
+		border-radius: 3rem;
 		box-shadow: 0 0 15px rgba(16, 24, 36, 1);
 	}
 
@@ -130,7 +131,7 @@ $color-no-order-warning-text: #7e7e7e;
 				font-family: $font-main;
 				color: $color-td;
 				font-weight: 600;
-				font-size: 1em;
+				font-size: 0.9em;
 				margin-bottom: 1.1rem;
 
 				&:last-of-type {
