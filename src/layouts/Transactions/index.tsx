@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useAppSelector } from "~/state/hooks";
+
+import { selectUserOpenOrders } from "~/state/exchange/exchangeSlice";
 
 import classNames from "classnames";
 import { Icon } from "~/components";
@@ -11,6 +14,8 @@ enum Tabs {
 }
 
 const Transactions = () => {
+	const userOpenOrders = useAppSelector(selectUserOpenOrders);
+
 	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.ORDERS);
 
 	const ordersTabClass = classNames({

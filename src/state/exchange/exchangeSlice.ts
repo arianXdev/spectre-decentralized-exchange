@@ -4,7 +4,9 @@ import _ from "lodash";
 
 import { ExchangeStateType, OrdersType, OrderType, TRANSACTION_TYPE } from "./types";
 
-import { buildGraphData, decorateOrder, decorateOrderBookOrders, decorateFilledOrders } from "~/utils";
+import { buildGraphData, decorateOrder, decorateOrderBookOrders, decorateFilledOrders, decorateUserOpenOrders } from "~/utils";
+
+import { ConnectionStateType } from "../connection/types";
 import { TokensStateType } from "../tokens/types";
 
 const initialState = {
@@ -146,7 +148,7 @@ const exchangeSlice = createSlice({
 // ----------------------------
 // --------- Selectors --------
 // ----------------------------
-
+const selectAccount = (state: ConnectionStateType) => _.get(state, "connection.current.account", []);
 const selectTokens = (state: TokensStateType) => _.get(state, "tokens", []);
 
 const selectAllOrders = (state: ExchangeStateType) => _.get(state, "exchange.orders.allOrders", []);
@@ -229,7 +231,7 @@ export const selectGraphDataForPriceChart = createSelector([selectFilledOrders, 
 
 // this selector returns all the filled orders / trades (filled orders means trades) so that we can use to display in our UI
 export const selectTrades = createSelector([selectFilledOrders, selectTokens], (orders, tokens: TokensStateType) => {
-	// if the tokens don't exist, break and stop
+	// if there is NOT any tokens, then stop
 	if (!tokens.token1 || !tokens.token2) {
 		return;
 	}
@@ -249,6 +251,33 @@ export const selectTrades = createSelector([selectFilledOrders, selectTokens], (
 
 	return orders;
 });
+
+// this selector returns all the open orders associated with a specfic user (account's specific open orders)
+export const selectUserOpenOrders = createSelector(
+	[selectAccount, selectTokens, selectOpenOrders],
+	(account: string, tokens: TokensStateType, openOrders: Array<OrderType>) => {
+		// if there is NOT any tokens, then stop
+		if (!tokens.token1 || !tokens.token2) {
+			return;
+		}
+
+		// filter open orders created by the current account
+		openOrders = openOrders.filter((order: OrderType) => order.user === account);
+
+		// filter orders by selected token pairs
+		openOrders = openOrders.filter((o: OrderType) => o.tokenGet === tokens.token1?.address || o.tokenGet === tokens.token2?.address);
+		openOrders = openOrders.filter((o: OrderType) => o.tokenGive === tokens.token1?.address || o.tokenGive === tokens.token2?.address);
+
+		// decorate user's open orders
+		openOrders = decorateUserOpenOrders(openOrders, tokens);
+
+		// sort all the open orders by date descending
+		openOrders = openOrders.sort((a: OrderType, b: OrderType) => b.timestamp - a.timestamp);
+
+		console.log(openOrders);
+		return openOrders;
+	}
+);
 
 // export action creators
 export const {
