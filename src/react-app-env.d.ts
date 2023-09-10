@@ -5,5 +5,5 @@ interface Window<T> {
 }
 
 declare module "typed.js";
-declare module "@metamask/logo";
+declare module "~/lib/@metamask/logo";
 declare module "lodash";

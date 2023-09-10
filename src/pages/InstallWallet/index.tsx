@@ -2,7 +2,8 @@ import { useEffect } from "react";
 
 import { BrowserTypes, isFirefox, browserName } from "react-device-detect";
 
-import { Icon, MetaMaskLogo } from "../../components";
+import createLogo from "~/lib/@metamask/logo";
+import { Icon } from "../../components";
 
 import "./InstallWallet.scss";
 
@@ -16,25 +17,52 @@ const InstallWallet = () => {
 			: window.open(MetaMaskForChrome, "_blank");
 	};
 
+	// To render with fixed dimensions:
+	const viewer = createLogo({
+		pxNotRatio: true,
+		width: 300,
+		height: 200,
+		followMouse: true,
+		slowDrift: false,
+	});
+
 	useEffect(() => {
-		// Make MetaMask Logo visible
-		document.getElementById("logo-container")?.classList.add("visible");
+		// add viewer to DOM
+		const container = document.getElementById("install-wallet__container")!;
+		container?.appendChild(viewer.container);
+
+		// look at something on the page
+		viewer.lookAt({
+			x: 1000,
+			y: 1000,
+		});
+
+		// enable mouse follow
+		viewer.setFollowMouse(true);
+
+		return () => {
+			// deallocate nicely
+			viewer.stopAnimation();
+			container?.removeChild(viewer.container);
+		};
 	}, []);
 
 	return (
 		<main className="install-wallet">
-			<div className="install-wallet__container">
-				<MetaMaskLogo />
+			<div className="install-wallet__container" id="install-wallet__container">
 				<div className="install-wallet__wrapper">
-					<div className="install-wallet__title">
+					<h2 className="install-wallet__title">
 						<Icon name="alert-circle" />
 						Please Install MetaMask!
-					</div>
+					</h2>
+
 					<p className="install-wallet__desc">
-						We noticed that you don't have <small style={{ color: "#da1111", fontWeight: 900 }}>MetaMask</small> installed! In
-						order to fully experience all the Spectre DEX features,{" "}
-						<i style={{ color: "var(--gray-color)" }}>You need to have MetaMask installed! </i>
-						<span>A digital wallet for interacting with Ethereum Blockchain apps.</span>
+						We noticed that you don't have <small style={{ color: "#da1111", fontWeight: 900 }}>MetaMask</small> wallet
+						installed! In order to fully experience all the Spectre DEX features, You need to have MetaMask installed! It's a
+						digital wallet for interacting with Ethereum Blockchain apps.
+						<a className="install-wallet__readmore" href="https://metamask.io/" target="_blank">
+							Read more
+						</a>
 					</p>
 				</div>
 

@@ -7,25 +7,36 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	display: grid;
-	justify-items: center;
+	display: flex;
+	justify-content: center;
 	align-items: center;
 	transition: all 0.2s ease-in;
 	z-index: 10;
 
 	&__container {
 		position: relative;
-		width: 32vw;
-		height: 32vw;
-		border-radius: 9vw;
+		width: 490px;
+		height: 490px;
+		border-radius: 120px;
 		background: white;
 		box-shadow: 0 0 30px rgba(221, 221, 221, 0.4);
+
+		display: flex;
+		justify-content: center;
+
+		/* --------------------- */
+		/* --- MetaMask Logo --- */
+		/* --------------------- */
+		svg {
+			margin-top: 1rem;
+		}
 	}
 
 	&__wrapper {
+		font-family: $font-main;
 		position: absolute;
-		top: 14vw;
-		padding-inline: 3vw;
+		bottom: 80px;
+		padding-inline: 40px;
 	}
 
 	&__title {
@@ -33,66 +44,52 @@
 		font-family: $font-oxanium;
 		font-weight: 800;
 		color: #da1111;
-		font-size: 1.85vw;
-		text-shadow: 0 0 10px rgba(255, 0, 21, 0.6);
+		font-size: 28px;
+		text-shadow: 0 0 10px rgba(255, 0, 21, 0.3);
 
 		ion-icon {
 			font-size: 1.3em;
-			padding-right: 0.3vw;
+			padding-right: 7px;
 		}
 	}
 
 	&__desc {
-		margin-top: 0.5vw;
+		margin-top: 10px;
 		font-weight: 400;
-		font-size: 1.02vw;
-		line-height: 1.8;
-		text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+		font-size: 16px;
+		line-height: 1.7;
+	}
+
+	&__readmore {
+		padding: 0 7px;
+		font-family: $font-oxanium;
+		font-weight: 500;
+		color: $color-primary;
 	}
 
 	&__button {
 		@include displayFlex(space-between);
 		position: absolute;
-		bottom: -1vw;
-		left: 11%;
-		font-family: $font-mono !important;
-		font-weight: 700;
-		font-size: 1.2vw;
-		padding: 0.8vw 1.8vw;
-		border-radius: 1.5vw;
+		bottom: -17px;
+		font-family: $font-main !important;
+		font-weight: 900 !important;
+		font-size: 20px;
+		padding: 12px 20px;
+		border-radius: 24px;
 		color: #fff;
 		background: $color-primary;
 		transition: all 0.3s ease-in-out;
-		box-shadow: 0 1px 15px rgba(2, 0, 114, 0.6);
+		box-shadow: 0 0px 15px rgba(2, 0, 114, 0.4), inset 3px 3px 10px rgba(1, 0, 54, 0.3);
 
 		&:hover {
 			background: #0054f1;
 		}
 
-		span {
-			font-size: 1.1em;
-		}
-
 		i {
 			color: #fff;
-			font-size: 1.7vw;
+			font-size: 1.2em;
 			padding-right: 0.5em;
 		}
-	}
-}
-
-/* --------------------- */
-/* --- MetaMask Logo --- */
-/* --------------------- */
-.MetaMask-logo {
-	position: absolute;
-	top: 2vw;
-	left: 10.5vw;
-	z-index: 15;
-
-	svg {
-		width: 11vw !important;
-		height: 11vw !important;
 	}
 }
 
@@ -101,9 +98,8 @@
 /* ---------------------- */
 .downArrow {
 	position: absolute;
-	bottom: 10%;
-	left: 46%;
-	font-size: 2.5vw;
+	bottom: 35px;
+	font-size: 38px;
 	color: $color-black;
 }
 

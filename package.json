@@ -16,7 +16,6 @@
 		"deploy": "tsc scripts/*;npx hardhat run --network localhost scripts/1_deploy.cjs;npx hardhat run --network localhost scripts/2_seed-exchange.cjs;rm -rf scripts/*.cjs"
 	},
 	"dependencies": {
-		"@metamask/logo": "^3.1.1",
 		"@nomicfoundation/hardhat-toolbox": "^3.0.0",
 		"@reduxjs/toolkit": "^1.9.5",
 		"apexcharts": "^3.42.0",

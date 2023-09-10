@@ -1,5 +1,5 @@
 export { default as ConnectWallet } from "./ConnectWallet";
-export { default as MetaMaskLogo } from "./MetaMaskLogo";
+// export { default as MetaMaskLogo } from "./MetaMaskLogo";
 export { default as Icon } from "./Icon";
 export { default as Overlay } from "./Overlay";
 
