@@ -39,7 +39,7 @@ const Transactions = () => {
 			<div className="transactions__header">
 				<h3 className="transactions__title">
 					<Icon name="clipboard-outline" />
-					<span>My Transactions</span>
+					<span>{activeTab === Tabs.ORDERS ? "My Orders" : "My Transactions"}</span>
 				</h3>
 
 				<div className="transactions__tabs">
@@ -95,7 +95,47 @@ const Transactions = () => {
 						)}
 					</table>
 				) : (
-					<p>Trades</p>
+					<table className="transactions__table">
+						<thead className={!userOpenOrders || userOpenOrders.length === 0 ? "hidden" : ""}>
+							<tr>
+								<th>
+									<span>Time</span>
+									<span className="transactions__sort">
+										<Icon name="chevron-expand" />
+									</span>
+								</th>
+
+								<th>
+									{token1 && token1.symbol}
+									<span className="transactions__sort">
+										<Icon name="chevron-expand" />
+									</span>
+								</th>
+
+								<th>
+									{token1 && token1.symbol} / {token2 && token2.symbol}
+									<span className="transactions__sort">
+										<Icon name="chevron-expand" />
+									</span>
+								</th>
+							</tr>
+						</thead>
+
+						{!userOpenOrders || userOpenOrders.length === 0 ? (
+							<caption className="transactions__no-order-warning">No Open Orders!</caption>
+						) : (
+							<tbody>
+								{userOpenOrders &&
+									userOpenOrders.map((order: OrderType, index: string | number) => (
+										<tr key={index}>
+											<td className={`tokenAmount ${order.orderTypeClass}`}>{order.token1Amount}</td>
+											<td>{order.tokenPrice}</td>
+											<td>{/* TODO: CANCEL ORDER */}</td>
+										</tr>
+									))}
+							</tbody>
+						)}
+					</table>
 				)}
 			</div>
 		</section>
