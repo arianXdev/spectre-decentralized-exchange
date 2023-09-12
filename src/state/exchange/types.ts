@@ -26,6 +26,7 @@ export interface OrderType {
 	tokenGet: string;
 	tokenGive: string;
 	user: string;
+	creator?: string;
 	tokenPrice: number;
 	token1Amount: number | string;
 	token2Amount: number | string;
@@ -33,6 +34,7 @@ export interface OrderType {
 	orderFillAction?: ORDER_TYPE;
 	tokenPriceColor?: string;
 	orderTypeClass?: string;
+	orderTypeSign?: string;
 }
 
 export interface OrdersType {

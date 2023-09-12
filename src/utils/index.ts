@@ -16,6 +16,6 @@ export { getTokenPriceColor } from "./getTokenPriceColor";
 export { decorateOrder } from "./decorateOrder";
 export { decorateOrderBookOrders } from "./decorateOrderBook";
 export { decorateFilledOrders } from "./decorateTrades";
-export { decorateUserOpenOrders } from "./decorateUserOrders.ts";
+export { decorateUserOpenOrders, decorateUserFilledOrders } from "./decorateUserOrders.ts";
 
 export { buildGraphData } from "./buildGraphData";
