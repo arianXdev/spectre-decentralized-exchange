@@ -56,7 +56,7 @@ const Trades = () => {
 							{filledOrders &&
 								filledOrders.map((trade: OrderType, index: string) => (
 									<tr key={index}>
-										<td>{trade.formattedTimestamp}</td>
+										<td className="timestamp">{trade.formattedTimestamp}</td>
 										<td className={`tokenAmount ${trade.tokenPriceColor}`}>{trade.token1Amount}</td>
 										<td className="tokenPrice">{trade.tokenPrice}</td>
 									</tr>

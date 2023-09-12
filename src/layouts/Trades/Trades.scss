@@ -125,6 +125,10 @@ $color-no-order-warning-text: #7e7e7e;
 						padding-right: 10px;
 					}
 
+					&.timestamp {
+						line-height: 1.2;
+					}
+
 					&.tokenAmount {
 						font-family: $font-oxanium !important;
 						font-size: 0.89em;

@@ -5,14 +5,14 @@ $color--connect-wallet-text: #dedede;
 
 .chart {
 	max-width: 100%;
-	height: 22rem;
+	height: 18.7rem;
 	color: white;
-	padding: 2rem;
+	padding: 1.8rem 2rem;
 	margin-inline: 2.5rem;
 	background: $color-black;
 	border-radius: 2.8rem;
 	box-shadow: 0 0 15px rgba(16, 24, 36, 1);
-	grid-column: 1 /-1;
+	grid-column: 1 / -1;
 
 	&__header {
 		margin-bottom: 0.6rem;

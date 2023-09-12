@@ -2,6 +2,7 @@ export const options: ApexCharts.ApexOptions = {
 	chart: {
 		animations: { enabled: true },
 		width: "100%",
+		height: "100%",
 		fontFamily: "Ubuntu",
 		toolbar: {
 			show: true,
