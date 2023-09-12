@@ -32,6 +32,7 @@ export interface OrderType {
 	formattedTimestamp?: string;
 	orderFillAction?: ORDER_TYPE;
 	tokenPriceColor?: string;
+	orderTypeClass?: string;
 }
 
 export interface OrdersType {

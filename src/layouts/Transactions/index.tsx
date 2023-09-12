@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAppSelector } from "~/state/hooks";
 
+import { OrderType } from "~/state/exchange/types";
 import { selectUserOpenOrders } from "~/state/exchange/exchangeSlice";
 
 import classNames from "classnames";
@@ -14,6 +15,9 @@ enum Tabs {
 }
 
 const Transactions = () => {
+	const token1 = useAppSelector((state) => state.tokens?.token1);
+	const token2 = useAppSelector((state) => state.tokens?.token2);
+
 	const userOpenOrders = useAppSelector(selectUserOpenOrders);
 
 	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.ORDERS);
@@ -48,7 +52,52 @@ const Transactions = () => {
 				</div>
 			</div>
 
-			<div className="transactions__body"></div>
+			<div className="transactions__body">
+				{activeTab === Tabs.ORDERS ? (
+					<table className="transactions__table">
+						<thead className={!userOpenOrders || userOpenOrders.length === 0 ? "hidden" : ""}>
+							<tr>
+								<th>
+									{token1 && token1.symbol}
+									<span className="transactions__sort">
+										<Icon name="chevron-expand" />
+									</span>
+								</th>
+
+								<th>
+									{token1 && token1.symbol} / {token2 && token2.symbol}
+									<span className="transactions__sort">
+										<Icon name="chevron-expand" />
+									</span>
+								</th>
+
+								<th>
+									<span className="transactions__sort">
+										<Icon name="chevron-expand" />
+									</span>
+								</th>
+							</tr>
+						</thead>
+
+						{!userOpenOrders || userOpenOrders.length === 0 ? (
+							<caption className="transactions__no-order-warning">No Open Orders!</caption>
+						) : (
+							<tbody>
+								{userOpenOrders &&
+									userOpenOrders.map((order: OrderType, index: string | number) => (
+										<tr key={index}>
+											<td className={`tokenAmount ${order.orderTypeClass}`}>{order.token1Amount}</td>
+											<td>{order.tokenPrice}</td>
+											<td>{/* TODO: CANCEL ORDER */}</td>
+										</tr>
+									))}
+							</tbody>
+						)}
+					</table>
+				) : (
+					<p>Trades</p>
+				)}
+			</div>
 		</section>
 	);
 };
