@@ -4,7 +4,14 @@ import _ from "lodash";
 
 import { ExchangeStateType, OrdersType, OrderType, TRANSACTION_TYPE } from "./types";
 
-import { buildGraphData, decorateOrder, decorateOrderBookOrders, decorateFilledOrders, decorateUserOpenOrders } from "~/utils";
+import {
+	buildGraphData,
+	decorateOrder,
+	decorateFilledOrders,
+	decorateOrderBookOrders,
+	decorateUserOpenOrders,
+	decorateUserFilledOrders,
+} from "~/utils";
 
 import { ConnectionStateType } from "../connection/types";
 import { TokensStateType } from "../tokens/types";
@@ -274,8 +281,37 @@ export const selectUserOpenOrders = createSelector(
 		// sort all the open orders by date descending
 		openOrders = openOrders.sort((a: OrderType, b: OrderType) => b.timestamp - a.timestamp);
 
-		console.log(openOrders);
 		return openOrders;
+	}
+);
+
+// this selector returns all the filled orders / trades associated with a specfic user (account's specific filled orders)
+export const selectUserFilledOrders = createSelector(
+	[selectAccount, selectTokens, selectFilledOrders],
+	(account: string, tokens: TokensStateType, filledOrders: Array<OrderType>) => {
+		// if there is NOT any tokens, then stop
+		if (!tokens.token1 || !tokens.token2) {
+			return;
+		}
+
+		// filter filled orders which either are created or filled by the current account
+		filledOrders = filledOrders.filter((order: OrderType) => order.creator === account || order.user === account);
+
+		// filter orders by selected token pairs
+		filledOrders = filledOrders.filter(
+			(o: OrderType) => o.tokenGet === tokens.token1?.address || o.tokenGet === tokens.token2?.address
+		);
+		filledOrders = filledOrders.filter(
+			(o: OrderType) => o.tokenGive === tokens.token1?.address || o.tokenGive === tokens.token2?.address
+		);
+
+		// sort all the filled orders by date descending
+		filledOrders = filledOrders.sort((a: OrderType, b: OrderType) => b.timestamp - a.timestamp);
+
+		// decorate user's filled orders
+		filledOrders = decorateUserFilledOrders(filledOrders, account, tokens);
+
+		return filledOrders;
 	}
 );
 

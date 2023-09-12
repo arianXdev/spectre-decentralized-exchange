@@ -202,6 +202,10 @@ $transactions-bg-trades-tab: #192638;
 						padding-right: 10px;
 					}
 
+					&.timestamp {
+						line-height: 1.2;
+					}
+
 					&.tokenAmount {
 						font-family: $font-oxanium !important;
 						font-size: 0.89em;

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAppSelector } from "~/state/hooks";
 
 import { OrderType } from "~/state/exchange/types";
-import { selectUserOpenOrders } from "~/state/exchange/exchangeSlice";
+import { selectUserOpenOrders, selectUserFilledOrders } from "~/state/exchange/exchangeSlice";
 
 import classNames from "classnames";
 import { Icon } from "~/components";
@@ -19,6 +19,7 @@ const Transactions = () => {
 	const token2 = useAppSelector((state) => state.tokens?.token2);
 
 	const userOpenOrders = useAppSelector(selectUserOpenOrders);
+	const userFilledOrders = useAppSelector(selectUserFilledOrders);
 
 	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.ORDERS);
 
@@ -96,7 +97,7 @@ const Transactions = () => {
 					</table>
 				) : (
 					<table className="transactions__table">
-						<thead className={!userOpenOrders || userOpenOrders.length === 0 ? "hidden" : ""}>
+						<thead className={!userFilledOrders || userFilledOrders.length === 0 ? "hidden" : ""}>
 							<tr>
 								<th>
 									<span>Time</span>
@@ -121,16 +122,19 @@ const Transactions = () => {
 							</tr>
 						</thead>
 
-						{!userOpenOrders || userOpenOrders.length === 0 ? (
-							<caption className="transactions__no-order-warning">No Open Orders!</caption>
+						{!userFilledOrders || userFilledOrders.length === 0 ? (
+							<caption className="transactions__no-order-warning">No Filled Orders!</caption>
 						) : (
 							<tbody>
-								{userOpenOrders &&
-									userOpenOrders.map((order: OrderType, index: string | number) => (
+								{userFilledOrders &&
+									userFilledOrders.map((order: OrderType, index: string | number) => (
 										<tr key={index}>
-											<td className={`tokenAmount ${order.orderTypeClass}`}>{order.token1Amount}</td>
-											<td>{order.tokenPrice}</td>
-											<td>{/* TODO: CANCEL ORDER */}</td>
+											<td className="timestamp">{order.formattedTimestamp}</td>
+											<td className={`tokenAmount ${order.orderTypeClass}`}>
+												{order.orderTypeSign}
+												{order.token1Amount}
+											</td>
+											<td className="tokenPrice">{order.tokenPrice}</td>
 										</tr>
 									))}
 							</tbody>
