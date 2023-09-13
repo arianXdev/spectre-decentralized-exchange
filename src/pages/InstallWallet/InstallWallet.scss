@@ -41,7 +41,7 @@
 
 	&__title {
 		@include displayFlex(unset);
-		font-family: $font-oxanium;
+		font-family: $font-main;
 		font-weight: 800;
 		color: #da1111;
 		font-size: 28px;
@@ -58,6 +58,7 @@
 		font-weight: 400;
 		font-size: 16px;
 		line-height: 1.7;
+		color: $color-dark;
 	}
 
 	&__readmore {
@@ -71,7 +72,7 @@
 		@include displayFlex(space-between);
 		position: absolute;
 		bottom: -17px;
-		font-family: $font-main !important;
+		font-family: $font-oxanium !important;
 		font-weight: 900 !important;
 		font-size: 20px;
 		padding: 12px 20px;
