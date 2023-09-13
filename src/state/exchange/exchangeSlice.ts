@@ -119,7 +119,6 @@ const exchangeSlice = createSlice({
 			};
 
 			state.orderInProgress = false;
-			// state.events = events; // non-serialized value
 		},
 
 		cancelOrderRequested: (state) => {
@@ -143,7 +142,9 @@ const exchangeSlice = createSlice({
 			state.orderInProgress = false;
 		},
 
-		cancelOrderSuccess: (state) => {
+		cancelOrderSuccess: (state, action) => {
+			const canceledOrder = action.payload;
+
 			state.transaction = {
 				transactionType: TRANSACTION_TYPE.CANCEL_ORDER,
 				isPending: false,
@@ -151,6 +152,7 @@ const exchangeSlice = createSlice({
 			};
 
 			state.orderInProgress = false;
+			(state.orders?.canceledOrders as Array<OrderType>).push(canceledOrder);
 		},
 
 		allOrdersLoaded: (state, action) => {

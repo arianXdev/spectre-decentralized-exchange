@@ -4,7 +4,7 @@ import { AppDispatch } from "~/state";
 import { ExchangeType } from "~/context";
 import { OrderType } from "~/state/exchange/types";
 
-import { cancelOrderFailed, cancelOrderRequested } from "~/state/exchange/exchangeSlice";
+import { cancelOrderRequested, cancelOrderFailed, cancelOrderSuccess } from "~/state/exchange/exchangeSlice";
 
 import { toast, ErrorIcon } from "react-hot-toast";
 
@@ -38,6 +38,9 @@ export const cancelOrder = async (order: OrderType, provider: ethers.BrowserProv
 			toast.success("The order got canceled successfully!", {
 				duration: 5000,
 			});
+
+			// if the transaction was successful, then update the Redux store that will cause updating the UI
+			dispatch(cancelOrderSuccess(order));
 		} else {
 			toast.error("The transaction got rejected! Please try again.", {
 				id: toastCancelOrder,

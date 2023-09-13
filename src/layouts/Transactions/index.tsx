@@ -1,11 +1,11 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useAppDispatch, useAppSelector } from "~/state/hooks";
 
 import { OrderType } from "~/state/exchange/types";
 import { selectUserOpenOrders, selectUserFilledOrders } from "~/state/exchange/exchangeSlice";
 import { EthersContext, ExchangeContext, ExchangeType } from "~/context";
 
-import { cancelOrder, loadCanceledOrders } from "~/utils";
+import { cancelOrder } from "~/utils";
 
 import classNames from "classnames";
 import { Icon } from "~/components";
@@ -22,7 +22,6 @@ const Transactions = () => {
 
 	const token1 = useAppSelector((state) => state.tokens?.token1);
 	const token2 = useAppSelector((state) => state.tokens?.token2);
-	const transaction = useAppSelector((state) => state.exchange?.transaction);
 
 	const userOpenOrders = useAppSelector(selectUserOpenOrders);
 	const userFilledOrders = useAppSelector(selectUserFilledOrders);
@@ -47,14 +46,6 @@ const Transactions = () => {
 	const onCancelOrderClicked = (order: OrderType) => {
 		cancelOrder(order, provider, exchange as ExchangeType, dispatch);
 	};
-
-	useEffect(() => {
-		if (transaction?.transactionType === "CANCEL ORDER" && transaction?.isSuccessful === true) {
-			// Fetch all the orders | OPEN - FILLED - CANCELLED
-			loadCanceledOrders(provider, exchange, dispatch);
-		}
-	}, [transaction]);
-
 	return (
 		<section className="transactions">
 			<div className="transactions__header">
