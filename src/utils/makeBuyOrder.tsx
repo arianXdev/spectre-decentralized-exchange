@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 
 import { AppDispatch } from "../state";
 import { ExchangeType } from "~/context";
-import { makeOrderRequested, makeOrderSuccess, makeOrderFailed } from "~/state/exchange/exchangeSlice";
+import { makeOrderRequested, makeOrderFailed } from "~/state/exchange/exchangeSlice";
 
 import { toast, ErrorIcon } from "react-hot-toast";
 
@@ -51,8 +51,6 @@ export const makeBuyOrder = async (
 			toast.success("You made a BUY order successfully!", {
 				duration: 5000,
 			});
-
-			dispatch(makeOrderSuccess());
 		} else {
 			toast.error("The transaction got rejected! Please try again.", {
 				id: toastBuyOrder,
