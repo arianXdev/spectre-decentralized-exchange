@@ -14,6 +14,7 @@ export interface ExchangeType {
 	connect(signer: ethers.JsonRpcSigner): any;
 	exchange: {
 		makeOrder: any;
+		cancelOrder: any;
 		withdraw: any;
 	};
 }

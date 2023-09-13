@@ -1,17 +1,17 @@
 @import "../../sass/abstracts/variables";
 @import "../../sass/abstracts/mixins";
 
-$order-text-color: #fff;
+$color-order-text: #fff;
 
 $color-th: #c0c0c0;
 $color-td: #fff;
 $color-no-order-warning-text: #7e7e7e;
 
-$transactions-bg-tabs: rgba(3, 5, 58, 0.27);
-$transactions-bg-tab--non-active: rgba(29, 29, 29, 0.1);
+$color-transactions-bg-tabs: rgba(3, 5, 58, 0.27);
+$color-transactions-bg-tab--non-active: rgba(29, 29, 29, 0.1);
 
-$transactions-bg-orders-tab: #192638;
-$transactions-bg-trades-tab: #192638;
+$color-transactions-bg-cancel-btn: #192638;
+$color-transactions-bg-tab: #192638;
 
 .transactions {
 	width: 91%;
@@ -56,8 +56,8 @@ $transactions-bg-trades-tab: #192638;
 		width: 44%;
 		height: 2.2rem;
 		text-align: center;
-		color: $order-text-color;
-		background: $transactions-bg-tabs;
+		color: $color-order-text;
+		background: $color-transactions-bg-tabs;
 		box-shadow: 0 0 20px 0 rgba(18, 16, 38, 0.4);
 		border-radius: 30px;
 		z-index: 0;
@@ -78,12 +78,12 @@ $transactions-bg-trades-tab: #192638;
 
 			&--orders {
 				left: 1.5%;
-				background: $transactions-bg-tab--non-active;
+				background: $color-transactions-bg-tab--non-active;
 			}
 
 			&--trades {
 				right: 1.5%;
-				background: $transactions-bg-tab--non-active;
+				background: $color-transactions-bg-tab--non-active;
 			}
 
 			&:not(.transactions__tab--active):hover {
@@ -98,11 +98,11 @@ $transactions-bg-trades-tab: #192638;
 			}
 
 			&--active.transactions__tab--orders {
-				background: $transactions-bg-orders-tab;
+				background: $color-transactions-bg-tab;
 			}
 
 			&--active.transactions__tab--trades {
-				background: $transactions-bg-trades-tab;
+				background: $color-transactions-bg-tab;
 			}
 		}
 	}
@@ -148,6 +148,15 @@ $transactions-bg-trades-tab: #192638;
 			text-rendering: optimizeLegibility;
 			margin-top: 0.7em;
 
+			&.thead--orders {
+				tr {
+					display: grid;
+					grid-template-columns: 36% 64%;
+					align-items: center;
+					justify-items: start;
+				}
+			}
+
 			&.hidden {
 				visibility: hidden;
 			}
@@ -190,6 +199,7 @@ $transactions-bg-trades-tab: #192638;
 				gap: 5rem;
 				grid-template-columns: 1fr 1fr 1fr;
 				justify-items: start;
+				align-items: center;
 
 				td {
 					font-family: $font-main;
@@ -243,5 +253,19 @@ $transactions-bg-trades-tab: #192638;
 		-webkit-user-select: none;
 		color: $color-no-order-warning-text;
 		letter-spacing: 1px;
+	}
+
+	&__cancel-btn {
+		padding: 0.5rem 0.7rem;
+		background: $color-transactions-bg-tab;
+		color: #fff;
+		border-radius: 4rem;
+		box-shadow: 0 0 5px rgba(1, 6, 32, 0.2);
+		transition: all 0.4s ease-out;
+		opacity: 0.4;
+
+		&:hover {
+			opacity: 1;
+		}
 	}
 }

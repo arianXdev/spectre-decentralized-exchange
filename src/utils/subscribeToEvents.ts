@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 
 import { AppDispatch } from "../state";
-import { transferSuccess, makeOrderSuccess } from "../state/exchange/exchangeSlice";
+import { transferSuccess, makeOrderSuccess, cancelOrderSuccess } from "../state/exchange/exchangeSlice";
 
 // Transfer tokens (Deposits & Withdraws)
 enum TransferType {
@@ -24,17 +24,12 @@ export const subscribeToEvents = (exchange: ethers.ContractInterface, dispatch: 
 
 	// When MAKE ORDER happens, it's gonna notify the app
 	exchange.on("Order", async () => {
-		// const order = {
-		// 	id: id.toString(),
-		// 	user,
-		// 	tokenGet,
-		// 	amountGet: amountGet.toString(),
-		// 	tokenGive,
-		// 	amountGive: amountGive.toString(),
-		// 	timestamp: timestamp.toString(),
-		// };
-
 		// Notify app that the make order trx was successful
 		dispatch(makeOrderSuccess());
+	});
+
+	// When CANCEL ORDER happens, it's gonna notify the app
+	exchange.on("CancelOrder", async () => {
+		dispatch(cancelOrderSuccess());
 	});
 };

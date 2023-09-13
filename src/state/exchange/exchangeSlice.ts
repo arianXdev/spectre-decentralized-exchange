@@ -122,6 +122,37 @@ const exchangeSlice = createSlice({
 			// state.events = events; // non-serialized value
 		},
 
+		cancelOrderRequested: (state) => {
+			state.transaction = {
+				transactionType: TRANSACTION_TYPE.CANCEL_ORDER,
+				isPending: true,
+				isSuccessful: false,
+			};
+
+			state.orderInProgress = true;
+		},
+
+		cancelOrderFailed: (state) => {
+			state.transaction = {
+				transactionType: TRANSACTION_TYPE.CANCEL_ORDER,
+				isPending: false,
+				isSuccessful: false,
+				hasError: true,
+			};
+
+			state.orderInProgress = false;
+		},
+
+		cancelOrderSuccess: (state) => {
+			state.transaction = {
+				transactionType: TRANSACTION_TYPE.CANCEL_ORDER,
+				isPending: false,
+				isSuccessful: true,
+			};
+
+			state.orderInProgress = false;
+		},
+
 		allOrdersLoaded: (state, action) => {
 			const allOrders = action.payload;
 
@@ -324,6 +355,9 @@ export const {
 	makeOrderRequested,
 	makeOrderFailed,
 	makeOrderSuccess,
+	cancelOrderRequested,
+	cancelOrderFailed,
+	cancelOrderSuccess,
 	allOrdersLoaded,
 	filledOrdersLoaded,
 	canceledOrdersLoaded,

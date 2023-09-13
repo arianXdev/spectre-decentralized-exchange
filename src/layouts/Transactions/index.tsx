@@ -1,8 +1,11 @@
-import { useState } from "react";
-import { useAppSelector } from "~/state/hooks";
+import { useState, useContext, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "~/state/hooks";
 
 import { OrderType } from "~/state/exchange/types";
 import { selectUserOpenOrders, selectUserFilledOrders } from "~/state/exchange/exchangeSlice";
+import { EthersContext, ExchangeContext, ExchangeType } from "~/context";
+
+import { cancelOrder, loadCanceledOrders } from "~/utils";
 
 import classNames from "classnames";
 import { Icon } from "~/components";
@@ -15,13 +18,19 @@ enum Tabs {
 }
 
 const Transactions = () => {
+	const dispatch = useAppDispatch();
+
 	const token1 = useAppSelector((state) => state.tokens?.token1);
 	const token2 = useAppSelector((state) => state.tokens?.token2);
+	const transaction = useAppSelector((state) => state.exchange?.transaction);
 
 	const userOpenOrders = useAppSelector(selectUserOpenOrders);
 	const userFilledOrders = useAppSelector(selectUserFilledOrders);
 
 	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.ORDERS);
+
+	const { provider } = useContext(EthersContext);
+	const { exchange } = useContext(ExchangeContext);
 
 	const ordersTabClass = classNames({
 		transactions__tab: true,
@@ -34,6 +43,17 @@ const Transactions = () => {
 		"transactions__tab--trades": true,
 		"transactions__tab--active": activeTab === Tabs.TRADES,
 	});
+
+	const onCancelOrderClicked = (order: OrderType) => {
+		cancelOrder(order, provider, exchange as ExchangeType, dispatch);
+	};
+
+	useEffect(() => {
+		if (transaction?.transactionType === "CANCEL ORDER" && transaction?.isSuccessful === true) {
+			// Fetch all the orders | OPEN - FILLED - CANCELLED
+			loadCanceledOrders(provider, exchange, dispatch);
+		}
+	}, [transaction]);
 
 	return (
 		<section className="transactions">
@@ -55,8 +75,8 @@ const Transactions = () => {
 
 			<div className="transactions__body">
 				{activeTab === Tabs.ORDERS ? (
-					<table className="transactions__table">
-						<thead className={!userOpenOrders || userOpenOrders.length === 0 ? "hidden" : ""}>
+					<table className="transactions__table transactions__table--orders">
+						<thead className={!userOpenOrders || userOpenOrders.length === 0 ? "hidden" : "thead--orders"}>
 							<tr>
 								<th>
 									{token1 && token1.symbol}
@@ -67,12 +87,6 @@ const Transactions = () => {
 
 								<th>
 									{token1 && token1.symbol} / {token2 && token2.symbol}
-									<span className="transactions__sort">
-										<Icon name="chevron-expand" />
-									</span>
-								</th>
-
-								<th>
 									<span className="transactions__sort">
 										<Icon name="chevron-expand" />
 									</span>
@@ -88,15 +102,19 @@ const Transactions = () => {
 									userOpenOrders.map((order: OrderType, index: string | number) => (
 										<tr key={index}>
 											<td className={`tokenAmount ${order.orderTypeClass}`}>{order.token1Amount}</td>
-											<td>{order.tokenPrice}</td>
-											<td>{/* TODO: CANCEL ORDER */}</td>
+											<td className="tokenPrice">{order.tokenPrice}</td>
+											<td>
+												<button onClick={() => onCancelOrderClicked(order)} className="transactions__cancel-btn">
+													CANCEL
+												</button>
+											</td>
 										</tr>
 									))}
 							</tbody>
 						)}
 					</table>
 				) : (
-					<table className="transactions__table">
+					<table className="transactions__table transactions__table--trades">
 						<thead className={!userFilledOrders || userFilledOrders.length === 0 ? "hidden" : ""}>
 							<tr>
 								<th>
