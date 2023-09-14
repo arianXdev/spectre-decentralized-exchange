@@ -4,6 +4,8 @@ import { useAppSelector, useAppDispatch } from "~/state/hooks";
 import { selectOrdersForOrderBook } from "~/state/exchange/exchangeSlice";
 import { OrderType } from "~/state/exchange/types";
 
+import { fillOrderRequested } from "~/state/exchange/exchangeSlice";
+
 import { EthersContext, ExchangeContext } from "~/context";
 import { loadAllOrders, loadFilledOrders } from "~/utils";
 import { Icon } from "~/components";
@@ -22,6 +24,10 @@ const OrderBook = () => {
 	const transaction = useAppSelector((state) => state.exchange.transaction) ?? null;
 
 	const orders = useAppSelector(selectOrdersForOrderBook);
+
+	const onOrderClicked = (order: OrderType) => {
+		dispatch(fillOrderRequested(order));
+	};
 
 	useEffect(() => {
 		if (transaction?.transactionType === "MAKE ORDER" && transaction?.isSuccessful) {
@@ -81,7 +87,7 @@ const OrderBook = () => {
 						<tbody>
 							{orders &&
 								orders.SELL.map((order: OrderType) => (
-									<tr key={order.id}>
+									<tr key={order.id} onClick={() => onOrderClicked(order)}>
 										<td>{order.token1Amount}</td>
 										<td className="token-price">{order.tokenPrice}</td>
 										<td>{order.token2Amount}</td>
@@ -132,7 +138,7 @@ const OrderBook = () => {
 						<tbody>
 							{orders &&
 								orders.BUY.map((order: OrderType) => (
-									<tr key={order.id}>
+									<tr key={order.id} onClick={() => onOrderClicked(order)}>
 										<td>{order.token1Amount}</td>
 										<td className="token-price">{order.tokenPrice}</td>
 										<td>{order.token2Amount}</td>

@@ -3,7 +3,7 @@ import { useImmer } from "use-immer";
 
 import { useAppDispatch, useAppSelector } from "~/state/hooks";
 import { EthersContext, ExchangeContext, ExchangeType, TokensContext } from "~/context";
-import { makeBuyOrder, makeSellOrder } from "~/utils";
+import { fillOrder, makeBuyOrder, makeSellOrder } from "~/utils";
 
 import { toast } from "react-hot-toast";
 import { ethers } from "ethers";
@@ -18,10 +18,17 @@ enum Tabs {
 	SELL = "sell",
 }
 
+enum Status {
+	NEW_ORDER,
+	FILL_ORDER,
+}
+
 const Order = () => {
 	const dispatch = useAppDispatch();
 
+	const [orderStatus, setOrderStatus] = useState<Status>(Status.NEW_ORDER);
 	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.BUY);
+	const [disabledTab, setDisabledTab] = useState<Tabs | null>(null);
 
 	const [amount, setAmount] = useImmer<string>("");
 	const [price, setPrice] = useImmer<string>("");
@@ -36,7 +43,10 @@ const Order = () => {
 	const token1 = useAppSelector(({ tokens }) => tokens.token1);
 	const token2 = useAppSelector(({ tokens }) => tokens.token2);
 
+	const transaction = useAppSelector(({ exchange }) => exchange.transaction);
+
 	// the current order trx status
+	const isOrderInProgress = useAppSelector(({ exchange }) => exchange.isOrderInProgress);
 	const orderInProgress = useAppSelector(({ exchange }) => exchange.orderInProgress);
 
 	const orderBuyTabClass = classNames({
@@ -58,14 +68,18 @@ const Order = () => {
 		if (account) {
 			if (amount !== "" || price !== "") {
 				if (Number(amount) !== 0 && Number(amount) > 0 && Number(price) !== 0 && Number(price) > 0) {
-					const order = { amount, price };
-					makeBuyOrder(
-						provider,
-						exchange as ExchangeType,
-						[tokens[token1?.symbol].contract, tokens[token2?.symbol].contract] as Array<ethers.Contract>,
-						order,
-						dispatch
-					);
+					if (orderStatus === Status.NEW_ORDER) {
+						const order = { amount, price };
+						makeBuyOrder(
+							provider,
+							exchange as ExchangeType,
+							[tokens[token1?.symbol].contract, tokens[token2?.symbol].contract] as Array<ethers.Contract>,
+							order,
+							dispatch
+						);
+					} else if (orderStatus === Status.FILL_ORDER) {
+						fillOrder(orderInProgress, provider, exchange as ExchangeType, dispatch);
+					}
 				} else
 					toast.error("Oops! It looks like the amount you entered is invalid. Please ensure it is accurate before proceeding.", {
 						duration: 5500,
@@ -83,14 +97,18 @@ const Order = () => {
 		if (account) {
 			if (amount !== "" || price !== "") {
 				if (Number(amount) !== 0 && Number(amount) > 0 && Number(price) !== 0 && Number(price) > 0) {
-					const order = { amount, price };
-					makeSellOrder(
-						provider,
-						exchange as ExchangeType,
-						[tokens[token1?.symbol].contract, tokens[token2?.symbol].contract] as Array<ethers.Contract>,
-						order,
-						dispatch
-					);
+					if (orderStatus === Status.NEW_ORDER) {
+						const order = { amount, price };
+						makeSellOrder(
+							provider,
+							exchange as ExchangeType,
+							[tokens[token1?.symbol].contract, tokens[token2?.symbol].contract] as Array<ethers.Contract>,
+							order,
+							dispatch
+						);
+					} else if (orderStatus === Status.FILL_ORDER) {
+						fillOrder(orderInProgress, provider, exchange as ExchangeType, dispatch);
+					}
 				} else
 					toast.error("Oops! It looks like the amount you entered is invalid. Please ensure it is accurate before proceeding.", {
 						duration: 5500,
@@ -103,25 +121,57 @@ const Order = () => {
 
 	// clear out all the order inputs
 	const clearOrderInputs = () => {
-		if (!orderInProgress) {
+		if (!isOrderInProgress) {
 			setAmount("");
 			setPrice("");
 		}
 	};
 
 	useEffect(() => {
-		clearOrderInputs();
+		if (transaction?.transactionType === "FILL ORDER" && transaction?.isPending === true && isOrderInProgress === true) {
+			setOrderStatus(Status.FILL_ORDER);
+
+			if (orderInProgress.orderFillAction === "SELL") {
+				setActiveTab(Tabs.SELL);
+				setAmount(String(orderInProgress.token1Amount));
+				setPrice(String(orderInProgress.tokenPrice));
+				setDisabledTab(Tabs.BUY);
+			} else {
+				setActiveTab(Tabs.BUY);
+				setAmount(String(orderInProgress.token1Amount));
+				setPrice(String(orderInProgress.tokenPrice));
+				setDisabledTab(Tabs.SELL);
+			}
+		}
 	}, [orderInProgress]);
+	useEffect(() => {
+		clearOrderInputs();
+	}, [isOrderInProgress]);
+
+	useEffect(() => {
+		if (amount === "" && price === "") {
+			setOrderStatus(Status.NEW_ORDER);
+			setDisabledTab(null);
+		}
+	}, [amount, price]);
 
 	return (
 		<section className="order">
 			<div className="order__header">
-				<h2 className="order__title">New Order</h2>
+				<h2 className="order__title">{orderStatus === Status.NEW_ORDER ? "New Order" : "Fill Order"}</h2>
 				<div className="order__tabs">
-					<button className={orderBuyTabClass} onClick={() => setActiveTab(Tabs.BUY)}>
+					<button
+						className={orderBuyTabClass}
+						onClick={() => setActiveTab(Tabs.BUY)}
+						disabled={disabledTab === Tabs.BUY ? true : false}
+					>
 						Buy
 					</button>
-					<button className={orderSellTabClass} onClick={() => setActiveTab(Tabs.SELL)}>
+					<button
+						className={orderSellTabClass}
+						onClick={() => setActiveTab(Tabs.SELL)}
+						disabled={disabledTab === Tabs.SELL ? true : false}
+					>
 						Sell
 					</button>
 				</div>

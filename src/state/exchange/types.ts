@@ -56,8 +56,9 @@ export interface ExchangeStateType extends OrdersType {
 	balances: { token1: string; token2: string };
 	orders?: OrdersType;
 	transaction: TransactionType;
+	orderInProgress: OrderType | null;
 	transferInProgress: boolean;
-	orderInProgress: boolean;
+	isOrderInProgress: boolean;
 	events?: Array<ethers.ContractEvent>;
 
 	// tokenBalances

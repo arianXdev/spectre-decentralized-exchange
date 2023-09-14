@@ -10,6 +10,7 @@ export { transferTokens } from "./transferTokens";
 
 export { makeBuyOrder } from "./makeBuyOrder";
 export { makeSellOrder } from "./makeSellOrder";
+export { fillOrder } from "./fillOrder";
 export { cancelOrder } from "./cancelOrder";
 
 export { getTokenPriceColor } from "./getTokenPriceColor";

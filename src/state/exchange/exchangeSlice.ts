@@ -28,8 +28,9 @@ const initialState = {
 		canceledOrders: [],
 		filledOrders: [],
 	},
+	orderInProgress: null,
 	transferInProgress: false,
-	orderInProgress: false,
+	isOrderInProgress: false,
 	events: [] as Array<ethers.ContractEvent>,
 } as ExchangeStateType;
 
@@ -97,7 +98,7 @@ const exchangeSlice = createSlice({
 				isSuccessful: false,
 			};
 
-			state.orderInProgress = true;
+			state.isOrderInProgress = true;
 		},
 
 		makeOrderFailed: (state) => {
@@ -108,7 +109,7 @@ const exchangeSlice = createSlice({
 				hasError: true,
 			};
 
-			state.orderInProgress = false;
+			state.isOrderInProgress = false;
 		},
 
 		makeOrderSuccess: (state) => {
@@ -118,7 +119,7 @@ const exchangeSlice = createSlice({
 				isSuccessful: true,
 			};
 
-			state.orderInProgress = false;
+			state.isOrderInProgress = false;
 		},
 
 		cancelOrderRequested: (state) => {
@@ -128,7 +129,7 @@ const exchangeSlice = createSlice({
 				isSuccessful: false,
 			};
 
-			state.orderInProgress = true;
+			state.isOrderInProgress = true;
 		},
 
 		cancelOrderFailed: (state) => {
@@ -139,7 +140,7 @@ const exchangeSlice = createSlice({
 				hasError: true,
 			};
 
-			state.orderInProgress = false;
+			state.isOrderInProgress = false;
 		},
 
 		cancelOrderSuccess: (state, action) => {
@@ -151,8 +152,46 @@ const exchangeSlice = createSlice({
 				isSuccessful: true,
 			};
 
-			state.orderInProgress = false;
+			state.isOrderInProgress = false;
 			(state.orders?.canceledOrders as Array<OrderType>).push(canceledOrder);
+		},
+
+		fillOrderRequested: (state, action) => {
+			const order = action.payload;
+
+			state.transaction = {
+				transactionType: TRANSACTION_TYPE.FILL_ORDER,
+				isPending: true,
+				isSuccessful: false,
+			};
+
+			state.orderInProgress = order;
+			state.isOrderInProgress = true;
+		},
+
+		fillOrderFailed: (state) => {
+			state.transaction = {
+				transactionType: TRANSACTION_TYPE.FILL_ORDER,
+				isPending: false,
+				isSuccessful: false,
+				hasError: true,
+			};
+			state.orderInProgress = null;
+			state.isOrderInProgress = false;
+		},
+
+		fillOrderSuccess: (state, action) => {
+			const filledOrder = action.payload;
+
+			state.transaction = {
+				transactionType: TRANSACTION_TYPE.FILL_ORDER,
+				isPending: false,
+				isSuccessful: true,
+			};
+
+			state.orderInProgress = null;
+			state.isOrderInProgress = false;
+			(state.orders?.filledOrders as Array<OrderType>).push(filledOrder);
 		},
 
 		allOrdersLoaded: (state, action) => {
@@ -360,6 +399,9 @@ export const {
 	cancelOrderRequested,
 	cancelOrderFailed,
 	cancelOrderSuccess,
+	fillOrderRequested,
+	fillOrderFailed,
+	fillOrderSuccess,
 	allOrdersLoaded,
 	filledOrdersLoaded,
 	canceledOrdersLoaded,
