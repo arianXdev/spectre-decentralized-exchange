@@ -3,8 +3,6 @@ import { createPortal } from "react-dom";
 import { useAppSelector } from "~/state/hooks";
 
 import { TradeContext } from "~/context";
-import { DeployedData } from "~/data/types";
-import deployed from "~/data/deployed.json";
 
 import { Markets, Balance, Order, Overlay } from "~/components";
 import { PriceChart, OrderBook, Trades, Transactions } from "~/layouts";
@@ -19,23 +17,11 @@ enum Status {
 }
 
 const Trade = () => {
+	const token1 = useAppSelector((state) => state.tokens.token1);
+	const token2 = useAppSelector((state) => state.tokens.token2);
+
 	const [exchangeStatus, setExchangeStatus] = useState<Status>(Status.WITHDRAW);
 	const [isMarketsModalOpen, setIsMarketsModalOpen] = useState<boolean>(false);
-
-	// Get the current connection's chainId from the Redux store
-	const chainId = useAppSelector(({ connection }) => connection.current?.chainId ?? 1);
-
-	const currentConnection = (deployed as DeployedData)[chainId];
-
-	enum MarketsList {
-		SPEC_mETH = `${currentConnection.spectreToken.address},${currentConnection.mETH.address}` as never,
-		SPEC_mDAI = `${currentConnection.spectreToken.address},${currentConnection.mDAI.address}` as never,
-		SPEC_mUSDT = `${currentConnection.spectreToken.address},${currentConnection.mUSDT.address}` as never,
-		mDAI_mETH = `${currentConnection.mDAI.address},${currentConnection.mETH.address}` as never,
-		mUSDT_mETH = `${currentConnection.mUSDT.address},${currentConnection.mETH.address}` as never,
-	}
-
-	const [market, setMarket] = useState<MarketsList>(MarketsList.SPEC_mETH);
 
 	const onExchangeStatusClicked = () => {
 		setExchangeStatus((prevStatus) => (prevStatus === Status.WITHDRAW ? Status.DEPOSIT : Status.WITHDRAW));
@@ -53,17 +39,20 @@ const Trade = () => {
 
 							<menu className="Trade__markets" onClick={onExchangeMarketsClicked}>
 								<span className="Trade__markets-label">Market</span>
-								<h3 className="Trade__selected-market">{MarketsList[market].replace("_", " / ")}</h3>
+								<h3 className="Trade__selected-market">
+									{!token1 || !token2 ? (
+										"Loading..."
+									) : (
+										<>
+											{token1 && token1.symbol} / {token2 && token2.symbol}
+										</>
+									)}
+								</h3>
 							</menu>
 
 							{createPortal(
 								<>
-									<Markets
-										isOpen={isMarketsModalOpen}
-										setIsOpen={setIsMarketsModalOpen}
-										MarketsList={MarketsList}
-										setMarket={setMarket}
-									/>
+									<Markets isOpen={isMarketsModalOpen} setIsOpen={setIsMarketsModalOpen} />
 									<Overlay isOpen={isMarketsModalOpen} onClose={onExchangeMarketsClicked} />
 								</>,
 								document.getElementById("root") as HTMLBodyElement

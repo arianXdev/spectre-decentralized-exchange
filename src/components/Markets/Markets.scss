@@ -24,7 +24,7 @@
 	&__wrapper {
 		position: relative;
 		width: 28rem;
-		height: 25rem;
+		height: 27rem;
 		padding: 0.45rem;
 		background: linear-gradient(136.9deg, #0085ff -10%, rgba(82, 50, 209, 0.52) 105.62%), linear-gradient(0deg, #09151d, #09151d);
 		border-radius: 5rem;
@@ -45,6 +45,7 @@
 		border-radius: 4.6rem;
 		box-shadow: inset 0px 0px 15px rgba(0, 14, 83, 0.5);
 		transition: all 0.5s ease-in-out;
+		padding: 1rem 1.7rem 6rem 1.7rem;
 	}
 
 	&__title {
@@ -69,14 +70,46 @@
 		}
 	}
 
-	&__container {
-		padding: 4rem 1.2rem;
+	&__search {
+		width: 100%;
+		margin-top: 1.5rem;
+		margin-bottom: 1rem;
+		padding: 0.5rem 1rem;
+		background: transparent;
+		font-family: $font-oxanium;
+		font-size: 18px;
+		color: white;
+
+		&::placeholder {
+			color: #ffffff75;
+		}
+	}
+
+	&__body {
+		width: 100%;
+		height: 100%;
+		overflow-y: hidden;
 	}
 
 	&__list {
-		@include displayFlex(center);
+		@include displayFlex(flex-start);
 		width: 100%;
+		height: 100%;
 		flex-direction: column;
+		overflow-y: scroll;
+
+		// Custom Scrollbar
+		&::-webkit-scrollbar {
+			width: 3px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: transparent;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: $color-primary;
+		}
 	}
 
 	&__item {
@@ -89,11 +122,11 @@
 		font-weight: 500;
 		width: 100%;
 		height: 2.8rem;
-		padding: 0.1rem 1.5rem;
+		padding: 0.2rem 0.6rem;
 		font-size: 1.1em;
-		transition: all 0.2s ease-out;
-		border-radius: 1.3rem;
+		transition: all 0.1s ease-out;
 		margin-bottom: 0.6rem;
+		border-radius: 1rem;
 		cursor: pointer;
 		user-select: none;
 		-webkit-user-select: none;
@@ -108,7 +141,7 @@
 		}
 
 		&:hover {
-			background: rgba(255, 255, 255, 0.2);
+			background: rgba(255, 255, 255, 0.075);
 			box-shadow: 0 0 20px rgba(0, 73, 175, 0.2);
 		}
 
@@ -118,6 +151,15 @@
 			align-items: center;
 			grid-template-columns: 1fr 1fr;
 		}
+	}
+
+	&__no-results {
+		text-align: center;
+		margin-top: 5rem;
+		font-family: $font-oxanium;
+		font-size: 1.7rem;
+		font-weight: 900;
+		color: #ffffff5d;
 	}
 
 	&__icon {
