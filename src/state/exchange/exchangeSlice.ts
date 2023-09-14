@@ -191,7 +191,11 @@ const exchangeSlice = createSlice({
 
 			state.orderInProgress = null;
 			state.isOrderInProgress = false;
-			(state.orders?.filledOrders as Array<OrderType>).push(filledOrder);
+
+			// prevent order duplication
+			const isOrderDuplicated = (state.orders?.filledOrders as Array<OrderType>).findIndex((order) => order.id === filledOrder.id);
+
+			isOrderDuplicated === -1 ? (state.orders?.filledOrders as Array<OrderType>).push(filledOrder) : null;
 		},
 
 		allOrdersLoaded: (state, action) => {
