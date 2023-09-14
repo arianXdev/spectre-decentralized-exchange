@@ -61,7 +61,7 @@ export const transferTokens = async (
 
 			// if the transaction was successful
 			if (transaction) {
-				toast.success("the Deposit transaction has been successful!", {
+				toast.success("The DEPOSIT transaction has been successful!", {
 					duration: 6000,
 				});
 			} else {
@@ -92,7 +92,7 @@ export const transferTokens = async (
 
 			// if the transaction was successful
 			if (transaction) {
-				toast.success("the Withdraw transaction has been successful!", {
+				toast.success("The WITHDRAW transaction has been successful!", {
 					duration: 6000,
 				});
 			} else {
