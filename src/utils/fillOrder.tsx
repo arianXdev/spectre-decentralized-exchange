@@ -36,9 +36,6 @@ export const fillOrder = async (order: OrderType, provider: ethers.BrowserProvid
 			toast.success("The order got filled successfully!", {
 				duration: 5000,
 			});
-
-			// if the transaction was successful, then update the Redux store that will cause updating the UI
-			dispatch(fillOrderSuccess(order));
 		} else {
 			toast.error("The transaction got rejected! Please try again.", {
 				id: toastFillOrder,

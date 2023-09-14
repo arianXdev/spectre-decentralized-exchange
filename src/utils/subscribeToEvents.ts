@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 
 import { AppDispatch } from "../state";
-import { transferSuccess, makeOrderSuccess } from "../state/exchange/exchangeSlice";
+import { transferSuccess, makeOrderSuccess, fillOrderSuccess } from "../state/exchange/exchangeSlice";
 
 // Transfer tokens (Deposits & Withdraws)
 enum TransferType {
@@ -27,4 +27,39 @@ export const subscribeToEvents = (exchange: ethers.ContractInterface, dispatch: 
 		// Notify app that the make order trx was successful
 		dispatch(makeOrderSuccess());
 	});
+
+	// When FILL ORDER / TRADE happens, it's gonna notify the app
+	exchange.on(
+		"Trade",
+		async (
+			id: string,
+			user: string,
+			tokenGet: string,
+			amountGet: string,
+			tokenGive: string,
+			amountGive: string,
+			creator: string,
+			timestamp: number,
+			event: any
+		) => {
+			// a serialized array of all the filled order (so we can store them inside of the Redux STORE)
+			// @param creator the person who is created the order
+			// @param user  the person who is done the trade | filled the order | taker
+			let serializedFilledOrder = {
+				eventName: event.eventName,
+				// address: event.args.address,
+				user: String(user),
+				creator: String(creator),
+				id: String(id),
+				tokenGet: tokenGet,
+				amountGet: String(amountGet),
+				tokenGive: tokenGive,
+				amountGive: String(amountGive),
+				timestamp: Number(timestamp),
+				// transactionHash: event.args.transactionHash,
+			};
+
+			dispatch(fillOrderSuccess(serializedFilledOrder));
+		}
+	);
 };
