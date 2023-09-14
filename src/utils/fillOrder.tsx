@@ -4,7 +4,7 @@ import { AppDispatch } from "~/state";
 import { ExchangeType } from "~/context";
 import { OrderType } from "~/state/exchange/types";
 
-import { fillOrderFailed, fillOrderSuccess } from "~/state/exchange/exchangeSlice";
+import { fillOrderFailed } from "~/state/exchange/exchangeSlice";
 
 import { toast, ErrorIcon } from "react-hot-toast";
 

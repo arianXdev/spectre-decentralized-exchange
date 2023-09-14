@@ -46,6 +46,9 @@ const App = () => {
 		// load connections & save the current connection information whenever the account has been changed
 		useMetaMask().on("accountsChanged", async () => {
 			await loadConnection(provider, dispatch);
+
+			// Fetch all the filled orders
+			loadFilledOrders(provider, exchange, dispatch);
 		});
 
 		// Reload the page when the user changed their network
