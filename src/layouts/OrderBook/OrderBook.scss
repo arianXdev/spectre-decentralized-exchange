@@ -73,6 +73,7 @@ $color-no-order-warning-text: #7e7e7e;
 			font-size: 0.89em;
 			text-rendering: optimizeLegibility;
 			margin-top: 2.2em;
+			padding: 0 0.4rem;
 
 			&.hidden {
 				visibility: hidden;
@@ -126,13 +127,22 @@ $color-no-order-warning-text: #7e7e7e;
 			gap: 5rem;
 			grid-template-columns: 1fr 1fr 1fr;
 			justify-items: start;
+			align-items: center;
+			cursor: pointer;
+			border-radius: 15rem;
+			padding: 0.2rem 0;
+			transition: background 0.1s ease-in-out;
+
+			&:hover {
+				background: #01081677;
+			}
 
 			td {
 				font-family: $font-main;
 				color: $color-td;
 				font-weight: 600;
 				font-size: 0.9em;
-				margin-bottom: 1.1rem;
+				padding: 0.2rem 0.4rem;
 
 				&:last-of-type {
 					justify-self: end;
