@@ -16,7 +16,7 @@
 	box-shadow: -2px 1px 10px rgba(0, 0, 0, 0.3);
 	border-end-start-radius: 50px;
 	transition: right 0.5s ease-in-out;
-	z-index: 13;
+	z-index: 60;
 
 	&.open {
 		@extend %menu-open;
@@ -137,7 +137,7 @@
 	border-radius: 50px;
 	transition: all 0.4s ease-in-out;
 	transition-delay: 0.09s;
-	z-index: 10;
+	z-index: 50;
 	cursor: pointer;
 
 	&:hover {

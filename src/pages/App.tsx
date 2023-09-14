@@ -9,6 +9,7 @@ import deployed from "~/data/deployed.json";
 
 import { EthersContext, ExchangeContext, TokensContext } from "~/context";
 
+import Landing from "./Landing";
 import InstallWallet from "./InstallWallet";
 import Trade from "./Trade";
 import Settings from "./Settings";
@@ -148,7 +149,7 @@ const App = () => {
 					</>
 
 					<Routes>
-						<Route path="/" element={<Navigate to="/swap" />} />
+						<Route path="/" element={<Landing />} />
 						<Route path="swap" element={<></>} />
 						<Route path="trade" element={<Trade />} />
 						<Route path="settings" element={<Settings />} />

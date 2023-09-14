@@ -190,7 +190,7 @@ const Header = () => {
 	return (
 		<header className="Header">
 			<div className="Header__logo">
-				<Link to="/swap" className="Header__link">
+				<Link to="/" className="Header__link">
 					<img src={Logo} alt="Spectre-DEX-logo" className="Header__img" />
 					<h1 className="Header__title">Spectre</h1>
 					<span className="Header__span">DEX</span>
@@ -198,14 +198,16 @@ const Header = () => {
 			</div>
 
 			<div className="Header__tabs-wrapper">
-				<menu className="Header__tabs">
-					<Link to="/swap" className={headerSwapTabClass} onClick={() => setActiveTab(Tabs.SWAP)}>
-						Swap
-					</Link>
-					<Link to="/trade" className={headerTradeTabClass} onClick={() => setActiveTab(Tabs.TRADE)}>
-						Trade
-					</Link>
-				</menu>
+				{pathname !== "/" ? (
+					<menu className="Header__tabs">
+						<Link to="/swap" className={headerSwapTabClass} onClick={() => setActiveTab(Tabs.SWAP)}>
+							Swap
+						</Link>
+						<Link to="/trade" className={headerTradeTabClass} onClick={() => setActiveTab(Tabs.TRADE)}>
+							Trade
+						</Link>
+					</menu>
+				) : null}
 			</div>
 
 			<div className={`Header__connection ${account ? "connected" : ""}`}>

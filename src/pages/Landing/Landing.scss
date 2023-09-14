@@ -1,0 +1,216 @@
+@import "../../sass/abstracts/variables";
+@import "../../sass/abstracts/mixins";
+
+.landing {
+	width: 100%;
+	height: 100%;
+	position: relative;
+
+	&__wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&__logo {
+		pointer-events: none;
+		user-select: none;
+
+		img {
+			width: 30rem;
+		}
+	}
+
+	&__gradient {
+		position: absolute;
+		display: flex;
+		-webkit-box-align: center;
+		align-items: center;
+		-webkit-box-pack: center;
+		justify-content: center;
+		top: 0px;
+		bottom: 0px;
+		width: 100%;
+		min-height: 550px;
+		background: linear-gradient(rgba(29, 31, 44, 0) 0%, rgb(13, 41, 119) 45%);
+		z-index: 10;
+		pointer-events: none;
+		height: calc(100vh - 48px);
+	}
+
+	&__glow-container {
+		position: absolute;
+		display: flex;
+		-webkit-box-align: center;
+		align-items: center;
+		-webkit-box-pack: center;
+		justify-content: center;
+		top: 0px;
+		bottom: 0px;
+		width: 100%;
+		overflow-y: hidden;
+		height: calc(100vh - 48px);
+	}
+
+	&__glow {
+		position: fixed;
+		top: 68px;
+		bottom: 0px;
+		background: radial-gradient(72.04% 72.04% at 50% 3.99%, rgb(54, 215, 255) 0%, rgba(166, 151, 255, 0) 100%);
+		filter: blur(72px);
+		border-radius: 24px;
+		max-width: 480px;
+		width: 100%;
+		height: 100%;
+		z-index: 15;
+	}
+
+	&__content-container {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		-webkit-box-align: center;
+		align-items: center;
+		-webkit-box-pack: end;
+		justify-content: flex-end;
+		width: 100%;
+		padding: 0px 0px 40px;
+		max-width: min(720px, 90%);
+		height: calc(100vh - 120px);
+		min-height: 775px;
+		transition: opacity 250ms ease 0s;
+		text-align: center;
+		z-index: 16;
+	}
+
+	&__subtext-container {
+		display: flex;
+		-webkit-box-pack: center;
+		justify-content: center;
+	}
+
+	&__dex-name {
+		width: 545px;
+		font-family: $font-oxanium;
+		font-weight: 700;
+		font-size: 2.5rem;
+		background-image: linear-gradient(20deg, rgb(253, 253, 253) 0%, rgb(0, 213, 255) 100%);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		letter-spacing: 1px;
+		margin: 1rem 0;
+	}
+
+	&__text {
+		width: 600px;
+		font-family: $font-oxanium;
+		font-weight: 900;
+		font-size: 3.5rem;
+		background-image: linear-gradient(20deg, rgb(240, 1, 101) 0%, rgb(0, 213, 255) 100%);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	&__subtext {
+		font-family: $font-main;
+		color: #999;
+		text-align: center;
+		margin-block: 1rem;
+		font-weight: 500;
+		font-size: 1rem;
+	}
+
+	&__actions {
+		@include displayFlex(center);
+		margin-top: 1rem;
+	}
+
+	&__launch-btn {
+		display: flex;
+		align-items: center;
+		font-family: $font-oxanium;
+		font-weight: 700;
+		padding: 1rem 4rem;
+		background: linear-gradient(120deg, rgb(49, 79, 179) 2.66%, rgba(4, 2, 128, 0.233) 98.99%);
+		border: none;
+		color: #fff !important;
+		transition: all 250ms ease 0s;
+		border-radius: 1.3rem;
+		box-shadow: 0 0 70px rgba(5, 1, 27, 0.6);
+
+		&:hover {
+			box-shadow: 0 0 70px rgba(5, 1, 27, 0.9);
+
+			ion-icon {
+				padding-left: 10px;
+			}
+		}
+
+		& > ion-icon {
+			padding-left: 5px;
+			transition: all 0.2s ease;
+		}
+	}
+}
+
+@media (max-width: 1366px) {
+	.landing {
+		&__logo {
+			img {
+				width: 25rem;
+			}
+		}
+
+		&__content-container {
+			min-height: 750px;
+		}
+	}
+}
+
+@media (max-width: 830px) {
+	.landing {
+		&__gradient {
+			top: 100px;
+			bottom: 100px;
+			min-height: 850px;
+		}
+
+		&__glow-container {
+			top: 200px;
+			height: 100%;
+		}
+
+		&__glow {
+			top: 200px;
+			bottom: 0px;
+		}
+
+		&__logo {
+			margin-top: 100px;
+		}
+
+		&__text {
+			margin-bottom: 20px;
+			background-image: linear-gradient(20deg, rgb(255, 0, 106) 0%, rgb(9, 230, 238) 100%);
+		}
+
+		&__subtext {
+			margin-block: 2rem;
+			font-size: 1.5rem;
+		}
+
+		&__content-container {
+			min-height: 775px;
+		}
+
+		&__launch-btn {
+			padding: 2rem 4rem;
+			font-size: 2rem;
+			border-radius: 2.3rem;
+			box-shadow: 0 0 100px rgba(5, 1, 27, 0.7);
+		}
+	}
+}
