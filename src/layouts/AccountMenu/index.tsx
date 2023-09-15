@@ -122,8 +122,10 @@ const AccountMenu = ({ isOpen, onClose }: AccountMenuProps) => {
 
 					<div className="account-menu__body">
 						<div className="account-menu__balance">
-							<Icon name="cash-outline" />
-							<span>Balance:</span>
+							<div>
+								<i className="fa-brands fa-ethereum"></i>
+								<span>Balance:</span>
+							</div>
 							<small>{balance ? Number(balance)?.toFixed(4) : "00.00"} ETH</small>
 						</div>
 					</div>

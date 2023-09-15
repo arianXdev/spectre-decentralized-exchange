@@ -128,7 +128,7 @@ $color-bg-network-menu: $color-dark;
 		color: white;
 		letter-spacing: 1px;
 		background: rgba(255, 255, 255, 0.03);
-		border-radius: 30px;
+		border-radius: 1.1rem;
 		border: 0.15rem solid #01c0fd;
 		box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.25);
 		transition: all 0.3s ease-out;
@@ -136,7 +136,7 @@ $color-bg-network-menu: $color-dark;
 
 		&.active {
 			background: rgba(255, 255, 255, 0.09);
-			box-shadow: 0px 0px 1px 5px rgba(2, 14, 51, 0.7), 0px 0px 10px rgba(0, 0, 0, 0.5);
+			box-shadow: 0px 0px 25px 6px rgba(0, 15, 59, 0.7), 0px 0px 10px rgba(0, 0, 0, 0.5);
 
 			& > ion-icon {
 				rotate: 180deg;
@@ -167,26 +167,46 @@ $color-bg-network-menu: $color-dark;
 	}
 
 	&__account-btn {
+		position: relative;
 		@include displayFlex(center);
 		width: 90%;
-		padding: 0.7rem 1.5rem;
+		padding: 0.7rem 2.2rem 0.7rem 1.5rem;
 		font-family: $font-oxanium;
 		font-size: 1rem;
 		font-weight: 700;
 		color: $color-primary;
-		border-radius: 40px;
+		border-radius: 1.1rem;
 		background: white;
 		box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
-		transition: all 0.5s ease-out;
+		transition: all 0.3s ease-in-out;
 		align-self: center;
 
 		&.connected {
 			width: 100%;
 		}
 
-		& > ion-icon {
+		&.connected:hover {
+			background: rgba(255, 255, 255, 0.85);
+		}
+
+		&.connected:hover > ion-icon[name="chevron-forward-outline"] {
+			visibility: visible;
+			opacity: 1;
+			right: 0;
+		}
+
+		ion-icon {
 			font-size: 1.3em;
 			padding-right: 10px;
+
+			&[name="chevron-forward-outline"] {
+				font-size: 1.2em;
+				position: absolute;
+				right: 7px;
+				visibility: hidden;
+				opacity: 0;
+				transition: all 0.3s ease-out;
+			}
 		}
 	}
 
@@ -229,7 +249,8 @@ $color-bg-network-menu: $color-dark;
 	padding: 0.2em 0.5em;
 	background-color: $color-bg-network-menu;
 	box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.3);
-	border-radius: 25px;
+	font-size: 15.5px;
+	border-radius: 26px;
 	overflow: hidden;
 	z-index: 26;
 
@@ -297,6 +318,12 @@ $color-bg-network-menu: $color-dark;
 
 	&__icon {
 		margin-right: 0.5em;
+	}
+}
+
+@media (max-width: 1366px) {
+	.Header {
+		grid-template-columns: 25% 34% 1fr;
 	}
 }
 

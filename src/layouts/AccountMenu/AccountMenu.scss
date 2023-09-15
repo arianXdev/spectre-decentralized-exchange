@@ -109,20 +109,22 @@
 
 	&__balance {
 		width: 100%;
-		display: grid;
-		grid-template-columns: 10% 30% 1fr;
+		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		font-family: $font-oxanium;
-		font-size: 1.2rem;
+		font-size: 1.1rem;
 
 		small {
-			justify-self: end;
+			font-size: 1.08em;
 			font-family: $font-mono;
 			user-select: all;
+			color: #ffffffbd;
 		}
 
-		ion-icon {
-			font-size: 1.3rem;
+		i {
+			font-size: 1em;
+			padding-right: 10px;
 		}
 	}
 }
