@@ -161,7 +161,8 @@ const Header = () => {
 	};
 
 	const onMoreInfoItemClicked = () => {
-		toast("EXPERIMENTAL | It will be added soon!");
+		const arianGitHubUsername = import.meta.env.VITE_ARIAN_GITHUB_USERNAME;
+		window.open(`https://github.com/${arianGitHubUsername}`, "_blank");
 	};
 
 	const handleOutsideClick = (event: MouseEvent) => {
@@ -289,6 +290,7 @@ const Header = () => {
 					>
 						{account ? <Icon name="person" /> : <Icon name="wallet" />}
 						<p className="Header__account-address">{account ? accountAddress : "Connect"}</p>
+						<Icon name="chevron-forward-outline" />
 					</button>
 
 					<AccountMenu isOpen={isAccountMenuOpen} onClose={handleAccountMenuToggle} />
