@@ -160,7 +160,7 @@ const Header = () => {
 		}
 	};
 
-	const onMoreInfoItemClicked = (e: MouseEvent) => {
+	const onMoreInfoItemClicked = () => {
 		toast("EXPERIMENTAL | It will be added soon!");
 	};
 

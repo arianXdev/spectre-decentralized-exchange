@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useAppDispatch } from "~/state/hooks";
 
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { ethers } from "ethers";
 
 import { DeployedData } from "~/data/types";
