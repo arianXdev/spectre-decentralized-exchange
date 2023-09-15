@@ -77,14 +77,6 @@ $color-bg-network-menu: $color-dark;
 		transition: all 0.4s ease-in-out;
 		z-index: 3;
 
-		&--settings-activated {
-			width: 47%;
-
-			&:hover {
-				background: darken($color-non-active, $amount: 60%);
-			}
-		}
-
 		&--swap {
 			left: 2%;
 		}
@@ -198,41 +190,32 @@ $color-bg-network-menu: $color-dark;
 		}
 	}
 
-	&__settings {
+	&__moreInfo {
 		position: relative;
 		@include displayFlex(center);
 
-		font-size: 1.8em;
-		padding: 0.45em;
 		justify-self: center;
 		align-self: center;
 		cursor: pointer;
-		transition: all 0.2s ease-out;
-		border-radius: 4rem;
 
-		&:hover:not(.Header__settings--enabled) a {
-			rotate: 20deg;
-		}
+		&-btn {
+			font-size: 2em;
+			@include displayFlex(center);
+			color: white;
+			background: none;
+			outline: none;
+			border: none;
+			border-radius: 1.3rem;
+			padding: 0.5rem;
+			transition: all 0.1s ease-in-out;
 
-		&::after {
-			position: absolute;
-			content: "";
-			width: 100%;
-			height: 100%;
-			scale: 0;
-			background: #e2e2e21c;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-			transition: all 0.3s ease-out;
-			border-radius: 4rem;
-		}
+			&:hover {
+				background: #ffffff0a;
+			}
 
-		&--enabled::after {
-			scale: 1;
-		}
-
-		a {
-			display: inherit;
-			transition: all 0.2s ease-out;
+			&.active {
+				background: #ffffff0a;
+			}
 		}
 	}
 }
@@ -256,6 +239,50 @@ $color-bg-network-menu: $color-dark;
 		border-radius: 17px;
 		transition: all 0.3s ease-out;
 		cursor: pointer;
+
+		&--selected {
+			color: white;
+			background-color: rgba(0, 0, 0, 0.3);
+			box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+
+		&:not(.network-menu__item--selected):hover {
+			background-color: lighten($color-dark, 4%);
+		}
+	}
+
+	&__icon {
+		margin-right: 0.5em;
+	}
+}
+
+.moreInfo-menu {
+	position: absolute;
+	top: 4rem;
+	right: 0;
+	width: 15rem;
+	color: #01c0fd;
+	padding: 0.2em 0.5em;
+	background-color: $color-bg-network-menu;
+	box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.3);
+	font-size: 14px;
+	border-radius: 25px;
+	overflow: hidden;
+	z-index: 26;
+
+	&__item {
+		display: flex;
+		align-items: center;
+		padding: 0.8em 1.5em;
+		margin: 0.3em 0;
+		border-radius: 17px;
+		transition: all 0.3s ease-out;
+		cursor: pointer;
+
+		& > ion-icon {
+			font-size: 1.3em;
+			padding-right: 10px;
+		}
 
 		&--selected {
 			color: white;
@@ -334,7 +361,7 @@ $color-bg-network-menu: $color-dark;
 			}
 		}
 
-		&__settings {
+		&__moreInfo {
 			font-size: 2.1rem;
 		}
 
@@ -373,7 +400,7 @@ $color-bg-network-menu: $color-dark;
 			grid-template-columns: 100%;
 		}
 
-		&__settings {
+		&__moreInfo {
 			display: none;
 		}
 
@@ -456,7 +483,7 @@ $color-bg-network-menu: $color-dark;
 			}
 		}
 
-		&__settings {
+		&__moreInfo {
 			position: relative;
 			justify-content: center;
 			bottom: 0;
@@ -523,7 +550,7 @@ $color-bg-network-menu: $color-dark;
 			}
 		}
 
-		&__settings {
+		&__moreInfo {
 			display: none;
 		}
 	}

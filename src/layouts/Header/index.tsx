@@ -58,9 +58,11 @@ const Header = () => {
 
 	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.SWAP);
 	const [showNetworkMenu, setShowNetworkMenu] = useState<boolean>(false);
+	const [showMoreInfoMenu, setShowMoreInfoMenu] = useState<boolean>(false);
 	const [selectedNetwork, setSelectedNetwork] = useState<Networks>(Networks.Ethereum);
 
 	const networkMenuRef = useRef<HTMLDivElement>(null);
+	const moreInfoMenuRef = useRef<HTMLDivElement>(null);
 
 	// get the network icon based on the selected network
 	const getSelectedNetworkIcon = (): ReactElement => {
@@ -158,9 +160,17 @@ const Header = () => {
 		}
 	};
 
+	const onMoreInfoItemClicked = (e: MouseEvent) => {
+		toast("EXPERIMENTAL | It will be added soon!");
+	};
+
 	const handleOutsideClick = (event: MouseEvent) => {
 		if (networkMenuRef.current && !networkMenuRef.current.contains(event.target as Node)) {
 			setShowNetworkMenu(false);
+		}
+
+		if (moreInfoMenuRef.current && !moreInfoMenuRef.current?.contains(event.target as Node)) {
+			setShowMoreInfoMenu(false);
 		}
 	};
 
@@ -270,6 +280,7 @@ const Header = () => {
 						) : null}
 					</div>
 				</div>
+
 				<div className="Header__account">
 					<button
 						onClick={account ? handleAccountMenuToggle : handleConnectWalletToggle}
@@ -289,10 +300,37 @@ const Header = () => {
 						handleMetaMaskWallet={handleMetaMaskWallet}
 					/>
 				</div>
-				<div className={pathname === "/settings" ? "Header__settings Header__settings--enabled" : "Header__settings"}>
-					<Link to="/settings">
-						<Icon name="settings-outline" />
-					</Link>
+
+				<div className="Header__moreInfo" ref={moreInfoMenuRef}>
+					<button
+						onClick={() => setShowMoreInfoMenu(!showMoreInfoMenu)}
+						className={`Header__moreInfo-btn ${showMoreInfoMenu ? "active" : ""}`}
+					>
+						<Icon name={showMoreInfoMenu ? "ellipsis-horizontal" : "ellipsis-horizontal-outline"} />
+					</button>
+
+					{showMoreInfoMenu ? (
+						<div className="moreInfo-menu">
+							<ul className="moreInfo-menu__list">
+								<li className="moreInfo-menu__item" onClick={onMoreInfoItemClicked}>
+									<Icon name="chatbox-ellipses-outline" />
+									Feedback
+								</li>
+								<li className="moreInfo-menu__item" onClick={onMoreInfoItemClicked}>
+									<Icon name="book-outline" />
+									Blog
+								</li>
+								<li className="moreInfo-menu__item" onClick={onMoreInfoItemClicked}>
+									<Icon name="finger-print-outline" />
+									Legal & Privacy
+								</li>
+								<li className="moreInfo-menu__item" onClick={onMoreInfoItemClicked}>
+									<Icon name="help-outline" />
+									Help center
+								</li>
+							</ul>
+						</div>
+					) : null}
 				</div>
 			</div>
 		</header>

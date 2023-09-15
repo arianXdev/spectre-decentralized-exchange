@@ -12,7 +12,6 @@ import { EthersContext, ExchangeContext, TokensContext } from "~/context";
 import Landing from "./Landing";
 import InstallWallet from "./InstallWallet";
 import Trade from "./Trade";
-import Settings from "./Settings";
 
 import { Header } from "~/layouts";
 import { Overlay } from "~/components";
@@ -152,7 +151,6 @@ const App = () => {
 						<Route path="/" element={<Landing />} />
 						<Route path="swap" element={<></>} />
 						<Route path="trade" element={<Trade />} />
-						<Route path="settings" element={<Settings />} />
 					</Routes>
 				</TokensContext.Provider>
 			</ExchangeContext.Provider>
