@@ -14,12 +14,47 @@
 	}
 
 	&__logo {
+		position: relative;
 		pointer-events: none;
 		user-select: none;
+		z-index: 10;
 
 		img {
 			width: 30rem;
 		}
+
+		// &::after {
+		// 	position: absolute;
+		// 	content: "";
+		// 	width: 150%;
+		// 	height: 70%;
+		// 	top: -10%;
+		// 	left: -23%;
+		// 	background-image: url("../../assets/images/landing-bg-glow.png");
+		// 	background-size: cover;
+		// 	user-select: none;
+		// 	opacity: 0.4;
+		// 	-webkit-user-select: none;
+		// 	pointer-events: none;
+		// 	-webkit-pointer-events: none;
+		// }
+	}
+
+	&__bg {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-image: url("../../assets/images/landing-bg.jpg");
+		background-repeat: no-repeat;
+		background-size: 100% 144vh;
+		z-index: 12;
+		opacity: 0.32;
+		user-select: none;
+		-webkit-user-select: none;
+		pointer-events: none;
+		-webkit-pointer-events: none;
 	}
 
 	&__gradient {
@@ -110,6 +145,7 @@
 		font-size: 3.5rem;
 		background-image: linear-gradient(20deg, rgb(240, 1, 101) 0%, rgb(0, 213, 255) 100%);
 		background-clip: text;
+		text-shadow: 0 0 20px rgba(240, 1, 101, 0.2);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}
@@ -134,7 +170,7 @@
 		font-family: $font-oxanium;
 		font-weight: 700;
 		padding: 1rem 4rem;
-		background: linear-gradient(120deg, rgb(49, 79, 179) 2.66%, rgba(4, 2, 128, 0.233) 98.99%);
+		background: linear-gradient(120deg, rgb(49, 79, 179) 2.66%, rgba(4, 2, 128, 0.582) 98.99%);
 		border: none;
 		color: #fff !important;
 		transition: all 250ms ease 0s;

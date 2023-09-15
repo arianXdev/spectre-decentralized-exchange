@@ -53,6 +53,7 @@ const Landing = () => {
 				</div>
 			</div>
 
+			<div className="landing__bg"></div>
 			<div className="landing__gradient"></div>
 			<div className="landing__glow-container">
 				<div className="landing__glow"></div>

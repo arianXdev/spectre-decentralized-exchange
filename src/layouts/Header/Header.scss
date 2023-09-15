@@ -4,6 +4,8 @@
 $color-bg-network-menu: $color-dark;
 
 .Header {
+	position: relative;
+	z-index: 16;
 	width: 100%;
 	display: grid;
 	grid-template-columns: 28% 33% 1fr;
