@@ -127,6 +127,54 @@
 			padding-right: 10px;
 		}
 	}
+
+	&__footer {
+		position: absolute;
+		font-family: $font-oxanium;
+		font-weight: 500;
+		width: 100%;
+		bottom: 3rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+	}
+
+	&__paragraph {
+		letter-spacing: 0.5px;
+		text-align: inherit;
+
+		& > i {
+			&:first-of-type {
+				color: $color-red;
+			}
+
+			&:last-of-type {
+				color: $color-brown;
+			}
+		}
+	}
+
+	&__social {
+		display: flex;
+		align-items: center;
+		justify-self: space-around;
+		font-size: 1.42rem;
+		margin-top: 1rem;
+
+		a {
+			@include displayFlex(center);
+			padding: 0.3em;
+			margin: 0 0.2em;
+			border-radius: 0.63em;
+			transition: all 0.3s ease-in-out;
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.1);
+			}
+		}
+	}
 }
 
 .close-menu {

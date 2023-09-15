@@ -12,6 +12,7 @@ import { DeployedData } from "~/data/types";
 import deployed from "~/data/deployed.json";
 
 import { toast } from "react-hot-toast";
+import "animate.css";
 
 import "./AccountMenu.scss";
 
@@ -127,6 +128,37 @@ const AccountMenu = ({ isOpen, onClose }: AccountMenuProps) => {
 								<span>Balance:</span>
 							</div>
 							<small>{balance ? Number(balance)?.toFixed(4) : "00.00"} ETH</small>
+						</div>
+					</div>
+
+					<div className="account-menu__footer">
+						<p className="account-menu__paragraph">
+							{"</"} Created with <i className="fa-solid fa-heart animate__animated animate__heartBeat animate__infinite"></i>{" "}
+							and <i className="fa-solid fa-mug-saucer"></i> {"  "}
+							by{" "}
+							<a
+								href={`https://linkedin.com/in/${import.meta.env.VITE_ARIAN_SOCIAL_LINKEDIN}`}
+								target="_blank"
+								className="account-menu__arian-name"
+							>
+								{import.meta.env.VITE_ARIAN_NAME}
+							</a>
+							{">"}
+						</p>
+
+						<div className="account-menu__social">
+							<a href={`https://linkedin.com/in/${import.meta.env.VITE_ARIAN_SOCIAL_LINKEDIN}`} target="_blank">
+								<Icon name="logo-linkedin" />
+							</a>
+							<a href={`https://github.com/${import.meta.env.VITE_ARIAN_SOCIAL_GITHUB}`} target="_blank">
+								<Icon name="logo-github" />
+							</a>
+							<a href={`https://npmjs.com/~${import.meta.env.VITE_ARIAN_SOCIAL_NPM}`} target="_blank">
+								<Icon name="logo-npm" />
+							</a>
+							<a href={`https://stackoverflow.com/users/${import.meta.env.VITE_ARIAN_SOCIAL_STACKOVERFLOW}`} target="_blank">
+								<Icon name="logo-stackoverflow" />
+							</a>
 						</div>
 					</div>
 				</div>
