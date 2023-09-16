@@ -130,3 +130,20 @@
 		}
 	}
 }
+
+@media (max-width: 1200px) {
+	.Trade {
+		&__wrapper {
+		}
+
+		&__right {
+			grid-template-columns: 100%;
+		}
+
+		&__left {
+			width: 100%;
+			grid-column: 1;
+			grid-row: 2;
+		}
+	}
+}

@@ -69,3 +69,11 @@ $color--connect-wallet-text: #dedede;
 	border-radius: 0.7rem !important;
 	box-shadow: 0 0 5px rgba(16, 27, 48, 0.7);
 }
+
+@media (max-width: 1200px) {
+	.chart {
+		width: 100%;
+		grid-row: 1;
+		grid-column: 1 / 5;
+	}
+}

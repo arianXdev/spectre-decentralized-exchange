@@ -168,3 +168,19 @@ $color-no-order-warning-text: #7e7e7e;
 		letter-spacing: 1px;
 	}
 }
+
+@media (max-width: 1200px) {
+	.orderbook {
+		height: 100%;
+		grid-column: 3 / 5;
+
+		&__container {
+			flex-direction: column;
+		}
+
+		&__table {
+			width: 100%;
+			height: 15rem;
+		}
+	}
+}
