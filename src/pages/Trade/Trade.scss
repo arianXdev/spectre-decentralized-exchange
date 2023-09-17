@@ -134,16 +134,25 @@
 @media (max-width: 1200px) {
 	.Trade {
 		&__wrapper {
+			width: 100%;
+			display: flex;
+			flex-direction: column-reverse;
+			padding-inline: 3rem;
+			overflow: hidden;
 		}
 
 		&__right {
-			grid-template-columns: 100%;
+			width: 100%;
+			overflow: hidden;
+			grid-template-columns: 1fr 1fr;
 		}
 
 		&__left {
-			width: 100%;
-			grid-column: 1;
-			grid-row: 2;
+			width: 27rem;
+			position: relative;
+			bottom: 910px;
+			overflow: hidden;
+			left: 0;
 		}
 	}
 }
