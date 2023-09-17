@@ -224,3 +224,53 @@ $color-dollar-sign: #ffffff5b;
 		}
 	}
 }
+
+@media (max-width: 1200px) {
+	.order {
+		bottom: 18%;
+	}
+}
+
+@media (max-width: 992px) {
+	.order {
+		bottom: 30rem;
+		font-size: 1.5rem;
+
+		&__label {
+			top: 1.2rem;
+			left: 2.8rem;
+			font-size: 1.2rem;
+		}
+
+		&__input {
+			height: 9rem;
+			font-size: 2.8rem;
+			border-radius: 3rem;
+			padding: 3rem 3rem;
+			border-radius: 3.7rem;
+		}
+
+		&__btn {
+			padding: 1.4rem 3.48rem;
+			font-weight: 500;
+			font-size: 1.75rem;
+			letter-spacing: 1px;
+			border-radius: 1.9rem;
+		}
+
+		&__tabs {
+			height: 3.9rem;
+
+			.order__tab {
+				height: 83%;
+				font-size: 1em;
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.order {
+		bottom: 40vw;
+	}
+}

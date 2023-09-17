@@ -331,7 +331,7 @@ $color-bg-network-menu: $color-dark;
 
 @media (max-width: 1200px) {
 	.Header {
-		grid-template-columns: 25% 45% 30%;
+		grid-template-columns: 25% 1fr 35%;
 
 		&__networks,
 		&__account-btn {
@@ -356,6 +356,12 @@ $color-bg-network-menu: $color-dark;
 
 		&__account-btn > ion-icon {
 			font-size: 1.6rem;
+		}
+
+		&__moreInfo {
+			&-btn {
+				font-size: 1.8em;
+			}
 		}
 	}
 }
@@ -391,7 +397,6 @@ $color-bg-network-menu: $color-dark;
 		}
 
 		&__moreInfo {
-			font-size: 2.1rem;
 		}
 
 		&__network-btn {
@@ -434,7 +439,10 @@ $color-bg-network-menu: $color-dark;
 		}
 
 		&__tabs {
-			height: 60px;
+			height: 69px;
+			font-size: 1.3rem;
+			background: rgb(0, 12, 44);
+			box-shadow: 0px 2px 10px rgb(18, 16, 38);
 		}
 
 		&__tab {
@@ -513,10 +521,12 @@ $color-bg-network-menu: $color-dark;
 		}
 
 		&__moreInfo {
+			display: block;
 			position: relative;
 			justify-content: center;
 			bottom: 0;
 			right: 0;
+			font-size: 1.3rem;
 		}
 	}
 

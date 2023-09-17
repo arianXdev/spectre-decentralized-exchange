@@ -278,3 +278,11 @@ $color-transactions-bg-tab: #192638;
 		margin: 0;
 	}
 }
+
+@media (max-width: 992px) {
+	.transactions {
+		width: 100%;
+		grid-column: 1 / 3;
+		grid-row: 3;
+	}
+}

@@ -186,6 +186,22 @@ $color-no-order-warning-text: #7e7e7e;
 		&__table {
 			width: 100%;
 			height: 25rem;
+
+			tbody {
+				tr {
+					border-radius: 0.8rem;
+					padding: 0.6rem 0;
+					font-size: 1.1rem;
+				}
+			}
 		}
+	}
+}
+
+@media (max-width: 992px) {
+	.orderbook {
+		width: 100%;
+		grid-column: 1 / 3;
+		grid-row: 4;
 	}
 }

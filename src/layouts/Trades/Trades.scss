@@ -177,3 +177,10 @@ $color-no-order-warning-text: #7e7e7e;
 		margin: 0;
 	}
 }
+
+@media (max-width: 992px) {
+	.trades {
+		width: 100%;
+		grid-column: 1 / 3;
+	}
+}
