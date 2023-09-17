@@ -3,7 +3,7 @@ require("hardhat-jest");
 require("dotenv").config();
 
 const INFURA_API_KEY = process.env.INFURA_API_KEY || "";
-const SEPOLIA_PRIVATE_KEYS = process.env.SEPOLIA_PRIVATE_KEYS || "";
+const PRIVATE_KEYS = process.env.PRIVATE_KEYS || "";
 
 module.exports = {
 	solidity: "0.8.21",
@@ -11,7 +11,11 @@ module.exports = {
 		localhost: {},
 		sepolia: {
 			url: `https://sepolia.infura.io/v3/${INFURA_API_KEY}`,
-			accounts: SEPOLIA_PRIVATE_KEYS.split(","),
+			accounts: PRIVATE_KEYS.split(","),
+		},
+		goerli: {
+			url: `https://goerli.infura.io/v3/${INFURA_API_KEY}`,
+			accounts: PRIVATE_KEYS.split(","),
 		},
 	},
 };
