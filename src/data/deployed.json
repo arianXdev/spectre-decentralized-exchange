@@ -29,36 +29,6 @@
 			"decimals": 18
 		}
 	},
-	"1": {
-		"explorerURL": "https://etherscan.io/",
-		"spectre": {
-			"address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9"
-		},
-		"spectreToken": {
-			"name": "Spectre Token",
-			"symbol": "SPEC",
-			"address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-			"decimals": 18
-		},
-		"mETH": {
-			"name": "Mock Ether",
-			"symbol": "mETH",
-			"address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-			"decimals": 18
-		},
-		"mDAI": {
-			"name": "Mock DAI",
-			"symbol": "mDAI",
-			"address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-			"decimals": 18
-		},
-		"mUSDT": {
-			"name": "Mock Tether",
-			"symbol": "mUSDT",
-			"address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-			"decimals": 18
-		}
-	},
 	"5": {
 		"explorerURL": "https://goerli.etherscan.io/",
 		"spectre": {
@@ -91,6 +61,36 @@
 	},
 	"11155111": {
 		"explorerURL": "https://sepolia.etherscan.io/",
+		"spectre": {
+			"address": "0x125A8d5EAcadF2364A21d0c15B711DEE4E822b3a"
+		},
+		"spectreToken": {
+			"name": "Spectre Token",
+			"symbol": "SPEC",
+			"address": "0x4aFd39239Dca334F02e9F829700733B4DE048595",
+			"decimals": 18
+		},
+		"mETH": {
+			"name": "Mock Ether",
+			"symbol": "mETH",
+			"address": "0xB470Ad2Db961912cAfD49bC2AC64039C0432e547",
+			"decimals": 18
+		},
+		"mDAI": {
+			"name": "Mock DAI",
+			"symbol": "mDAI",
+			"address": "0x58A036951Dafe3f046C9575e6B26AFDfF5fdF3B8",
+			"decimals": 18
+		},
+		"mUSDT": {
+			"name": "Mock Tether",
+			"symbol": "mUSDT",
+			"address": "0x49e427EF83A21eBB20Eb97615015cFeEa66f7F29",
+			"decimals": 18
+		}
+	},
+	"80001": {
+		"explorerURL": "https://mumbai.polygonscan.com",
 		"spectre": {
 			"address": "0x125A8d5EAcadF2364A21d0c15B711DEE4E822b3a"
 		},
