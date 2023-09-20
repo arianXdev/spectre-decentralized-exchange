@@ -23,16 +23,16 @@ enum Tabs {
 }
 
 enum Networks {
-	Ethereum = "Ethereum",
 	Sepolia = "Sepolia",
 	Goerli = "Goerli",
+	Polygon = "Polygon",
 	Localhost = "Localhost",
 }
 
 enum NetworksChainId {
-	Ethereum = "0x1",
 	Sepolia = "0xaa36a7",
 	Goerli = "0x5",
+	Polygon = "0x13881",
 	Localhost = "0x7a69", // Hardhat local network chainId in hexadecimal (31337)
 }
 
@@ -59,15 +59,15 @@ const Header = () => {
 	const [activeTab, setActiveTab] = useState<Tabs>(Tabs.SWAP);
 	const [showNetworkMenu, setShowNetworkMenu] = useState<boolean>(false);
 	const [showMoreInfoMenu, setShowMoreInfoMenu] = useState<boolean>(false);
-	const [selectedNetwork, setSelectedNetwork] = useState<Networks>(Networks.Ethereum);
+	const [selectedNetwork, setSelectedNetwork] = useState<Networks>(Networks.Sepolia);
 
 	const networkMenuRef = useRef<HTMLDivElement>(null);
 	const moreInfoMenuRef = useRef<HTMLDivElement>(null);
 
 	// get the network icon based on the selected network
 	const getSelectedNetworkIcon = (): ReactElement => {
-		if (selectedNetwork === Networks.Ethereum) return <i className="Header__network-icon fa-brands fa-ethereum"></i>;
-		else if (selectedNetwork === Networks.Sepolia) return <i className="Header__network-icon fa-solid fa-s"></i>;
+		if (selectedNetwork === Networks.Sepolia) return <i className="Header__network-icon fa-brands fa-ethereum"></i>;
+		else if (selectedNetwork === Networks.Polygon) return <i className="Header__network-icon fa-solid fa-p"></i>;
 		else if (selectedNetwork === Networks.Goerli) return <i className="Header__network-icon fa-brands fa-gofore"></i>;
 		else if (selectedNetwork === Networks.Localhost) return <i className="Header__network-icon fa-solid fa-server"></i>;
 		else return <i className="Header__network-icon fa-brands fa-ethereum"></i>;
@@ -180,9 +180,9 @@ const Header = () => {
 
 	useEffect(() => {
 		// Check to see which network the user has selected
-		if (chainId === NetworksChainId.Ethereum) setSelectedNetwork(Networks.Ethereum);
+		if (chainId === NetworksChainId.Sepolia) setSelectedNetwork(Networks.Sepolia);
+		else if (chainId === NetworksChainId.Polygon) setSelectedNetwork(Networks.Polygon);
 		else if (chainId === NetworksChainId.Goerli) setSelectedNetwork(Networks.Goerli);
-		else if (chainId === NetworksChainId.Sepolia) setSelectedNetwork(Networks.Sepolia);
 		else if (chainId === NetworksChainId.Localhost) setSelectedNetwork(Networks.Localhost);
 	}, [account, chainId]);
 
@@ -238,23 +238,13 @@ const Header = () => {
 								<ul className="network-menu__list">
 									<li
 										className={
-											selectedNetwork === Networks.Ethereum
-												? "network-menu__item network-menu__item--selected"
-												: "network-menu__item"
-										}
-										onClick={() => onNetworkChanged(Networks.Ethereum)}
-									>
-										<i className="network-menu__icon fa-brands fa-ethereum"></i> {Networks.Ethereum}
-									</li>
-									<li
-										className={
 											selectedNetwork === Networks.Sepolia
 												? "network-menu__item network-menu__item--selected"
 												: "network-menu__item"
 										}
 										onClick={() => onNetworkChanged(Networks.Sepolia)}
 									>
-										<i className="network-menu__icon fa-brands fa-s"></i> {Networks.Sepolia}
+										<i className="network-menu__icon fa-brands fa-ethereum"></i> {Networks.Sepolia}
 									</li>
 									<li
 										className={
@@ -265,6 +255,17 @@ const Header = () => {
 										onClick={() => onNetworkChanged(Networks.Goerli)}
 									>
 										<i className="network-menu__icon fa-brands fa-gofore"></i> {Networks.Goerli}
+									</li>
+									<li
+										className={
+											selectedNetwork === Networks.Polygon
+												? "network-menu__item network-menu__item--selected"
+												: "network-menu__item"
+										}
+										onClick={() => onNetworkChanged(Networks.Polygon)}
+									>
+										<i className="network-menu__icon fa-brands fa-p"></i> {Networks.Polygon}{" "}
+										<small style={{ fontSize: 13 }}>(Mumbai)</small>
 									</li>
 									<li
 										className={
