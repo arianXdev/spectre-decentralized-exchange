@@ -32,12 +32,36 @@ enum Networks {
 	Localhost = "Localhost",
 }
 
+enum NetworksName {
+	Sepolia = "Ethereum testnet (Sepolia)",
+	Goerli = "Ethereum testnet (Goerli)",
+	Polygon = "Polygon testnet (Mumbai)",
+	BSC = "BNB Smart Chain testnet",
+	Localhost = "Localhost",
+}
+
 enum NetworksChainId {
 	Sepolia = "0xaa36a7",
 	Goerli = "0x5",
 	Polygon = "0x13881",
 	BSC = "0x61",
 	Localhost = "0x7a69", // Hardhat local network chainId in hexadecimal (31337)
+}
+
+enum RPCURLs {
+	Sepolia = "https://sepolia.infura.io/v3/",
+	Goerli = "https://goerli.infura.io/v3/",
+	Polygon = "https://rpc-mumbai.maticvigil.com",
+	BSC = "https://bsc-testnet.bnbchain.org",
+	Localhost = "http://127.0.0.1:8545/", // Hardhat local network chainId in hexadecimal (31337)
+}
+
+enum NetworksSymbol {
+	Sepolia = "ETH",
+	Goerli = "ETH",
+	Polygon = "MATIC",
+	BSC = "BNB",
+	Localhost = "ETH", // Hardhat local network chainId in hexadecimal (31337)
 }
 
 enum IsConnectingStatus {
@@ -157,10 +181,35 @@ const Header = () => {
 
 				toast.success("The page will reload in a sec...", { id: toastApprove, duration: 6000, icon: <CheckmarkIcon /> });
 				setSelectedNetwork(network);
-			} catch (err: unknown) {
-				toast.error("Couldn't switch the network! - Please try again.", { id: toastApprove, duration: 4000, icon: <ErrorIcon /> });
+			} catch (switchError: any) {
+				// This error code indicates that the chain has not been added to MetaMask.
+				if (switchError.code === 4902) {
+					try {
+						await window.ethereum.request({
+							method: "wallet_addEthereumChain",
+							params: [
+								{
+									chainId,
+									chainName: NetworksName[network],
+									rpcUrls: [RPCURLs[network]],
+									nativeCurrency: {
+										name: Networks[network],
+										symbol: NetworksSymbol[network],
+										decimals: 18,
+									},
+								},
+							],
+						});
+					} catch (err: unknown) {
+						toast.error("Couldn't switch the network! - Please try again.", {
+							id: toastApprove,
+							duration: 4000,
+							icon: <ErrorIcon />,
+						});
 
-				console.log(err);
+						console.log(err);
+					}
+				}
 			}
 		}
 	};
