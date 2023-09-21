@@ -90,7 +90,7 @@
 		}
 	},
 	"80001": {
-		"explorerURL": "https://mumbai.polygonscan.com",
+		"explorerURL": "https://mumbai.polygonscan.com/",
 		"spectre": {
 			"address": "0x125A8d5EAcadF2364A21d0c15B711DEE4E822b3a"
 		},
@@ -120,7 +120,7 @@
 		}
 	},
 	"97": {
-		"explorerURL": "https://testnet.bscscan.com",
+		"explorerURL": "https://testnet.bscscan.com/",
 		"spectre": {
 			"address": "0x125A8d5EAcadF2364A21d0c15B711DEE4E822b3a"
 		},
