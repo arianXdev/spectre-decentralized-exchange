@@ -5,8 +5,10 @@ require("dotenv").config();
 const INFURA_API_KEY = process.env.INFURA_API_KEY || "";
 const ALCHEMY_POLYGON_API_KEY = process.env.ALCHEMY_POLYGON_API_KEY || "";
 
+// Blockchain Explorer API Keys
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "";
 // const BSCSCAN_API_KEY = process.env.BSCSCAN_API_KEY || "";
+// const POLYGONSCAN_API_KEY = process.env.POLYGONSCAN_API_KEY || "";
 
 const PRIVATE_KEYS = process.env.PRIVATE_KEYS || "";
 
@@ -38,6 +40,7 @@ module.exports = {
 	},
 	etherscan: {
 		apiKey: ETHERSCAN_API_KEY,
-		// 	apiKey: BSCSCAN_API_KEY,
+		// apiKey: BSCSCAN_API_KEY,
+		// apiKey: POLYGONSCAN_API_KEY,
 	},
 };
