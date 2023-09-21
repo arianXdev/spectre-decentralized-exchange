@@ -1,0 +1,116 @@
+@import "../../sass/abstracts/variables";
+
+.swap {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&__widget {
+		margin-top: 3rem;
+
+		& > div {
+			border-radius: 5rem !important;
+			padding: 1.8rem !important;
+			background: linear-gradient(126deg, rgba(206, 208, 255, 0.19) 2.07%, #1042c2 101.67%) !important;
+			filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) !important;
+			backdrop-filter: blur(46px) !important;
+
+			& input {
+				font-family: $font-mono;
+			}
+
+			& .iskHhi {
+				font-weight: 900;
+				font-size: 1.3rem;
+			}
+
+			& .zyfyU {
+				color: #acacac;
+			}
+
+			& button[data-testid="settings-button"] {
+				display: none;
+			}
+
+			& div[data-testid="action-button"] {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 100% !important;
+				height: 4rem;
+			}
+
+			& .ActionButton__StyledButton-sc-xgl46p-0 {
+				position: relative;
+				bottom: -3.5rem;
+				max-width: 77% !important;
+				min-height: 3.7rem;
+				border-radius: 1.7rem;
+				background: linear-gradient(126deg, #0f3c94 2.07%, #041030 101.67%);
+				outline: none;
+				border: none;
+				color: white !important;
+
+				& > div {
+					color: white !important;
+				}
+			}
+
+			& .Toolbar__StyledExpando-sc-7xbipv-0 * {
+				color: white;
+			}
+
+			& .ErrorView__ErrorDialogWrapper-sc-tzhurb-2 {
+				background: none !important;
+			}
+
+			& .lldHLp {
+				color: white;
+			}
+
+			& .Column-sc-1ul9eki-0 {
+				border-radius: 2rem !important;
+			}
+
+			& .css-1rq8m1c {
+				font-family: $font-main;
+			}
+
+			& .bQvyQt {
+				background: none;
+			}
+
+			& .bMXVis {
+				color: white;
+				border: none;
+				outline: none;
+			}
+
+			& .Input__InputColumn-sc-ud81g8-2 {
+				padding: 1rem !important;
+				border-radius: 2.8rem !important;
+			}
+
+			& div[hover] {
+				display: none;
+			}
+
+			& button[data-index] {
+				min-height: 4rem !important;
+				border-radius: 1.7rem;
+				color: white;
+
+				&:hover {
+					background-color: $color-dark;
+				}
+			}
+
+			& .eWnGBb {
+				border-radius: 5rem !important;
+				padding: 1.8rem !important;
+				background: linear-gradient(126deg, rgba(206, 208, 255, 1) 2.07%, #1042c2 101.67%) !important;
+			}
+		}
+	}
+}

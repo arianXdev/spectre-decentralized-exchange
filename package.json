@@ -31,6 +31,7 @@
 		"immer": "^10.0.2",
 		"lodash": "^4.17.21",
 		"moment": "^2.29.4",
+		"process": "^0.11.10",
 		"react": "^18.2.0",
 		"react-18-blockies": "^1.0.6",
 		"react-apexcharts": "^1.4.1",
