@@ -19,6 +19,7 @@
 	"dependencies": {
 		"@nomicfoundation/hardhat-toolbox": "^3.0.0",
 		"@reduxjs/toolkit": "^1.9.5",
+		"@uniswap/widgets": "^2.53.2",
 		"animate.css": "^4.1.1",
 		"apexcharts": "^3.42.0",
 		"axios": "^1.5.0",
