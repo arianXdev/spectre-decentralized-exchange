@@ -28,7 +28,7 @@ module.exports = {
 			url: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_POLYGON_API_KEY}`,
 			accounts: PRIVATE_KEYS.split(","),
 		},
-		// Binance Smart Chain (BSC) testnet
+		// BNB Smart Chain (formerly Binance Smart Chain) testnet
 		bsc: {
 			url: "https://data-seed-prebsc-1-s1.bnbchain.org:8545",
 			chainId: 97,

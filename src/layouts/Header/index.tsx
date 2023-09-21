@@ -9,6 +9,8 @@ import classNames from "classnames";
 import { loadConnection } from "~/utils";
 
 import Logo from "~/assets/images/spectre-logo-light.png";
+import BNBChainLogo from "~/assets/images/bnb-chain.png";
+import PolygonLogo from "~/assets/images/polygon-logo.svg";
 
 import { ConnectWallet, Icon } from "~/components";
 import { AccountMenu } from "~/layouts";
@@ -26,6 +28,7 @@ enum Networks {
 	Sepolia = "Sepolia",
 	Goerli = "Goerli",
 	Polygon = "Polygon",
+	BSC = "BSC",
 	Localhost = "Localhost",
 }
 
@@ -33,6 +36,7 @@ enum NetworksChainId {
 	Sepolia = "0xaa36a7",
 	Goerli = "0x5",
 	Polygon = "0x13881",
+	BSC = "0x61",
 	Localhost = "0x7a69", // Hardhat local network chainId in hexadecimal (31337)
 }
 
@@ -67,8 +71,9 @@ const Header = () => {
 	// get the network icon based on the selected network
 	const getSelectedNetworkIcon = (): ReactElement => {
 		if (selectedNetwork === Networks.Sepolia) return <i className="Header__network-icon fa-brands fa-ethereum"></i>;
-		else if (selectedNetwork === Networks.Polygon) return <i className="Header__network-icon fa-solid fa-p"></i>;
+		else if (selectedNetwork === Networks.Polygon) return <img src={PolygonLogo} alt="Polygon" width="18" />;
 		else if (selectedNetwork === Networks.Goerli) return <i className="Header__network-icon fa-brands fa-gofore"></i>;
+		else if (selectedNetwork === Networks.BSC) return <img src={BNBChainLogo} alt="BNB-chain" width="18" />;
 		else if (selectedNetwork === Networks.Localhost) return <i className="Header__network-icon fa-solid fa-server"></i>;
 		else return <i className="Header__network-icon fa-brands fa-ethereum"></i>;
 	};
@@ -183,6 +188,7 @@ const Header = () => {
 		if (chainId === NetworksChainId.Sepolia) setSelectedNetwork(Networks.Sepolia);
 		else if (chainId === NetworksChainId.Polygon) setSelectedNetwork(Networks.Polygon);
 		else if (chainId === NetworksChainId.Goerli) setSelectedNetwork(Networks.Goerli);
+		else if (chainId === NetworksChainId.BSC) setSelectedNetwork(Networks.BSC);
 		else if (chainId === NetworksChainId.Localhost) setSelectedNetwork(Networks.Localhost);
 	}, [account, chainId]);
 
@@ -225,11 +231,12 @@ const Header = () => {
 				<div className="Header__networks">
 					<div className="Header__network" ref={networkMenuRef}>
 						<button
+							name={selectedNetwork}
 							onClick={() => setShowNetworkMenu(!showNetworkMenu)}
 							className={`Header__network-btn ${showNetworkMenu ? "active" : ""}`}
 						>
 							{getSelectedNetworkIcon()}
-							<span>{selectedNetwork}</span>
+							<span>{selectedNetwork === "BSC" ? "BNB Chain" : selectedNetwork}</span>
 							<Icon name="chevron-down-outline" />
 						</button>
 
@@ -244,9 +251,23 @@ const Header = () => {
 										}
 										onClick={() => onNetworkChanged(Networks.Sepolia)}
 									>
-										<i className="network-menu__icon fa-brands fa-ethereum"></i> {Networks.Sepolia}
+										<i className="network-menu__icon fa-brands fa-ethereum"></i>
+										<span>Ethereum</span>
+										<small>(Sepolia)</small>
 									</li>
 									<li
+										className={
+											selectedNetwork === Networks.BSC
+												? "network-menu__item network-menu__item--selected"
+												: "network-menu__item"
+										}
+										onClick={() => onNetworkChanged(Networks.BSC)}
+									>
+										<img src={BNBChainLogo} alt="BNB-chain" />
+										<span>BNB Chain</span>
+										<small>(testnet)</small>
+									</li>
+									{/* <li
 										className={
 											selectedNetwork === Networks.Goerli
 												? "network-menu__item network-menu__item--selected"
@@ -255,7 +276,7 @@ const Header = () => {
 										onClick={() => onNetworkChanged(Networks.Goerli)}
 									>
 										<i className="network-menu__icon fa-brands fa-gofore"></i> {Networks.Goerli}
-									</li>
+									</li> */}
 									<li
 										className={
 											selectedNetwork === Networks.Polygon
@@ -264,19 +285,21 @@ const Header = () => {
 										}
 										onClick={() => onNetworkChanged(Networks.Polygon)}
 									>
-										<i className="network-menu__icon fa-brands fa-p"></i> {Networks.Polygon}{" "}
-										<small style={{ fontSize: 13 }}>(Mumbai)</small>
+										<img src={PolygonLogo} alt="Polygon" /> <span>{Networks.Polygon}</span>
+										<small>(Mumbai)</small>
 									</li>
-									<li
-										className={
-											selectedNetwork === Networks.Localhost
-												? "network-menu__item network-menu__item--selected"
-												: "network-menu__item"
-										}
-										onClick={() => onNetworkChanged(Networks.Localhost)}
-									>
-										<i className="network-menu__icon fa-solid fa-server"></i> {Networks.Localhost}
-									</li>
+									{import.meta.env.DEV ? (
+										<li
+											className={
+												selectedNetwork === Networks.Localhost
+													? "network-menu__item network-menu__item--selected"
+													: "network-menu__item"
+											}
+											onClick={() => onNetworkChanged(Networks.Localhost)}
+										>
+											<i className="network-menu__icon fa-solid fa-server"></i> {Networks.Localhost}
+										</li>
+									) : null}
 								</ul>
 							</div>
 						) : null}

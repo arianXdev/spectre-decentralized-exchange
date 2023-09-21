@@ -118,5 +118,35 @@
 			"address": "0x49e427EF83A21eBB20Eb97615015cFeEa66f7F29",
 			"decimals": 18
 		}
+	},
+	"97": {
+		"explorerURL": "https://testnet.bscscan.com",
+		"spectre": {
+			"address": "0x125A8d5EAcadF2364A21d0c15B711DEE4E822b3a"
+		},
+		"spectreToken": {
+			"name": "Spectre Token",
+			"symbol": "SPEC",
+			"address": "0x4aFd39239Dca334F02e9F829700733B4DE048595",
+			"decimals": 18
+		},
+		"mETH": {
+			"name": "Mock Ether",
+			"symbol": "mETH",
+			"address": "0xB470Ad2Db961912cAfD49bC2AC64039C0432e547",
+			"decimals": 18
+		},
+		"mDAI": {
+			"name": "Mock DAI",
+			"symbol": "mDAI",
+			"address": "0x58A036951Dafe3f046C9575e6B26AFDfF5fdF3B8",
+			"decimals": 18
+		},
+		"mUSDT": {
+			"name": "Mock Tether",
+			"symbol": "mUSDT",
+			"address": "0x49e427EF83A21eBB20Eb97615015cFeEa66f7F29",
+			"decimals": 18
+		}
 	}
 }
