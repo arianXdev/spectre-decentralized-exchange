@@ -21,6 +21,14 @@ type AccountMenuProps = {
 	onClose: () => void;
 };
 
+enum NetworksChainId {
+	Sepolia = "11155111",
+	Goerli = "5",
+	Polygon = "80001",
+	BSC = "97",
+	Localhost = "31337",
+}
+
 const AccountMenu = ({ isOpen, onClose }: AccountMenuProps) => {
 	const dispatch = useAppDispatch();
 
@@ -127,7 +135,14 @@ const AccountMenu = ({ isOpen, onClose }: AccountMenuProps) => {
 								<i className="fa-brands fa-ethereum"></i>
 								<span>Balance:</span>
 							</div>
-							<small>{balance ? Number(balance)?.toFixed(4) : "00.00"} ETH</small>
+							<small>
+								{balance ? Number(balance)?.toFixed(4) : "00.00"}{" "}
+								{String(chainId) === NetworksChainId.BSC
+									? "BNB"
+									: String(chainId) === NetworksChainId.Polygon
+									? "MATIC"
+									: "ETH"}
+							</small>
 						</div>
 					</div>
 
