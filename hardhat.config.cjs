@@ -37,6 +37,11 @@ module.exports = {
 			gasPrice: 20000000000,
 			accounts: PRIVATE_KEYS.split(","),
 		},
+		// Avalanche C-chain testnet (Fuji)
+		avalanche: {
+			url: `https://avalanche-fuji.infura.io/v3/${INFURA_API_KEY}`,
+			accounts: PRIVATE_KEYS.split(","),
+		},
 	},
 	etherscan: {
 		apiKey: ETHERSCAN_API_KEY,
