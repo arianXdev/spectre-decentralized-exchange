@@ -11,6 +11,7 @@ import { loadConnection } from "~/utils";
 import Logo from "~/assets/images/spectre-logo-light.png";
 import BNBChainLogo from "~/assets/images/bnb-chain.png";
 import PolygonLogo from "~/assets/images/polygon-logo.svg";
+import AvalancheLogo from "~/assets/images/avalanche-logo.svg";
 
 import { ConnectWallet, Icon } from "~/components";
 import { AccountMenu } from "~/layouts";
@@ -29,6 +30,7 @@ enum Networks {
 	Goerli = "Goerli",
 	Polygon = "Polygon",
 	BSC = "BSC",
+	Avalanche = "Avalanche",
 	Localhost = "Localhost",
 }
 
@@ -37,6 +39,7 @@ enum NetworksName {
 	Goerli = "Ethereum testnet (Goerli)",
 	Polygon = "Polygon testnet (Mumbai)",
 	BSC = "BNB Smart Chain testnet",
+	Avalanche = "Avalanche testnet (Fuji)",
 	Localhost = "Localhost",
 }
 
@@ -45,6 +48,7 @@ enum NetworksChainId {
 	Goerli = "0x5",
 	Polygon = "0x13881",
 	BSC = "0x61",
+	Avalanche = "0xa869",
 	Localhost = "0x7a69", // Hardhat local network chainId in hexadecimal (31337)
 }
 
@@ -53,6 +57,7 @@ enum RPCURLs {
 	Goerli = "https://goerli.infura.io/v3/",
 	Polygon = "https://rpc-mumbai.maticvigil.com",
 	BSC = "https://bsc-testnet.bnbchain.org",
+	Avalanche = "https://api.avax-test.network/ext/bc/C/rpc",
 	Localhost = "http://127.0.0.1:8545/", // Hardhat local network chainId in hexadecimal (31337)
 }
 
@@ -61,6 +66,7 @@ enum NetworksSymbol {
 	Goerli = "ETH",
 	Polygon = "MATIC",
 	BSC = "BNB",
+	Avalanche = "AVAX",
 	Localhost = "ETH", // Hardhat local network chainId in hexadecimal (31337)
 }
 
@@ -95,9 +101,10 @@ const Header = () => {
 	// get the network icon based on the selected network
 	const getSelectedNetworkIcon = (): ReactElement => {
 		if (selectedNetwork === Networks.Sepolia) return <i className="Header__network-icon fa-brands fa-ethereum"></i>;
-		else if (selectedNetwork === Networks.Polygon) return <img src={PolygonLogo} alt="Polygon" width="18" />;
+		else if (selectedNetwork === Networks.Polygon) return <img src={PolygonLogo} alt="Polygon" />;
 		else if (selectedNetwork === Networks.Goerli) return <i className="Header__network-icon fa-brands fa-gofore"></i>;
-		else if (selectedNetwork === Networks.BSC) return <img src={BNBChainLogo} alt="BNB-chain" width="18" />;
+		else if (selectedNetwork === Networks.BSC) return <img src={BNBChainLogo} alt="BNB-chain" />;
+		else if (selectedNetwork === Networks.Avalanche) return <img src={AvalancheLogo} alt="Avalanche" />;
 		else if (selectedNetwork === Networks.Localhost) return <i className="Header__network-icon fa-solid fa-server"></i>;
 		else return <i className="Header__network-icon fa-brands fa-ethereum"></i>;
 	};
@@ -238,6 +245,7 @@ const Header = () => {
 		else if (chainId === NetworksChainId.Polygon) setSelectedNetwork(Networks.Polygon);
 		else if (chainId === NetworksChainId.Goerli) setSelectedNetwork(Networks.Goerli);
 		else if (chainId === NetworksChainId.BSC) setSelectedNetwork(Networks.BSC);
+		else if (chainId === NetworksChainId.Avalanche) setSelectedNetwork(Networks.Avalanche);
 		else if (chainId === NetworksChainId.Localhost) setSelectedNetwork(Networks.Localhost);
 	}, [account, chainId]);
 
@@ -315,6 +323,18 @@ const Header = () => {
 										<img src={BNBChainLogo} alt="BNB-chain" />
 										<span>BNB Chain</span>
 										<small>(testnet)</small>
+									</li>
+									<li
+										className={
+											selectedNetwork === Networks.Avalanche
+												? "network-menu__item network-menu__item--selected"
+												: "network-menu__item"
+										}
+										onClick={() => onNetworkChanged(Networks.Avalanche)}
+									>
+										<img src={AvalancheLogo} alt="Avalanche" />
+										<span>Avalanche</span>
+										<small>(Fuji)</small>
 									</li>
 									{/* <li
 										className={

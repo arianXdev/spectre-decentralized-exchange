@@ -26,6 +26,7 @@ enum NetworksChainId {
 	Goerli = "5",
 	Polygon = "80001",
 	BSC = "97",
+	Avalanche = "43113",
 	Localhost = "31337",
 }
 
@@ -141,6 +142,8 @@ const AccountMenu = ({ isOpen, onClose }: AccountMenuProps) => {
 									? "BNB"
 									: String(chainId) === NetworksChainId.Polygon
 									? "MATIC"
+									: String(chainId) === NetworksChainId.Avalanche
+									? "AVAX"
 									: "ETH"}
 							</small>
 						</div>

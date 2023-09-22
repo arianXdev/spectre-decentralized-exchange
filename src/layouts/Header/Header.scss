@@ -144,6 +144,14 @@ $color-bg-network-menu: $color-dark;
 			}
 		}
 
+		&[name="Avalanche"] {
+			border: 0.15em solid #e84142;
+
+			& > ion-icon {
+				color: #e84142;
+			}
+		}
+
 		&[name="Polygon"] {
 			border: 0.15em solid #8a46ff;
 
