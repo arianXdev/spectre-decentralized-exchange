@@ -17,8 +17,8 @@ enum Status {
 }
 
 const Trade = () => {
-	const token1 = useAppSelector((state) => state.tokens.token1);
-	const token2 = useAppSelector((state) => state.tokens.token2);
+	const token1 = useAppSelector((state) => state.tokens?.token1);
+	const token2 = useAppSelector((state) => state.tokens?.token2);
 
 	const [exchangeStatus, setExchangeStatus] = useState<Status>(Status.WITHDRAW);
 	const [isMarketsModalOpen, setIsMarketsModalOpen] = useState<boolean>(false);

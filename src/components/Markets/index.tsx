@@ -28,7 +28,7 @@ const Markets = ({ isOpen, setIsOpen }: MarketsProps) => {
 	const marketsRef = useRef<HTMLElement>(null);
 
 	// Get the current connection's chainId from the Redux store
-	const chainId = useAppSelector(({ connection }) => connection.current?.chainId ?? 1);
+	const chainId = useAppSelector(({ connection }) => connection.current?.chainId ?? 11155111);
 
 	// get markets list
 	const MarketsList = useMemo(() => getMarketsList(chainId), [chainId, provider]);
