@@ -222,8 +222,8 @@ const Header = () => {
 	};
 
 	const onMoreInfoItemClicked = () => {
-		const arianGitHubUsername = import.meta.env.VITE_ARIAN_GITHUB_USERNAME;
-		window.open(`https://github.com/${arianGitHubUsername}`, "_blank");
+		// const arianGitHubUsername = import.meta.env.VITE_ARIAN_GITHUB_USERNAME;
+		window.open(`https://faucet.arianh.ir`, "_blank");
 	};
 
 	const handleOutsideClick = (event: MouseEvent) => {
@@ -409,7 +409,7 @@ const Header = () => {
 							<ul className="moreInfo-menu__list">
 								<li className="moreInfo-menu__item" onClick={onMoreInfoItemClicked}>
 									<Icon name="chatbox-ellipses-outline" />
-									Feedback
+									<b style={{ fontWeight: "700" }}>SPECTRE Faucet</b>
 								</li>
 								<li className="moreInfo-menu__item" onClick={onMoreInfoItemClicked}>
 									<Icon name="book-outline" />
